@@ -9,6 +9,15 @@ const IDS=[
 "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com"
 ];
 
+const CALENDAR_COLORS = {
+  "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com": "#2563eb", // Club Sponsored
+  "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com": "#7c3aed", // Other Tournaments
+  "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com": "#dc2626", // Men's
+  "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com": "#059669", // Women's
+  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"  // PBA
+};
+
+
 export default async function(req,res){
  const now=Date.now(),days=Number(req.query.days||180);
  if(CACHE.d && now-CACHE.t<TTL) return res.json(CACHE.d);
@@ -23,7 +32,7 @@ export default async function(req,res){
   (j.items||[]).forEach(e=>ev.push({
    id:e.id,title:e.summary||"",start:e.start.dateTime||e.start.date,
    end:e.end?.dateTime||e.end?.date,allDay:!!e.start.date,
-   location:e.location||"",htmlLink:e.htmlLink||""
+   location:e.location||"",htmlLink:e.htmlLink||"",color: CALENDAR_COLORS[calId] || "#2563eb"
   }));
  }
  ev.sort((a,b)=>new Date(a.start)-new Date(b.start));
