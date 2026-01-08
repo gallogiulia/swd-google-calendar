@@ -1,0 +1,12 @@
+
+<!doctype html><html><body>
+<h3>Next Events</h3><div id=l></div>
+<script>
+fetch("/api/events?days=90").then(r=>r.json()).then(d=>{
+ d.events.slice(0,5).forEach(e=>{
+  const p=document.createElement("p");
+  p.textContent=new Date(e.start).toLocaleDateString()+" — "+e.title;
+  l.appendChild(p);
+ });
+});
+</script></body></html>
