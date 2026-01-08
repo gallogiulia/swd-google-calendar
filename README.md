@@ -117,3 +117,13 @@ This version has SWD calendar IDs prefilled in the serverless functions as defau
 
 ## Prefilled IDs (v2)
 Calendar IDs are hardcoded as defaults in the serverless functions. Only `GCAL_API_KEY` is required. Setting `GCAL_CALENDAR_IDS` will override defaults.
+
+## Calendar Labels
+This build includes labeled sources for:
+- 2026 Club Sponsored Tournaments
+- 2026 Other Tournaments
+- 2026 SWD Tournaments - Men's
+- 2026 SWD Tournaments - Women's
+- PBA USA
+
+Colors can be changed in `public/index.html` under `SOURCE_META`.

@@ -81,3 +81,108 @@ body{
 .fc .fc-button{
   border-radius: 10px;
 }
+
+
+/* === Legend / Filters === */
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin: 10px 0 14px 0;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border:1px solid rgba(0,0,0,0.14);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  cursor:pointer;
+  user-select:none;
+}
+
+.chip input{ display:none; }
+
+.chip .dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+}
+
+.chip .txt{
+  font-size: 0.92rem;
+  white-space:nowrap;
+  opacity: 0.9;
+}
+
+.chip:has(input:not(:checked)){
+  opacity: 0.45;
+  filter: grayscale(0.2);
+}
+
+/* === FullCalendar polish === */
+.fc{
+  --fc-border-color: rgba(0,0,0,0.12);
+  --fc-page-bg-color: transparent;
+  --fc-today-bg-color: rgba(37, 99, 235, 0.08);
+  font-size: 0.98rem;
+}
+
+.fc .fc-toolbar-title{
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.fc .fc-button{
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.18);
+  background: #fff;
+  color: #111;
+  padding: 8px 10px;
+}
+
+.fc .fc-button:hover{
+  background: rgba(0,0,0,0.04);
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active{
+  background: rgba(0,0,0,0.08);
+  color: #111;
+  border-color: rgba(0,0,0,0.18);
+}
+
+.fc .fc-daygrid-event{
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-weight: 600;
+}
+
+.fc .fc-daygrid-event .fc-event-title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fc .fc-list-event{
+  border-radius: 12px;
+}
+
+.fc .fc-list-event .fc-list-event-title{
+  font-weight: 650;
+}
+
+.fc .fc-list-event-time{
+  font-variant-numeric: tabular-nums;
+}
+
+.fc .fc-list-day-cushion{
+  padding: 10px 12px;
+  font-weight: 700;
+}
+
+.fc .fc-scrollgrid-section-header td{
+  background: rgba(0,0,0,0.02);
+}
