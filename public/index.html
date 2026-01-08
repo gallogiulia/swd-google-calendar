@@ -1,14 +1,42 @@
 
-<!doctype html><html><head>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css>
-<script src=https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js></script>
-</head><body>
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- FullCalendar core CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
+
+  <!-- ✅ STEP 2: minimal list-view styling -->
+  <style>
+    .fc-list-day-cushion {
+      background: #f5f5f5;
+      font-weight: 600;
+      padding: 8px 12px;
+    }
+
+    .fc-list-event-title {
+      font-weight: 600;
+    }
+
+    .fc-list-event-time {
+      color: #6b7280;
+      font-size: 0.9em;
+    }
+  </style>
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+</head>
+<body>
+
+
 <div id=cal></div>
 <script>
 fetch("/api/events").then(r=>r.json()).then(d=>{
  new FullCalendar.Calendar(document.getElementById("cal"),{
-  initialView:"listMonth",height:"auto",events:d.events
+  initialView:"listMonth",
+  initialDate: new Date(),height:"auto",events:d.events
  }).render();
 });
 </script></body></html>
