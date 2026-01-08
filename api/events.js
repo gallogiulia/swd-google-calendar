@@ -11,6 +11,7 @@ const DEFAULT_CAL_IDS = [
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com"
 ];
 
+
 const calendarIds = (process.env.GCAL_CALENDAR_IDS ? process.env.GCAL_CALENDAR_IDS.split(',') : DEFAULT_CAL_IDS)
   .map(s => (s || '').trim())
   .filter(Boolean);
@@ -99,6 +100,7 @@ export default async function handler(req, res) {
   try {
     const apiKey = getEnv("GCAL_API_KEY", null);
     const ids = parseCalendarIds(getEnv("GCAL_CALENDAR_IDS", ""));
+    const idsFinal = ids.length ? ids : DEFAULT_CAL_IDS;
     const tz = getEnv("GCAL_TZ", "America/Los_Angeles");
     const daysDefault = Number(getEnv("GCAL_DAYS_DEFAULT", "180"));
     const maxResults = Number(getEnv("GCAL_MAX_RESULTS", "250"));
@@ -106,8 +108,8 @@ export default async function handler(req, res) {
     if (!apiKey) {
       return res.status(500).json({ error: "Missing env var GCAL_API_KEY" });
     }
-    if (!ids.length) {
-      return res.status(500).json({ error: "Missing env var GCAL_CALENDAR_IDS" });
+    if (!idsFinal.length) {
+      return res.status(500).json({ error: "No calendar IDs available" });
     }
 
     const days = Math.max(1, Math.min(3650, Number(req.query.days || daysDefault)));
@@ -115,7 +117,7 @@ export default async function handler(req, res) {
     const timeMax = addDays(new Date(), days).toISOString();
 
     const all = [];
-    for (const calendarId of ids) {
+    for (const calendarId of idsFinal) {
       const evs = await fetchCalendarEvents({
         apiKey, calendarId, timeMin, timeMax, maxResults, tz
       });

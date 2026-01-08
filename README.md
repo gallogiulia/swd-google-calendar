@@ -114,3 +114,6 @@ The UI is in `public/index.html`.
 
 ## Calendar IDs
 This version has SWD calendar IDs prefilled in the serverless functions as defaults. You only need to set `GCAL_API_KEY` in your host (Vercel/Netlify). You can override IDs by setting `GCAL_CALENDAR_IDS`.
+
+## Prefilled IDs (v2)
+Calendar IDs are hardcoded as defaults in the serverless functions. Only `GCAL_API_KEY` is required. Setting `GCAL_CALENDAR_IDS` will override defaults.
