@@ -1,0 +1,83 @@
+:root{
+  --card-border: rgba(0,0,0,0.12);
+  --shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:#fff;
+  color:#111;
+}
+
+.page{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom: 14px;
+}
+
+.header h1{
+  margin:0;
+  font-size: 1.25rem;
+}
+
+.sub{
+  margin:4px 0 0 0;
+  opacity:0.7;
+  font-size: 0.95rem;
+}
+
+.controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.controls input, .controls select{
+  padding:10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.2);
+  font-size: 0.95rem;
+}
+
+.card{
+  border-radius: 16px;
+  overflow:hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  background:#fff;
+  padding: 10px;
+}
+
+.footer{
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.footer a{
+  text-decoration:none;
+  border-bottom:1px solid rgba(0,0,0,0.3);
+  color:inherit;
+}
+
+.footer a:hover{
+  border-bottom-color: rgba(0,0,0,0.7);
+}
+
+/* FullCalendar minor cleanup */
+.fc .fc-toolbar-title{
+  font-size: 1.05rem;
+}
+.fc .fc-button{
+  border-radius: 10px;
+}
