@@ -60,17 +60,26 @@
 <div id=cal></div>
 <script>
 fetch("/api/events").then(r => r.json()).then(d => {
-  new FullCalendar.Calendar(document.getElementById("cal"), {
-    initialView: "listMonth",
-    initialDate: new Date(),
-    height: "auto",
-    headerToolbar: {
-      left: "prev,next today",
-      center: "title",
-      right: ""
-    },
-    events: d.events
-  }).render();
+
+
+ new FullCalendar.Calendar(document.getElementById("cal"), {
+  initialView: "listMonth",
+  initialDate: new Date(),
+  height: "auto",
+
+  headerToolbar: {
+    left: "prev,next today",
+    center: "title",
+    right: "listMonth,dayGridMonth"
+  },
+
+  views: {
+    listMonth: { buttonText: "List" },
+    dayGridMonth: { buttonText: "Month" }
+  },
+
+  events: d.events
+}).render();
 });
 </script>
 
