@@ -4,11 +4,11 @@ let PDF_CACHE = { t: 0, buf: null, key: "" };
 const PDF_TTL_MS = (Number(process.env.GCAL_CACHE_MINUTES || 10)) * 60 * 1000;
 
 const IDS = [
-  "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com", // Club Sponsored
-  "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com", // Other
-  "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com", // Men's
-  "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com", // Women's
-  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com"  // PBA
+  "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com",
+  "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com",
+  "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com",
+  "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com",
+  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com"
 ];
 
 const CALENDAR_COLORS = {
@@ -18,29 +18,6 @@ const CALENDAR_COLORS = {
   "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com": "#059669",
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"
 };
-
-// ===== Layout (Letter) =====
-const PAGE = {
-  left: 48,
-  right: 48,
-  top: 48,
-  bottom: 48,
-  width: 612,
-  height: 792
-};
-
-const COL = {
-  time: 90,
-  event: 260,
-  loc: (PAGE.width - PAGE.left - PAGE.right) - 90 - 260
-};
-
-function hr(doc, y) {
-  doc.save();
-  doc.strokeColor("#e5e7eb").lineWidth(1);
-  doc.moveTo(PAGE.left, y).lineTo(PAGE.width - PAGE.right, y).stroke();
-  doc.restore();
-}
 
 function safeText(s) {
   return String(s || "").replace(/\s+/g, " ").trim();
@@ -62,8 +39,15 @@ function fmtTime(d) {
   }).format(d);
 }
 
-// Wrap to N lines + ellipsis
-function clampLines(doc, text, width, maxLines = 2) {
+function hr(doc, x1, x2, y) {
+  doc.save();
+  doc.strokeColor("#e5e7eb").lineWidth(1);
+  doc.moveTo(x1, y).lineTo(x2, y).stroke();
+  doc.restore();
+}
+
+// Wrap to N lines + ellipsis (fast + predictable)
+function clampLines(doc, text, width, maxLines = 1) {
   const words = String(text || "").split(/\s+/).filter(Boolean);
   let lines = [];
   let cur = "";
@@ -80,7 +64,6 @@ function clampLines(doc, text, width, maxLines = 2) {
   }
   if (lines.length < maxLines && cur) lines.push(cur);
 
-  // ellipsis if truncated
   const used = lines.join(" ").split(/\s+/).filter(Boolean).length;
   if (used < words.length && lines.length) {
     lines[lines.length - 1] = lines[lines.length - 1].replace(/\.*$/, "") + "…";
@@ -114,7 +97,7 @@ async function fetchEventsDirect(days) {
       if (!start) continue;
 
       events.push({
-        id: `${id}:${e.id}`, // reduce collisions across calendars
+        id: `${id}:${e.id}`,
         title: e.summary || "",
         start,
         allDay: !!e.start?.date,
@@ -128,113 +111,177 @@ async function fetchEventsDirect(days) {
   return events;
 }
 
-async function buildPdfBuffer(events, days) {
+// ===== Compact PDF renderer (single or 2-column) =====
+async function buildPdfBuffer(events, days, compactTwoColumn) {
   return await new Promise((resolve, reject) => {
-    const doc = new PDFDocument({ size: "LETTER", margin: PAGE.left });
+    // Reduced margins = fewer pages
+    const M = 32; // was 48
+    const doc = new PDFDocument({ size: "LETTER", margin: M });
 
     const chunks = [];
     doc.on("data", (c) => chunks.push(c));
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
 
-    // ===== Header =====
-    doc.font("Helvetica-Bold").fontSize(18).fillColor("#111827")
-      .text("SWD Bowls — Events Agenda", PAGE.left, doc.y);
+    const pageW = 612;
+    const pageH = 792;
+    const left = M;
+    const right = M;
+    const top = M;
+    const bottom = M;
 
-    doc.moveDown(0.15);
-    doc.font("Helvetica").fontSize(10).fillColor("#6b7280")
-      .text(`Generated ${new Date().toLocaleString()} • Next ${days} days`, PAGE.left);
+    // Two-column geometry
+    const gutter = compactTwoColumn ? 18 : 0;
+    const colW = compactTwoColumn
+      ? Math.floor((pageW - left - right - gutter) / 2)
+      : (pageW - left - right);
 
-    doc.moveDown(0.8);
-    hr(doc, doc.y);
-    doc.moveDown(0.8);
+    const colX = (colIndex) => (compactTwoColumn ? (left + colIndex * (colW + gutter)) : left);
+
+    let colIndex = 0;
+    let xBase = colX(colIndex);
+    let y = top;
+
+    function newPage() {
+      doc.addPage();
+      colIndex = 0;
+      xBase = colX(colIndex);
+      y = top;
+      renderHeader(true);
+    }
+
+    function nextColumnOrPage() {
+      if (!compactTwoColumn) {
+        newPage();
+        return;
+      }
+      if (colIndex === 0) {
+        colIndex = 1;
+        xBase = colX(colIndex);
+        y = top;
+        renderHeader(true);
+      } else {
+        newPage();
+      }
+    }
+
+    function renderHeader(isContinued) {
+      doc.save();
+
+      // Header block (tight)
+      doc.font("Helvetica-Bold").fontSize(14).fillColor("#111827")
+        .text("SWD Bowls — Events Agenda", xBase, y);
+
+      y += 16;
+
+      doc.font("Helvetica").fontSize(9).fillColor("#6b7280")
+        .text(`Next ${days} days • Generated ${new Date().toLocaleDateString()}`, xBase, y);
+
+      if (isContinued) {
+        doc.font("Helvetica").fontSize(8).fillColor("#9ca3af")
+          .text("(continued)", xBase + colW - 70, y, { width: 70, align: "right" });
+      }
+
+      y += 10;
+      hr(doc, xBase, xBase + colW, y);
+      y += 10;
+
+      // Column headings (optional, very small)
+      doc.font("Helvetica-Bold").fontSize(8).fillColor("#9ca3af");
+      doc.text("TIME", xBase, y, { width: 62 });
+      doc.text("EVENT", xBase + 62, y, { width: Math.floor(colW * 0.55) - 62 });
+      doc.text("LOCATION", xBase + Math.floor(colW * 0.55), y, { width: colW - Math.floor(colW * 0.55) });
+      y += 8;
+      hr(doc, xBase, xBase + colW, y);
+      y += 10;
+
+      doc.restore();
+    }
+
+    // First header
+    renderHeader(false);
 
     if (!events.length) {
-      doc.font("Helvetica").fontSize(12).fillColor("#111827")
-        .text("No events found in the selected range.");
+      doc.font("Helvetica").fontSize(11).fillColor("#111827")
+        .text("No events found in the selected range.", xBase, y, { width: colW });
       doc.end();
       return;
     }
 
-    // ===== Column header row =====
-    doc.font("Helvetica-Bold").fontSize(9).fillColor("#6b7280");
-    doc.text("TIME", PAGE.left, doc.y, { width: COL.time });
-    doc.text("EVENT", PAGE.left + COL.time, doc.y, { width: COL.event });
-    doc.text("LOCATION", PAGE.left + COL.time + COL.event, doc.y, { width: COL.loc });
-    doc.moveDown(0.4);
-    hr(doc, doc.y);
-    doc.moveDown(0.6);
-
-    doc.font("Helvetica").fontSize(11).fillColor("#111827");
+    // Column sizing (tight)
+    const TIME_W = 62;
+    const EVENT_W = Math.floor(colW * 0.55) - TIME_W; // time + event block
+    const LOC_W = colW - (TIME_W + EVENT_W);
 
     let currentDayKey = "";
-    const maxY = PAGE.height - PAGE.bottom;
+
+    function ensureSpace(needed) {
+      const maxY = pageH - bottom;
+      if (y + needed <= maxY) return;
+
+      // go next column, then page
+      nextColumnOrPage();
+    }
 
     for (const e of events) {
       const start = new Date(e.start);
       const dayKey = start.toISOString().slice(0, 10);
 
-      if (doc.y > maxY - 70) {
-        doc.addPage();
-        doc.y = PAGE.top;
-      }
-
-      // Day section header
+      // Day header (tight)
       if (dayKey !== currentDayKey) {
         currentDayKey = dayKey;
 
-        if (doc.y > PAGE.top + 20) doc.moveDown(0.7);
+        ensureSpace(26);
 
-        doc.font("Helvetica-Bold").fontSize(12).fillColor("#111827")
-          .text(fmtDate(start), PAGE.left, doc.y);
+        doc.font("Helvetica-Bold").fontSize(10).fillColor("#111827")
+          .text(fmtDate(start), xBase, y, { width: colW });
 
-        doc.moveDown(0.2);
-        hr(doc, doc.y);
-        doc.moveDown(0.6);
-
-        doc.font("Helvetica").fontSize(11).fillColor("#111827");
+        y += 12;
+        hr(doc, xBase, xBase + colW, y);
+        y += 8;
       }
 
-      const color = e.color || "#2563eb";
+      // Row
       const timeStr = e.allDay ? "All day" : fmtTime(start);
       const title = safeText(e.title) || "(Untitled)";
-      const locRaw = safeText(e.location);
+      const loc = safeText(e.location);
 
-      const locText = locRaw
-        ? clampLines(doc, locRaw, COL.loc, 2)
-        : "";
+      // Make rows shorter: clamp location to 1 line, title to 1 line
+      doc.font("Helvetica").fontSize(9).fillColor("#374151");
+      const timeTxt = clampLines(doc, timeStr, TIME_W, 1);
 
-      const rowTop = doc.y;
+      doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827");
+      const titleTxt = clampLines(doc, title, EVENT_W - 12, 1);
 
-      // Accent bar (left)
+      doc.font("Helvetica").fontSize(8).fillColor("#6b7280");
+      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, 1) : "";
+
+      // Height is predictable: 1 line each
+      const rowH = 18; // tight row height
+      ensureSpace(rowH + 6);
+
+      const rowTop = y;
+
+      // Color accent
       doc.save();
-      doc.fillColor(color).rect(PAGE.left - 10, rowTop + 2, 3, 30).fill();
+      doc.fillColor(e.color || "#2563eb").rect(xBase, rowTop + 2, 3, rowH - 4).fill();
       doc.restore();
 
-      // Time
-      doc.font("Helvetica").fontSize(10).fillColor("#374151")
-        .text(timeStr, PAGE.left, rowTop, { width: COL.time });
+      // Text columns
+      doc.font("Helvetica").fontSize(9).fillColor("#374151")
+        .text(timeTxt, xBase + 8, rowTop + 3, { width: TIME_W - 8 });
 
-      // Event title (bold)
-      doc.font("Helvetica-Bold").fontSize(11).fillColor("#111827")
-        .text(title, PAGE.left + COL.time, rowTop, { width: COL.event });
+      doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827")
+        .text(titleTxt, xBase + TIME_W, rowTop + 3, { width: EVENT_W });
 
-      // Location (secondary)
-      if (locText) {
-        doc.font("Helvetica").fontSize(10).fillColor("#6b7280")
-          .text(locText, PAGE.left + COL.time + COL.event, rowTop, { width: COL.loc });
+      if (locTxt) {
+        doc.font("Helvetica").fontSize(8).fillColor("#6b7280")
+          .text(locTxt, xBase + TIME_W + EVENT_W, rowTop + 4, { width: LOC_W });
       }
 
-      // Calculate row height based on tallest column text
-      const eventH = doc.heightOfString(title, { width: COL.event });
-      const locH = locText ? doc.heightOfString(locText, { width: COL.loc }) : 0;
-      const rowHeight = Math.max(22, eventH, locH) + 10;
-
-      doc.y = rowTop + rowHeight;
-
-      // Divider
-      hr(doc, doc.y);
-      doc.moveDown(0.5);
+      y += rowH;
+      hr(doc, xBase, xBase + colW, y);
+      y += 6;
     }
 
     doc.end();
@@ -243,13 +290,14 @@ async function buildPdfBuffer(events, days) {
 
 export default async function handler(req, res) {
   try {
-    const days = Number(req.query.days || 365);
-    const cacheKey = `days=${days}`;
+    const days = Math.max(1, Math.min(3650, Number(req.query.days || 365)));
+    const compact = String(req.query.compact || "").toLowerCase();
+    const compactTwoColumn = compact === "1" || compact === "true" || compact === "2col";
 
+    const cacheKey = `days=${days}&compact=${compactTwoColumn ? "2col" : "1col"}`;
     const now = Date.now();
 
-    // Serve cached
-    if (PDF_CACHE.buf && PDF_CACHE.key === cacheKey && (now - PDF_CACHE.t) < PDF_TTL_MS) {
+    if (PDF_CACHE.buf && PDF_CACHE.key === cacheKey && now - PDF_CACHE.t < PDF_TTL_MS) {
       res.setHeader("Content-Type", "application/pdf");
       res.setHeader("Content-Disposition", "attachment; filename=SWD-events-agenda.pdf");
       res.setHeader("Cache-Control", "no-store");
@@ -258,7 +306,7 @@ export default async function handler(req, res) {
     }
 
     const events = await fetchEventsDirect(days);
-    const pdfBuf = await buildPdfBuffer(events, days);
+    const pdfBuf = await buildPdfBuffer(events, days, compactTwoColumn);
 
     PDF_CACHE = { t: now, buf: pdfBuf, key: cacheKey };
 
