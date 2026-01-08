@@ -186,3 +186,28 @@ body{
 .fc .fc-scrollgrid-section-header td{
   background: rgba(0,0,0,0.02);
 }
+
+/* === SWD List View Calendar Styling === */
+
+/* Left accent bar per event */
+.fc .fc-list-event.swd-event {
+  position: relative;
+  border-left: 6px solid var(--swd-color, #2563eb);
+  border-radius: 10px;
+}
+
+/* Colored dot */
+.fc .fc-list-event.swd-event .fc-list-event-dot {
+  border-color: var(--swd-color, #2563eb) !important;
+}
+
+/* Slight background lift */
+.fc .fc-list-event.swd-event:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+/* Inject per-event color from JS */
+.fc .fc-list-event.swd-event {
+  --swd-color: inherit;
+}
+

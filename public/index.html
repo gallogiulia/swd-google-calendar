@@ -66,20 +66,27 @@
     }
 
     function normalizeToFullCalendar(events) {
-      return events.map(e => ({
-        id: e.id,
-        title: e.title || '(Untitled)',
-        start: e.start,
-        end: e.end || undefined,
-        allDay: !!e.allDay,
-        url: e.htmlLink || undefined,
-        extendedProps: {
-          location: e.location || '',
-          description: e.description || '',
-          source: e.source || ''
-        }
-      }));
-    }
+  return events.map(e => {
+    const color = CALENDAR_COLORS[e.source] || "#2563eb";
+
+    return {
+      id: e.id,
+      title: e.title || '(Untitled)',
+      start: e.start,
+      end: e.end || undefined,
+      allDay: !!e.allDay,
+      url: e.htmlLink || undefined,
+      classNames: ['swd-event'],
+      extendedProps: {
+        location: e.location || '',
+        description: e.description || '',
+        source: e.source || '',
+        sourceColor: color
+      }
+    };
+  });
+}
+
 
     function applySearch(query) {
       const q = (query || '').trim().toLowerCase();
@@ -109,21 +116,28 @@
         },
         events: normalizeToFullCalendar(allEvents),
 
-        eventDidMount: function(info) {
-          // Add compact secondary line in list view
-          const loc = info.event.extendedProps.location;
-          if (loc && info.el && info.el.querySelector) {
-            const titleEl = info.el.querySelector('.fc-list-event-title');
-            if (titleEl && !titleEl.querySelector('.swd-loc')) {
-              const div = document.createElement('div');
-              div.className = 'swd-loc';
-              div.style.opacity = '0.7';
-              div.style.fontSize = '0.9em';
-              div.textContent = loc;
-              titleEl.appendChild(div);
-            }
-          }
-        },
+      eventDidMount: function(info) {
+  const color = info.event.extendedProps.sourceColor;
+
+  // Inject color into CSS variable (for list row + dot)
+  if (color) {
+    info.el.style.setProperty('--swd-color', color);
+  }
+
+  // Existing location subtitle logic
+  const loc = info.event.extendedProps.location;
+  if (loc && info.el && info.el.querySelector) {
+    const titleEl = info.el.querySelector('.fc-list-event-title');
+    if (titleEl && !titleEl.querySelector('.swd-loc')) {
+      const div = document.createElement('div');
+      div.className = 'swd-loc';
+      div.style.opacity = '0.7';
+      div.style.fontSize = '0.9em';
+      div.textContent = loc;
+      titleEl.appendChild(div);
+    }
+  }
+},
 
         eventClick: function(info) {
           // Prefer opening your event in Google (new tab) if htmlLink exists

@@ -11,6 +11,14 @@ const DEFAULT_CAL_IDS = [
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com"
 ];
 
+const CALENDAR_COLORS = {
+  "PBA USA": "#ea580c",
+  "2026 SWD Tournaments - Women's": "#db2777",
+  "2026 SWD Tournaments - Men's": "#059669",
+  "2026 Other Tournaments": "#7c3aed",
+  "2026 Club Sponsored Tournaments": "#2563eb"
+};
+
 
 const calendarIds = (process.env.GCAL_CALENDAR_IDS ? process.env.GCAL_CALENDAR_IDS.split(',') : DEFAULT_CAL_IDS)
   .map(s => (s || '').trim())
