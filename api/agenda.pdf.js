@@ -76,67 +76,73 @@ async function fetchEventsDirect(days) {
   return events;
 }
 
-function buildPdfBuffer(events, days) {
-  const doc = new PDFDocument({ size: "LETTER", margin: 48 });
+async function buildPdfBuffer(events, days) {
+  return await new Promise((resolve, reject) => {
+    const doc = new PDFDocument({ size: "LETTER", margin: 48 });
 
-  const chunks = [];
-  doc.on("data", c => chunks.push(c));
+    const chunks = [];
+    doc.on("data", (c) => chunks.push(c));
+    doc.on("end", () => resolve(Buffer.concat(chunks)));
+    doc.on("error", reject);
 
-  doc.fontSize(18).text("Southwest Division Bowls — Events Agenda");
-  doc.moveDown(0.25);
-  doc.fontSize(10).fillColor("#555").text(`Generated: ${new Date().toLocaleString()} | Range: next ${days} days`);
-  doc.moveDown(1);
-  doc.fillColor("#000");
+    doc.fontSize(18).text("Southwest Division Bowls — Events Agenda");
+    doc.moveDown(0.25);
+    doc.fontSize(10).fillColor("#555").text(
+      `Generated: ${new Date().toLocaleString()} | Range: next ${days} days`
+    );
+    doc.moveDown(1);
+    doc.fillColor("#000");
 
-  if (!events.length) {
-    doc.fontSize(12).text("No events found in the selected range.");
+    if (!events.length) {
+      doc.fontSize(12).text("No events found in the selected range.");
+      doc.end();
+      return;
+    }
+
+    let currentKey = "";
+
+    for (const e of events) {
+      const start = new Date(e.start);
+      const key = start.toISOString().slice(0, 10);
+
+      if (key !== currentKey) {
+        currentKey = key;
+        doc.moveDown(0.7);
+        doc.fontSize(12).fillColor("#111").text(fmtDate(start));
+        doc.moveDown(0.3);
+        doc.moveTo(doc.x, doc.y).lineTo(560, doc.y).strokeColor("#ddd").stroke();
+        doc.moveDown(0.5);
+        doc.fontSize(11).fillColor("#000");
+      }
+
+      const x = doc.x;
+      const y = doc.y + 2;
+
+      doc.save();
+      doc.fillColor(e.color || "#2563eb").rect(x, y, 6, 12).fill();
+      doc.restore();
+
+      const timeStr = e.allDay ? "All day" : fmtTime(start);
+      const title = safeText(e.title);
+      const loc = safeText(e.location);
+
+      doc.text(`${timeStr} — ${title}`, x + 12, doc.y, { width: 520 });
+
+      if (loc) {
+        doc.fillColor("#555").fontSize(10).text(loc, x + 12, doc.y + 2, { width: 520 });
+        doc.fillColor("#000").fontSize(11);
+        doc.moveDown(0.9);
+      } else {
+        doc.moveDown(0.6);
+      }
+
+      if (doc.y > 720) doc.addPage();
+    }
+
     doc.end();
-    return Buffer.concat(chunks);
-  }
-
-  let currentKey = "";
-
-  for (const e of events) {
-    const start = new Date(e.start);
-    const key = start.toISOString().slice(0, 10);
-
-    if (key !== currentKey) {
-      currentKey = key;
-      doc.moveDown(0.7);
-      doc.fontSize(12).fillColor("#111").text(fmtDate(start));
-      doc.moveDown(0.3);
-      doc.moveTo(doc.x, doc.y).lineTo(560, doc.y).strokeColor("#ddd").stroke();
-      doc.moveDown(0.5);
-      doc.fontSize(11).fillColor("#000");
-    }
-
-    const x = doc.x;
-    const y = doc.y + 2;
-
-    doc.save();
-    doc.fillColor(e.color || "#2563eb").rect(x, y, 6, 12).fill();
-    doc.restore();
-
-    const timeStr = e.allDay ? "All day" : fmtTime(start);
-    const title = safeText(e.title);
-    const loc = safeText(e.location);
-
-    doc.text(`${timeStr} — ${title}`, x + 12, doc.y, { width: 520 });
-
-    if (loc) {
-      doc.fillColor("#555").fontSize(10).text(loc, x + 12, doc.y + 2, { width: 520 });
-      doc.fillColor("#000").fontSize(11);
-      doc.moveDown(0.9);
-    } else {
-      doc.moveDown(0.6);
-    }
-
-    if (doc.y > 720) doc.addPage();
-  }
-
-  doc.end();
-  return Buffer.concat(chunks);
+  });
 }
+
 
 export default async function handler(req, res) {
   try {
@@ -151,14 +157,17 @@ export default async function handler(req, res) {
     }
 
     const events = await fetchEventsDirect(days);
-    const pdfBuf = buildPdfBuffer(events, days);
+    const pdfBuf = await buildPdfBuffer(events, days);
+
 
     PDF_CACHE = { t: now, buf: pdfBuf, key: cacheKey };
 
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=SWD-events-agenda.pdf");
-    res.setHeader("Cache-Control", "no-store");
-    return res.status(200).send(pdfBuf);
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "attachment; filename=SWD-events-agenda.pdf");
+  res.setHeader("Cache-Control", "no-store");
+  res.setHeader("Content-Length", String(PDF_CACHE.buf.length));
+  return res.status(200).send(PDF_CACHE.buf);
+
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "PDF generation failed", details: String(err?.message || err) });
