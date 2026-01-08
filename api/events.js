@@ -32,7 +32,7 @@ export default async function(req,res){
   (j.items||[]).forEach(e=>ev.push({
    id:e.id,title:e.summary||"",start:e.start.dateTime||e.start.date,
    end:e.end?.dateTime||e.end?.date,allDay:!!e.start.date,
-   location:e.location||"",htmlLink:e.htmlLink||"",color: CALENDAR_COLORS[calId] || "#2563eb"
+   location:e.location||"",htmlLink:e.htmlLink||"",color: CALENDAR_COLORS[id] || "#2563eb"
   }));
  }
  ev.sort((a,b)=>new Date(a.start)-new Date(b.start));
