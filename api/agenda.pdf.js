@@ -285,7 +285,7 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     function renderHeader(isContinued) {
       doc.save();
 
-      // Header blocks
+      // Header block
       if (isYear) {
         const yLabel = (metaYear && Number.isFinite(metaYear)) ? String(metaYear) : "";
         if (isContinued) {
@@ -313,10 +313,11 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       }
 
       // Legend (only on the very first header block of the first column)
+      // Keep it compact so we don't steal vertical space from the schedule.
       if (isYear && !isContinued && xBase === left) {
-        y += 10;
+        y += 6;
         renderLegend(doc, xBase, y, LEGEND_ITEMS);
-        y += 12;
+        y += 10;
       }
 
       y += isYear ? 8 : 10;
@@ -326,9 +327,10 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       // Column headings (optional, very small)
       doc.font("Helvetica-Bold").fillColor("#9ca3af");
       if (isYear) {
-        // Allocate more width to LOCATION in year mode.
-        const DATE_W_H = Math.max(58, Math.floor(colW * 0.18));
-        const EVENT_W_H = Math.max(120, Math.floor(colW * 0.34));
+        // Year mode: keep DATE on one line, prioritize EVENT (titles) over LOCATION.
+        // LOCATION is club-name-only, so it can be narrower.
+        const DATE_W_H = Math.max(56, Math.floor(colW * 0.18));
+        const EVENT_W_H = Math.max(150, Math.floor(colW * 0.44));
         const LOC_W_H = colW - (DATE_W_H + EVENT_W_H);
 
         doc.fontSize(7);
@@ -363,9 +365,9 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     // Column sizing
     // Year mode is extremely space-constrained; we keep DATE on one line by
     // (a) using a short date-range formatter and (b) giving DATE a bit more width.
-    const DATE_W = isYear ? Math.max(62, Math.floor(colW * 0.20)) : 62;
+    const DATE_W = isYear ? Math.max(56, Math.floor(colW * 0.18)) : 62;
     const EVENT_W = isYear
-      ? Math.max(120, Math.floor(colW * 0.34))
+      ? Math.max(150, Math.floor(colW * 0.44))
       : (Math.floor(colW * 0.55) - DATE_W);
     const LOC_W = colW - (DATE_W + EVENT_W);
 
@@ -490,7 +492,7 @@ export default async function handler(req, res) {
     PDF_CACHE = { t: now, buf: pdfBuf, key: cacheKey };
 
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=SWD-events-agenda.pdf");
+    res.setHeader("Content-Disposition", "attachment; filename=2026 SW Bowls Agenda.pdf");
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("Content-Length", String(pdfBuf.length));
     return res.status(200).send(pdfBuf);
