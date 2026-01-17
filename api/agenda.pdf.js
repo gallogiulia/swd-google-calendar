@@ -19,6 +19,27 @@ const CALENDAR_COLORS = {
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"
 };
 
+function shortLocation(loc) {
+  if (!loc) return "";
+  const s = String(loc).replace(/\s+/g, " ").trim();
+
+  // If it's already a short non-address location (e.g., "Arizona, USA"), keep it
+  const looksLikeAddress =
+    /\b\d{1,6}\b/.test(s) || /\b(ave|st|street|road|rd|blvd|drive|dr|lane|ln|pkwy|park)\b/i.test(s);
+
+  // If it's "Club, 123 Main St, City, CA ..." -> keep "Club"
+  if (s.includes(",")) {
+    const first = s.split(",")[0].trim();
+    if (first) return first;
+  }
+
+  // If it's address-y but no comma separation, keep the first ~40 chars
+  if (looksLikeAddress) return s.slice(0, 40);
+
+  return s;
+}
+
+
 function safeText(s) {
   return String(s || "").replace(/\s+/g, " ").trim();
 }
@@ -330,7 +351,9 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
       doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280");
       // Allow locations to wrap to 2 lines in year mode (still compact).
-      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, isYear ? 3 : 1) : "";
+      const locShort = shortLocation(loc);
+      const locTxt = locShort ? clampLines(doc, locShort, LOC_W - 4, 1) : "";
+
 
       // Year view: allow up to 2 lines for locations; keep row height tight.
       const wrapLines = isYear ? (locTxt.split("\n").length) : 1;
