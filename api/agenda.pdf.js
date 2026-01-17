@@ -170,7 +170,7 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     const bottom = M;
 
     // Columns
-    const cols = isYear ? 3 : (compactTwoColumn ? 2 : 1);
+    const cols = isYear ? 2 : (compactTwoColumn ? 2 : 1);
     // Tighter gutters in year mode to reclaim width for text.
     const gutter = cols > 1 ? (isYear ? 8 : 18) : 0;
     const colW = cols > 1
@@ -244,9 +244,10 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       doc.font("Helvetica-Bold").fillColor("#9ca3af");
       if (isYear) {
         // Allocate more width to LOCATION in year mode.
-        const DATE_W_H = Math.max(48, Math.floor(colW * 0.16));
-        const EVENT_W_H = Math.max(110, Math.floor(colW * 0.32));
+        const DATE_W_H = Math.max(48, Math.floor(colW * 0.14));
+        const EVENT_W_H = Math.max(120, Math.floor(colW * 0.28));
         const LOC_W_H = colW - (DATE_W_H + EVENT_W_H);
+
 
         doc.fontSize(7);
         doc.text("DATE", xBase, y, { width: DATE_W_H });
@@ -278,11 +279,10 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
     // Column sizing
     // Column sizing
-    const DATE_W = isYear ? Math.max(48, Math.floor(colW * 0.16)) : 62;
-    const EVENT_W = isYear
-      ? Math.max(110, Math.floor(colW * 0.32))
-      : (Math.floor(colW * 0.55) - DATE_W);
+    const DATE_W = isYear ? Math.max(48, Math.floor(colW * 0.14)) : 62;
+    const EVENT_W = isYear ? Math.max(120, Math.floor(colW * 0.28)) : (Math.floor(colW * 0.55) - DATE_W);
     const LOC_W = colW - (DATE_W + EVENT_W);
+
 
     let currentDayKey = "";
 
@@ -330,11 +330,12 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
       doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280");
       // Allow locations to wrap to 2 lines in year mode (still compact).
-      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, isYear ? 2 : 1) : "";
+      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, isYear ? 3 : 1) : "";
 
       // Year view: allow up to 2 lines for locations; keep row height tight.
-      const hasLocWrap = isYear && locTxt.includes("\n");
-      const rowH = isYear ? (hasLocWrap ? 16 : 12) : 18;
+      const wrapLines = isYear ? (locTxt.split("\n").length) : 1;
+      const rowH = isYear ? (wrapLines >= 3 ? 22 : wrapLines === 2 ? 16 : 12) : 18;
+
       ensureSpace(rowH + (isYear ? 2 : 6));
 
       const rowTop = y;
