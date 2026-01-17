@@ -49,15 +49,7 @@ function renderLegend(doc, x, y, items) {
 }
 
 function fmtDateRangeShort(startISO, endISO, allDay) {
-  // Parse ISO dates more robustly: when an all-day date is provided as "YYYY-MM-DD",
-  // treat it as UTC by appending T00:00:00Z so comparisons use the intended day.
-  function parse(iso, allDayFlag) {
-    if (!iso) return null;
-    if (allDayFlag && /^\d{4}-\d{2}-\d{2}$/.test(iso)) return new Date(iso + 'T00:00:00Z');
-    return new Date(iso);
-  }
-
-  const s = parse(startISO, allDay);
+  const s = new Date(startISO);
   if (!endISO) {
     const sm = s.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
     const sd = String(s.getUTCDate()).padStart(2, "0");
@@ -65,7 +57,7 @@ function fmtDateRangeShort(startISO, endISO, allDay) {
   }
 
   // Google all-day events use an exclusive end date (next day).
-  let e = parse(endISO, allDay);
+  let e = new Date(endISO);
   if (allDay) e = new Date(e.getTime() - 86400000);
 
   const sm = s.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
@@ -73,10 +65,8 @@ function fmtDateRangeShort(startISO, endISO, allDay) {
   const sd = String(s.getUTCDate()).padStart(2, "0");
   const ed = String(e.getUTCDate()).padStart(2, "0");
 
-  // Same day (compare UTC date parts)
-  const sKey = `${s.getUTCFullYear()}-${String(s.getUTCMonth()+1).padStart(2,'0')}-${String(s.getUTCDate()).padStart(2,'0')}`;
-  const eKey = `${e.getUTCFullYear()}-${String(e.getUTCMonth()+1).padStart(2,'0')}-${String(e.getUTCDate()).padStart(2,'0')}`;
-  if (sKey === eKey) return `${sm} ${sd}`;
+  // Same day
+  if (s.toISOString().slice(0, 10) === e.toISOString().slice(0, 10)) return `${sm} ${sd}`;
 
   // Same month → "Feb 07–12"
   if (sm === em) return `${sm} ${sd}–${ed}`;
@@ -133,23 +123,16 @@ function fmtDateShort(d) {
 }
 
 function fmtDateRange(startISO, endISO, allDay) {
-  // Use same robust parsing as fmtDateRangeShort
-  function parse(iso, allDayFlag) {
-    if (!iso) return null;
-    if (allDayFlag && /^\d{4}-\d{2}-\d{2}$/.test(iso)) return new Date(iso + 'T00:00:00Z');
-    return new Date(iso);
-  }
-
-  const s = parse(startISO, allDay);
+  const s = new Date(startISO);
   if (!endISO) return fmtDateShort(s);
 
   // Google all-day events use an exclusive end date (next day).
   // For printing, show inclusive end date.
-  let e = parse(endISO, allDay);
+  let e = new Date(endISO);
   if (allDay) e = new Date(e.getTime() - 86400000);
 
-  const sKey = `${s.getUTCFullYear()}-${String(s.getUTCMonth()+1).padStart(2,'0')}-${String(s.getUTCDate()).padStart(2,'0')}`;
-  const eKey = `${e.getUTCFullYear()}-${String(e.getUTCMonth()+1).padStart(2,'0')}-${String(e.getUTCDate()).padStart(2,'0')}`;
+  const sKey = s.toISOString().slice(0, 10);
+  const eKey = e.toISOString().slice(0, 10);
   if (sKey === eKey) return fmtDateShort(s);
   return `${fmtDateShort(s)}–${fmtDateShort(e)}`;
 }
@@ -391,27 +374,10 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
     function ensureSpace(needed) {
       const maxY = pageH - bottom;
-      // if there's already space in the current column, keep going
       if (y + needed <= maxY) return;
 
-      // If multiple columns are available, prefer moving to the next column
-      // instead of immediately creating a new page — but account for the
-      // vertical space the header consumes in the new column. This avoids
-      // jumping to a new page because the header pushes the row off the page.
-      if (cols > 1 && colIndex < cols - 1) {
-        const headerReserve = isYear ? 48 : 64; // conservative estimate of header + top padding
-        if (top + headerReserve + needed <= maxY) {
-          // move to next column
-          colIndex += 1;
-          xBase = colX(colIndex);
-          y = top;
-          renderHeader(true);
-          return;
-        }
-      }
-
-      // otherwise go to a new page (which will start at first column)
-      newPage();
+      // go next column, then page
+      nextColumnOrPage();
     }
 
     for (const e of events) {
