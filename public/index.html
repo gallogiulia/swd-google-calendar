@@ -22,6 +22,35 @@
       padding: 8px;
     }
 
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      color: #111827;
+    }
+
+    .legend .item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .legend .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+    }
+
     /* Date header rows */
     .fc-list-day-cushion {
       background: #f1f1f1;
@@ -56,6 +85,14 @@
 
 <body>
 
+
+<div class="legend" aria-label="Calendar legend">
+  <span class="item"><span class="swatch" style="background:#059669"></span>Women’s</span>
+  <span class="item"><span class="swatch" style="background:#dc2626"></span>Men’s</span>
+  <span class="item"><span class="swatch" style="background:#2563eb"></span>Club Sponsored</span>
+  <span class="item"><span class="swatch" style="background:#7c3aed"></span>Other Tournaments</span>
+  <span class="item"><span class="swatch" style="background:#f59e0b"></span>PBA</span>
+</div>
 
 <div id=cal></div>
 <script>

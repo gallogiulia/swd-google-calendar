@@ -149,7 +149,8 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     const isYear = mode === "year";
 
     // For year printouts: landscape + tighter margins + smaller type
-    const M = isYear ? 22 : 32;
+    // Reduce margins slightly to give more horizontal room for locations.
+    const M = isYear ? 16 : 32;
     const doc = new PDFDocument({
       size: "LETTER",
       layout: isYear ? "landscape" : "portrait",
@@ -170,7 +171,8 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
     // Columns
     const cols = isYear ? 3 : (compactTwoColumn ? 2 : 1);
-    const gutter = cols > 1 ? (isYear ? 14 : 18) : 0;
+    // Tighter gutters in year mode to reclaim width for text.
+    const gutter = cols > 1 ? (isYear ? 8 : 18) : 0;
     const colW = cols > 1
       ? Math.floor((pageW - left - right - gutter * (cols - 1)) / cols)
       : (pageW - left - right);
@@ -241,10 +243,15 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       // Column headings (optional, very small)
       doc.font("Helvetica-Bold").fillColor("#9ca3af");
       if (isYear) {
+        // Allocate more width to LOCATION in year mode.
+        const DATE_W_H = Math.max(48, Math.floor(colW * 0.16));
+        const EVENT_W_H = Math.max(110, Math.floor(colW * 0.32));
+        const LOC_W_H = colW - (DATE_W_H + EVENT_W_H);
+
         doc.fontSize(7);
-        doc.text("DATE", xBase, y, { width: 58 });
-        doc.text("EVENT", xBase + 58, y, { width: Math.floor(colW * 0.66) - 58 });
-        doc.text("LOCATION", xBase + Math.floor(colW * 0.66), y, { width: colW - Math.floor(colW * 0.66) });
+        doc.text("DATE", xBase, y, { width: DATE_W_H });
+        doc.text("EVENT", xBase + DATE_W_H, y, { width: EVENT_W_H });
+        doc.text("LOCATION", xBase + DATE_W_H + EVENT_W_H, y, { width: LOC_W_H });
         y += 7;
       } else {
         doc.fontSize(8);
@@ -270,9 +277,10 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     }
 
     // Column sizing
-    const DATE_W = isYear ? 58 : 62;
+    // Column sizing
+    const DATE_W = isYear ? Math.max(48, Math.floor(colW * 0.16)) : 62;
     const EVENT_W = isYear
-      ? (Math.floor(colW * 0.66) - DATE_W)
+      ? Math.max(110, Math.floor(colW * 0.32))
       : (Math.floor(colW * 0.55) - DATE_W);
     const LOC_W = colW - (DATE_W + EVENT_W);
 
@@ -313,18 +321,20 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       const title = safeText(e.title) || "(Untitled)";
       const loc = safeText(e.location);
 
-      // Make rows shorter: clamp location to 1 line, title to 1 line
+      // Make rows compact but readable.
       doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151");
       const dateTxt = clampLines(doc, dateStr, DATE_W, 1);
 
       doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827");
       const titleTxt = clampLines(doc, title, EVENT_W - 12, 1);
 
-      doc.font("Helvetica").fontSize(isYear ? 7 : 8).fillColor("#6b7280");
-      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, 1) : "";
+      doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280");
+      // Allow locations to wrap to 2 lines in year mode (still compact).
+      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, isYear ? 2 : 1) : "";
 
-      // Height is predictable: 1 line each
-      const rowH = isYear ? 11 : 18;
+      // Year view: allow up to 2 lines for locations; keep row height tight.
+      const hasLocWrap = isYear && locTxt.includes("\n");
+      const rowH = isYear ? (hasLocWrap ? 16 : 12) : 18;
       ensureSpace(rowH + (isYear ? 2 : 6));
 
       const rowTop = y;
@@ -342,8 +352,8 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
         .text(titleTxt, xBase + DATE_W, rowTop + (isYear ? 2 : 3), { width: EVENT_W });
 
       if (locTxt) {
-        doc.font("Helvetica").fontSize(isYear ? 7 : 8).fillColor("#6b7280")
-          .text(locTxt, xBase + DATE_W + EVENT_W, rowTop + (isYear ? 2 : 4), { width: LOC_W });
+        doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280")
+          .text(locTxt, xBase + DATE_W + EVENT_W, rowTop + (isYear ? 2 : 4), { width: LOC_W, lineGap: isYear ? -1 : 0 });
       }
 
       y += rowH;
