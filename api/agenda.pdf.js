@@ -111,6 +111,7 @@ async function fetchEventsDirect(days) {
   return events;
 }
 
+
 // ===== Compact PDF renderer (single or 2-column) =====
 async function buildPdfBuffer(events, days, compactTwoColumn) {
   return await new Promise((resolve, reject) => {
