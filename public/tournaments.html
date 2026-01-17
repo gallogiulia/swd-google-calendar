@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SWD Tournaments — Results</title>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 16px;
+      color: #111827;
+    }
+
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+    }
+
+    .sub {
+      margin: 0 0 14px;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 10px 0 14px;
+    }
+
+    input, select {
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      outline: none;
+      background: #fff;
+    }
+
+    input { flex: 1 1 280px; }
+    select { flex: 0 0 200px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 780px) {
+      .grid { grid-template-columns: 1fr; }
+      select { flex: 1 1 200px; }
+    }
+
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 12px 12px 10px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .year {
+      color: #6b7280;
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      color: #374151;
+      font-size: 0.92rem;
+    }
+
+    .pill {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    .link {
+      margin-top: 4px;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #111827;
+      color: #fff;
+      text-align: center;
+    }
+
+    .empty {
+      margin-top: 10px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>Southwest Division Bowls — Tournament Results</h1>
+    <p class="sub">Buttons are generated automatically from the SWD Results Index sheet.</p>
+
+    <div class="controls">
+      <input id="q" placeholder="Search tournaments…" />
+      <select id="filterGender">
+        <option value="">All genders</option>
+        <option value="women">Women</option>
+        <option value="men">Men</option>
+        <option value="mixed">Mixed</option>
+        <option value="open">Open</option>
+      </select>
+      <select id="filterYear">
+        <option value="">All years</option>
+      </select>
+    </div>
+
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" style="display:none;">No tournaments matched your filters.</div>
+  </div>
+
+  <script>
+    const state = { all: [], q: "", gender: "", year: "" };
+
+    function norm(s){ return String(s||"").trim(); }
+    function normLower(s){ return norm(s).toLowerCase(); }
+
+    function renderYearOptions(items){
+      const years = Array.from(new Set(items.map(t => norm(t.year)).filter(Boolean)));
+      years.sort((a,b) => Number(b) - Number(a));
+      const sel = document.getElementById("filterYear");
+      years.forEach(y => {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        sel.appendChild(opt);
+      });
+    }
+
+    function matches(t){
+      const q = state.q;
+      const gender = state.gender;
+      const year = state.year;
+
+      const blob = [
+        t.name, t.year, t.type, t.category, t.gender, t.location
+      ].map(normLower).join(" ");
+
+      if (q && !blob.includes(q)) return false;
+
+      if (gender) {
+        const g = normLower(t.gender);
+        if (!g.includes(gender)) return false;
+      }
+
+      if (year) {
+        if (norm(t.year) !== year) return false;
+      }
+
+      return true;
+    }
+
+    function card(t){
+      const el = document.createElement("div");
+      el.className = "card";
+
+      const top = document.createElement("div");
+      top.className = "topline";
+
+      const name = document.createElement("div");
+      name.className = "name";
+      name.textContent = t.name;
+
+      const year = document.createElement("div");
+      year.className = "year";
+      year.textContent = t.year || "";
+
+      top.appendChild(name);
+      top.appendChild(year);
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+
+      const addPill = (txt) => {
+        const v = norm(txt);
+        if (!v) return;
+        const p = document.createElement("span");
+        p.className = "pill";
+        p.textContent = v;
+        meta.appendChild(p);
+      };
+
+      addPill(t.gender);
+      addPill(t.category);
+      addPill(t.type);
+      addPill(t.location);
+
+      const a = document.createElement("a");
+      a.className = "link";
+      a.href = t.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = "Open results sheet";
+
+      el.appendChild(top);
+      el.appendChild(meta);
+      el.appendChild(a);
+      return el;
+    }
+
+    function render(){
+      const grid = document.getElementById("grid");
+      const empty = document.getElementById("empty");
+      grid.innerHTML = "";
+
+      const items = state.all.filter(matches);
+      empty.style.display = items.length ? "none" : "block";
+
+      items.forEach(t => grid.appendChild(card(t)));
+    }
+
+    document.getElementById("q").addEventListener("input", (e) => {
+      state.q = normLower(e.target.value);
+      render();
+    });
+
+    document.getElementById("filterGender").addEventListener("change", (e) => {
+      state.gender = normLower(e.target.value);
+      render();
+    });
+
+    document.getElementById("filterYear").addEventListener("change", (e) => {
+      state.year = norm(e.target.value);
+      render();
+    });
+
+    fetch("/api/tournaments")
+      .then(r => r.json())
+      .then(d => {
+        state.all = (d.tournaments || []);
+        renderYearOptions(state.all);
+        render();
+      })
+      .catch(() => {
+        document.getElementById("empty").style.display = "block";
+        document.getElementById("empty").textContent = "Failed to load tournaments.";
+      });
+  </script>
+</body>
+</html>
