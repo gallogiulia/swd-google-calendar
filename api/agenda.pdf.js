@@ -75,8 +75,14 @@ async function fetchEventsDirect(days) {
   const key = process.env.GCAL_API_KEY;
   if (!key) throw new Error("Missing GCAL_API_KEY");
 
-  const timeMin = new Date().toISOString();
-  const timeMax = new Date(Date.now() + days * 86400000).toISOString();
+  const year = Number(globalThis.__SWD_YEAR__ || "");
+  const useYear = year && Number.isFinite(year);
+  const timeMin = useYear
+    ? new Date(Date.UTC(year, 0, 1, 0, 0, 0)).toISOString()
+    : new Date().toISOString();
+  const timeMax = useYear
+    ? new Date(Date.UTC(year + 1, 0, 1, 0, 0, 0)).toISOString()
+    : new Date(Date.now() + days * 86400000).toISOString();
 
   const events = [];
 
@@ -110,7 +116,6 @@ async function fetchEventsDirect(days) {
   events.sort((a, b) => new Date(a.start) - new Date(b.start));
   return events;
 }
-
 
 // ===== Compact PDF renderer (single or 2-column) =====
 async function buildPdfBuffer(events, days, compactTwoColumn) {
@@ -291,11 +296,17 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
 
 export default async function handler(req, res) {
   try {
+    const year = Number(req.query.year || "");
     const days = Math.max(1, Math.min(3650, Number(req.query.days || 365)));
     const compact = String(req.query.compact || "").toLowerCase();
     const compactTwoColumn = compact === "1" || compact === "true" || compact === "2col";
 
-    const cacheKey = `days=${days}&compact=${compactTwoColumn ? "2col" : "1col"}`;
+    // Allow fixed year window exports: /api/agenda.pdf?year=2026
+    globalThis.__SWD_YEAR__ = (year && Number.isFinite(year)) ? year : "";
+
+    const cacheKey = (year && Number.isFinite(year))
+      ? `year=${year}&compact=${compactTwoColumn ? "2col" : "1col"}`
+      : `days=${days}&compact=${compactTwoColumn ? "2col" : "1col"}`;
     const now = Date.now();
 
     if (PDF_CACHE.buf && PDF_CACHE.key === cacheKey && now - PDF_CACHE.t < PDF_TTL_MS) {

@@ -76,12 +76,24 @@
   </div>
 
   <script>
-    fetch("/api/events?days=365")
+    function getYear(){
+      const u = new URL(window.location.href);
+      const y = Number(u.searchParams.get("year") || "");
+      return (y && Number.isFinite(y)) ? y : 2026;
+    }
+
+    const YEAR = getYear();
+
+    fetch(`/api/events?year=${YEAR}`)
       .then(r => r.json())
       .then(d => {
         new FullCalendar.Calendar(document.getElementById("agenda"), {
           initialView: "listYear",
-          initialDate: new Date(),
+          initialDate: `${YEAR}-01-01`,
+          validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
+          nowIndicator: false,
+          // Hide FullCalendar navigation controls (today + arrows)
+          headerToolbar: false,
           height: "auto",
           events: d.events
         }).render();

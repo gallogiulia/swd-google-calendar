@@ -2,7 +2,15 @@
 <!doctype html><html><body>
 <h2>SWD Events</h2><div id=l></div>
 <script>
-fetch("/api/events?days=365").then(r=>r.json()).then(d=>{
+function getYear(){
+  const u = new URL(window.location.href);
+  const y = Number(u.searchParams.get("year") || "");
+  return (y && Number.isFinite(y)) ? y : 2026;
+}
+
+const YEAR = getYear();
+
+fetch(`/api/events?year=${YEAR}`).then(r=>r.json()).then(d=>{
  d.events.forEach(e=>{
   const p=document.createElement("p");
   p.textContent=new Date(e.start).toLocaleDateString()+" — "+e.title;

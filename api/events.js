@@ -1,5 +1,5 @@
 
-let CACHE={t:0,d:null};
+let CACHE={t:0,d:null,key:""};
 const TTL=(Number(process.env.GCAL_CACHE_MINUTES||10))*60000;
 const IDS=[
 "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com",
@@ -17,13 +17,33 @@ const CALENDAR_COLORS = {
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"  // PBA
 };
 
+function yearWindow(year){
+  // Use UTC boundaries so all-day events remain stable.
+  const start = new Date(Date.UTC(year, 0, 1, 0, 0, 0));
+  const end = new Date(Date.UTC(year + 1, 0, 1, 0, 0, 0));
+  return { start, end };
+}
+
 
 export default async function(req,res){
- const now=Date.now(),days=Number(req.query.days||180);
- if(CACHE.d && now-CACHE.t<TTL) return res.json(CACHE.d);
+ const now=Date.now();
+ const year = Number(req.query.year || "");
+ const days = Number(req.query.days || 180);
+ const cacheKey = year ? `year:${year}` : `days:${days}`;
+
+ if(CACHE.d && CACHE.key===cacheKey && now-CACHE.t<TTL) return res.json(CACHE.d);
  if(!process.env.GCAL_API_KEY) return res.status(500).json({error:"Missing key"});
- const min=new Date().toISOString();
- const max=new Date(Date.now()+days*86400000).toISOString();
+
+ let min,max;
+ if(year && Number.isFinite(year)){
+  const w = yearWindow(year);
+  min = w.start.toISOString();
+  max = w.end.toISOString();
+ } else {
+  min=new Date().toISOString();
+  max=new Date(Date.now()+days*86400000).toISOString();
+ }
+
  let ev=[];
  for(const id of IDS){
   const u=`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(id)}/events?key=${process.env.GCAL_API_KEY}&timeMin=${min}&timeMax=${max}&singleEvents=true&orderBy=startTime`;
@@ -36,6 +56,6 @@ export default async function(req,res){
   }));
  }
  ev.sort((a,b)=>new Date(a.start)-new Date(b.start));
- CACHE={t:now,d:{events:ev}};
+ CACHE={t:now,d:{events:ev},key:cacheKey};
  res.json(CACHE.d);
 }
