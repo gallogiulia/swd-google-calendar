@@ -19,6 +19,62 @@ const CALENDAR_COLORS = {
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"
 };
 
+// PDF legend (label -> calendar color)
+const LEGEND_ITEMS = [
+  { label: "Club Sponsored", color: CALENDAR_COLORS[IDS[0]] || "#2563eb" },
+  { label: "PBA", color: CALENDAR_COLORS[IDS[1]] || "#7c3aed" },
+  { label: "Men's", color: CALENDAR_COLORS[IDS[2]] || "#dc2626" },
+  { label: "Women's", color: CALENDAR_COLORS[IDS[3]] || "#059669" },
+  { label: "Other", color: CALENDAR_COLORS[IDS[4]] || "#f59e0b" }
+];
+
+function renderLegend(doc, x, y, items) {
+  const box = 8;
+  const gap = 10;
+  let cx = x;
+
+  doc.fontSize(9).fillColor("#111827").font("Helvetica-Bold").text("Legend:", cx, y);
+  cx += 52;
+
+  doc.font("Helvetica").fontSize(9);
+
+  for (const it of items) {
+    doc.save();
+    doc.rect(cx, y + 2, box, box).fill(it.color);
+    doc.restore();
+
+    doc.fillColor("#111827").text(it.label, cx + box + 6, y);
+    cx += box + 6 + doc.widthOfString(it.label) + gap;
+  }
+}
+
+function fmtDateRangeShort(startISO, endISO, allDay) {
+  const s = new Date(startISO);
+  if (!endISO) {
+    const sm = s.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+    const sd = String(s.getUTCDate()).padStart(2, "0");
+    return `${sm} ${sd}`;
+  }
+
+  // Google all-day events use an exclusive end date (next day).
+  let e = new Date(endISO);
+  if (allDay) e = new Date(e.getTime() - 86400000);
+
+  const sm = s.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+  const em = e.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+  const sd = String(s.getUTCDate()).padStart(2, "0");
+  const ed = String(e.getUTCDate()).padStart(2, "0");
+
+  // Same day
+  if (s.toISOString().slice(0, 10) === e.toISOString().slice(0, 10)) return `${sm} ${sd}`;
+
+  // Same month → "Feb 07–12"
+  if (sm === em) return `${sm} ${sd}–${ed}`;
+
+  // Different month → "Feb 28–Mar 01"
+  return `${sm} ${sd}–${em} ${ed}`;
+}
+
 function shortLocation(loc) {
   if (!loc) return "";
   const s = String(loc).replace(/\s+/g, " ").trim();
@@ -38,7 +94,6 @@ function shortLocation(loc) {
 
   return s;
 }
-
 
 function safeText(s) {
   return String(s || "").replace(/\s+/g, " ").trim();
@@ -191,7 +246,7 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     const bottom = M;
 
     // Columns
-    const cols = isYear ? 2 : (compactTwoColumn ? 2 : 1);
+    const cols = isYear ? 3 : (compactTwoColumn ? 2 : 1);
     // Tighter gutters in year mode to reclaim width for text.
     const gutter = cols > 1 ? (isYear ? 8 : 18) : 0;
     const colW = cols > 1
@@ -257,6 +312,13 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
           .text("(continued)", xBase + colW - 70, y, { width: 70, align: "right" });
       }
 
+      // Legend (only on the very first header block of the first column)
+      if (isYear && !isContinued && xBase === left) {
+        y += 10;
+        renderLegend(doc, xBase, y, LEGEND_ITEMS);
+        y += 12;
+      }
+
       y += isYear ? 8 : 10;
       hr(doc, xBase, xBase + colW, y);
       y += isYear ? 8 : 10;
@@ -265,10 +327,9 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       doc.font("Helvetica-Bold").fillColor("#9ca3af");
       if (isYear) {
         // Allocate more width to LOCATION in year mode.
-        const DATE_W_H = Math.max(48, Math.floor(colW * 0.14));
-        const EVENT_W_H = Math.max(120, Math.floor(colW * 0.28));
+        const DATE_W_H = Math.max(58, Math.floor(colW * 0.18));
+        const EVENT_W_H = Math.max(120, Math.floor(colW * 0.34));
         const LOC_W_H = colW - (DATE_W_H + EVENT_W_H);
-
 
         doc.fontSize(7);
         doc.text("DATE", xBase, y, { width: DATE_W_H });
@@ -300,10 +361,13 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
     // Column sizing
     // Column sizing
-    const DATE_W = isYear ? Math.max(48, Math.floor(colW * 0.14)) : 62;
-    const EVENT_W = isYear ? Math.max(120, Math.floor(colW * 0.28)) : (Math.floor(colW * 0.55) - DATE_W);
+    // Year mode is extremely space-constrained; we keep DATE on one line by
+    // (a) using a short date-range formatter and (b) giving DATE a bit more width.
+    const DATE_W = isYear ? Math.max(62, Math.floor(colW * 0.20)) : 62;
+    const EVENT_W = isYear
+      ? Math.max(120, Math.floor(colW * 0.34))
+      : (Math.floor(colW * 0.55) - DATE_W);
     const LOC_W = colW - (DATE_W + EVENT_W);
-
 
     let currentDayKey = "";
 
@@ -337,28 +401,25 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
       // Row
       const dateStr = isYear
-        ? fmtDateRange(e.start, e.end, e.allDay)
+        ? fmtDateRangeShort(e.start, e.end, e.allDay)
         : (e.allDay ? "All day" : fmtTime(start));
       const title = safeText(e.title) || "(Untitled)";
       const loc = safeText(e.location);
 
       // Make rows compact but readable.
       doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151");
-      const dateTxt = clampLines(doc, dateStr, DATE_W, 1);
+      const dateTxt = safeText(dateStr);
 
       doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827");
       const titleTxt = clampLines(doc, title, EVENT_W - 12, 1);
 
       doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280");
-      // Allow locations to wrap to 2 lines in year mode (still compact).
-      const locShort = shortLocation(loc);
+      // In year view we intentionally print *club name only* (no street address)
+      // so we can fit the full year in <= 2 pages.
+      const locShort = isYear ? shortLocation(loc) : loc;
       const locTxt = locShort ? clampLines(doc, locShort, LOC_W - 4, 1) : "";
 
-
-      // Year view: allow up to 2 lines for locations; keep row height tight.
-      const wrapLines = isYear ? (locTxt.split("\n").length) : 1;
-      const rowH = isYear ? (wrapLines >= 3 ? 22 : wrapLines === 2 ? 16 : 12) : 18;
-
+      const rowH = isYear ? 12 : 18;
       ensureSpace(rowH + (isYear ? 2 : 6));
 
       const rowTop = y;
@@ -370,7 +431,7 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
       // Text columns
       doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151")
-        .text(dateTxt, xBase + 8, rowTop + (isYear ? 2 : 3), { width: DATE_W - 8 });
+        .text(dateTxt, xBase + 8, rowTop + (isYear ? 2 : 3), { width: DATE_W - 8, lineBreak: false, ellipsis: true });
 
       doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827")
         .text(titleTxt, xBase + DATE_W, rowTop + (isYear ? 2 : 3), { width: EVENT_W });
