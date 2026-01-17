@@ -285,7 +285,7 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     function renderHeader(isContinued) {
       doc.save();
 
-      // Header block
+      // Header blocks
       if (isYear) {
         const yLabel = (metaYear && Number.isFinite(metaYear)) ? String(metaYear) : "";
         if (isContinued) {
