@@ -39,6 +39,28 @@ function fmtTime(d) {
   }).format(d);
 }
 
+function fmtDateShort(d) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "2-digit"
+  }).format(d);
+}
+
+function fmtDateRange(startISO, endISO, allDay) {
+  const s = new Date(startISO);
+  if (!endISO) return fmtDateShort(s);
+
+  // Google all-day events use an exclusive end date (next day).
+  // For printing, show inclusive end date.
+  let e = new Date(endISO);
+  if (allDay) e = new Date(e.getTime() - 86400000);
+
+  const sKey = s.toISOString().slice(0, 10);
+  const eKey = e.toISOString().slice(0, 10);
+  if (sKey === eKey) return fmtDateShort(s);
+  return `${fmtDateShort(s)}–${fmtDateShort(e)}`;
+}
+
 function hr(doc, x1, x2, y) {
   doc.save();
   doc.strokeColor("#e5e7eb").lineWidth(1);
@@ -102,10 +124,13 @@ async function fetchEventsDirect(days) {
       const start = e.start?.dateTime || e.start?.date;
       if (!start) continue;
 
+      const end = e.end?.dateTime || e.end?.date || "";
+
       events.push({
         id: `${id}:${e.id}`,
         title: e.summary || "",
         start,
+        end,
         allDay: !!e.start?.date,
         location: e.location || "",
         color: CALENDAR_COLORS[id] || "#2563eb"
@@ -117,32 +142,40 @@ async function fetchEventsDirect(days) {
   return events;
 }
 
-// ===== Compact PDF renderer (single or 2-column) =====
-async function buildPdfBuffer(events, days, compactTwoColumn) {
+// ===== Compact PDF renderer =====
+// mode: "agenda" (day headers) or "year" (one-line rows, ultra-compact)
+async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", metaYear = null) {
   return await new Promise((resolve, reject) => {
-    // Reduced margins = fewer pages
-    const M = 32; // was 48
-    const doc = new PDFDocument({ size: "LETTER", margin: M });
+    const isYear = mode === "year";
+
+    // For year printouts: landscape + tighter margins + smaller type
+    const M = isYear ? 22 : 32;
+    const doc = new PDFDocument({
+      size: "LETTER",
+      layout: isYear ? "landscape" : "portrait",
+      margin: M
+    });
 
     const chunks = [];
     doc.on("data", (c) => chunks.push(c));
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
 
-    const pageW = 612;
-    const pageH = 792;
+    const pageW = isYear ? 792 : 612;
+    const pageH = isYear ? 612 : 792;
     const left = M;
     const right = M;
     const top = M;
     const bottom = M;
 
-    // Two-column geometry
-    const gutter = compactTwoColumn ? 18 : 0;
-    const colW = compactTwoColumn
-      ? Math.floor((pageW - left - right - gutter) / 2)
+    // Columns
+    const cols = isYear ? 3 : (compactTwoColumn ? 2 : 1);
+    const gutter = cols > 1 ? (isYear ? 14 : 18) : 0;
+    const colW = cols > 1
+      ? Math.floor((pageW - left - right - gutter * (cols - 1)) / cols)
       : (pageW - left - right);
 
-    const colX = (colIndex) => (compactTwoColumn ? (left + colIndex * (colW + gutter)) : left);
+    const colX = (colIndex) => (left + colIndex * (colW + gutter));
 
     let colIndex = 0;
     let xBase = colX(colIndex);
@@ -157,12 +190,12 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
     }
 
     function nextColumnOrPage() {
-      if (!compactTwoColumn) {
+      if (cols === 1) {
         newPage();
         return;
       }
-      if (colIndex === 0) {
-        colIndex = 1;
+      if (colIndex < cols - 1) {
+        colIndex += 1;
         xBase = colX(colIndex);
         y = top;
         renderHeader(true);
@@ -174,32 +207,54 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
     function renderHeader(isContinued) {
       doc.save();
 
-      // Header block (tight)
-      doc.font("Helvetica-Bold").fontSize(14).fillColor("#111827")
-        .text("SWD Bowls — Events Agenda", xBase, y);
+      // Header block
+      if (isYear) {
+        const yLabel = (metaYear && Number.isFinite(metaYear)) ? String(metaYear) : "";
+        if (isContinued) {
+          doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827")
+            .text(`SWD Bowls — ${yLabel} Schedule`, xBase, y);
+          y += 10;
+        } else {
+          doc.font("Helvetica-Bold").fontSize(11).fillColor("#111827")
+            .text(`SWD Bowls — ${yLabel} Full Year Schedule`, xBase, y);
+          y += 12;
+          doc.font("Helvetica").fontSize(8).fillColor("#6b7280")
+            .text(`Generated ${new Date().toLocaleDateString()}`, xBase, y);
+        }
+      } else {
+        doc.font("Helvetica-Bold").fontSize(14).fillColor("#111827")
+          .text("SWD Bowls — Events Agenda", xBase, y);
+        y += 16;
+        doc.font("Helvetica").fontSize(9).fillColor("#6b7280")
+          .text(`Next ${days} days • Generated ${new Date().toLocaleDateString()}`, xBase, y);
+      }
 
-      y += 16;
-
-      doc.font("Helvetica").fontSize(9).fillColor("#6b7280")
-        .text(`Next ${days} days • Generated ${new Date().toLocaleDateString()}`, xBase, y);
-
-      if (isContinued) {
+      if (isContinued && !isYear) {
         doc.font("Helvetica").fontSize(8).fillColor("#9ca3af")
           .text("(continued)", xBase + colW - 70, y, { width: 70, align: "right" });
       }
 
-      y += 10;
+      y += isYear ? 8 : 10;
       hr(doc, xBase, xBase + colW, y);
-      y += 10;
+      y += isYear ? 8 : 10;
 
       // Column headings (optional, very small)
-      doc.font("Helvetica-Bold").fontSize(8).fillColor("#9ca3af");
-      doc.text("TIME", xBase, y, { width: 62 });
-      doc.text("EVENT", xBase + 62, y, { width: Math.floor(colW * 0.55) - 62 });
-      doc.text("LOCATION", xBase + Math.floor(colW * 0.55), y, { width: colW - Math.floor(colW * 0.55) });
-      y += 8;
+      doc.font("Helvetica-Bold").fillColor("#9ca3af");
+      if (isYear) {
+        doc.fontSize(7);
+        doc.text("DATE", xBase, y, { width: 58 });
+        doc.text("EVENT", xBase + 58, y, { width: Math.floor(colW * 0.66) - 58 });
+        doc.text("LOCATION", xBase + Math.floor(colW * 0.66), y, { width: colW - Math.floor(colW * 0.66) });
+        y += 7;
+      } else {
+        doc.fontSize(8);
+        doc.text("TIME", xBase, y, { width: 62 });
+        doc.text("EVENT", xBase + 62, y, { width: Math.floor(colW * 0.55) - 62 });
+        doc.text("LOCATION", xBase + Math.floor(colW * 0.55), y, { width: colW - Math.floor(colW * 0.55) });
+        y += 8;
+      }
       hr(doc, xBase, xBase + colW, y);
-      y += 10;
+      y += isYear ? 7 : 10;
 
       doc.restore();
     }
@@ -214,10 +269,12 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       return;
     }
 
-    // Column sizing (tight)
-    const TIME_W = 62;
-    const EVENT_W = Math.floor(colW * 0.55) - TIME_W; // time + event block
-    const LOC_W = colW - (TIME_W + EVENT_W);
+    // Column sizing
+    const DATE_W = isYear ? 58 : 62;
+    const EVENT_W = isYear
+      ? (Math.floor(colW * 0.66) - DATE_W)
+      : (Math.floor(colW * 0.55) - DATE_W);
+    const LOC_W = colW - (DATE_W + EVENT_W);
 
     let currentDayKey = "";
 
@@ -233,38 +290,42 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       const start = new Date(e.start);
       const dayKey = start.toISOString().slice(0, 10);
 
-      // Day header (tight)
-      if (dayKey !== currentDayKey) {
-        currentDayKey = dayKey;
+      if (!isYear) {
+        // Day header (tight)
+        if (dayKey !== currentDayKey) {
+          currentDayKey = dayKey;
 
-        ensureSpace(26);
+          ensureSpace(26);
 
-        doc.font("Helvetica-Bold").fontSize(10).fillColor("#111827")
-          .text(fmtDate(start), xBase, y, { width: colW });
+          doc.font("Helvetica-Bold").fontSize(10).fillColor("#111827")
+            .text(fmtDate(start), xBase, y, { width: colW });
 
-        y += 12;
-        hr(doc, xBase, xBase + colW, y);
-        y += 8;
+          y += 12;
+          hr(doc, xBase, xBase + colW, y);
+          y += 8;
+        }
       }
 
       // Row
-      const timeStr = e.allDay ? "All day" : fmtTime(start);
+      const dateStr = isYear
+        ? fmtDateRange(e.start, e.end, e.allDay)
+        : (e.allDay ? "All day" : fmtTime(start));
       const title = safeText(e.title) || "(Untitled)";
       const loc = safeText(e.location);
 
       // Make rows shorter: clamp location to 1 line, title to 1 line
-      doc.font("Helvetica").fontSize(9).fillColor("#374151");
-      const timeTxt = clampLines(doc, timeStr, TIME_W, 1);
+      doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151");
+      const dateTxt = clampLines(doc, dateStr, DATE_W, 1);
 
-      doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827");
+      doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827");
       const titleTxt = clampLines(doc, title, EVENT_W - 12, 1);
 
-      doc.font("Helvetica").fontSize(8).fillColor("#6b7280");
+      doc.font("Helvetica").fontSize(isYear ? 7 : 8).fillColor("#6b7280");
       const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, 1) : "";
 
       // Height is predictable: 1 line each
-      const rowH = 18; // tight row height
-      ensureSpace(rowH + 6);
+      const rowH = isYear ? 11 : 18;
+      ensureSpace(rowH + (isYear ? 2 : 6));
 
       const rowTop = y;
 
@@ -274,20 +335,25 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       doc.restore();
 
       // Text columns
-      doc.font("Helvetica").fontSize(9).fillColor("#374151")
-        .text(timeTxt, xBase + 8, rowTop + 3, { width: TIME_W - 8 });
+      doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151")
+        .text(dateTxt, xBase + 8, rowTop + (isYear ? 2 : 3), { width: DATE_W - 8 });
 
-      doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827")
-        .text(titleTxt, xBase + TIME_W, rowTop + 3, { width: EVENT_W });
+      doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827")
+        .text(titleTxt, xBase + DATE_W, rowTop + (isYear ? 2 : 3), { width: EVENT_W });
 
       if (locTxt) {
-        doc.font("Helvetica").fontSize(8).fillColor("#6b7280")
-          .text(locTxt, xBase + TIME_W + EVENT_W, rowTop + 4, { width: LOC_W });
+        doc.font("Helvetica").fontSize(isYear ? 7 : 8).fillColor("#6b7280")
+          .text(locTxt, xBase + DATE_W + EVENT_W, rowTop + (isYear ? 2 : 4), { width: LOC_W });
       }
 
       y += rowH;
-      hr(doc, xBase, xBase + colW, y);
-      y += 6;
+      if (!isYear) {
+        hr(doc, xBase, xBase + colW, y);
+        y += 6;
+      } else {
+        // Ultra-compact spacing for year view
+        y += 2;
+      }
     }
 
     doc.end();
@@ -298,15 +364,21 @@ export default async function handler(req, res) {
   try {
     const year = Number(req.query.year || "");
     const days = Math.max(1, Math.min(3650, Number(req.query.days || 365)));
+    const modeParam = String(req.query.mode || "").toLowerCase();
     const compact = String(req.query.compact || "").toLowerCase();
     const compactTwoColumn = compact === "1" || compact === "true" || compact === "2col";
 
-    // Allow fixed year window exports: /api/agenda.pdf?year=2026
-    globalThis.__SWD_YEAR__ = (year && Number.isFinite(year)) ? year : "";
+    const hasYear = (year && Number.isFinite(year));
+    const mode = (modeParam === "year" || modeParam === "agenda")
+      ? modeParam
+      : (hasYear ? "year" : "agenda");
 
-    const cacheKey = (year && Number.isFinite(year))
-      ? `year=${year}&compact=${compactTwoColumn ? "2col" : "1col"}`
-      : `days=${days}&compact=${compactTwoColumn ? "2col" : "1col"}`;
+    // Allow fixed year window exports: /api/agenda.pdf?year=2026
+    globalThis.__SWD_YEAR__ = hasYear ? year : "";
+
+    const cacheKey = hasYear
+      ? `year=${year}&mode=${mode}&compact=${compactTwoColumn ? "2col" : "1col"}`
+      : `days=${days}&mode=${mode}&compact=${compactTwoColumn ? "2col" : "1col"}`;
     const now = Date.now();
 
     if (PDF_CACHE.buf && PDF_CACHE.key === cacheKey && now - PDF_CACHE.t < PDF_TTL_MS) {
@@ -318,7 +390,7 @@ export default async function handler(req, res) {
     }
 
     const events = await fetchEventsDirect(days);
-    const pdfBuf = await buildPdfBuffer(events, days, compactTwoColumn);
+    const pdfBuf = await buildPdfBuffer(events, days, compactTwoColumn, mode, hasYear ? year : null);
 
     PDF_CACHE = { t: now, buf: pdfBuf, key: cacheKey };
 
