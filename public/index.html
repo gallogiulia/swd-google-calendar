@@ -65,6 +65,12 @@
       border-bottom: 1px solid #e5e7eb;
     }
 
+    .fc-event-location {
+  font-size: 0.85em;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
     .fc-list-event-title {
       font-weight: 600;
       padding: 6px 0;
@@ -125,7 +131,21 @@ fetch(`/api/events?year=${YEAR}`).then(r => r.json()).then(d => {
     dayGridMonth: { buttonText: "Month" }
   },
 
-  events: d.events
+  events: d.events,
+
+  eventContent(arg) {
+    const loc = shortLocation(arg.event.extendedProps.location);
+    const title = arg.event.title;
+
+    return {
+      html: `
+        <div>
+          <div class="fc-list-event-title">${title}</div>
+          ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
+        </div>
+      `
+    };
+  }
 }).render();
 });
 </script>

@@ -84,6 +84,12 @@
       color: #6b7280;
       font-size: 0.9em;
     }
+    .fc-event-location {
+  font-size: 0.85em;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
 
     @media print {
       body {
@@ -112,6 +118,11 @@
   </div>
 
   <script>
+    function shortLocation(loc) {
+  if (!loc) return "";
+  return String(loc).split(",")[0].trim();
+}
+
     function getYear(){
       const u = new URL(window.location.href);
       const y = Number(u.searchParams.get("year") || "");
@@ -124,15 +135,29 @@
       .then(r => r.json())
       .then(d => {
         new FullCalendar.Calendar(document.getElementById("agenda"), {
-          initialView: "listYear",
-          initialDate: `${YEAR}-01-01`,
-          validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
-          nowIndicator: false,
-          // Hide FullCalendar navigation controls (today + arrows)
-          headerToolbar: false,
-          height: "auto",
-          events: d.events
-        }).render();
+  initialView: "listYear",
+  initialDate: `${YEAR}-01-01`,
+  validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
+  nowIndicator: false,
+  headerToolbar: false,
+  height: "auto",
+  events: d.events,
+
+  eventContent(arg) {
+    const loc = shortLocation(arg.event.extendedProps.location);
+    const title = arg.event.title;
+
+    return {
+      html: `
+        <div>
+          <div class="fc-list-event-title">${title}</div>
+          ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
+        </div>
+      `
+    };
+  }
+}).render();
+
       });
   </script>
 
