@@ -1,3 +1,4 @@
+// pages/api/agenda.pdf.js
 import PDFDocument from "pdfkit";
 
 let PDF_CACHE = { t: 0, buf: null, key: "" };
@@ -12,30 +13,50 @@ const IDS = [
 ];
 
 const CALENDAR_COLORS = {
-  "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com": "#2563eb",
-  "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com": "#7c3aed",
-  "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com": "#dc2626",
-  "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com": "#059669",
-  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"
+  "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com": "#2563eb", // Club Sponsored
+  "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com": "#7c3aed", // Other
+  "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com": "#dc2626", // Men
+  "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com": "#059669", // Women
+  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"  // PBA
 };
 
 function safeText(s) {
   return String(s || "").replace(/\s+/g, " ").trim();
 }
 
-function fmtDate(d) {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "2-digit"
-  }).format(d);
+// Keep ONLY the club name (everything before first comma).
+function shortLocation(loc) {
+  if (!loc) return "";
+  const s = safeText(loc);
+  if (!s) return "";
+  if (s.includes(",")) return s.split(",")[0].trim();
+  return s;
 }
 
-function fmtTime(d) {
+// Convert either "YYYY-MM-DD" or ISO dateTime into "YYYY-MM-DD" (UTC date).
+function isoDateFromAny(v) {
+  const s = String(v || "").trim();
+  if (!s) return "";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return "";
+  // Use UTC date to avoid timezone drift
+  return d.toISOString().slice(0, 10);
+}
+
+function addDaysISO(isoYYYYMMDD, n) {
+  const [Y, M, D] = isoYYYYMMDD.split("-").map(Number);
+  const dt = new Date(Date.UTC(Y, M - 1, D, 0, 0, 0));
+  dt.setUTCDate(dt.getUTCDate() + n);
+  return dt.toISOString().slice(0, 10);
+}
+
+function fmtDate(d) {
   return new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    minute: "2-digit"
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
   }).format(d);
 }
 
@@ -71,6 +92,15 @@ function clampLines(doc, text, width, maxLines = 1) {
   return lines.join("\n");
 }
 
+/**
+ * IMPORTANT NORMALIZATION RULES (per your requirements)
+ * 1) PDF shows NO times/durations. Every event is printed as "all-day" (blank time column).
+ * 2) Prevent bogus “two-day” rows that come from dateTime end values or timezone drift:
+ *    - If the source event is timed (start.dateTime), force it to a single all-day day: end = start + 1 (exclusive).
+ *    - If the source event is already all-day (start.date), keep its end *as provided* (it’s already exclusive),
+ *      BUT if end is missing or equals start, force end = start + 1.
+ * 3) Location in the PDF is club name only (no street address).
+ */
 async function fetchEventsDirect(days) {
   const key = process.env.GCAL_API_KEY;
   if (!key) throw new Error("Missing GCAL_API_KEY");
@@ -93,25 +123,30 @@ async function fetchEventsDirect(days) {
 
     const j = await r.json();
     for (const e of (j.items || [])) {
+      const isTimed = !!e.start?.dateTime;
       const startRaw = e.start?.dateTime || e.start?.date;
       if (!startRaw) continue;
+
       const endRaw = e.end?.dateTime || e.end?.date || "";
 
-      // Force all-day events and remove times/durations from output.
       const start = isoDateFromAny(startRaw);
+      if (!start) continue;
+
       let end = endRaw ? isoDateFromAny(endRaw) : "";
 
-      // If this was a timed event (dateTime), Google will often provide same-day end.
-      // For all-day normalization, ensure end is at least start+1 day (exclusive).
-      if (!end || end === start) {
+      // Timed -> always single-day all-day in PDF
+      if (isTimed) {
         end = addDaysISO(start, 1);
+      } else {
+        // All-day source -> ensure at least 1-day (exclusive end)
+        if (!end || end === start) end = addDaysISO(start, 1);
       }
 
       events.push({
         id: `${id}:${e.id}`,
         title: e.summary || "",
-        start,
-        end,
+        start,   // YYYY-MM-DD
+        end,     // YYYY-MM-DD (exclusive)
         allDay: true,
         location: shortLocation(e.location || ""),
         color: CALENDAR_COLORS[id] || "#2563eb"
@@ -126,8 +161,7 @@ async function fetchEventsDirect(days) {
 // ===== Compact PDF renderer (single or 2-column) =====
 async function buildPdfBuffer(events, days, compactTwoColumn) {
   return await new Promise((resolve, reject) => {
-    // Reduced margins = fewer pages
-    const M = 32; // was 48
+    const M = 32;
     const doc = new PDFDocument({ size: "LETTER", margin: M });
 
     const chunks = [];
@@ -180,7 +214,6 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
     function renderHeader(isContinued) {
       doc.save();
 
-      // Header block (tight)
       doc.font("Helvetica-Bold").fontSize(14).fillColor("#111827")
         .text("SWD Bowls — Events Agenda", xBase, y);
 
@@ -198,11 +231,12 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       hr(doc, xBase, xBase + colW, y);
       y += 10;
 
-      // Column headings (optional, very small)
+      // Headings: NO time column (per requirement)
       doc.font("Helvetica-Bold").fontSize(8).fillColor("#9ca3af");
-      doc.text("TIME", xBase, y, { width: 62 });
-      doc.text("EVENT", xBase + 62, y, { width: Math.floor(colW * 0.55) - 62 });
-      doc.text("LOCATION", xBase + Math.floor(colW * 0.55), y, { width: colW - Math.floor(colW * 0.55) });
+      const EVENT_W_H = Math.floor(colW * 0.68);
+      const LOC_W_H = colW - EVENT_W_H;
+      doc.text("EVENT", xBase, y, { width: EVENT_W_H });
+      doc.text("LOCATION", xBase + EVENT_W_H, y, { width: LOC_W_H });
       y += 8;
       hr(doc, xBase, xBase + colW, y);
       y += 10;
@@ -210,7 +244,6 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       doc.restore();
     }
 
-    // First header
     renderHeader(false);
 
     if (!events.length) {
@@ -220,26 +253,23 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       return;
     }
 
-    // Column sizing (tight)
-    const TIME_W = 62;
-    const EVENT_W = Math.floor(colW * 0.55) - TIME_W; // time + event block
-    const LOC_W = colW - (TIME_W + EVENT_W);
+    // Column sizing (tight + predictable)
+    const EVENT_W = Math.floor(colW * 0.68);
+    const LOC_W = colW - EVENT_W;
 
     let currentDayKey = "";
 
     function ensureSpace(needed) {
       const maxY = pageH - bottom;
       if (y + needed <= maxY) return;
-
-      // go next column, then page
       nextColumnOrPage();
     }
 
     for (const e of events) {
-      const start = new Date(e.start);
-      const dayKey = start.toISOString().slice(0, 10);
+      const start = new Date(`${e.start}T00:00:00Z`);
+      const dayKey = e.start;
 
-      // Day header (tight)
+      // Day header
       if (dayKey !== currentDayKey) {
         currentDayKey = dayKey;
 
@@ -254,22 +284,16 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       }
 
       // Row
-      const timeStr = "";// times hidden; all events treated as all-day
       const title = safeText(e.title) || "(Untitled)";
       const loc = safeText(e.location);
 
-      // Make rows shorter: clamp location to 1 line, title to 1 line
-      doc.font("Helvetica").fontSize(9).fillColor("#374151");
-      const timeTxt = clampLines(doc, timeStr, TIME_W, 1);
-
       doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827");
-      const titleTxt = clampLines(doc, title, EVENT_W - 12, 1);
+      const titleTxt = clampLines(doc, title, EVENT_W - 16, 1);
 
       doc.font("Helvetica").fontSize(8).fillColor("#6b7280");
-      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, 1) : "";
+      const locTxt = loc ? clampLines(doc, loc, LOC_W - 6, 1) : "";
 
-      // Height is predictable: 1 line each
-      const rowH = 18; // tight row height
+      const rowH = 18;
       ensureSpace(rowH + 6);
 
       const rowTop = y;
@@ -280,15 +304,12 @@ async function buildPdfBuffer(events, days, compactTwoColumn) {
       doc.restore();
 
       // Text columns
-      doc.font("Helvetica").fontSize(9).fillColor("#374151")
-        .text(timeTxt, xBase + 8, rowTop + 3, { width: TIME_W - 8 });
-
       doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827")
-        .text(titleTxt, xBase + TIME_W, rowTop + 3, { width: EVENT_W });
+        .text(titleTxt, xBase + 10, rowTop + 3, { width: EVENT_W - 10 });
 
       if (locTxt) {
         doc.font("Helvetica").fontSize(8).fillColor("#6b7280")
-          .text(locTxt, xBase + TIME_W + EVENT_W, rowTop + 4, { width: LOC_W });
+          .text(locTxt, xBase + EVENT_W, rowTop + 4, { width: LOC_W });
       }
 
       y += rowH;
