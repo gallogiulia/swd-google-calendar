@@ -119,6 +119,9 @@ fetch(`/api/events?year=${YEAR}`).then(r => r.json()).then(d => {
   validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
   nowIndicator: false,
   height: "auto",
+  eventDisplay: "block",
+  displayEventTime: false,
+
 
   headerToolbar: {
     left: "prev,next",

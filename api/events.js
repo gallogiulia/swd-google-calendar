@@ -49,11 +49,32 @@ export default async function(req,res){
   const u=`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(id)}/events?key=${process.env.GCAL_API_KEY}&timeMin=${min}&timeMax=${max}&singleEvents=true&orderBy=startTime`;
   const r=await fetch(u); if(!r.ok) continue;
   const j=await r.json();
-  (j.items||[]).forEach(e=>ev.push({
-   id:e.id,title:e.summary||"",start:e.start.dateTime||e.start.date,
-   end:e.end?.dateTime||e.end?.date,allDay:!!e.start.date,
-   location:e.location||"",htmlLink:e.htmlLink||"",color: CALENDAR_COLORS[id] || "#2563eb"
-  }));
+
+
+(j.items || []).forEach(e => {
+  // Force ALL events to be all-day, single-day
+  let startDate = e.start.dateTime
+    ? e.start.dateTime.split("T")[0]
+    : e.start.date;
+
+  // End must be start + 1 day for all-day events
+  let endDate = new Date(startDate);
+  endDate.setUTCDate(endDate.getUTCDate() + 1);
+
+  ev.push({
+    id: e.id,
+    title: e.summary || "",
+    start: startDate,
+    end: endDate.toISOString().split("T")[0],
+    allDay: true,
+    location: e.location || "",
+    htmlLink: e.htmlLink || "",
+    color: CALENDAR_COLORS[id] || "#2563eb"
+  });
+});
+
+
+
  }
  ev.sort((a,b)=>new Date(a.start)-new Date(b.start));
  CACHE={t:now,d:{events:ev},key:cacheKey};
