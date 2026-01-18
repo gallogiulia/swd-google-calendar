@@ -519,7 +519,7 @@ export default async function handler(req, res) {
     PDF_CACHE = { t: now, buf: pdfBuf, key: cacheKey };
 
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=SWD-events-agenda.pdf");
+    res.setHeader("Content-Disposition", "attachment; filename=2026-SWBowls-Event-Calendar-26117.pdf");
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("Content-Length", String(pdfBuf.length));
     return res.status(200).send(pdfBuf);
