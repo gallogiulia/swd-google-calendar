@@ -394,7 +394,9 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     // Column sizing
     // Agenda mode hides times entirely, so we make the first column a tiny spacer.
     const AGENDA_SPLIT_X = Math.floor(colW * 0.60); // Event vs location split
-    const DATE_W = isYear ? Math.max(64, Math.floor(colW * 0.18)) : 14;
+    // For Agenda mode we keep a real DATE column (not just the day header),
+    // so multi-day events can render as a range like "Feb 07–Feb 12".
+    const DATE_W = isYear ? Math.max(64, Math.floor(colW * 0.18)) : 78;
     const EVENT_W = isYear
       ? Math.max(170, Math.floor(colW * 0.40))
       : (AGENDA_SPLIT_X - DATE_W);
@@ -431,7 +433,7 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       // Row
       const dateStr = isYear
         ? fmtDateRangeShort(e.start, e.end, e.allDay)
-        : ""; // agenda view hides times entirely
+        : fmtDateRangeShort(e.start, e.end, e.allDay);
       const title = safeText(e.title) || "(Untitled)";
       const loc = safeText(e.location);
 

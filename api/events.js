@@ -25,6 +25,12 @@ function yearWindow(year){
   return { start, end };
 }
 
+function addDaysISO(dateISO, days){
+  const d = new Date(`${dateISO}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
 
 export default async function(req,res){
  const now=Date.now();
@@ -53,20 +59,30 @@ export default async function(req,res){
 
 
 (j.items || []).forEach(e => {
-  // Force ALL events to be all-day, single-day
-  let startDate = e.start.dateTime
-    ? e.start.dateTime.split("T")[0]
-    : e.start.date;
+  // Normalize to all-day display without losing true multi-day all-day spans.
+  const isAllDay = !!e.start?.date;
 
-  // End must be start + 1 day for all-day events
-  let endDate = new Date(startDate);
-  endDate.setUTCDate(endDate.getUTCDate() + 1);
+  // Start: date-only (YYYY-MM-DD)
+  const startDate = isAllDay
+    ? e.start.date
+    : (e.start?.dateTime ? e.start.dateTime.split("T")[0] : "");
+  if(!startDate) return;
+
+  // End: preserve all-day end (exclusive) when present.
+  // If this was a timed event, we always render as a single all-day event.
+  let endDate = "";
+  if(isAllDay){
+    endDate = e.end?.date || "";
+    if(!endDate || endDate <= startDate) endDate = addDaysISO(startDate, 1);
+  } else {
+    endDate = addDaysISO(startDate, 1);
+  }
 
   ev.push({
     id: e.id,
     title: e.summary || "",
     start: startDate,
-    end: endDate.toISOString().split("T")[0],
+    end: endDate,
     allDay: true,
     location: e.location || "",
     htmlLink: e.htmlLink || "",
