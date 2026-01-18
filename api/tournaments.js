@@ -51,16 +51,30 @@ function parseCsv(csvText) {
   // trim whitespace
   return rows.map(r => r.map(c => String(c ?? "").trim()));
 }
-
 function normalizeGender(g) {
-  const s = String(g || "").trim().toLowerCase();
+  const s = String(g || "").trim();
   if (!s) return "";
-  if (s.startsWith("w")) return "Women";
-  if (s.startsWith("m") && !s.startsWith("mi")) return "Men";
-  if (s.startsWith("mix")) return "Mixed";
-  if (s.startsWith("club")) return "Club";
+
+  const lower = s.toLowerCase();
+  const key = lower.replace(/[^a-z]/g, ""); // "Mix & Match" -> "mixmatch"
+
+  if (key.startsWith("w")) return "Women";
+
+  // Men (but not "mixed" / "mixmatch")
+  if (key.startsWith("m") && !key.startsWith("mi")) return "Men";
+
+  // NEW: Mix & Match as its own category
+  if (key === "mixmatch" || key === "mixandmatch" || key === "mixnmatch") return "Mix & Match";
+
+  // Mixed stays Mixed
+  if (key.startsWith("mix")) return "Mixed";
+
+  if (key.startsWith("club")) return "Club";
+
+  // fallback: Title Case original
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
+
 
 export default async function handler(req, res) {
   try {
