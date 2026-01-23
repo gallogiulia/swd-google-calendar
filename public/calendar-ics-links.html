@@ -1,4 +1,3 @@
-
 <!-- File: /public/calendar-ics-links.html -->
 <!doctype html>
 <html lang="en">
@@ -70,12 +69,8 @@
         font-weight:600;
         white-space:nowrap;
         transition:background .15s ease,border-color .15s ease,transform .1s ease;
-        cursor:pointer;
       }
       .btn:hover{background:#f5f5f5;border-color:#a9a9a9;transform:translateY(-1px);}
-      .btn:active{transform:none;}
-
-      .btn.secondary{font-weight:600;color:#222;border-color:#d7d7d7;}
       .btn.primary{border-color:#111;background:#111;color:#fff;}
       .btn.primary:hover{background:#222;border-color:#222;}
 
@@ -95,14 +90,17 @@
 
   <body>
     <div class="wrap">
-      <div class="card" role="region" aria-label="iCal subscription links">
+      <div class="card" role="region">
         <h2>Subscribe for Apple Calendar / Outlook</h2>
         <div class="sub">
-          Use these <b>.ics</b> subscription links in Apple Calendar, Outlook, or any iCal-compatible app.
+          Click <b>Open .ics</b> to subscribe in Apple Calendar or Outlook.
         </div>
 
         <div id="list" class="list"></div>
 
+        <div class="note">
+          Admin: Google Calendar → Settings and sharing → Integrate calendar → copy “Public address in iCal format”.
+        </div>
       </div>
     </div>
 
@@ -110,29 +108,14 @@
       const icsFeeds = [
         {
           name: "2026 SWD Tournaments - Men's",
-          ics: "https://calendar.google.com/calendar/u/1?cid=MmJhODI4NzQ2YmIwZjZjYTAwNDdkZTNiYzA4NWEyYWUyOTYzMjIxMmFjOWM0ZjQ4ZmU4ZGViMWQ0NmE3MzJkZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
-          googleCid: "MmJhODI4NzQ2YmIwZjZjYTAwNDdkZTNiYzA4NWEyYWUyOTYzMjIxMmFjOWM0ZjQ4ZmU4ZGViMWQ0NmE3MzJkZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
-        },
-        {
-          name: "2026 SWD Tournaments - Women's",
-          ics: "https://calendar.google.com/calendar/u/1?cid=MDhlMjQ2ODAxMGZhYjM1NDBhN2I3YzUzZjUwYTE3NmVlMzgyNGNiNzAwYjNhZmJlZThmNzA2OTQ5ZTA0Mzc4M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
-          googleCid: "MDhlMjQ2ODAxMGZhYjM1NDBhN2I3YzUzZjUwYTE3NmVlMzgyNGNiNzAwYjNhZmJlZThmNzA2OTQ5ZTA0Mzc4M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
-        },
-      {
-          name: "2026 Club Sponsored Events",
-          ics: "https://calendar.google.com/calendar/u/1?cid=YTVhMGQwNDY3ZTlkM2IzMmU5MDQ3YTgxMDE1MzZmMzY2NTc1OTI3ODVlY2ZmMDc4NTQ5YjAwOTc5ZDg0YTU5MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+          ics: "PASTE_PUBLIC_ICAL_URL_FOR_CALENDAR_1",
           googleCid: "YTVhMGQwNDY3ZTlkM2IzMmU5MDQ3YTgxMDE1MzZmMzY2NTc1OTI3ODVlY2ZmMDc4NTQ5YjAwOTc5ZDg0YTU5MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
         },
         {
-          name: "2026 Other Tournaments",
-          ics: "https://calendar.google.com/calendar/u/1?cid=MWE2ZDRhYTkyZmM4OGQ2ZjZlZjA2OTJmM2I0NTkwMGNjZTAyOTdiNjFlNzZhNDZiOWM2MTQwMWIyMDM5OGQ2NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+          name: "2026 SWD Tournaments - Women's",
+          ics: "PASTE_PUBLIC_ICAL_URL_FOR_CALENDAR_2",
           googleCid: "MWE2ZDRhYTkyZmM4OGQ2ZjZlZjA2OTJmM2I0NTkwMGNjZTAyOTdiNjFlNzZhNDZiOWM2MTQwMWIyMDM5OGQ2NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
-        },
-        {
-          name: "2026 PBA",
-          ics: "https://calendar.google.com/calendar/u/1?cid=MGM4NGUwNmMzZWNjMTU1NTg0ODkxMTE1NWVlOWQwNWU5MjM0YjQ3YmFmNGFhODc3NzljMDE1OTM0ZGViNmM5NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
-          googleCid: "MGM4NGUwNmMzZWNjMTU1NTg0ODkxMTE1NWVlOWQwNWU5MjM0YjQ3YmFmNGFhODc3NzljMDE1OTM0ZGViNmM5NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
-        },
+        }
       ];
 
       const list = document.getElementById("list");
@@ -150,28 +133,13 @@
 
         const meta = document.createElement("div");
         meta.className = "meta";
-        meta.textContent = "Apple/Outlook: copy the iCal subscription link, then paste into your calendar app.";
+        meta.textContent = "Apple / Outlook subscription link";
 
         left.appendChild(name);
         left.appendChild(meta);
 
         const right = document.createElement("div");
         right.className = "right";
-
-        const isPlaceholder = (item.ics || "").startsWith("PASTE_");
-
-        const copyBtn = document.createElement("button");
-        copyBtn.className = "btn secondary";
-        copyBtn.type = "button";
-        copyBtn.textContent = "Copy iCal link";
-        copyBtn.addEventListener("click", async () => {
-          if (!navigator.clipboard) return;
-          try{
-            await navigator.clipboard.writeText(item.ics);
-            copyBtn.textContent = "Copied";
-            setTimeout(() => copyBtn.textContent = "Copy iCal link", 1000);
-          }catch{}
-        });
 
         const openIcs = document.createElement("a");
         openIcs.className = "btn primary";
@@ -181,20 +149,12 @@
         openIcs.textContent = "Open .ics";
 
         const google = document.createElement("a");
-        google.className = "btn secondary";
+        google.className = "btn";
         google.href = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(item.googleCid);
         google.target = "_blank";
         google.rel = "noopener noreferrer";
         google.textContent = "Google subscribe";
 
-        if (isPlaceholder){
-          copyBtn.disabled = true;
-          copyBtn.style.opacity = "0.5";
-          openIcs.style.pointerEvents = "none";
-          openIcs.style.opacity = "0.5";
-        }
-
-        right.appendChild(copyBtn);
         right.appendChild(openIcs);
         right.appendChild(google);
 
