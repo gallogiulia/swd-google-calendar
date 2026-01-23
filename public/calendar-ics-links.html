@@ -1,0 +1,277 @@
+<!-- File: /public/calendar-ics-links.html
+     Served at: https://YOUR-VERCEL-DOMAIN/calendar-ics-links.html
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Subscribe (Apple/Outlook)</title>
+    <style>
+      :root{
+  --bg:#ffffff;
+  --card:#ffffff;
+  --stroke:#dddddd;
+  --text:#111111;
+  --muted:#666666;
+  --shadow:0 4px 12px rgba(0,0,0,0.08);
+  --radius:12px;
+}
+
+body{
+  margin:0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.wrap{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+h2{
+  margin:0;
+  font-size:18px;
+  font-weight:600;
+}
+
+.sub{
+  margin:6px 0 12px;
+  color: var(--muted);
+  font-size:13px;
+  line-height:1.4;
+}
+
+/* grid buttons page */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap:10px;
+}
+@media (max-width: 980px){
+  .grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px){
+  .grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+.btn{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+  text-decoration:none;
+  border-radius:10px;
+  padding:12px 10px;
+  border:1px solid #cccccc;
+  background:#ffffff;
+  color:#111111;
+  min-height:70px;
+  transition: background .15s ease, border-color .15s ease, transform .1s ease;
+}
+.btn:hover{
+  background:#f5f5f5;
+  border-color:#999999;
+  transform: translateY(-1px);
+}
+.btn:active{ transform:none; }
+
+.label{
+  font-weight:600;
+  font-size:13px;
+}
+.hint{
+  font-size:12px;
+  color:#666666;
+}
+
+.badge{
+  position:absolute;
+  top:8px;
+  right:8px;
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid #cccccc;
+  color:#444444;
+  background:#f9f9f9;
+}
+
+/* iCal list page */
+.list{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #dddddd;
+  background:#ffffff;
+}
+
+.name{ font-weight:600; font-size:13px; }
+.meta{ font-size:12px; color:#666666; margin-top:2px; }
+
+.left{ min-width:0; }
+.right{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.small-link,
+.btn.link{
+  text-decoration:none;
+}
+
+.note{
+  margin-top:10px;
+  font-size:12px;
+  color:#666666;
+}
+
+code{
+  font-size:12px;
+  background:#f3f3f3;
+  padding:2px 4px;
+  border-radius:4px;
+}
+
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="card" role="region" aria-label="iCal subscription links">
+        <h2>Subscribe for Apple Calendar / Outlook</h2>
+        <p class="sub">
+          These are <code>.ics</code> subscription links. Use them in Apple Calendar, Outlook, or any iCal-compatible app.
+        </p>
+        <div id="list" class="list"></div>
+
+      </div>
+    </div>
+
+    <script>
+      // TODO: Replace ics with your real "Public address in iCal format" links from Google Calendar.
+      // These are placeholders so the page structure is ready now.
+
+      const icsFeeds = [
+        {
+          name: "2026 SWD Tournaments - Men's",
+          ics: "https://calendar.google.com/calendar/u/1?cid=MmJhODI4NzQ2YmIwZjZjYTAwNDdkZTNiYzA4NWEyYWUyOTYzMjIxMmFjOWM0ZjQ4ZmU4ZGViMWQ0NmE3MzJkZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+          googleCid: "hMmJhODI4NzQ2YmIwZjZjYTAwNDdkZTNiYzA4NWEyYWUyOTYzMjIxMmFjOWM0ZjQ4ZmU4ZGViMWQ0NmE3MzJkZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+        },
+        {
+          name: "2026 SWD Tournaments - Women's",
+          ics: "https://calendar.google.com/calendar/u/1?cid=MDhlMjQ2ODAxMGZhYjM1NDBhN2I3YzUzZjUwYTE3NmVlMzgyNGNiNzAwYjNhZmJlZThmNzA2OTQ5ZTA0Mzc4M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+          googleCid: "MDhlMjQ2ODAxMGZhYjM1NDBhN2I3YzUzZjUwYTE3NmVlMzgyNGNiNzAwYjNhZmJlZThmNzA2OTQ5ZTA0Mzc4M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+        },
+      {
+          name: "2026 Club Sponsored Events",
+          ics: "https://calendar.google.com/calendar/u/1?cid=YTVhMGQwNDY3ZTlkM2IzMmU5MDQ3YTgxMDE1MzZmMzY2NTc1OTI3ODVlY2ZmMDc4NTQ5YjAwOTc5ZDg0YTU5MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+          googleCid: "YTVhMGQwNDY3ZTlkM2IzMmU5MDQ3YTgxMDE1MzZmMzY2NTc1OTI3ODVlY2ZmMDc4NTQ5YjAwOTc5ZDg0YTU5MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+        },
+        {
+          name: "2026 Other Tournaments",
+          ics: "https://calendar.google.com/calendar/u/1?cid=MWE2ZDRhYTkyZmM4OGQ2ZjZlZjA2OTJmM2I0NTkwMGNjZTAyOTdiNjFlNzZhNDZiOWM2MTQwMWIyMDM5OGQ2NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+          googleCid: "MWE2ZDRhYTkyZmM4OGQ2ZjZlZjA2OTJmM2I0NTkwMGNjZTAyOTdiNjFlNzZhNDZiOWM2MTQwMWIyMDM5OGQ2NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+        },
+        {
+          name: "2026 PBA",
+          ics: "https://calendar.google.com/calendar/u/1?cid=MGM4NGUwNmMzZWNjMTU1NTg0ODkxMTE1NWVlOWQwNWU5MjM0YjQ3YmFmNGFhODc3NzljMDE1OTM0ZGViNmM5NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+          googleCid: "MGM4NGUwNmMzZWNjMTU1NTg0ODkxMTE1NWVlOWQwNWU5MjM0YjQ3YmFmNGFhODc3NzljMDE1OTM0ZGViNmM5NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+        },
+      ];
+
+      const list = document.getElementById("list");
+
+      icsFeeds.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "row";
+
+        const left = document.createElement("div");
+        left.className = "left";
+
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = item.name;
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.innerHTML = `iCal feed: <code>${item.ics}</code>`;
+
+        left.appendChild(name);
+        left.appendChild(meta);
+
+        const right = document.createElement("div");
+        right.className = "right";
+
+        const copyBtn = document.createElement("a");
+        copyBtn.className = "btn";
+        copyBtn.href = "#";
+        copyBtn.textContent = "Copy iCal link";
+        copyBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          if (!navigator.clipboard) return;
+          try {
+            await navigator.clipboard.writeText(item.ics);
+            copyBtn.textContent = "Copied";
+            setTimeout(() => (copyBtn.textContent = "Copy iCal link"), 1200);
+          } catch {}
+        });
+
+        const openIcs = document.createElement("a");
+        openIcs.className = "btn";
+        openIcs.href = item.ics;
+        openIcs.target = "_blank";
+        openIcs.rel = "noopener noreferrer";
+        openIcs.textContent = "Open .ics";
+
+        const google = document.createElement("a");
+        google.className = "btn";
+        google.href = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(item.googleCid);
+        google.target = "_blank";
+        google.rel = "noopener noreferrer";
+        google.textContent = "Google subscribe";
+
+        // Disable buttons if placeholder
+        const isPlaceholder = item.ics.startsWith("PASTE_");
+        if (isPlaceholder) {
+          openIcs.style.opacity = "0.55";
+          openIcs.style.pointerEvents = "none";
+          copyBtn.style.opacity = "0.55";
+          copyBtn.style.pointerEvents = "none";
+        }
+
+        right.appendChild(copyBtn);
+        right.appendChild(openIcs);
+        right.appendChild(google);
+
+        row.appendChild(left);
+        row.appendChild(right);
+
+        list.appendChild(row);
+      });
+    </script>
+  </body>
+</html>
