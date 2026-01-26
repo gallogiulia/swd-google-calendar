@@ -4,29 +4,84 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SWD Events – Agenda</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
   <style>
-    body { font-family: system-ui, sans-serif; background: #fafafa; margin: 0; padding: 16px; }
-    .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 16px; }
-    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 12px; padding: 10px; border: 1px solid #e5e7eb; border-radius: 12px; background: #fafafa; font-size: 0.95rem; }
-    .legend .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
-    
-    /* This makes the whole event row look clickable */
-    .fc-list-event { cursor: pointer; transition: background 0.1s; }
-    .fc-list-event:hover { background: #f9fafb !important; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafafa;
+      color: #111827;
+      font-size: 0.95rem;
+    }
+
+    .legend .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+    }
+
+    /* Makes the event row look clickable */
+    .fc-list-event { 
+      cursor: pointer; 
+      transition: background 0.1s;
+    }
+    .fc-list-event:hover { 
+      background: #f9fafb !important; 
+    }
 
     .fc-header-toolbar { display: none; }
-    .fc-list-day-cushion { background: #f1f1f1; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-top: 12px; }
+
+    .fc-list-day-cushion {
+      background: #f1f1f1;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
     .fc-list-event-title { font-weight: 600; }
+
+    /* Hide ALL time/duration text */
     .fc-list-event-time, .fc-event-time { display: none !important; }
-    .fc-event-location { font-size: 0.85em; color: #6b7280; margin-top: 2px; }
+
+    .fc-event-location {
+      font-size: 0.85em;
+      color: #6b7280;
+      margin-top: 2px;
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
     <h1>Southwest Division Bowls – Events Agenda</h1>
-    <div class="legend">
+    <div class="legend" aria-label="Calendar legend">
       <span class="item"><span class="swatch" style="background:#059669"></span> Women’s</span>
       <span class="item"><span class="swatch" style="background:#dc2626"></span> Men’s</span>
       <span class="item"><span class="swatch" style="background:#2563eb"></span> Club Sponsored</span>
@@ -35,49 +90,63 @@
     </div>
     <div id="agenda"></div>
   </div>
+
   <script>
-    function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
-    function getYear() {
+    function shortLocation(loc) {
+      if (!loc) return "";
+      return String(loc).split(",")[0].trim();
+    }
+
+    function getYear(){
       const u = new URL(window.location.href);
       const y = Number(u.searchParams.get("year") || "");
       return (y && Number.isFinite(y)) ? y : 2026;
     }
+
     const YEAR = getYear();
-    fetch(`/api/events?year=${YEAR}`).then(r => r.json()).then(d => {
-      new FullCalendar.Calendar(document.getElementById("agenda"), {
-        initialView: "listYear",
-        initialDate: `${YEAR}-01-01`,
-        validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
-        headerToolbar: false,
-        height: "auto",
-        events: d.events,
 
-        // ACTUAL CLICK LOGIC
-        eventClick: function(info) {
-          const url = info.event.extendedProps.eventUrl;
-          if (url) {
-            window.open(url, '_blank'); 
-          } else {
-            alert("Entry link for '" + info.event.title + "' is not yet available. Check back soon!");
-          }
-        },
+    fetch(`/api/events?year=${YEAR}`)
+      .then(r => r.json())
+      .then(d => {
+        new FullCalendar.Calendar(document.getElementById("agenda"), {
+          initialView: "listYear",
+          initialDate: `${YEAR}-01-01`,
+          validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
+          nowIndicator: false,
+          headerToolbar: false,
+          height: "auto",
+          events: d.events,
 
-        eventContent(arg) {
-          const loc = shortLocation(arg.event.extendedProps.location);
-          const hasLink = !!arg.event.extendedProps.eventUrl;
-          return {
-            html: `
-              <div>
-                <div class="fc-list-event-title">
-                  ${arg.event.title} ${hasLink ? '<span style="color:#2563eb; margin-left:4px;">🔗</span>' : ''}
+          // Logic for clicking an event
+          eventClick: function(info) {
+            const url = info.event.extendedProps.eventUrl;
+            if (url) {
+              window.open(url, '_blank'); 
+            } else {
+              alert("Entry link for '" + info.event.title + "' is not yet available. Check back soon!");
+            }
+          },
+
+          eventContent(arg) {
+            const loc = shortLocation(arg.event.extendedProps.location);
+            const title = arg.event.title;
+            const hasLink = !!arg.event.extendedProps.eventUrl;
+
+            return {
+              html: `
+                <div>
+                  <div class="fc-list-event-title">
+                    ${title} ${hasLink ? '<span style="color:#2563eb; margin-left:4px;">🔗</span>' : ''}
+                  </div>
+                  ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
+                  ${!hasLink ? `<div style="font-size:0.75em; color:#9ca3af; font-weight:normal; margin-top:2px;">Registration not yet open</div>` : ""}
                 </div>
-                ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
-                ${!hasLink ? `<div style="font-size:0.75em; color:#9ca3af; font-weight:normal; margin-top:2px;">Registration not yet open</div>` : ""}
-              </div>`
-          };
-        }
-      }).render();
-    });
+              `
+            };
+          }
+        }).render();
+      });
   </script>
+
 </body>
 </html>

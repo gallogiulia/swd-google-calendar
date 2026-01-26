@@ -16,7 +16,7 @@ const CALENDAR_COLORS = {
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"
 };
 
-// IMPROVED: This strips out Google's hidden HTML tags so the link stays clean
+// IMPROVED: Strips out Google's hidden HTML tags so the link stays clean
 function extractUrl(text) {
   if (!text) return null;
   // This regex finds the URL even if it's trapped inside an <a> tag
@@ -76,7 +76,7 @@ export default async function (req, res) {
         endDate = addDaysISO(startDate, 1);
       }
 
-      // We look in Description first, then Location field
+      // Check Description first, then Location field for links
       const finalEventUrl = extractUrl(e.description) || extractUrl(e.location) || null;
 
       ev.push({
