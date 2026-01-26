@@ -39,7 +39,6 @@
       font-size: 0.95rem;
     }
 
-    /* NEW: Info bar for link logic */
     .info-bar {
       margin: 0 0 12px;
       padding: 8px 12px;
@@ -85,7 +84,7 @@
     </div>
 
     <div class="info-bar">
-      <strong>Note:</strong> Registration links (🔗) typically become active <strong>30 days</strong> before an event begins. If an event is more than 30 days away, the link will show as "Registration opens soon."
+      <strong>Note:</strong> Registration links (🔗) typically become active <strong>6-8 weeks</strong> before an event begins. If an event is more than 60 days away, the link will show as "Registration opens soon."
     </div>
 
     <div id="agenda"></div>
@@ -104,6 +103,8 @@
     }
 
     const YEAR = getYear();
+    // CHANGED: Using 60 days to cover the 8-week maximum window
+    const REG_WINDOW_DAYS = 60; 
 
     fetch(`/api/events?year=${YEAR}`)
       .then(r => r.json())
@@ -122,12 +123,12 @@
             const eventStart = new Date(info.event.start);
             const now = new Date();
             const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
-            const isLive = daysUntil <= 30;
+            const isLive = daysUntil <= REG_WINDOW_DAYS;
 
             if (url && isLive) {
               window.open(url, '_blank'); 
             } else if (url && !isLive) {
-              alert("Registration for '" + info.event.title + "' is not yet open. It typically opens 30 days before the event.");
+              alert("Registration for '" + info.event.title + "' is not yet open. It typically opens 6-8 weeks before the event.");
             } else {
               alert("The registration link for this event is not yet available.");
             }
@@ -138,7 +139,7 @@
             const eventStart = new Date(info.event.start);
             const now = new Date();
             const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
-            if (url && daysUntil <= 30) {
+            if (url && daysUntil <= REG_WINDOW_DAYS) {
               info.el.classList.add('is-clickable');
             }
           },
@@ -152,13 +153,16 @@
             const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
             
             const hasLink = !!url;
-            const isReady = hasLink && daysUntil <= 30;
+            const isReady = hasLink && daysUntil <= REG_WINDOW_DAYS;
 
             let statusHtml = '';
             if (!hasLink) {
               statusHtml = `<div style="font-size:0.75em; color:#9ca3af; font-weight:normal; margin-top:2px;">Link coming soon</div>`;
             } else if (!isReady) {
               statusHtml = `<div style="font-size:0.75em; color:#f59e0b; font-weight:normal; margin-top:2px;">Registration opens soon</div>`;
+            } else {
+              // If it's within the window and has a link, show a subtle "Register now" hint
+              statusHtml = `<div style="font-size:0.75em; color:#2563eb; font-weight:normal; margin-top:2px;">Registration open</div>`;
             }
 
             return {
