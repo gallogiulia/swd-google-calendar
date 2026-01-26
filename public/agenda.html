@@ -3,165 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>SWD Events – Agenda</title>
-
-  <!-- FullCalendar -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #fafafa;
-      margin: 0;
-      padding: 16px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    h1 {
-      margin: 0 0 12px;
-      font-size: 1.4rem;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 14px;
-      align-items: center;
-      margin: 0 0 12px;
-      padding: 10px 12px;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      background: #fafafa;
-      color: #111827;
-      font-size: 0.95rem;
-    }
-
-    .legend .item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
-
-    .legend .swatch {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
-    }
-
-    .fc-header-toolbar {
-      display: none; /* no navigation */
-    }
-
-    .fc-list-day-cushion {
-      background: #f1f1f1;
-      font-weight: 700;
-      padding: 8px 12px;
-      border-radius: 8px;
-      margin-top: 12px;
-    }
-
-    .fc-list-event {
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .fc-list-event-title {
-      font-weight: 600;
-    }
-
-    /* Hide ALL time/duration text */
-.fc-list-event-time,
-.fc-event-time {
-  display: none !important;
-}
-
-    .fc-event-location {
-  font-size: 0.85em;
-  color: #6b7280;
-  margin-top: 2px;
-}
-
-
-    @media print {
-      body {
-        background: #fff;
-        padding: 0;
-      }
-      .container {
-        box-shadow: none;
-        border-radius: 0;
-      }
-    }
+    body { font-family: system-ui, sans-serif; background: #fafafa; margin: 0; padding: 16px; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 16px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 12px; padding: 10px; border: 1px solid #e5e7eb; border-radius: 12px; background: #fafafa; font-size: 0.95rem; }
+    .legend .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .fc-header-toolbar { display: none; }
+    .fc-list-day-cushion { background: #f1f1f1; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-top: 12px; }
+    .fc-list-event-title { font-weight: 600; }
+    .fc-list-event-time, .fc-event-time { display: none !important; }
+    .fc-event-location { font-size: 0.85em; color: #6b7280; margin-top: 2px; }
   </style>
 </head>
 <body>
-
   <div class="container">
     <h1>Southwest Division Bowls – Events Agenda</h1>
-    <div class="legend" aria-label="Calendar legend">
-      <span class="item"><span class="swatch" style="background:#059669"></span>Women’s</span>
-      <span class="item"><span class="swatch" style="background:#dc2626"></span>Men’s</span>
-      <span class="item"><span class="swatch" style="background:#2563eb"></span>Club Sponsored</span>
-      <span class="item"><span class="swatch" style="background:#7c3aed"></span>Other Tournaments</span>
-      <span class="item"><span class="swatch" style="background:#f59e0b"></span>PBA</span>
+    <div class="legend">
+      <span class="item"><span class="swatch" style="background:#059669"></span> Women’s</span>
+      <span class="item"><span class="swatch" style="background:#dc2626"></span> Men’s</span>
+      <span class="item"><span class="swatch" style="background:#2563eb"></span> Club Sponsored</span>
+      <span class="item"><span class="swatch" style="background:#7c3aed"></span> Other Tournaments</span>
+      <span class="item"><span class="swatch" style="background:#f59e0b"></span> PBA</span>
     </div>
     <div id="agenda"></div>
   </div>
-
   <script>
-    function shortLocation(loc) {
-  if (!loc) return "";
-  return String(loc).split(",")[0].trim();
-}
-
-    function getYear(){
+    function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
+    function getYear() {
       const u = new URL(window.location.href);
       const y = Number(u.searchParams.get("year") || "");
       return (y && Number.isFinite(y)) ? y : 2026;
     }
-
     const YEAR = getYear();
-
-    fetch(`/api/events?year=${YEAR}`)
-      .then(r => r.json())
-      .then(d => {
-        new FullCalendar.Calendar(document.getElementById("agenda"), {
-  initialView: "listYear",
-  initialDate: `${YEAR}-01-01`,
-  validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
-  nowIndicator: false,
-  headerToolbar: false,
-  height: "auto",
-  events: d.events,
-
-  eventContent(arg) {
-    const loc = shortLocation(arg.event.extendedProps.location);
-    const title = arg.event.title;
-
-    return {
-      html: `
-        <div>
-          <div class="fc-list-event-title">${title}</div>
-          ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
-        </div>
-      `
-    };
-  }
-}).render();
-
-      });
+    fetch(`/api/events?year=${YEAR}`).then(r => r.json()).then(d => {
+      new FullCalendar.Calendar(document.getElementById("agenda"), {
+        initialView: "listYear",
+        initialDate: `${YEAR}-01-01`,
+        validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
+        headerToolbar: false,
+        height: "auto",
+        events: d.events,
+        eventClick: function(info) {
+          const url = info.event.extendedProps.eventUrl;
+          if (url) { window.open(url, '_blank'); }
+          else { alert("Event details not yet available."); }
+        },
+        eventContent(arg) {
+          const loc = shortLocation(arg.event.extendedProps.location);
+          const hasLink = !!arg.event.extendedProps.eventUrl;
+          return {
+            html: `
+              <div style="cursor: ${hasLink ? 'pointer' : 'default'}">
+                <div class="fc-list-event-title">${arg.event.title} ${hasLink ? '🔗' : ''}</div>
+                ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
+                ${!hasLink ? `<div style="font-size:0.75em; color:#9ca3af;">Coming Soon</div>` : ""}
+              </div>`
+          };
+        }
+      }).render();
+    });
   </script>
-
 </body>
 </html>

@@ -196,7 +196,58 @@
       return true;
     }
 
-    function card(t){
+    // Replace the card(t) function inside your tournaments.html
+function card(t) {
+  const el = document.createElement("div");
+  el.className = "card";
+  const top = document.createElement("div");
+  top.className = "topline";
+  const name = document.createElement("div");
+  name.className = "name";
+  name.textContent = t.name;
+  const year = document.createElement("div");
+  year.className = "year";
+  year.textContent = t.year || "";
+  top.appendChild(name);
+  top.appendChild(year);
+
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  const addPill = (txt) => {
+    const v = String(txt || "").trim();
+    if (!v) return;
+    const p = document.createElement("span");
+    p.className = "pill";
+    p.textContent = v;
+    meta.appendChild(p);
+  };
+  addPill(t.gender);
+  addPill(t.category);
+  addPill(t.type);
+  addPill(t.location);
+
+  if (t.url && t.url.startsWith('http')) {
+    const a = document.createElement("a");
+    a.className = "link";
+    a.href = t.url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "Open results sheet";
+    el.appendChild(a);
+  } else {
+    const placeholder = document.createElement("div");
+    placeholder.className = "link";
+    placeholder.style.background = "#f3f4f6";
+    placeholder.style.color = "#9ca3af";
+    placeholder.style.border = "1px solid #e5e7eb";
+    placeholder.textContent = "Results Pending";
+    el.appendChild(placeholder);
+  }
+
+  el.appendChild(top);
+  el.appendChild(meta);
+  return el;
+}
       const el = document.createElement("div");
       el.className = "card";
 
