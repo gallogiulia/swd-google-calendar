@@ -16,6 +16,7 @@ const CALENDAR_COLORS = {
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": "#f59e0b"
 };
 
+// NEW: Helper function to find a URL in text
 function extractUrl(text) {
   if (!text) return null;
   const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -74,6 +75,7 @@ export default async function (req, res) {
         endDate = addDaysISO(startDate, 1);
       }
 
+      // NEW: Look for a link in the Description or Location field
       const finalEventUrl = extractUrl(e.description) || extractUrl(e.location) || null;
 
       ev.push({
@@ -83,7 +85,7 @@ export default async function (req, res) {
         end: endDate,
         allDay: true,
         location: e.location || "",
-        eventUrl: finalEventUrl,
+        eventUrl: finalEventUrl, // Pass this to the web app frontend
         color: CALENDAR_COLORS[id] || "#2563eb"
       });
     });

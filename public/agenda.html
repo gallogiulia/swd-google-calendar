@@ -14,6 +14,8 @@
     .fc-header-toolbar { display: none; }
     .fc-list-day-cushion { background: #f1f1f1; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-top: 12px; }
     .fc-list-event-title { font-weight: 600; }
+    /* Cursor change to show clickability */
+    .fc-list-event { cursor: pointer; } 
     .fc-list-event-time, .fc-event-time { display: none !important; }
     .fc-event-location { font-size: 0.85em; color: #6b7280; margin-top: 2px; }
   </style>
@@ -46,20 +48,28 @@
         headerToolbar: false,
         height: "auto",
         events: d.events,
+
+        // NEW: This part makes the event clickable!
         eventClick: function(info) {
           const url = info.event.extendedProps.eventUrl;
-          if (url) { window.open(url, '_blank'); }
-          else { alert("Event details not yet available."); }
+          if (url) {
+            window.open(url, '_blank'); // Opens your Google Calendar link
+          } else {
+            alert("The link for '" + info.event.title + "' is not yet available. Please check back later!");
+          }
         },
+
         eventContent(arg) {
           const loc = shortLocation(arg.event.extendedProps.location);
           const hasLink = !!arg.event.extendedProps.eventUrl;
           return {
             html: `
-              <div style="cursor: ${hasLink ? 'pointer' : 'default'}">
-                <div class="fc-list-event-title">${arg.event.title} ${hasLink ? '🔗' : ''}</div>
+              <div>
+                <div class="fc-list-event-title">
+                  ${arg.event.title} ${hasLink ? '🔗' : ''}
+                </div>
                 ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
-                ${!hasLink ? `<div style="font-size:0.75em; color:#9ca3af;">Coming Soon</div>` : ""}
+                ${!hasLink ? `<div style="font-size:0.75em; color:#9ca3af; font-weight:normal;">Link coming soon</div>` : ""}
               </div>`
           };
         }
