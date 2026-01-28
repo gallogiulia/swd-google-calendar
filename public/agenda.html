@@ -43,7 +43,6 @@
 
     <div id="agenda"></div>
   </div>
-
 <script>
   function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
   function getYear(){
@@ -53,13 +52,12 @@
   }
 
   const YEAR = getYear();
-  // Fixed logic: showing registration links for events within 90 days
   const REG_WINDOW_DAYS = 90; 
 
   fetch(`/api/events?year=${YEAR}`)
     .then(r => r.json())
     .then(d => {
-      new FullCalendar.Calendar(document.getElementById("agenda"), {
+      const calendar = new FullCalendar.Calendar(document.getElementById("agenda"), {
         initialView: "listYear",
         initialDate: `${YEAR}-01-01`,
         validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
@@ -78,6 +76,17 @@
             window.open(url, '_blank'); 
           } else if (url && !isLive) {
             alert("Registration for this event opens soon.");
+          }
+        },
+
+        // This ensures the hover effect and cursor change only happen when a link is active
+        eventDidMount: function(info) {
+          const url = info.event.extendedProps.eventUrl;
+          const eventStart = new Date(info.event.start);
+          const now = new Date();
+          const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
+          if (url && daysUntil <= REG_WINDOW_DAYS) {
+            info.el.classList.add('is-clickable');
           }
         },
 
@@ -103,7 +112,7 @@
 
           return {
             html: `
-              <div class="${isReady ? 'is-clickable' : ''}">
+              <div>
                 <div class="fc-list-event-title">
                   ${title} ${isReady ? '<span style="color:#2563eb; margin-left:4px;">🔗</span>' : ''}
                 </div>
@@ -112,7 +121,8 @@
               </div>`
           };
         }
-      }).render();
+      });
+      calendar.render();
     })
     .catch(err => console.error("Calendar Load Error:", err));
 </script>
