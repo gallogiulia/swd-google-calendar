@@ -9,57 +9,11 @@
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #fafafa;
-      margin: 0;
-      padding: 16px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 14px;
-      align-items: center;
-      margin: 0 0 8px;
-      padding: 10px 12px;
-      border: 1px solid #e5e7eb;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      background: #fafafa;
-      color: #111827;
-      font-size: 0.95rem;
-    }
-
-    .info-bar {
-      margin: 0 0 12px;
-      padding: 8px 12px;
-      border: 1px solid #e5e7eb;
-      border-top: none;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      background: #fdfcf0;
-      color: #856404;
-      font-size: 0.85rem;
-      line-height: 1.4;
-    }
-
-    .legend .swatch {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
-    }
-
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #fafafa; margin: 0; padding: 16px; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 16px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 0 0 8px; padding: 10px 12px; border: 1px solid #e5e7eb; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fafafa; color: #111827; font-size: 0.95rem; }
+    .info-bar { margin: 0 0 12px; padding: 8px 12px; border: 1px solid #e5e7eb; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #fdfcf0; color: #856404; font-size: 0.85rem; line-height: 1.4; }
+    .legend .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); }
     .fc-list-event { transition: background 0.1s; }
     .fc-list-event.is-clickable { cursor: pointer; }
     .fc-list-event.is-clickable:hover { background: #f0f7ff !important; }
@@ -75,7 +29,7 @@
   <div class="container">
     <h1>Southwest Division Bowls – Events Agenda</h1>
     
-    <div class="legend" aria-label="Calendar legend">
+    <div class="legend">
       <span class="item"><span class="swatch" style="background:#059669"></span> Women’s</span>
       <span class="item"><span class="swatch" style="background:#dc2626"></span> Men’s</span>
       <span class="item"><span class="swatch" style="background:#2563eb"></span> Club Sponsored</span>
@@ -84,18 +38,14 @@
     </div>
 
     <div class="info-bar">
-      <strong>Note:</strong> Registration links (🔗) typically become active <strong>6-8 weeks</strong> before an event begins. If an event is more than 60 days away, the link will show as "Registration opens soon."
+      <strong>Note:</strong> Registration links (🔗) typically become active <strong>8-12 weeks</strong> before an event. Currently showing links for events within 90 days.
     </div>
 
     <div id="agenda"></div>
   </div>
 
   <script>
-    function shortLocation(loc) {
-      if (!loc) return "";
-      return String(loc).split(",")[0].trim();
-    }
-
+    function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
     function getYear(){
       const u = new URL(window.location.href);
       const y = Number(u.searchParams.get("year") || "");
@@ -103,8 +53,8 @@
     }
 
     const YEAR = getYear();
-    // CHANGED: Using 60 days to cover the 8-week maximum window
-    const REG_WINDOW_DAYS = 60; 
+    // UPDATED: Extended to 90 days to show March events
+    const REG_WINDOW_DAYS = 90; 
 
     fetch(`/api/events?year=${YEAR}`)
       .then(r => r.json())
@@ -113,7 +63,6 @@
           initialView: "listYear",
           initialDate: `${YEAR}-01-01`,
           validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
-          nowIndicator: false,
           headerToolbar: false,
           height: "auto",
           events: d.events,
@@ -128,19 +77,7 @@
             if (url && isLive) {
               window.open(url, '_blank'); 
             } else if (url && !isLive) {
-              alert("Registration for '" + info.event.title + "' is not yet open. It typically opens 6-8 weeks before the event.");
-            } else {
-              alert("The registration link for this event is not yet available.");
-            }
-          },
-
-          eventDidMount: function(info) {
-            const url = info.event.extendedProps.eventUrl;
-            const eventStart = new Date(info.event.start);
-            const now = new Date();
-            const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
-            if (url && daysUntil <= REG_WINDOW_DAYS) {
-              info.el.classList.add('is-clickable');
+              alert("Registration for this event opens soon.");
             }
           },
 
@@ -150,6 +87,7 @@
             const url = arg.event.extendedProps.eventUrl;
             const eventStart = new Date(arg.event.start);
             const now = new Date();
+            // Calculation ensures "today" is the baseline
             const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
             
             const hasLink = !!url;
@@ -157,12 +95,12 @@
 
             let statusHtml = '';
             if (!hasLink) {
-              statusHtml = `<div style="font-size:0.75em; color:#9ca3af; font-weight:normal; margin-top:2px;">Link coming soon</div>`;
+              statusHtml = `<div style="font-size:0.75em; color:#9ca3af; margin-top:2px;">Link coming soon</div>`;
             } else if (!isReady) {
-              statusHtml = `<div style="font-size:0.75em; color:#f59e0b; font-weight:normal; margin-top:2px;">Registration opens soon</div>`;
+              statusHtml = `<div style="font-size:0.75em; color:#f59e0b; margin-top:2px;">Registration opens soon</div>`;
             } else {
-              // If it's within the window and has a link, show a subtle "Register now" hint
-              statusHtml = `<div style="font-size:0.75em; color:#2563eb; font-weight:normal; margin-top:2px;">Registration open</div>`;
+              statusHtml = `<div style="font-size:0.75em; color:#2563eb; margin-top:2px;">Registration open</div>`;
+              arg.el.classList.add('is-clickable');
             }
 
             return {
@@ -173,8 +111,7 @@
                   </div>
                   ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
                   ${statusHtml}
-                </div>
-              `
+                </div>`
             };
           }
         }).render();
