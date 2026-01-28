@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "googleapis": "^129.0.0",
     "pdfkit": "^0.15.0",
     "@sparticuz/chromium": "^123.0.0"
   }
