@@ -44,78 +44,77 @@
     <div id="agenda"></div>
   </div>
 
-  <script>
-    function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
-    function getYear(){
-      const u = new URL(window.location.href);
-      const y = Number(u.searchParams.get("year") || "");
-      return (y && Number.isFinite(y)) ? y : 2026;
-    }
+<script>
+  function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
+  function getYear(){
+    const u = new URL(window.location.href);
+    const y = Number(u.searchParams.get("year") || "");
+    return (y && Number.isFinite(y)) ? y : 2026;
+  }
 
-    const YEAR = getYear();
-    // UPDATED: Extended to 90 days to show March events
-    const REG_WINDOW_DAYS = 90; 
+  const YEAR = getYear();
+  // Fixed logic: showing registration links for events within 90 days
+  const REG_WINDOW_DAYS = 90; 
 
-    fetch(`/api/events?year=${YEAR}`)
-      .then(r => r.json())
-      .then(d => {
-        new FullCalendar.Calendar(document.getElementById("agenda"), {
-          initialView: "listYear",
-          initialDate: `${YEAR}-01-01`,
-          validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
-          headerToolbar: false,
-          height: "auto",
-          events: d.events,
+  fetch(`/api/events?year=${YEAR}`)
+    .then(r => r.json())
+    .then(d => {
+      new FullCalendar.Calendar(document.getElementById("agenda"), {
+        initialView: "listYear",
+        initialDate: `${YEAR}-01-01`,
+        validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
+        headerToolbar: false,
+        height: "auto",
+        events: d.events,
 
-          eventClick: function(info) {
-            const url = info.event.extendedProps.eventUrl;
-            const eventStart = new Date(info.event.start);
-            const now = new Date();
-            const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
-            const isLive = daysUntil <= REG_WINDOW_DAYS;
+        eventClick: function(info) {
+          const url = info.event.extendedProps.eventUrl;
+          const eventStart = new Date(info.event.start);
+          const now = new Date();
+          const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
+          const isLive = daysUntil <= REG_WINDOW_DAYS;
 
-            if (url && isLive) {
-              window.open(url, '_blank'); 
-            } else if (url && !isLive) {
-              alert("Registration for this event opens soon.");
-            }
-          },
-
-          eventContent(arg) {
-            const loc = shortLocation(arg.event.extendedProps.location);
-            const title = arg.event.title;
-            const url = arg.event.extendedProps.eventUrl;
-            const eventStart = new Date(arg.event.start);
-            const now = new Date();
-            // Calculation ensures "today" is the baseline
-            const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
-            
-            const hasLink = !!url;
-            const isReady = hasLink && daysUntil <= REG_WINDOW_DAYS;
-
-            let statusHtml = '';
-            if (!hasLink) {
-              statusHtml = `<div style="font-size:0.75em; color:#9ca3af; margin-top:2px;">Link coming soon</div>`;
-            } else if (!isReady) {
-              statusHtml = `<div style="font-size:0.75em; color:#f59e0b; margin-top:2px;">Registration opens soon</div>`;
-            } else {
-              statusHtml = `<div style="font-size:0.75em; color:#2563eb; margin-top:2px;">Registration open</div>`;
-              arg.el.classList.add('is-clickable');
-            }
-
-            return {
-              html: `
-                <div>
-                  <div class="fc-list-event-title">
-                    ${title} ${isReady ? '<span style="color:#2563eb; margin-left:4px;">🔗</span>' : ''}
-                  </div>
-                  ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
-                  ${statusHtml}
-                </div>`
-            };
+          if (url && isLive) {
+            window.open(url, '_blank'); 
+          } else if (url && !isLive) {
+            alert("Registration for this event opens soon.");
           }
-        }).render();
-      });
-  </script>
+        },
+
+        eventContent: function(arg) {
+          const loc = shortLocation(arg.event.extendedProps.location);
+          const title = arg.event.title;
+          const url = arg.event.extendedProps.eventUrl;
+          const eventStart = new Date(arg.event.start);
+          const now = new Date();
+          const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
+          
+          const hasLink = !!url;
+          const isReady = hasLink && daysUntil <= REG_WINDOW_DAYS;
+
+          let statusHtml = '';
+          if (!hasLink) {
+            statusHtml = `<div style="font-size:0.75em; color:#9ca3af; margin-top:2px;">Link coming soon</div>`;
+          } else if (!isReady) {
+            statusHtml = `<div style="font-size:0.75em; color:#f59e0b; margin-top:2px;">Registration opens soon</div>`;
+          } else {
+            statusHtml = `<div style="font-size:0.75em; color:#2563eb; margin-top:2px;">Registration open</div>`;
+          }
+
+          return {
+            html: `
+              <div class="${isReady ? 'is-clickable' : ''}">
+                <div class="fc-list-event-title">
+                  ${title} ${isReady ? '<span style="color:#2563eb; margin-left:4px;">🔗</span>' : ''}
+                </div>
+                ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
+                ${statusHtml}
+              </div>`
+          };
+        }
+      }).render();
+    })
+    .catch(err => console.error("Calendar Load Error:", err));
+</script>
 </body>
 </html>
