@@ -54,7 +54,6 @@
   const YEAR = getYear();
   const REG_WINDOW_DAYS = 90; 
 
-  // Fetch both events and capacity data from your Vercel APIs
   Promise.all([
     fetch(`/api/events?year=${YEAR}`).then(r => r.json()),
     fetch(`/api/check-capacity`).then(r => r.json())
@@ -75,13 +74,11 @@
         const url = info.event.extendedProps.eventUrl;
         const eventStart = new Date(info.event.start);
         const now = new Date();
-        const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
+        const daysUntil = (eventStart - now) / 86400000;
         
-        // Find matching capacity logic for this tournament
-        const capInfo = capacities.find(c => title.includes(c.name) || c.name.includes(title));
-        const isFull = capInfo ? (capInfo.greenA.isFull && (capInfo.greenB.max === 0 || capInfo.greenB.isFull)) : false;
-
-        if (isFull) {
+        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(title.toLowerCase()));
+        
+        if (capInfo && capInfo.status === 'FULL') {
           alert("This tournament has reached its capacity.");
           return;
         }
@@ -96,14 +93,10 @@
       eventDidMount: function(info) {
         const title = info.event.title;
         const url = info.event.extendedProps.eventUrl;
-        const eventStart = new Date(info.event.start);
-        const now = new Date();
-        const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
-        
-        const capInfo = capacities.find(c => title.includes(c.name) || c.name.includes(title));
-        const isFull = capInfo ? (capInfo.greenA.isFull && (capInfo.greenB.max === 0 || capInfo.greenB.isFull)) : false;
+        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(title.toLowerCase()));
+        const isFull = capInfo && capInfo.status === 'FULL';
 
-        if (url && daysUntil <= REG_WINDOW_DAYS && !isFull) {
+        if (url && ((new Date(info.event.start) - new Date()) / 86400000) <= REG_WINDOW_DAYS && !isFull) {
           info.el.classList.add('is-clickable');
         }
       },
@@ -114,42 +107,38 @@
         const url = arg.event.extendedProps.eventUrl;
         const eventStart = new Date(arg.event.start);
         const now = new Date();
-        const daysUntil = (eventStart - now) / (1000 * 60 * 60 * 24);
+        const daysUntil = (eventStart - now) / 86400000;
         
-        const capInfo = capacities.find(c => title.includes(c.name) || c.name.includes(title));
+        // Match name (Case Insensitive)
+        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(title.toLowerCase()));
+        
         const hasLink = !!url;
         const isWithinWindow = daysUntil <= REG_WINDOW_DAYS;
 
         let capHtml = '';
+        let statusHtml = '';
         let isFull = false;
 
         if (capInfo) {
-          const aStatus = capInfo.greenA.max > 0 ? 
-            `Green A: ${capInfo.greenA.current}/${capInfo.greenA.max}` : '';
-          const bStatus = capInfo.greenB.max > 0 ? 
-            `Green B: ${capInfo.greenB.current}/${capInfo.greenB.max}` : '';
+          // Display the "Left" counts from your Spreadsheet Columns E and F
+          const aText = parseInt(capInfo.capA) > 0 ? `Green A: ${capInfo.leftA} left` : '';
+          const bText = parseInt(capInfo.capB) > 0 ? `Green B: ${capInfo.leftB} left` : '';
           
-          isFull = capInfo.greenA.isFull && (capInfo.greenB.max === 0 || capInfo.greenB.isFull);
+          capHtml = `<div style="font-size:0.75em; color:#6b7280; margin-top:4px;">${aText}${aText && bText ? ' | ' : ''}${bText}</div>`;
           
-          const evenNotice = capInfo.needsOneMore ? 
-            `<div style="color:#dc2626; font-weight:bold; margin-top:2px;">1 SPOT LEFT TO EVEN BRACKET!</div>` : '';
-
-          capHtml = `
-            <div style="font-size:0.75em; color:#374151; margin-top:4px;">
-              ${aStatus}${aStatus && bStatus ? ' | ' : ''}${bStatus}
-              ${evenNotice}
-            </div>`;
+          // Use your Status Flag (Column G)
+          if (capInfo.status === 'FULL') {
+            statusHtml = `<div style="font-size:0.75em; color:#dc2626; font-weight:bold;">TOURNAMENT FULL</div>`;
+            isFull = true;
+          } else if (capInfo.status === 'NEED_ONE') {
+            statusHtml = `<div style="font-size:0.75em; color:#dc2626; font-weight:bold;">1 SPOT LEFT TO EVEN BRACKET!</div>`;
+          }
         }
 
-        let statusHtml = '';
-        if (isFull) {
-          statusHtml = `<div style="font-size:0.75em; color:#dc2626; font-weight:bold; margin-top:2px;">TOURNAMENT FULL</div>`;
-        } else if (!hasLink) {
-          statusHtml = `<div style="font-size:0.75em; color:#9ca3af; margin-top:2px;">Link coming soon</div>`;
-        } else if (!isWithinWindow) {
-          statusHtml = `<div style="font-size:0.75em; color:#f59e0b; margin-top:2px;">Registration opens soon</div>`;
-        } else {
-          statusHtml = `<div style="font-size:0.75em; color:#2563eb; margin-top:2px;">Registration open</div>`;
+        if (!statusHtml) {
+          statusHtml = (hasLink && isWithinWindow) ? 
+            `<div style="font-size:0.75em; color:#2563eb;">Registration Open</div>` : 
+            `<div style="font-size:0.75em; color:#9ca3af;">Link coming soon</div>`;
         }
 
         return {
