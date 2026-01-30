@@ -12,7 +12,6 @@
     body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #fafafa; margin: 0; padding: 16px; }
     .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 16px; }
     
-    /* HIDE THE HEADER AREA COMPLETELY */
     .fc-header-toolbar { display: none !important; }
     
     .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 0 0 8px; padding: 10px 12px; border: 1px solid #e5e7eb; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fafafa; color: #111827; font-size: 0.95rem; }
@@ -23,10 +22,8 @@
     .fc-list-event.is-clickable { cursor: pointer; }
     .fc-list-event.is-clickable:hover { background: #f0f7ff !important; }
     
-    .fc-list-day-cushion { background: #f1f1f1; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-top: 12px; }
-    .fc-list-event-title { font-weight: 600; }
+    .fc-list-day-cushion { background: #f1f1f1; font-weight: 700; padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 1.1rem; }
     .fc-list-event-time, .fc-event-time { display: none !important; }
-    .fc-event-location { font-size: 0.85em; color: #6b7280; margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -71,10 +68,7 @@
     const calendar = new FullCalendar.Calendar(document.getElementById("agenda"), {
       initialView: "listYear",
       initialDate: `${YEAR}-01-01`,
-      
-      // THIS REMOVES THE BUTTONS AND ARROWS
       headerToolbar: false, 
-      
       events: events,
 
       eventClick: function(info) {
@@ -89,23 +83,46 @@
         const hasLink = !!url && daysUntil <= REG_WINDOW_DAYS;
 
         const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()));
+        
         let capHtml = '';
         if (capInfo) {
-          capHtml = `<div style="font-size:0.75em; color:#6b7280; margin-top:4px;">
-            Green A: ${capInfo.leftA} left | Green B: ${capInfo.leftB} left
-          </div>`;
+          const isFull = capInfo.status === 'FULL';
+          const isNeedOne = capInfo.status === 'NEED_ONE';
+          
+          // Traffic Light Logic
+          let statusBg = '#2f855a'; // Green
+          let statusText = 'ENTRY OPEN';
+          
+          if (isFull) {
+            statusBg = '#c53030'; // Red
+            statusText = 'FULL';
+          } else if (isNeedOne || (parseInt(capInfo.leftA) + parseInt(capInfo.leftB) < 4)) {
+            statusBg = '#c05621'; // Orange
+            statusText = 'FILLING FAST';
+          }
+
+          capHtml = `
+            <div style="margin-top:12px; background:#f8fafc; border-left:8px solid ${statusBg}; border-radius:12px; padding:12px; display:flex; justify-content:space-between; align-items:center; border:1px solid #e2e8f0; border-left-width:8px;">
+              <div style="font-size:1.1rem; color:#2d3748; line-height:1.4;">
+                ${capInfo.leftA > 0 ? `Green A: <b>${capInfo.leftA}</b> left<br>` : ''}
+                ${capInfo.leftB > 0 ? `Green B: <b>${capInfo.leftB}</b> left` : ''}
+              </div>
+              <div style="background:${statusBg}; color:white; padding:6px 12px; border-radius:8px; font-size:0.8rem; font-weight:900; white-space:nowrap;">
+                ${statusText}
+              </div>
+            </div>`;
         }
 
         return {
           html: `
-            <div>
-              <div class="fc-list-event-title">
-                ${title} ${hasLink ? '<span style="color:#2563eb; margin-left:4px;">🔗</span>' : ''}
+            <div style="padding:8px 0;">
+              <div style="font-weight:800; font-size:1.25rem; color:#000; margin-bottom:4px;">
+                ${title} ${hasLink ? '<span style="color:#2563eb; margin-left:8px;">🔗</span>' : ''}
               </div>
-              ${capHtml}
-              <div style="font-size:0.75em; color:${hasLink ? '#2563eb' : '#9ca3af'};">
+              <div style="font-size:0.9rem; color:${hasLink ? '#2563eb' : '#9ca3af'}; font-weight:bold;">
                 ${hasLink ? 'Registration Open' : 'Link coming soon'}
               </div>
+              ${capHtml}
             </div>`
         };
       }
