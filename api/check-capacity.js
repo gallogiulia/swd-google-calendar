@@ -40,3 +40,18 @@ export default async function handler(req, res) {
     return res.status(200).json({ success: false, error: err.message });
   }
 }
+
+export default async function handler(req, res) {
+  try {
+    const testJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+    if (!testJson) return res.status(200).json({ success: false, error: "JSON variable is MISSING" });
+    
+    // If it gets here, it will try to show you what it found
+    return res.status(200).json({ 
+      success: true, 
+      message: "The API is awake, but we need to verify the Google connection next." 
+    });
+  } catch (e) {
+    return res.status(200).json({ success: false, error: e.message });
+  }
+}

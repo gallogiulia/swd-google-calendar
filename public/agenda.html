@@ -46,131 +46,43 @@
 
 <script>
   function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
-  function getYear(){
-    const u = new URL(window.location.href);
-    const y = Number(u.searchParams.get("year") || "");
-    return (y && Number.isFinite(y)) ? y : 2026;
-  }
+  const YEAR = 2026;
 
-  const YEAR = getYear();
-  const REG_WINDOW_DAYS = 90; 
+  // We fetch events FIRST. If capacity fails, we don't care.
+  fetch(`/api/events?year=${YEAR}`)
+    .then(r => r.json())
+    .then(eventData => {
+      // Now we try to get capacities, but we don't let it stop us
+      fetch(`/api/check-capacity`)
+        .then(r => r.json())
+        .catch(() => ({ success: false, data: [] })) // Ignore error
+        .then(capData => {
+          renderCalendar(eventData.events, capData.data || []);
+        });
+    })
+    .catch(err => console.error("Total Failure:", err));
 
-  // Safety: Each fetch has its own .catch so one failure doesn't kill the other
-  const fetchEvents = fetch(`/api/events?year=${YEAR}`).then(r => r.json()).catch(() => ({events:[]}));
-  const fetchCaps = fetch(`/api/check-capacity`).then(r => r.json()).catch(() => ({success:false, data:[]}));
-  
-  Promise.all([fetchEvents, fetchCaps])
-  .then(([eventData, capData]) => {
-    const capacities = capData.data || [];
-
-
+  function renderCalendar(events, capacities) {
     const calendar = new FullCalendar.Calendar(document.getElementById("agenda"), {
       initialView: "listYear",
-      initialDate: `${YEAR}-01-01`,
-      validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
-      headerToolbar: false,
-      height: "auto",
-      events: eventData.events || [],
-
-      eventClick: function(info) {
-        const title = info.event.title;
-        const url = info.event.extendedProps.eventUrl;
-        const eventStart = new Date(info.event.start);
-        const now = new Date();
-        const daysUntil = (eventStart - now) / 86400000;
-        
-        // Find capacity info - check name match
-        const capInfo = capacities.find(c => 
-          title.toLowerCase().includes(c.name.toLowerCase()) || 
-          c.name.toLowerCase().includes(title.toLowerCase())
-        );
-        
-        if (capInfo && capInfo.status === 'FULL') {
-          alert("This tournament has reached its capacity.");
-          return;
-        }
-
-        if (url && daysUntil <= REG_WINDOW_DAYS) {
-          window.open(url, '_blank'); 
-        } else if (url && daysUntil > REG_WINDOW_DAYS) {
-          alert("Registration for this event opens soon.");
-        }
-      },
-
-      eventDidMount: function(info) {
-        const title = info.event.title;
-        const url = info.event.extendedProps.eventUrl;
-        const capInfo = capacities.find(c => 
-          title.toLowerCase().includes(c.name.toLowerCase()) || 
-          c.name.toLowerCase().includes(title.toLowerCase())
-        );
-        const isFull = capInfo && capInfo.status === 'FULL';
-
-        if (url && ((new Date(info.event.start) - new Date()) / 86400000) <= REG_WINDOW_DAYS && !isFull) {
-          info.el.classList.add('is-clickable');
-        }
-      },
-
+      initialDate: `2026-01-01`,
+      events: events,
       eventContent: function(arg) {
-        const loc = shortLocation(arg.event.extendedProps.location);
         const title = arg.event.title;
-        const url = arg.event.extendedProps.eventUrl;
-        const eventStart = new Date(arg.event.start);
-        const now = new Date();
-        const daysUntil = (eventStart - now) / 86400000;
+        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()));
         
-        const capInfo = capacities.find(c => 
-          title.toLowerCase().includes(c.name.toLowerCase()) || 
-          c.name.toLowerCase().includes(title.toLowerCase())
-        );
-        
-        const hasLink = !!url;
-        const isWithinWindow = daysUntil <= REG_WINDOW_DAYS;
-
         let capHtml = '';
-        let statusHtml = '';
-        let isFull = false;
-
         if (capInfo) {
-          // Columns E (leftA) and F (leftB) from Master Orders Sheet
-          const aText = parseInt(capInfo.leftA) >= 0 ? `Green A: ${capInfo.leftA} left` : '';
-          const bText = parseInt(capInfo.leftB) >= 0 ? `Green B: ${capInfo.leftB} left` : '';
-          
-          if (aText || bText) {
-            capHtml = `<div style="font-size:0.75em; color:#6b7280; margin-top:4px;">${aText}${aText && bText ? ' | ' : ''}${bText}</div>`;
-          }
-          
-          // Column G (status)
-          if (capInfo.status === 'FULL') {
-            statusHtml = `<div style="font-size:0.75em; color:#dc2626; font-weight:bold;">TOURNAMENT FULL</div>`;
-            isFull = true;
-          } else if (capInfo.status === 'NEED_ONE') {
-            statusHtml = `<div style="font-size:0.75em; color:#dc2626; font-weight:bold;">1 SPOT LEFT TO EVEN BRACKET!</div>`;
-          }
-        }
-
-        if (!statusHtml) {
-          statusHtml = (hasLink && isWithinWindow) ? 
-            `<div style="font-size:0.75em; color:#2563eb;">Registration Open</div>` : 
-            `<div style="font-size:0.75em; color:#9ca3af;">Link coming soon</div>`;
+          capHtml = `<div style="font-size:0.75em; color:#6b7280;">A: ${capInfo.leftA} | B: ${capInfo.leftB}</div>`;
         }
 
         return {
-          html: `
-            <div>
-              <div class="fc-list-event-title">
-                ${title} ${hasLink && isWithinWindow && !isFull ? '<span style="color:#2563eb; margin-left:4px;">🔗</span>' : ''}
-              </div>
-              ${loc ? `<div class="fc-event-location">${loc}</div>` : ""}
-              ${capHtml}
-              ${statusHtml}
-            </div>`
+          html: `<div><div class="fc-list-event-title">${title}</div>${capHtml}</div>`
         };
       }
     });
     calendar.render();
-  })
-  .catch(err => console.error("Critical Agenda Error:", err));
+  }
 </script>
 </body>
 </html>
