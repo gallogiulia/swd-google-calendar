@@ -43,6 +43,7 @@
 
     <div id="agenda"></div>
   </div>
+
 <script>
   function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
   function getYear(){
@@ -54,9 +55,10 @@
   const YEAR = getYear();
   const REG_WINDOW_DAYS = 90; 
 
+  // Combined fetch with "catch" for each to prevent the whole app from crashing if one fails
   Promise.all([
-    fetch(`/api/events?year=${YEAR}`).then(r => r.json()),
-    fetch(`/api/check-capacity`).then(r => r.json())
+    fetch(`/api/events?year=${YEAR}`).then(r => r.json()).catch(e => ({ events: [] })),
+    fetch(`/api/check-capacity`).then(r => r.json()).catch(e => ({ success: false, data: [] }))
   ])
   .then(([eventData, capData]) => {
     const capacities = capData.data || [];
@@ -67,7 +69,7 @@
       validRange: { start: `${YEAR}-01-01`, end: `${YEAR+1}-01-01` },
       headerToolbar: false,
       height: "auto",
-      events: eventData.events,
+      events: eventData.events || [],
 
       eventClick: function(info) {
         const title = info.event.title;
@@ -76,7 +78,11 @@
         const now = new Date();
         const daysUntil = (eventStart - now) / 86400000;
         
-        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(title.toLowerCase()));
+        // Find capacity info - check name match
+        const capInfo = capacities.find(c => 
+          title.toLowerCase().includes(c.name.toLowerCase()) || 
+          c.name.toLowerCase().includes(title.toLowerCase())
+        );
         
         if (capInfo && capInfo.status === 'FULL') {
           alert("This tournament has reached its capacity.");
@@ -93,7 +99,10 @@
       eventDidMount: function(info) {
         const title = info.event.title;
         const url = info.event.extendedProps.eventUrl;
-        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(title.toLowerCase()));
+        const capInfo = capacities.find(c => 
+          title.toLowerCase().includes(c.name.toLowerCase()) || 
+          c.name.toLowerCase().includes(title.toLowerCase())
+        );
         const isFull = capInfo && capInfo.status === 'FULL';
 
         if (url && ((new Date(info.event.start) - new Date()) / 86400000) <= REG_WINDOW_DAYS && !isFull) {
@@ -109,8 +118,10 @@
         const now = new Date();
         const daysUntil = (eventStart - now) / 86400000;
         
-        // Match name (Case Insensitive)
-        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(title.toLowerCase()));
+        const capInfo = capacities.find(c => 
+          title.toLowerCase().includes(c.name.toLowerCase()) || 
+          c.name.toLowerCase().includes(title.toLowerCase())
+        );
         
         const hasLink = !!url;
         const isWithinWindow = daysUntil <= REG_WINDOW_DAYS;
@@ -120,13 +131,15 @@
         let isFull = false;
 
         if (capInfo) {
-          // Display the "Left" counts from your Spreadsheet Columns E and F
-          const aText = parseInt(capInfo.capA) > 0 ? `Green A: ${capInfo.leftA} left` : '';
-          const bText = parseInt(capInfo.capB) > 0 ? `Green B: ${capInfo.leftB} left` : '';
+          // Columns E (leftA) and F (leftB) from Master Orders Sheet
+          const aText = parseInt(capInfo.leftA) >= 0 ? `Green A: ${capInfo.leftA} left` : '';
+          const bText = parseInt(capInfo.leftB) >= 0 ? `Green B: ${capInfo.leftB} left` : '';
           
-          capHtml = `<div style="font-size:0.75em; color:#6b7280; margin-top:4px;">${aText}${aText && bText ? ' | ' : ''}${bText}</div>`;
+          if (aText || bText) {
+            capHtml = `<div style="font-size:0.75em; color:#6b7280; margin-top:4px;">${aText}${aText && bText ? ' | ' : ''}${bText}</div>`;
+          }
           
-          // Use your Status Flag (Column G)
+          // Column G (status)
           if (capInfo.status === 'FULL') {
             statusHtml = `<div style="font-size:0.75em; color:#dc2626; font-weight:bold;">TOURNAMENT FULL</div>`;
             isFull = true;
@@ -156,7 +169,7 @@
     });
     calendar.render();
   })
-  .catch(err => console.error("Calendar Load Error:", err));
+  .catch(err => console.error("Critical Agenda Error:", err));
 </script>
 </body>
 </html>
