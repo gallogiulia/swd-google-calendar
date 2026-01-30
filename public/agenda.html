@@ -49,18 +49,23 @@
   const YEAR = 2026;
 
   // We fetch events FIRST. If capacity fails, we don't care.
-  fetch(`/api/events?year=${YEAR}`)
-    .then(r => r.json())
-    .then(eventData => {
-      // Now we try to get capacities, but we don't let it stop us
-      fetch(`/api/check-capacity`)
-        .then(r => r.json())
-        .catch(() => ({ success: false, data: [] })) // Ignore error
-        .then(capData => {
-          renderCalendar(eventData.events, capData.data || []);
-        });
-    })
-    .catch(err => console.error("Total Failure:", err));
+// Step 1: Fetch Events (Primary)
+fetch(`/api/events?year=2026`)
+  .then(r => r.json())
+  .then(eventData => {
+    
+    // Step 2: Fetch Capacities (Secondary)
+    fetch(`/api/check-capacity`)
+      .then(r => r.json())
+      .catch(() => ({ success: false, data: [] })) // If this crashes, just return empty data
+      .then(capData => {
+        // Step 3: Render the calendar regardless of capacity success
+        renderCalendar(eventData.events, capData.data || []);
+      });
+  })
+  .catch(err => {
+    document.getElementById('agenda').innerHTML = "Failed to load events.";
+  });
 
   function renderCalendar(events, capacities) {
     const calendar = new FullCalendar.Calendar(document.getElementById("agenda"), {
