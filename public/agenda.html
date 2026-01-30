@@ -11,13 +11,18 @@
   <style>
     body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #fafafa; margin: 0; padding: 16px; }
     .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 16px; }
+    
+    /* HIDE THE HEADER AREA COMPLETELY */
+    .fc-header-toolbar { display: none !important; }
+    
     .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 0 0 8px; padding: 10px 12px; border: 1px solid #e5e7eb; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fafafa; color: #111827; font-size: 0.95rem; }
     .info-bar { margin: 0 0 12px; padding: 8px 12px; border: 1px solid #e5e7eb; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #fdfcf0; color: #856404; font-size: 0.85rem; line-height: 1.4; }
     .legend .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); }
+    
     .fc-list-event { transition: background 0.1s; }
     .fc-list-event.is-clickable { cursor: pointer; }
     .fc-list-event.is-clickable:hover { background: #f0f7ff !important; }
-    .fc-header-toolbar { display: none; }
+    
     .fc-list-day-cushion { background: #f1f1f1; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-top: 12px; }
     .fc-list-event-title { font-weight: 600; }
     .fc-list-event-time, .fc-event-time { display: none !important; }
@@ -45,15 +50,12 @@
   </div>
 
 <script>
-  function shortLocation(loc) { return loc ? String(loc).split(",")[0].trim() : ""; }
   const YEAR = 2026;
   const REG_WINDOW_DAYS = 90; 
 
-  // Restoration logic: Fetch events FIRST, then try capacities separately
   fetch(`/api/events?year=${YEAR}`)
     .then(r => r.json())
     .then(eventData => {
-      // Try to get capacities, but DO NOT crash if it fails
       fetch(`/api/check-capacity`)
         .then(r => r.json())
         .catch(() => ({ success: false, data: [] })) 
@@ -62,14 +64,17 @@
         });
     })
     .catch(err => {
-      document.getElementById('agenda').innerHTML = "Failed to load event data.";
+      document.getElementById('agenda').innerHTML = "Failed to load events.";
     });
 
   function renderCalendar(events, capacities) {
     const calendar = new FullCalendar.Calendar(document.getElementById("agenda"), {
       initialView: "listYear",
-      initialDate: `2026-01-01`,
-      headerToolbar: { left: 'today prev,next', center: 'title', right: 'listYear,month' },
+      initialDate: `${YEAR}-01-01`,
+      
+      // THIS REMOVES THE BUTTONS AND ARROWS
+      headerToolbar: false, 
+      
       events: events,
 
       eventClick: function(info) {
@@ -83,7 +88,6 @@
         const daysUntil = (new Date(arg.event.start) - new Date()) / 86400000;
         const hasLink = !!url && daysUntil <= REG_WINDOW_DAYS;
 
-        // Capacity Logic - Match by Name
         const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()));
         let capHtml = '';
         if (capInfo) {
