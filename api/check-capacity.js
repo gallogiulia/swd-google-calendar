@@ -7,7 +7,9 @@ export default async function handler(req, res) {
       scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
     });
     const sheets = google.sheets({ version: 'v4', auth });
-    const spreadsheetId = process.env.MASTER_SHEET_ID;
+    
+    // The ID from your URL
+    const spreadsheetId = '1VRp6kZTzGcDNYgVTw5KSq-kT2HGjruYXiQcpCQdZU9I';
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
@@ -16,22 +18,36 @@ export default async function handler(req, res) {
 
     const rows = response.data.values || [];
 
-    const data = rows.map(row => ({
-      // Normalize name for matching (removes SWD, 2026, etc)
-      name: row[0].replace(/SWD|2026/g, '').trim(), 
-      fullName: row[0],
-      capA: row[1],
-      capB: row[2],
-      logicType: row[3],
-      // Pointing to your NEW columns E, F, and G
-      leftA: parseInt(row[4]) || 0, // Column E
-      leftB: parseInt(row[5]) || 0, // Column F
-      status: row[6] || 'OPEN'      // Column G
-    }));
+    // Safety Check: If rows is empty, return an empty array instead of crashing
+    if (rows.length === 0) {
+      return res.status(200).json({ success: true, data: [], note: "No rows found" });
+    }
 
-    res.status(200).json({ success: true, data });
+    const data = rows.map(row => {
+      // Helper function to safely turn cells into numbers
+      const safeNum = (val) => {
+        const n = parseInt(val);
+        return isNaN(n) ? 0 : n;
+      };
+
+      return {
+        name: row[0] || "Unnamed Tournament", // Column A
+        capA: safeNum(row[1]),                // Column B
+        capB: safeNum(row[2]),                // Column C
+        logicType: row[3] || "CAP",           // Column D
+        leftA: safeNum(row[4]),               // Column E
+        leftB: safeNum(row[5]),               // Column F
+        status: row[6] || "OPEN"              // Column G
+      };
+    });
+
+    return res.status(200).json({ success: true, data });
   } catch (err) {
-    // This will send the EXACT error to your browser so we can see it
-    res.status(500).json({ error: err.message, stack: err.stack });
+    // This sends the actual error message (e.g., "Sheet not found") to the screen
+    return res.status(500).json({ 
+      success: false, 
+      error: err.message,
+      tip: "Ensure MASTER_SHEET_ID is correct and the Sheet is shared with the robot email."
+    });
   }
 }
