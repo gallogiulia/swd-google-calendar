@@ -4,131 +4,75 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SWD Events – Agenda</title>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-
   <style>
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #fafafa; margin: 0; padding: 16px; }
-    .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 16px; }
-    
+    body { font-family: system-ui, sans-serif; background: #fafafa; margin: 0; padding: 16px; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
     .fc-header-toolbar { display: none !important; }
-    
-    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 0 0 8px; padding: 10px 12px; border: 1px solid #e5e7eb; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fafafa; color: #111827; font-size: 0.95rem; }
-    .info-bar { margin: 0 0 12px; padding: 8px 12px; border: 1px solid #e5e7eb; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #fdfcf0; color: #856404; font-size: 0.85rem; line-height: 1.4; }
-    .legend .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); }
-    
-    .fc-list-event { transition: background 0.1s; }
-    .fc-list-event.is-clickable { cursor: pointer; }
-    .fc-list-event.is-clickable:hover { background: #f0f7ff !important; }
-    
-    .fc-list-day-cushion { background: #f1f1f1; font-weight: 700; padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 1.1rem; }
-    .fc-list-event-time, .fc-event-time { display: none !important; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 8px; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 12px 12px 0 0; background: #fafafa; font-size: 0.95rem; }
+    .info-bar { margin-bottom: 12px; padding: 8px 12px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px; background: #fdfcf0; font-size: 0.85rem; }
+    .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 3px solid #f1f5f9; padding-bottom: 15px; }
+    .refresh-btn { background: #2b6cb0; border: none; color: white; padding: 8px 16px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+    .fc-list-day-cushion { background: #f1f1f1; padding: 12px; border-radius: 8px; font-size: 1.1rem; }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h1>Southwest Division Bowls – Events Agenda</h1>
-    
+    <div class="header-row">
+      <h1 style="margin:0;">Events Agenda</h1>
+      <button class="refresh-btn" onclick="initPage()">↻ REFRESH</button>
+    </div>
     <div class="legend">
-      <span class="item"><span class="swatch" style="background:#059669"></span> Women’s</span>
-      <span class="item"><span class="swatch" style="background:#dc2626"></span> Men’s</span>
-      <span class="item"><span class="swatch" style="background:#2563eb"></span> Club Sponsored</span>
-      <span class="item"><span class="swatch" style="background:#7c3aed"></span> Other Tournaments</span>
-      <span class="item"><span class="swatch" style="background:#f59e0b"></span> PBA</span>
+      <span><span class="swatch" style="background:#059669"></span> Women’s</span>
+      <span><span class="swatch" style="background:#dc2626"></span> Men’s</span>
+      <span><span class="swatch" style="background:#2563eb"></span> Club Sponsored</span>
     </div>
-
-    <div class="info-bar">
-      <strong>Note:</strong> Registration links (🔗) typically become active <strong>8-12 weeks</strong> before an event. Currently showing links for events within 90 days.
-    </div>
-
     <div id="agenda"></div>
   </div>
 
 <script>
-  const YEAR = 2026;
-  const REG_WINDOW_DAYS = 90; 
-
-  fetch(`/api/events?year=${YEAR}`)
-    .then(r => r.json())
-    .then(eventData => {
-      fetch(`/api/check-capacity`)
-        .then(r => r.json())
-        .catch(() => ({ success: false, data: [] })) 
-        .then(capData => {
-          renderCalendar(eventData.events || [], capData.data || []);
-        });
-    })
-    .catch(err => {
-      document.getElementById('agenda').innerHTML = "Failed to load events.";
+  function initPage() {
+    Promise.all([
+      fetch(`/api/events?year=2026`).then(r => r.json()),
+      fetch(`/api/check-capacity?v=` + Date.now()).then(r => r.json()).catch(() => ({ success: false, data: [] }))
+    ]).then(([eventData, capData]) => {
+      renderCalendar(eventData.events || [], capData.data || []);
     });
+  }
 
   function renderCalendar(events, capacities) {
-    const calendar = new FullCalendar.Calendar(document.getElementById("agenda"), {
+    const calendarEl = document.getElementById("agenda");
+    calendarEl.innerHTML = '';
+    const calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: "listYear",
-      initialDate: `${YEAR}-01-01`,
-      headerToolbar: false, 
+      initialDate: "2026-01-01",
+      headerToolbar: false,
       events: events,
-
-      eventClick: function(info) {
-        const url = info.event.extendedProps.eventUrl;
-        if (url) window.open(url, '_blank');
-      },
-
       eventContent: function(arg) {
         const title = arg.event.title;
-        const url = arg.event.extendedProps.eventUrl;
-        const daysUntil = (new Date(arg.event.start) - new Date()) / 86400000;
-        const hasLink = !!url && daysUntil <= REG_WINDOW_DAYS;
-
-        const capInfo = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()));
-        
+        const cap = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()));
         let capHtml = '';
-        if (capInfo) {
-          const isFull = capInfo.status === 'FULL';
-          const isNeedOne = capInfo.status === 'NEED_ONE';
-          
-          // Traffic Light Logic
-          let statusBg = '#2f855a'; // Green
-          let statusText = 'ENTRY OPEN';
-          
-          if (isFull) {
-            statusBg = '#c53030'; // Red
-            statusText = 'FULL';
-          } else if (isNeedOne || (parseInt(capInfo.leftA) + parseInt(capInfo.leftB) < 4)) {
-            statusBg = '#c05621'; // Orange
-            statusText = 'FILLING FAST';
-          }
+        if (cap) {
+          const total = (parseInt(cap.leftA) || 0) + (parseInt(cap.leftB) || 0);
+          const isFull = cap.status === 'FULL' || total <= 0;
+          let color = '#2f855a'; // Green
+          let text = 'ENTRY OPEN';
+          if (isFull) { color = '#c53030'; text = 'FULL'; }
+          else if (total <= 5) { color = '#dd6b20'; text = 'FILLING FAST'; }
 
-          capHtml = `
-            <div style="margin-top:12px; background:#f8fafc; border-left:8px solid ${statusBg}; border-radius:12px; padding:12px; display:flex; justify-content:space-between; align-items:center; border:1px solid #e2e8f0; border-left-width:8px;">
-              <div style="font-size:1.1rem; color:#2d3748; line-height:1.4;">
-                ${capInfo.leftA > 0 ? `Green A: <b>${capInfo.leftA}</b> left<br>` : ''}
-                ${capInfo.leftB > 0 ? `Green B: <b>${capInfo.leftB}</b> left` : ''}
-              </div>
-              <div style="background:${statusBg}; color:white; padding:6px 12px; border-radius:8px; font-size:0.8rem; font-weight:900; white-space:nowrap;">
-                ${statusText}
-              </div>
-            </div>`;
+          capHtml = `<div style="margin-top:12px; background:#f1f5f9; border-left:10px solid ${color}; padding:15px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-size:1.1rem;">${cap.leftA > 0 ? `Green A: <b>${cap.leftA}</b> left<br>` : ''}${cap.leftB > 0 ? `Green B: <b>${cap.leftB}</b> left` : ''}</div>
+            <div style="background:${color}; color:white; padding:6px 12px; border-radius:8px; font-weight:900;">${text}</div>
+          </div>`;
         }
-
-        return {
-          html: `
-            <div style="padding:8px 0;">
-              <div style="font-weight:800; font-size:1.25rem; color:#000; margin-bottom:4px;">
-                ${title} ${hasLink ? '<span style="color:#2563eb; margin-left:8px;">🔗</span>' : ''}
-              </div>
-              <div style="font-size:0.9rem; color:${hasLink ? '#2563eb' : '#9ca3af'}; font-weight:bold;">
-                ${hasLink ? 'Registration Open' : 'Link coming soon'}
-              </div>
-              ${capHtml}
-            </div>`
-        };
+        return { html: `<div style="padding:10px 0;"><div style="font-weight:800; font-size:1.3rem;">${title}</div>${capHtml}</div>` };
       }
     });
     calendar.render();
   }
+  initPage();
 </script>
 </body>
 </html>
