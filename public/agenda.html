@@ -57,8 +57,8 @@
 
   // Combined fetch with "catch" for each to prevent the whole app from crashing if one fails
   Promise.all([
-    fetch(`/api/events?year=${YEAR}`).then(r => r.json()).catch(e => ({ events: [] })),
-    fetch(`/api/check-capacity`).then(r => r.json()).catch(e => ({ success: false, data: [] }))
+    fetch(`/api/events?year=${YEAR}`).then(r => r.json()).catch(() => ({ events: [] })),
+    fetch(`/api/check-capacity`).then(r => r.json()).catch(() => ({ success: false, data: [] }))
   ])
   .then(([eventData, capData]) => {
     const capacities = capData.data || [];
