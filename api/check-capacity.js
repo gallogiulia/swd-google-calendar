@@ -1,26 +1,10 @@
 import { google } from 'googleapis';
 
 export default async function handler(req, res) {
-  // 1. Set the headers so the browser knows to expect JSON
-  res.setHeader('Content-Type', 'application/json');
-
   try {
-    const rawJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
-    
-    if (!rawJson) {
-      return res.status(200).json({ success: false, error: "ENV Variable GOOGLE_SERVICE_ACCOUNT_JSON is missing in Vercel settings." });
-    }
-
-    // 2. The "Vercel Fix": Manually repair common formatting errors in the private key
-    let config;
-    try {
-      config = JSON.parse(rawJson);
-      if (config.private_key) {
-        config.private_key = config.private_key.replace(/\\n/g, '\n');
-      }
-    } catch (parseError) {
-      return res.status(200).json({ success: false, error: "JSON Parse Error. Your Vercel variable is not a valid JSON string." });
-    }
+    const config = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+    // CRITICAL VERCEL FIX: Forces the private key into the correct format
+    config.private_key = config.private_key.replace(/\\n/g, '\n');
 
     const auth = new google.auth.GoogleAuth({
       credentials: config,
@@ -35,24 +19,16 @@ export default async function handler(req, res) {
       range: "'Tournament Settings'!A2:G", 
     });
 
-    const rows = response.data.values || [];
-
-    const data = rows.map(row => ({
+    const data = (response.data.values || []).map(row => ({
       name: row[0] || "Unknown",
-      leftA: parseInt(row[4]) || 0,
-      leftB: parseInt(row[5]) || 0,
-      status: (row[6] || "OPEN").toUpperCase()
+      leftA: row[4] || 0,
+      leftB: row[5] || 0,
+      status: row[6] || "OPEN"
     }));
 
-    // SUCCESS: This is the JSON you should see
     return res.status(200).json({ success: true, data });
-
   } catch (err) {
-    // CATCH: If it fails, we send the error as JSON instead of a 500 page
-    return res.status(200).json({ 
-      success: false, 
-      error: err.message,
-      tip: "Check if the Service Account Email is an Editor on the Google Sheet." 
-    });
+    // If it fails, send the error as a message instead of crashing the server
+    return res.status(200).json({ success: false, error: err.message });
   }
 }
