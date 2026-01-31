@@ -3,27 +3,27 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/tournament_hub.html"
+      "destination": "/tournament_hub"
     },
     {
       "source": "/calendar",
-      "destination": "/calendar.html"
+      "destination": "/calendar"
     },
     {
       "source": "/index.html",
-      "destination": "/calendar.html"
+      "destination": "/calendar"
     },
     {
       "source": "/agenda",
-      "destination": "/agenda.html"
+      "destination": "/agenda"
     },
     {
       "source": "/tournaments",
-      "destination": "/tournaments.html"
+      "destination": "/tournaments"
     },
     {
       "source": "/calendar-ics-links.html",
-      "destination": "/calendar-ics-links.html"
+      "destination": "/calendar-ics-links"
     }
   ],
   "crons": [
