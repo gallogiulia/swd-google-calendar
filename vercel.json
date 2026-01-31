@@ -1,5 +1,11 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/tournament_hub.html"
+    }
+  ],
   "crons": [
     {
       "path": "/api/sync-links",
