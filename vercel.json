@@ -6,6 +6,10 @@
       "destination": "/tournament_hub.html"
     },
     {
+      "source": "/index.html",
+      "destination": "/calendar.html"
+    },
+    {
       "source": "/calendar",
       "destination": "/calendar.html"
     }
