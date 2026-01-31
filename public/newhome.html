@@ -92,23 +92,26 @@
 </head>
 <body class="body">
 
-    <nav class="nav-custom">
-        <a href="https://www.swlawnbowls.org/"><img src="https://cdn.prod.website-files.com/697cd928676b102cf89c1b2e/697cd929676b102cf89c1b8a_Frame%202.png" height="50"></a>
-        <div style="display:flex; gap:25px; align-items:center;">
-            <a href="/agenda" style="text-decoration:none; color:#1a365d; font-weight:900; font-size:0.9rem;">FULL SCHEDULE</a>
-            <button onclick="fetchStatus()" style="background:#1a365d; color:white; border:none; padding:12px 24px; border-radius:50px; font-weight:700; cursor:pointer;">↻ REFRESH</button>
-        </div>
-    </nav>
+<nav class="nav-custom">
+    <a href="https://www.swlawnbowls.org/">
+        <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/016752d5-b04b-4b20-9467-31326c91795c/Southwest+Bowls+Logo.png" height="60" style="object-fit: contain;">
+    </a>
+    <div style="display:flex; gap:25px; align-items:center;">
+        <a href="https://www.swlawnbowls.org/2026-schedule" style="text-decoration:none; color:#1a365d; font-weight:900; font-size:0.85rem; letter-spacing:1px;">2026 SCHEDULE</a>
+        <a href="https://www.swlawnbowls.org/ladies-day" style="text-decoration:none; color:#1a365d; font-weight:900; font-size:0.85rem; letter-spacing:1px;">LADIES DAY</a>
+        <button onclick="fetchStatus()" style="background:#1a365d; color:white; border:none; padding:12px 24px; border-radius:50px; font-weight:700; cursor:pointer; font-size:0.85rem;">↻ REFRESH DATA</button>
+    </div>
+</nav>
 
     <div class="main">
         <div class="gradient-background"></div>
         
-        <section class="section">
-            <div class="w-layout-blockcontainer container-main w-container">
-                <h1 class="hero-heading-h1">Tournament <span class="italic-span">Entry Status</span></h1>
-                <p class="para-txt">Real-time availability synced with the SWD Master Sheet. <br>Act quickly—spots fill up fast!</p>
-            </div>
-        </section>
+<section class="section" style="padding-top: 100px; padding-bottom: 60px;">
+    <div class="w-layout-blockcontainer container-main w-container">
+        <h1 class="hero-heading-h1" style="color:#1a365d;">Southwest Division <br><span class="italic-span">Tournament Portal</span></h1>
+        <p class="para-txt">Official real-time entry status and registration hub. <br>Directly synced with the SWD Master Tournament Sheet.</p>
+    </div>
+</section>
 
         <section class="home-our-work-section">
             <div class="w-layout-blockcontainer container-6 w-container" style="max-width:1200px">
@@ -121,12 +124,16 @@
             </div>
         </section>
 
-        <footer class="footer" style="padding: 100px 0 50px; background: white; margin-top: 100px; border-top: 1px solid #f1f5f9;">
-            <div class="w-container" style="text-align: center;">
-                <img src="https://cdn.prod.website-files.com/697cd928676b102cf89c1b2e/697cd929676b102cf89c1b8a_Frame%202.png" height="40" style="margin-bottom: 20px;">
-                <p style="color: #64748b;">© 2026 Southwest Division Bowls. <br>Powered by Vercel & Google Sheets.</p>
-            </div>
-        </footer>
+<footer class="footer" style="padding: 80px 0 40px; background: white; border-top: 1px solid #f1f5f9;">
+    <div class="w-container" style="text-align: center;">
+        <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/016752d5-b04b-4b20-9467-31326c91795c/Southwest+Bowls+Logo.png" height="50" style="margin-bottom: 20px;">
+        <p style="color: #64748b; font-weight: 500;">© 2026 Southwest Division Lawn Bowls. <br>All data is live and subject to change.</p>
+        <div style="margin-top:20px;">
+             <a href="https://www.swlawnbowls.org/contact" style="color:#1a365d; font-weight:900; text-decoration:none; margin: 0 15px;">CONTACT US</a>
+             <a href="https://www.swlawnbowls.org/youtube-live" style="color:#1a365d; font-weight:900; text-decoration:none; margin: 0 15px;">LIVE STREAM</a>
+        </div>
+    </div>
+</footer>
     </div>
 
     <script>
