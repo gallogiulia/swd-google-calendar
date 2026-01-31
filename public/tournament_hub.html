@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>SWD Tournament Hub | Home</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="https://cdn.prod.website-files.com/697cd928676b102cf89c1b2e/css/giulias-awesome-site-7dfad8.webflow.shared.aa5bde90a.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .hub-hero {
+            background-image: linear-gradient(rgba(26, 54, 93, 0.7), rgba(26, 54, 93, 0.7)), 
+                              url('https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/0088924b-3260-448c-9566-641951f22df8/Home+Hero+Image.jpg');
+            background-size: cover; background-position: center;
+            height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;
+        }
+        .hub-nav-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; max-width: 1200px; margin: -50px auto 50px; padding: 0 20px;
+        }
+        .hub-btn {
+            background: white; padding: 40px 20px; border-radius: 20px; text-align: center;
+            text-decoration: none; box-shadow: 0 15px 30px rgba(0,0,0,0.15); transition: 0.3s;
+            border: 1px solid #edf2f7;
+        }
+        .hub-btn:hover { transform: translateY(-10px); border-color: #1a365d; }
+        .hub-btn h3 { color: #1a365d; margin: 15px 0 5px; font-weight: 900; font-size: 1.2rem; }
+    </style>
+</head>
+<body class="body">
+    <nav style="padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; background: white; position: sticky; top: 0; z-index: 10000;">
+        <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/016752d5-b04b-4b20-9467-31326c91795c/Southwest+Bowls+Logo.png" height="50">
+        <div style="display:flex; gap:20px;">
+            <a href="/" style="text-decoration:none; color:#1a365d; font-weight:800; font-size:0.8rem;">HUB HOME</a>
+            <a href="https://www.swlawnbowls.org/" style="text-decoration:none; color:#1a365d; font-weight:800; font-size:0.8rem;">MAIN SITE</a>
+        </div>
+    </nav>
+
+    <header class="hub-hero">
+        <h1 style="font-size: 3.5rem; font-weight: 900; margin: 0;">Tournament Hub</h1>
+        <p style="font-size: 1.2rem; font-weight: 500;">Official Competition Hub for Southwest Lawn Bowls</p>
+    </header>
+
+    <div class="hub-nav-grid">
+        <a href="/agenda" class="hub-btn">
+            <div style="font-size: 2.5rem;">📅</div>
+            <h3>2026 Schedule</h3>
+            <p>Live Calendar & Agenda</p>
+        </a>
+        <a href="/entries" class="hub-btn">
+            <div style="font-size: 2.5rem;">📝</div>
+            <h3>Live Entries</h3>
+            <p>Real-time availability</p>
+        </a>
+        <a href="/season" class="hub-btn">
+            <div style="font-size: 2.5rem;">🏆</div>
+            <h3>2026 Season</h3>
+            <p>Standings & Manual</p>
+        </a>
+        <a href="/archives" class="hub-btn">
+            <div style="font-size: 2.5rem;">📂</div>
+            <h3>Archives</h3>
+            <p>Historical Results</p>
+        </a>
+    </div>
+
+    <footer style="background:#f8fafc; padding:60px 20px; text-align:center;">
+        <p style="letter-spacing:2px; font-weight:800; color:#94a3b8; margin-bottom:30px;">OFFICIAL PARTNERS</p>
+        <div style="display:flex; justify-content:center; gap:40px; flex-wrap:wrap; align-items:center;">
+            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Aero_Logo.png" height="40">
+            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Henselite_Logo.png" height="40">
+            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Drakes_Pride_Logo.png" height="40">
+        </div>
+    </footer>
+</body>
+</html>
