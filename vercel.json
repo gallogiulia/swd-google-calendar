@@ -4,6 +4,10 @@
     {
       "source": "/",
       "destination": "/tournament_hub.html"
+    },
+    {
+      "source": "/calendar",
+      "destination": "/calendar.html"
     }
   ],
   "crons": [
