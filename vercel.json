@@ -6,12 +6,20 @@
       "destination": "/tournament_hub.html"
     },
     {
-      "source": "/index.html",
-      "destination": "/calendar.html"
+      "source": "/calendar",
+      "destination": "/public/calendar.html"
     },
     {
-      "source": "/calendar",
-      "destination": "/calendar.html"
+      "source": "/index.html",
+      "destination": "/public/calendar.html"
+    },
+    {
+      "source": "/agenda",
+      "destination": "/public/agenda.html"
+    },
+    {
+      "source": "/tournaments",
+      "destination": "/public/tournaments.html"
     }
   ],
   "crons": [
