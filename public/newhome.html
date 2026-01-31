@@ -2,23 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Southwest Bowls | Official Tournament Portal</title>
+    <title>Southwest Bowls | Tournament Hub</title>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <link href="https://cdn.prod.website-files.com/697cd928676b102cf89c1b2e/css/giulias-awesome-site-7dfad8.webflow.shared.aa5bde90a.css" rel="stylesheet" type="text/css"/>
     
     <style>
-        /* 1. CUSTOM HERO BACKGROUND */
-        .custom-hero {
-            background-image: linear-gradient(rgba(26, 54, 93, 0.4), rgba(26, 54, 93, 0.4)), 
-                              url('https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/0088924b-3260-448c-9566-641951f22df8/Home+Hero+Image.jpg'); /* Replace with your hero image URL */
+        /* 1. BRANDED HERO WITH YOUR PHOTO */
+        .hub-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                              url('https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/0088924b-3260-448c-9566-641951f22df8/Home+Hero+Image.jpg');
             background-size: cover;
             background-position: center;
-            padding: 120px 20px;
-            color: white;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            color: white;
         }
 
-        /* 2. LOGO & NAV FIXES */
+        /* 2. NAVIGATION BAR */
         .nav-custom { 
             padding: 10px 5%; 
             display: flex; 
@@ -30,79 +34,77 @@
             z-index: 9999; 
             box-shadow: 0 2px 15px rgba(0,0,0,0.1); 
         }
-        .nav-links-wrap { display: flex; gap: 20px; align-items: center; }
-        .nav-link-item { text-decoration: none; color: #1a365d; font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; }
 
-        /* 3. TOURNAMENT CARDS */
-        .tournament-grid {
+        /* 3. HUB MENU CARDS */
+        .hub-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin: -50px auto 80px; /* Pulls cards up into the hero slightly for a pro look */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             max-width: 1200px;
+            margin: -60px auto 60px;
             padding: 0 20px;
         }
-        .swd-card { 
-            background: white; 
-            border-radius: 24px; 
-            padding: 35px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-            border: 1px solid #edf2f7;
+        .hub-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: 0.3s;
+            text-decoration: none;
+            border: 1px solid #eee;
         }
-
-        /* 4. PARTNERS & FOOTER */
-        .partner-section { padding: 60px 0; text-align: center; background: #fff; border-top: 1px solid #eee; }
-        .partner-row { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; align-items: center; margin-top: 30px; }
-        .partner-img { height: 50px; filter: grayscale(100%); transition: 0.3s; opacity: 0.7; }
-        .partner-img:hover { filter: grayscale(0%); opacity: 1; }
-        
-        .hero-heading-h1 { visibility: visible !important; opacity: 1 !important; color: white !important; font-size: 3.5rem !important; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .para-txt { visibility: visible !important; opacity: 1 !important; color: white !important; font-weight: 600 !important; }
+        .hub-card:hover { transform: translateY(-10px); border-color: #1a365d; }
+        .hub-card h3 { color: #1a365d; margin-top: 15px; font-weight: 900; }
     </style>
 </head>
 <body class="body">
 
     <nav class="nav-custom">
         <a href="https://www.swlawnbowls.org/"><img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/016752d5-b04b-4b20-9467-31326c91795c/Southwest+Bowls+Logo.png" height="60"></a>
-        <div class="nav-links-wrap">
-            <a href="https://www.swlawnbowls.org/2026-schedule" class="nav-link-item">2026 SCHEDULE</a>
-            <a href="https://www.swlawnbowls.org/ladies-day" class="nav-link-item">LADIES DAY</a>
-            <a href="https://www.swlawnbowls.org/youtube-live" class="nav-link-item">LIVE-STREAM</a>
-            <button onclick="fetchStatus()" style="background:#1a365d; color:white; border:none; padding:10px 20px; border-radius:50px; font-weight:700; cursor:pointer;">↻ REFRESH</button>
+        <div style="display:flex; gap:20px; align-items:center;">
+            <a href="https://www.swlawnbowls.org/2026-schedule" style="text-decoration:none; color:#1a365d; font-weight:800; font-size:0.8rem;">2026 SCHEDULE</a>
+            <a href="https://www.swlawnbowls.org/ladies-day" style="text-decoration:none; color:#1a365d; font-weight:800; font-size:0.8rem;">LADIES DAY</a>
+            <a href="https://www.swlawnbowls.org/youtube-live" style="text-decoration:none; color:#1a365d; font-weight:800; font-size:0.8rem;">LIVE-STREAM</a>
         </div>
     </nav>
 
-    <header class="custom-hero">
-        <div class="w-container">
-            <h1 class="hero-heading-h1">Southwest Division</h1>
-            <p class="para-txt">Official Real-Time Entry Status & Registration Portal</p>
-        </div>
+    <header class="hub-hero">
+        <h1 class="hero-heading-h1" style="color:white !important; visibility:visible !important; opacity:1 !important;">Tournament Hub</h1>
+        <p style="font-weight:600;">The official command center for Southwest Division competition.</p>
     </header>
 
-    <div class="tournament-grid" id="tournament-grid">
-        <div style="text-align:center; grid-column: 1/-1; padding: 100px;">
-            <h2 style="color:#1a365d;">Syncing Live Data...</h2>
-        </div>
+    <div class="hub-grid">
+        <a href="#live-entries" class="hub-card">
+            <div style="font-size: 2rem;">📝</div>
+            <h3>Live Entries</h3>
+            <p>View current availability & register.</p>
+        </a>
+        <a href="https://www.swlawnbowls.org/results" class="hub-card">
+            <div style="font-size: 2rem;">🏆</div>
+            <h3>Live Results</h3>
+            <p>Scoreboards & current standings.</p>
+        </a>
+        <a href="/archives" class="hub-card">
+            <div style="font-size: 2rem;">📂</div>
+            <h3>Archives</h3>
+            <p>Past tournament winners & photos.</p>
+        </a>
     </div>
 
-    <section class="partner-section">
-        <h2 style="font-size: 1.2rem; letter-spacing: 2px; color: #94a3b8;">OUR EQUIPMENT PARTNERS</h2>
-        <div class="partner-row">
-            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Aero_Logo.png" class="partner-img">
-            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Henselite_Logo.png" class="partner-img">
-            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Drakes_Pride_Logo.png" class="partner-img">
-        </div>
-        
-        <h2 style="font-size: 1.2rem; letter-spacing: 2px; color: #94a3b8; margin-top: 60px;">PROUD MEMBER OF</h2>
-        <div class="partner-row">
-            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/BowlsUSA_Logo.png" class="partner-img" style="height:80px;">
-            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/WorldBowls_Logo.png" class="partner-img" style="height:80px;">
-        </div>
+    <section id="live-entries" style="padding: 60px 0; max-width:1200px; margin:auto;">
+        <h2 style="text-align:center; color:#1a365d; margin-bottom:40px;">Active Registrations</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap:30px;" id="tournament-grid">
+            </div>
     </section>
 
-    <footer style="padding: 40px 0; background: #1a365d; color: white; text-align: center;">
-        <p>© 2026 Southwest Division Lawn Bowls. Data synced from Master Sheet.</p>
-        <a href="https://www.swlawnbowls.org/contact" style="color:white; font-weight:700;">Contact Us</a>
+    <footer style="background:#f8fafc; padding:60px 20px; text-align:center; border-top: 1px solid #eee;">
+        <p style="letter-spacing:2px; font-weight:800; color:#94a3b8; margin-bottom:30px;">OFFICIAL PARTNERS</p>
+        <div style="display:flex; justify-content:center; gap:40px; flex-wrap:wrap; align-items:center;">
+            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Aero_Logo.png" height="40">
+            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Henselite_Logo.png" height="40">
+            <img src="https://images.squarespace-cdn.com/content/v1/640673d317075c138f5f190e/1678235212586-B9Z9Z9Z9Z9Z9Z9Z9Z9Z9/Drakes_Pride_Logo.png" height="40">
+        </div>
     </footer>
 
     <script>
@@ -111,21 +113,21 @@
                 .then(r => r.json())
                 .then(res => {
                     const grid = document.getElementById('tournament-grid');
-                    // AUTO-HIDE LOGIC: Filter out tournaments that are marked as FULL
-                    grid.innerHTML = res.data.filter(item => item.status !== 'FULL').map(item => {
-                        const total = (parseInt(item.leftA) || 0) + (parseInt(item.leftB) || 0);
-                        let color = total <= 5 ? '#f59e0b' : '#10b981';
-                        let label = total <= 5 ? 'FILLING FAST' : 'ENTRY OPEN';
-
+                    grid.innerHTML = res.data.filter(i => i.status !== 'FULL').map(item => {
                         return `
-                            <div class="swd-card">
-                                <span style="background:${color}15; color:${color}; padding:4px 12px; border-radius:50px; font-weight:900; font-size:0.7rem; width:fit-content; margin-bottom:15px; border:1px solid ${color}40;">${label}</span>
-                                <h3 style="margin:0 0 20px 0; color:#1a365d; font-size:1.6rem; font-weight:900; line-height:1.2;">${item.name}</h3>
-                                <div style="background:#f8fafc; border-radius:16px; padding:20px; display:grid; grid-template-columns:1fr 1fr; border-left:10px solid ${color};">
-                                    <div><small style="font-weight:800; color:#64748b; letter-spacing:1px;">GREEN A</small><div style="font-size:2rem; font-weight:900; color:#1a365d;">${item.leftA}</div></div>
-                                    <div><small style="font-weight:800; color:#64748b; letter-spacing:1px;">GREEN B</small><div style="font-size:2rem; font-weight:900; color:#1a365d;">${item.leftB}</div></div>
+                            <div style="background:white; border-radius:20px; padding:30px; border:1px solid #edf2f7; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                                <h4 style="margin:0; font-weight:900; color:#1a365d;">${item.name}</h4>
+                                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin: 20px 0;">
+                                    <div style="background:#f1f5f9; padding:10px; border-radius:10px; text-align:center;">
+                                        <small style="font-weight:800; color:#64748b;">GREEN A</small>
+                                        <div style="font-size:1.5rem; font-weight:900;">${item.leftA}</div>
+                                    </div>
+                                    <div style="background:#f1f5f9; padding:10px; border-radius:10px; text-align:center;">
+                                        <small style="font-weight:800; color:#64748b;">GREEN B</small>
+                                        <div style="font-size:1.5rem; font-weight:900;">${item.leftB}</div>
+                                    </div>
                                 </div>
-                                <a href="https://www.swlawnbowls.org/registration" style="background:#1a365d; color:white; text-decoration:none; padding:18px; border-radius:15px; text-align:center; font-weight:800; margin-top:25px; display:block;">REGISTER NOW</a>
+                                <a href="https://www.swlawnbowls.org/registration" style="display:block; background:#1a365d; color:white; text-decoration:none; padding:12px; border-radius:10px; text-align:center; font-weight:800;">REGISTER</a>
                             </div>
                         `;
                     }).join('');
