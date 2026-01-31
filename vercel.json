@@ -7,19 +7,23 @@
     },
     {
       "source": "/calendar",
-      "destination": "/public/calendar.html"
+      "destination": "/calendar.html"
     },
     {
       "source": "/index.html",
-      "destination": "/public/calendar.html"
+      "destination": "/calendar.html"
     },
     {
       "source": "/agenda",
-      "destination": "/public/agenda.html"
+      "destination": "/agenda.html"
     },
     {
       "source": "/tournaments",
-      "destination": "/public/tournaments.html"
+      "destination": "/tournaments.html"
+    },
+    {
+      "source": "/calendar-ics-links.html",
+      "destination": "/calendar-ics-links.html"
     }
   ],
   "crons": [
