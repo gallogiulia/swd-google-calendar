@@ -34,8 +34,8 @@
       <span><span class="swatch" style="background:#f59e0b"></span> PBA</span>
     </div>
 
-    <div class="info-bar">
-      <strong>Tournament Notice:</strong> Forms and details are typically posted <strong>8-12 weeks</strong> prior to the event. 
+   <div class="info-bar">
+      <strong>Tournament Notice:</strong> Forms and details are typically posted <strong>5-6 weeks</strong> prior to the event. 
       <br><em>*Note: Click "ENTRY OPEN" to view details and register on Squarespace.</em>
     </div>
 
@@ -62,10 +62,13 @@
       events: events,
       eventContent: function(arg) {
         const title = arg.event.title;
-        const eventUrl = arg.event.extendedProps.eventUrl; // Grab link from Squarespace
+        // Logic to pull the link from the event data
+        const eventUrl = arg.event.extendedProps.eventUrl; 
         const cap = capacities.find(c => title.toLowerCase().includes(c.name.toLowerCase()));
+        
         let capHtml = '';
         
+        // If there is capacity data, show the Green availability and the Button
         if (cap) {
           const total = (parseInt(cap.leftA) || 0) + (parseInt(cap.leftB) || 0);
           const isFull = cap.status === 'FULL' || total <= 0;
@@ -78,18 +81,24 @@
             color = '#dd6b20'; text = 'FILLING FAST'; 
           }
 
-          // Point to Squarespace if link exists, otherwise show 'Coming Soon'
+          // If a link exists, make the button clickable to Squarespace
+          // If no link exists, show 'LINK COMING SOON'
           const buttonHtml = isFull 
             ? `<div style="background:${color}; color:white; padding:6px 12px; border-radius:8px; font-weight:900;">${text}</div>`
             : eventUrl 
               ? `<a href="${eventUrl}" target="_blank" style="background:${color}; color:white; padding:6px 12px; border-radius:8px; font-weight:900; text-decoration:none; display:inline-block; transition: 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">${text}</a>`
-              : `<div style="color:#9ca3af; font-size:0.8rem; font-weight:700;">LINK COMING SOON</div>`;
+              : `<div style="color:#9ca3af; font-size:0.85rem; font-weight:700; letter-spacing:0.5px;">LINK COMING SOON</div>`;
 
           capHtml = `<div style="margin-top:12px; background:#f1f5f9; border-left:10px solid ${color}; padding:15px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
             <div style="font-size:1.1rem;">${cap.leftA > 0 ? `Green A: <b>${cap.leftA}</b> left<br>` : ''}${cap.leftB > 0 ? `Green B: <b>${cap.leftB}</b> left` : ''}</div>
             ${buttonHtml}
           </div>`;
+        } 
+        // If there is NO capacity data yet (tournament is too far out), show this placeholder
+        else {
+          capHtml = `<div style="margin-top:8px; color:#9ca3af; font-size:0.85rem; font-weight:700;">LINK COMING SOON</div>`;
         }
+
         return { html: `<div style="padding:10px 0;"><div style="font-weight:800; font-size:1.3rem;">${title}</div>${capHtml}</div>` };
       }
     });
