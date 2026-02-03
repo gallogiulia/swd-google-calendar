@@ -37,7 +37,7 @@
 
     let capacities = [];
     try {
-      // Force Absolute URL for Capacity Data
+      // ABSOLUTE URL to ensure iframe can fetch data
       const res = await fetch('https://hub.swlawnbowls.org/api/check-capacity');
       const json = await res.json();
       capacities = json.data || (Array.isArray(json) ? json : []);
@@ -48,7 +48,7 @@
     const calendar = new FullCalendar.Calendar(calEl, {
       initialView: 'listYear',
       headerToolbar: false,
-      // FORCE ABSOLUTE URL FOR EVENTS TO FIX "NO EVENTS" ERROR
+      // ABSOLUTE URL to restore "No events to display" error
       events: 'https://hub.swlawnbowls.org/api/events',
       eventClassNames: 'event-card',
       eventContent: function(arg) {
@@ -56,24 +56,27 @@
         const color = arg.event.backgroundColor || '#2563eb';
         const eventUrl = arg.event.extendedProps.eventUrl;
         
-        // Exact match check for tournament name
-        const cap = capacities.find(c => c.name.trim().toLowerCase() === title.toLowerCase());
+        // Flexible matching for names (handles partial matches like "SWD Women Cal 5s" vs "SWD California 5s")
+        const cap = capacities.find(c => 
+          title.toLowerCase().includes(c.name.trim().toLowerCase()) || 
+          c.name.trim().toLowerCase().includes(title.toLowerCase())
+        );
         
         let capHtml = '';
         if (cap) {
           const status = (cap.status || "").trim().toUpperCase();
           const isOpen = (status === 'OPEN');
           const isFull = (status === 'FULL') || (Number(cap.leftA) + Number(cap.leftB) <= 0);
-          const releaseDate = cap.releaseDate;
+          const relDate = cap.releaseDate;
           
           let buttonHtml = '';
           if (isFull) {
             buttonHtml = `<div style="background:#64748b; color:white; padding:8px 16px; border-radius:8px; font-weight:700;">FULL</div>`;
           } else if (isOpen && eventUrl) {
-            buttonHtml = `<a href="${eventUrl}" target="_blank" style="background:${color}; color:white; padding:8px 16px; border-radius:8px; font-weight:700; text-decoration:none;">ENTRY OPEN</a>`;
+            buttonHtml = `<a href="${eventUrl}" target="_blank" style="background:${color}; color:white; padding:8px 16px; border-radius:8px; font-weight:700; text-decoration:none; display:inline-block;">ENTRY OPEN</a>`;
           } else {
-            // FIX: Prioritize Release Date from Column H over generic "COMING SOON"
-            const dateText = releaseDate ? `OPENS ${releaseDate}` : "COMING SOON";
+            // NEW LOGIC: Use Release Date from Column H
+            const dateText = relDate ? `OPENS ${relDate}` : "COMING SOON";
             buttonHtml = `<div style="color:#d97706; font-size:0.8rem; font-weight:700; background:#fff7ed; padding:6px 12px; border-radius:6px; border:1px solid #fed7aa; white-space:nowrap;">📅 ${dateText}</div>`;
           }
 
@@ -83,7 +86,7 @@
                 ${isOpen ? `
                   ${cap.leftA > 0 ? `Green A: <b>${cap.leftA}</b> left<br>` : ''}
                   ${cap.leftB > 0 ? `Green B: <b>${cap.leftB}</b> left` : ''}
-                ` : `<span style="font-style:italic;">Registration details coming soon</span>`}
+                ` : `<span style="font-style:italic;">Registration details pending</span>`}
               </div>
               ${buttonHtml}
             </div>`;
