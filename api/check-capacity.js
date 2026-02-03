@@ -19,21 +19,23 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
     const spreadsheetId = '1VRp6kZTzGcDNYgVTw5KSq-kT2HGjruYXiQcpCQdZU9I';
 
-    // UPDATED: Range changed to A2:H to capture the Release Date
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
       range: "'Tournament Settings'!A2:H", 
     });
 
-    const data = (response.data.values || []).map(row => ({
+    const rows = response.data.values || [];
+    
+    const formattedData = rows.map(row => ({
       name: row[0] || "Unknown",
       leftA: row[4] || 0,
       leftB: row[5] || 0,
-      status: row[6] || "PENDING",  // Column G
-      releaseDate: row[7] || ""    // Column H (NEW)
+      status: row[6] || "PENDING",
+      releaseDate: row[7] || "" 
     }));
 
-    return res.status(200).json(data);
+    // CRITICAL: We return { data: [...] } so agenda.html can find it
+    return res.status(200).json({ data: formattedData });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: err.message });
