@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SWD - Live Entry Status</title>
+  <style>
+    body { font-family: sans-serif; background: #fafafa; padding: 20px; }
+    .card { background:#fff; border:3px solid #1a365d; border-radius:20px; padding:25px; max-width:600px; margin:auto; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .item { padding:20px 0; border-bottom:2px solid #f1f5f9; }
+    .badge { padding:6px 12px; border-radius:8px; color:white; font-weight:900; font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2 style="color:#1a365d; margin-top:0;">Live Registration Status</h2>
+    <div id="list">Loading live data...</div>
+  </div>
+
+  <script>
+    fetch('https://hub.swlawnbowls.org/api/check-capacity')
+      .then(r => r.json())
+      .then(res => {
+        const data = res.data || res || [];
+        const now = new Date();
+        const limit = new Date();
+        limit.setDate(now.getDate() + 14); // Show upcoming for next 14 days here
+
+        const filtered = data.filter(item => {
+          const s = (item.status || "").toUpperCase();
+          if (s === 'OPEN' || s === 'FULL') return true;
+          const rd = new Date(item.releaseDate + ", 2026");
+          return rd >= now && rd <= limit;
+        });
+
+        document.getElementById('list').innerHTML = filtered.map(item => `
+          <div class="item">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:900; font-size:1.2rem;">${item.name}</span>
+              <span class="badge" style="background:${item.status==='OPEN' ? '#2f855a' : '#dd6b20'}">
+                ${item.status === 'OPEN' ? 'OPEN' : 'OPENS ' + item.releaseDate}
+              </span>
+            </div>
+          </div>
+        `).join('');
+      });
+  </script>
+</body>
+</html>
