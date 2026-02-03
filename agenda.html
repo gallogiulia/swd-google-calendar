@@ -37,7 +37,7 @@
 
     let capacities = [];
     try {
-      // Use absolute URL to prevent iframe path issues
+      // Force Absolute URL for Capacity Data
       const res = await fetch('https://hub.swlawnbowls.org/api/check-capacity');
       const json = await res.json();
       capacities = json.data || (Array.isArray(json) ? json : []);
@@ -48,7 +48,7 @@
     const calendar = new FullCalendar.Calendar(calEl, {
       initialView: 'listYear',
       headerToolbar: false,
-      // Use absolute URL for events so the calendar data loads inside the iframe
+      // FORCE ABSOLUTE URL FOR EVENTS TO FIX "NO EVENTS" ERROR
       events: 'https://hub.swlawnbowls.org/api/events',
       eventClassNames: 'event-card',
       eventContent: function(arg) {
@@ -56,6 +56,7 @@
         const color = arg.event.backgroundColor || '#2563eb';
         const eventUrl = arg.event.extendedProps.eventUrl;
         
+        // Exact match check for tournament name
         const cap = capacities.find(c => c.name.trim().toLowerCase() === title.toLowerCase());
         
         let capHtml = '';
@@ -71,7 +72,7 @@
           } else if (isOpen && eventUrl) {
             buttonHtml = `<a href="${eventUrl}" target="_blank" style="background:${color}; color:white; padding:8px 16px; border-radius:8px; font-weight:700; text-decoration:none;">ENTRY OPEN</a>`;
           } else {
-            // FIX: Prioritize Release Date from Column H
+            // FIX: Prioritize Release Date from Column H over generic "COMING SOON"
             const dateText = releaseDate ? `OPENS ${releaseDate}` : "COMING SOON";
             buttonHtml = `<div style="color:#d97706; font-size:0.8rem; font-weight:700; background:#fff7ed; padding:6px 12px; border-radius:6px; border:1px solid #fed7aa; white-space:nowrap;">📅 ${dateText}</div>`;
           }
