@@ -1,8 +1,9 @@
 {
   "dependencies": {
-    "pdfkit": "^0.15.0",
     "@sparticuz/chromium": "^123.0.0",
+    "@supabase/supabase-js": "^2.95.3",
+    "fullcalendar": "^6.1.15",
     "googleapis": "^144.0.0",
-    "fullcalendar": "^6.1.15"
+    "pdfkit": "^0.15.0"
   }
 }
