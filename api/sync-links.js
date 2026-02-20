@@ -16,7 +16,8 @@ async function scrapeSquarespaceLinks() {
   let match;
   while ((match = linkRegex.exec(html)) !== null) {
     const url = match[1].startsWith('http') ? match[1] : `https://www.swlawnbowls.org${match[1]}`;
-    const name = url.split('/').pop().replace(/-/g, ' ').replace(/\d+/g, '').trim();
+    const slug = url.split('/').pop();
+    const name = slug.replace(/-/g, ' ').replace(/\d+/g, '').trim();
     links.push({ name, url });
   }
   return links;
@@ -51,10 +52,13 @@ export default async function handler(req, res) {
     for (const calendarId of CALENDAR_IDS) {
       try {
         const events = await calendar.events.list({
-          calendarId,
-          timeMin: new Date().toISOString(),
-          singleEvents: true,
-        });
+        calendarId,
+        timeMin: '2026-01-01T00:00:00Z',
+        timeMax: '2027-01-01T00:00:00Z',
+        singleEvents: true,
+        maxResults: 2500,
+        orderBy: 'startTime',
+      });
 
         for (const event of (events.data.items || [])) {
           const match = siteLinks.find(link => 
