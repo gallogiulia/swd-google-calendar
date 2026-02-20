@@ -1,11 +1,25 @@
 <!doctype html>
+<!--
+SWD 2026 Agenda Calendar
+---------------------------------------
+• Loads events dynamically from hub API
+• Displays tournaments in list view (year)
+• Shows a "View" button ONLY if a Squarespace URL exists
+• No capacity logic
+• No placeholders ("Link Coming Soon" removed)
+• Fully iframe-safe for Squarespace embedding
+---------------------------------------
+-->
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SWD Events – 2026 Agenda</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
   <style>
     body { font-family: system-ui, sans-serif; background: #fafafa; margin: 0; padding: 16px; }
     .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -17,8 +31,10 @@
     .fc-list-day-cushion { background: #f1f1f1 !important; padding: 12px !important; }
   </style>
 </head>
+
 <body>
   <div class="container">
+
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
       <h1 style="margin:0;">2026 Season Agenda</h1>
       <button class="refresh-btn" onclick="initPage()">↻ REFRESH</button>
@@ -32,12 +48,13 @@
       <span><span class="swatch" style="background:#f59e0b"></span> PBA</span>
     </div>
 
-   <div class="info-bar">
-      <strong>Tournament Notice:</strong> Forms and details are typically posted <strong>5-6 weeks</strong> prior to the event. 
-      <br><em>*Note: Click "ENTRY OPEN" to view details and register on Squarespace.</em>
+    <div class="info-bar">
+      <strong>Tournament Notice:</strong> Forms and details are typically posted <strong>5–6 weeks</strong> prior to the event.
+      <br><em>Click "View" to open the official tournament page.</em>
     </div>
 
     <div id="agenda"></div>
+
   </div>
 
 <script>
@@ -61,22 +78,20 @@
       eventContent: function(arg) {
         const title = arg.event.title;
 
-        // try a few possible property locations/names (backend may vary)
-        const ep = arg.event.extendedProps || {};
+        // Safely retrieve event URL from API
         const eventUrl =
-          ep.eventUrl ||
-          ep.url ||
-          ep.registrationUrl ||
+          arg.event.extendedProps?.eventUrl ||
+          arg.event._def?.extendedProps?.eventUrl ||
           arg.event.url ||
           '';
 
         const buttonHtml = eventUrl
           ? `<a href="${eventUrl}" target="_blank"
                style="background:#2b6cb0; color:white; padding:6px 12px; border-radius:8px;
-                      font-weight:900; text-decoration:none; display:inline-block;">
-               ENTRY OPEN
+                      font-weight:700; text-decoration:none; display:inline-block;">
+               View
              </a>`
-          : ``; // no placeholder, show nothing
+          : ``;
 
         return {
           html: `
@@ -93,5 +108,6 @@
 
   initPage();
 </script>
+
 </body>
 </html>
