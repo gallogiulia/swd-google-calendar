@@ -8,11 +8,11 @@ const CALENDAR_IDS = [
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com",
 ];
 
-// ------------------------
-// Helpers
-// ------------------------
 const BASE_SITE = "https://www.swlawnbowls.org";
 const LISTING_URL = `${BASE_SITE}/2026-tournaments-events`;
+
+// IMPORTANT: only allow item pages whose slug starts with "2026-"
+const REQUIRED_SLUG_PREFIX = "2026-";
 
 function normalizeText(s) {
   return (s || "")
@@ -23,21 +23,22 @@ function normalizeText(s) {
     .trim();
 }
 
+function slugFromUrl(url) {
+  const parts = (url || "").split("/").filter(Boolean);
+  return parts.length ? parts[parts.length - 1] : "";
+}
+
 function normalizeSquarespaceUrl(href) {
   if (!href) return null;
 
-  // absolute vs relative
   let url = href.startsWith("http")
     ? href
     : `${BASE_SITE}${href.startsWith("/") ? "" : "/"}${href}`;
 
-  // strip query/hash
   url = url.split("#")[0].split("?")[0];
 
-  // must be in this collection
   if (!url.includes("/2026-tournaments-events/")) return null;
 
-  // ignore the collection root page
   if (url.endsWith("/2026-tournaments-events") || url.endsWith("/2026-tournaments-events/")) return null;
 
   return url;
@@ -45,7 +46,6 @@ function normalizeSquarespaceUrl(href) {
 
 async function isLiveUrl(url) {
   try {
-    // Squarespace drafts/unpublished typically return 404; GET is most reliable
     const r = await fetch(url, { method: "GET", redirect: "follow", cache: "no-store" });
     return r.ok;
   } catch {
@@ -53,60 +53,52 @@ async function isLiveUrl(url) {
   }
 }
 
-function slugFromUrl(url) {
-  const parts = (url || "").split("/").filter(Boolean);
-  return parts.length ? parts[parts.length - 1] : "";
-}
-
 function nameFromSlug(slug) {
   if (!slug) return null;
 
-  // Remove only a leading year prefix like "2026-" (do not strip all digits)
-  const cleaned = slug.replace(/^20\d{2}-/, "");
-  const name = cleaned.replace(/-/g, " ").trim();
+  // Strip ONLY the required prefix from the display name (keeps digits elsewhere intact)
+  const cleaned = slug.startsWith(REQUIRED_SLUG_PREFIX)
+    ? slug.slice(REQUIRED_SLUG_PREFIX.length)
+    : slug;
 
+  const name = cleaned.replace(/-/g, " ").trim();
   if (!name || name.length < 4) return null;
   return name;
 }
 
-// ------------------------
-// Scrape listing page -> find ONLY live item URLs
-// ------------------------
 async function scrapeSquarespaceLinks() {
   const response = await fetch(LISTING_URL, { redirect: "follow", cache: "no-store" });
   const html = await response.text();
 
-  // grab every href to be robust (Squarespace markup can change)
   const hrefRegex = /href="([^"]+)"/g;
   const hrefs = [];
   let m;
   while ((m = hrefRegex.exec(html)) !== null) hrefs.push(m[1]);
 
-  // normalize/filter/dedupe
   const candidateUrls = [...new Set(hrefs.map(normalizeSquarespaceUrl).filter(Boolean))];
 
-  // keep only URLs that are live (published)
   const liveUrls = [];
   for (const url of candidateUrls) {
+    // Enforce: must be an item slug that starts with "2026-"
+    const slug = slugFromUrl(url);
+    if (!slug.startsWith(REQUIRED_SLUG_PREFIX)) continue;
+
+    // Optional: also ensure the page is actually live
     if (await isLiveUrl(url)) liveUrls.push(url);
   }
 
-  // map to {name,url} for matching
   const links = liveUrls
     .map((url) => {
       const slug = slugFromUrl(url);
       const name = nameFromSlug(slug);
       if (!name) return null;
-      return { name, url };
+      return { name, url, slug };
     })
     .filter(Boolean);
 
   return links;
 }
 
-// ------------------------
-// Vercel handler
-// ------------------------
 export default async function handler(req, res) {
   const providedSecret = req.query.key || req.headers.authorization?.split(" ")[1];
   if (!process.env.CRON_SECRET || providedSecret !== process.env.CRON_SECRET) {
@@ -117,11 +109,10 @@ export default async function handler(req, res) {
   const logs = [];
 
   try {
-    // Validate service account JSON early with a useful error
     let credentials;
     try {
       credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
-    } catch (e) {
+    } catch {
       return res.status(500).json({
         error: "JSON Parse Error: Check GOOGLE_SERVICE_ACCOUNT_JSON formatting in Vercel env vars.",
       });
@@ -134,12 +125,8 @@ export default async function handler(req, res) {
 
     const calendar = google.calendar({ version: "v3", auth });
 
-    // 1) Scrape ONLY live Squarespace URLs
     const siteLinks = await scrapeSquarespaceLinks();
-    logs.push(`Squarespace live links found: ${siteLinks.length}`);
-
-    // Optional: log them (can be long)
-    // siteLinks.forEach(l => logs.push(`LIVE: ${l.name} -> ${l.url}`));
+    logs.push(`Squarespace live links (slug starts with "${REQUIRED_SLUG_PREFIX}"): ${siteLinks.length}`);
 
     let updatedCount = 0;
     let candidateMatches = 0;
@@ -159,7 +146,6 @@ export default async function handler(req, res) {
           const eventName = normalizeText(event.summary);
           if (!eventName) continue;
 
-          // 2) Tight matching (avoid short/garbage names)
           const match = siteLinks.find(({ name }) => {
             const linkName = normalizeText(name);
             if (linkName.length < 6) return false;
@@ -197,7 +183,8 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       dryRun,
-      squarespaceLiveLinks: siteLinks.length,
+      requiredSlugPrefix: REQUIRED_SLUG_PREFIX,
+      squarespaceLinksUsed: siteLinks.length,
       candidateMatches,
       updated: updatedCount,
       diagnostics: logs,
