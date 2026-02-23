@@ -11,9 +11,21 @@ const CALENDAR_IDS = [
 const BASE_SITE = "https://www.swlawnbowls.org";
 const LISTING_URL = `${BASE_SITE}/2026-tournaments-events`;
 
-// IMPORTANT: only allow item pages whose slug starts with "2026-"
+// Only allow item pages whose slug starts with "2026-"
 const REQUIRED_SLUG_PREFIX = "2026-";
 
+// Hard block these known-bad URLs too (belt + suspenders)
+const HARD_BLOCK = new Set([
+  `${BASE_SITE}/2026-tournaments-events/2025-cambria-pairs`,
+  `${BASE_SITE}/2026-tournaments-events/2025newport911`,
+  `${BASE_SITE}/2026-tournaments-events/2025-oaks-north-mixed-triples`,
+  `${BASE_SITE}/2026-tournaments-events/2025-bill-hiscock-2-bowl-triples`,
+  `${BASE_SITE}/2026-tournaments-events/2025-ralph-ecton-triples`,
+]);
+
+// ------------------------
+// Helpers
+// ------------------------
 function normalizeText(s) {
   return (s || "")
     .toLowerCase()
@@ -56,17 +68,49 @@ async function isLiveUrl(url) {
 function nameFromSlug(slug) {
   if (!slug) return null;
 
-  // Strip ONLY the required prefix from the display name (keeps digits elsewhere intact)
-  const cleaned = slug.startsWith(REQUIRED_SLUG_PREFIX)
-    ? slug.slice(REQUIRED_SLUG_PREFIX.length)
-    : slug;
+  // Strip ONLY the required prefix from the display name
+  const cleaned = slug.startsWith(REQUIRED_SLUG_PREFIX) ? slug.slice(REQUIRED_SLUG_PREFIX.length) : slug;
 
   const name = cleaned.replace(/-/g, " ").trim();
   if (!name || name.length < 4) return null;
   return name;
 }
 
-async function scrapeSquarespaceLinks() {
+// Extract ONLY SWLawnBowls collection URLs from text.
+function extractTournamentUrls(text) {
+  const s = text || "";
+  const re =
+    /https?:\/\/www\.swlawnbowls\.org\/2026-tournaments-events\/[^\s<>"')\]]+/g;
+  return [...new Set(s.match(re) || [])].map((u) => u.split("#")[0].split("?")[0]);
+}
+
+// Remove any disallowed URLs from description.
+// Disallowed = HARD_BLOCK OR slug does not start with "2026-"
+function removeDisallowedTournamentUrls(description) {
+  const urls = extractTournamentUrls(description);
+  if (!urls.length) return { cleaned: description || "", removed: [] };
+
+  const removed = [];
+  let cleaned = description || "";
+
+  for (const url of urls) {
+    const slug = slugFromUrl(url);
+    const disallowed =
+      HARD_BLOCK.has(url) || !slug.startsWith(REQUIRED_SLUG_PREFIX);
+
+    if (disallowed) {
+      const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      cleaned = cleaned.replace(new RegExp(`\\s*${escaped}\\s*\\n?`, "g"), "\n");
+      removed.push(url);
+    }
+  }
+
+  cleaned = cleaned.replace(/\n{3,}/g, "\n\n").trim();
+  return { cleaned, removed };
+}
+
+// Scrape Squarespace listing -> ONLY return live links whose slug starts with "2026-"
+async function scrapeSquarespaceLinksAllowedOnly() {
   const response = await fetch(LISTING_URL, { redirect: "follow", cache: "no-store" });
   const html = await response.text();
 
@@ -77,17 +121,17 @@ async function scrapeSquarespaceLinks() {
 
   const candidateUrls = [...new Set(hrefs.map(normalizeSquarespaceUrl).filter(Boolean))];
 
-  const liveUrls = [];
+  const allowedLiveUrls = [];
   for (const url of candidateUrls) {
-    // Enforce: must be an item slug that starts with "2026-"
+    if (HARD_BLOCK.has(url)) continue;
+
     const slug = slugFromUrl(url);
     if (!slug.startsWith(REQUIRED_SLUG_PREFIX)) continue;
 
-    // Optional: also ensure the page is actually live
-    if (await isLiveUrl(url)) liveUrls.push(url);
+    if (await isLiveUrl(url)) allowedLiveUrls.push(url);
   }
 
-  const links = liveUrls
+  return allowedLiveUrls
     .map((url) => {
       const slug = slugFromUrl(url);
       const name = nameFromSlug(slug);
@@ -95,10 +139,43 @@ async function scrapeSquarespaceLinks() {
       return { name, url, slug };
     })
     .filter(Boolean);
-
-  return links;
 }
 
+// Strict matching:
+// - find all candidates where ALL meaningful words from linkName appear in event summary
+// - if 0 candidates => no match
+// - if 2+ candidates => ambiguous => no match (do NOT add any URL)
+function pickStrictMatch(eventSummary, allowedLinks, logs) {
+  const eventName = normalizeText(eventSummary);
+  if (!eventName) return null;
+
+  const candidates = allowedLinks.filter(({ name }) => {
+    const linkName = normalizeText(name);
+    if (linkName.length < 6) return false;
+
+    const words = linkName.split(" ").filter((w) => w.length >= 3);
+    if (!words.length) return false;
+
+    return words.every((w) => eventName.includes(w));
+  });
+
+  if (candidates.length === 1) return candidates[0];
+
+  if (candidates.length > 1) {
+    logs.push(
+      `SKIP ambiguous: "${eventSummary}" -> ${candidates
+        .slice(0, 5)
+        .map((c) => c.url)
+        .join(" | ")}${candidates.length > 5 ? " | ..." : ""}`
+    );
+  }
+
+  return null;
+}
+
+// ------------------------
+// Vercel handler
+// ------------------------
 export default async function handler(req, res) {
   const providedSecret = req.query.key || req.headers.authorization?.split(" ")[1];
   if (!process.env.CRON_SECRET || providedSecret !== process.env.CRON_SECRET) {
@@ -107,6 +184,7 @@ export default async function handler(req, res) {
 
   const dryRun = req.query.dryRun === "1";
   const logs = [];
+  const changes = []; // short, copyable summary
 
   try {
     let credentials;
@@ -125,11 +203,13 @@ export default async function handler(req, res) {
 
     const calendar = google.calendar({ version: "v3", auth });
 
-    const siteLinks = await scrapeSquarespaceLinks();
-    logs.push(`Squarespace live links (slug starts with "${REQUIRED_SLUG_PREFIX}"): ${siteLinks.length}`);
+    // 1) Only allowed 2026 links
+    const allowedLinks = await scrapeSquarespaceLinksAllowedOnly();
+    logs.push(`Allowed 2026 links found: ${allowedLinks.length}`);
 
-    let updatedCount = 0;
-    let candidateMatches = 0;
+    let eventsPatched = 0;
+    let removedUrlCount = 0;
+    let addedUrlCount = 0;
 
     for (const calendarId of CALENDAR_IDS) {
       try {
@@ -143,35 +223,43 @@ export default async function handler(req, res) {
         });
 
         for (const event of events.data.items || []) {
-          const eventName = normalizeText(event.summary);
-          if (!eventName) continue;
+          const originalDesc = event.description || "";
 
-          const match = siteLinks.find(({ name }) => {
-            const linkName = normalizeText(name);
-            if (linkName.length < 6) return false;
-            return eventName.includes(linkName) || linkName.includes(eventName);
+          // 2) Remove ALL disallowed tournament URLs (anything not 2026-)
+          const { cleaned, removed } = removeDisallowedTournamentUrls(originalDesc);
+
+          // 3) Strictly decide if we can add ONE correct link (or skip)
+          const match = pickStrictMatch(event.summary, allowedLinks, logs);
+
+          let newDesc = cleaned;
+
+          // Add if we found exactly one unambiguous match and it isn't already there
+          if (match && !newDesc.includes(match.url)) {
+            newDesc = `${newDesc}\n\nRegistration: ${match.url}`.trim();
+          }
+
+          const changed = newDesc.trim() !== originalDesc.trim();
+          if (!changed) continue;
+
+          // record change (small)
+          changes.push({
+            calendarId,
+            summary: event.summary,
+            removed: removed,
+            added: match ? match.url : null,
           });
 
-          if (!match) continue;
-
-          candidateMatches++;
-
-          const alreadyHasUrl = (event.description || "").includes(match.url);
-          if (alreadyHasUrl) continue;
-
-          const newDescription = `${(event.description || "").trim()}\n\nRegistration: ${match.url}`.trim();
-
-          if (dryRun) {
-            logs.push(`DRYRUN [${calendarId}] "${event.summary}" -> ${match.url}`);
-          } else {
+          if (!dryRun) {
             await calendar.events.patch({
               calendarId,
               eventId: event.id,
-              requestBody: { description: newDescription },
+              requestBody: { description: newDesc },
             });
-            updatedCount++;
-            logs.push(`PATCHED [${calendarId}] "${event.summary}" -> ${match.url}`);
           }
+
+          eventsPatched++;
+          removedUrlCount += removed.length;
+          if (match && !originalDesc.includes(match.url)) addedUrlCount++;
         }
 
         logs.push(`${calendarId}: OK (events=${(events.data.items || []).length})`);
@@ -184,9 +272,13 @@ export default async function handler(req, res) {
       success: true,
       dryRun,
       requiredSlugPrefix: REQUIRED_SLUG_PREFIX,
-      squarespaceLinksUsed: siteLinks.length,
-      candidateMatches,
-      updated: updatedCount,
+      hardBlock: Array.from(HARD_BLOCK),
+      allowedLinksUsed: allowedLinks.length,
+      eventsPatched,
+      removedUrlCount,
+      addedUrlCount,
+      // keep this short; if it’s big, use dryRun and filter by event on client
+      changes,
       diagnostics: logs,
     });
   } catch (err) {
