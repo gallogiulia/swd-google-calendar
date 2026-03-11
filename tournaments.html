@@ -248,52 +248,6 @@ function card(t) {
   el.appendChild(meta);
   return el;
 }
-      const el = document.createElement("div");
-      el.className = "card";
-
-      const top = document.createElement("div");
-      top.className = "topline";
-
-      const name = document.createElement("div");
-      name.className = "name";
-      name.textContent = t.name;
-
-      const year = document.createElement("div");
-      year.className = "year";
-      year.textContent = t.year || "";
-
-      top.appendChild(name);
-      top.appendChild(year);
-
-      const meta = document.createElement("div");
-      meta.className = "meta";
-
-      const addPill = (txt) => {
-        const v = norm(txt);
-        if (!v) return;
-        const p = document.createElement("span");
-        p.className = "pill";
-        p.textContent = v;
-        meta.appendChild(p);
-      };
-
-      addPill(t.gender);
-      addPill(t.category);
-      addPill(t.type);
-      addPill(t.location);
-
-      const a = document.createElement("a");
-      a.className = "link";
-      a.href = t.url;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.textContent = "Open results sheet";
-
-      el.appendChild(top);
-      el.appendChild(meta);
-      el.appendChild(a);
-      return el;
-    }
 
     function render(){
       const grid = document.getElementById("grid");
