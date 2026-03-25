@@ -95,7 +95,7 @@ function clampLines(doc, text, width, maxLines = 1) {
   return lines.join("\n");
 }
 
-function renderLegend(doc, x, y, items) {
+function renderLegend(doc, x, y, items, boxW) {
   doc.save();
   const padX = 10;
   const padY = 7;
@@ -106,7 +106,7 @@ function renderLegend(doc, x, y, items) {
   let curX = x + padX;
   let curY = y + padY;
 
-  doc.roundedRect(x, y, doc.page.width - x * 2, padY * 2 + rowH, 8)
+  doc.roundedRect(x, y, boxW, padY * 2 + rowH, 8)
     .fillAndStroke("#fafafa", "#e5e7eb");
 
   for (const it of items) {
@@ -115,7 +115,7 @@ function renderLegend(doc, x, y, items) {
     const labelW = doc.widthOfString(label);
     const itemW = sw + gap + labelW + 14;
 
-    if (curX + itemW > doc.page.width - x - padX) {
+    if (curX + itemW > x + boxW - padX) {
       curX = x + padX;
       curY += rowH;
     }
@@ -131,6 +131,9 @@ function renderLegend(doc, x, y, items) {
   }
 
   doc.restore();
+
+  const rowsUsed = Math.max(1, Math.ceil((curY - (y + padY)) / rowH) + 1);
+  return padY * 2 + rowsUsed * rowH;
 }
 
 // --- Date helpers (UTC, date-only) ---
@@ -230,8 +233,8 @@ async function fetchEventsDirect(days) {
   return events;
 }
 
-// mode: "agenda" or "year"
-// showPartnerLines: when true, replace location column with blank writable line
+// Portrait year mode with columns:
+// DATE | EVENT | CLUB/LOCATION | PARTNER(S)
 async function buildPdfBuffer(
   events,
   days,
@@ -242,11 +245,11 @@ async function buildPdfBuffer(
 ) {
   return await new Promise((resolve, reject) => {
     const isYear = mode === "year";
-    const M = isYear ? 16 : 32;
+    const M = 24;
 
     const doc = new PDFDocument({
       size: "LETTER",
-      layout: isYear ? "landscape" : "portrait",
+      layout: "portrait",
       margin: M
     });
 
@@ -255,15 +258,15 @@ async function buildPdfBuffer(
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
 
-    const pageW = isYear ? 792 : 612;
-    const pageH = isYear ? 612 : 792;
+    const pageW = 612;
+    const pageH = 792;
     const left = M;
     const right = M;
     const top = M;
     const bottom = M;
 
-    const cols = isYear ? 2 : (compactTwoColumn ? 2 : 1);
-    const gutter = cols > 1 ? (isYear ? 8 : 18) : 0;
+    const cols = isYear ? 1 : (compactTwoColumn ? 2 : 1);
+    const gutter = cols > 1 ? 18 : 0;
     const colW = cols > 1
       ? Math.floor((pageW - left - right - gutter * (cols - 1)) / cols)
       : (pageW - left - right);
@@ -303,27 +306,31 @@ async function buildPdfBuffer(
       if (isYear) {
         const yLabel = (metaYear && Number.isFinite(metaYear)) ? String(metaYear) : "";
         if (isContinued) {
-          doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827")
+          doc.font("Helvetica-Bold").fontSize(10).fillColor("#111827")
             .text(
               showPartnerLines
-                ? `SWD Bowls — ${yLabel} Schedule (Partner Lines)`
+                ? `SWD Bowls — ${yLabel} Schedule with Club + Partner Lines`
                 : `SWD Bowls — ${yLabel} Schedule`,
               xBase,
               y
             );
-          y += 10;
+          y += 12;
         } else {
-          doc.font("Helvetica-Bold").fontSize(11).fillColor("#111827")
+          doc.font("Helvetica-Bold").fontSize(15).fillColor("#111827")
             .text(
               showPartnerLines
-                ? `SWD Bowls — ${yLabel} Full Year Schedule with Partner Lines`
+                ? `SWD Bowls — ${yLabel} Full Year Schedule with Club + Partner Lines`
                 : `SWD Bowls — ${yLabel} Full Year Schedule`,
               xBase,
               y
             );
-          y += 12;
-          doc.font("Helvetica").fontSize(8).fillColor("#6b7280")
+          y += 18;
+          doc.font("Helvetica").fontSize(9).fillColor("#6b7280")
             .text(`Generated ${new Date().toLocaleDateString()}`, xBase, y);
+          y += 14;
+
+          const legendH = renderLegend(doc, xBase, y, LEGEND_ITEMS, colW);
+          y += legendH + 10;
         }
       } else {
         doc.font("Helvetica-Bold").fontSize(14).fillColor("#111827")
@@ -337,62 +344,54 @@ async function buildPdfBuffer(
         y += 16;
         doc.font("Helvetica").fontSize(9).fillColor("#6b7280")
           .text(`Next ${days} days • Generated ${new Date().toLocaleDateString()}`, xBase, y);
+        y += 16;
+
+        if (!isContinued) {
+          const legendH = renderLegend(doc, xBase, y, LEGEND_ITEMS, colW);
+          y += legendH + 10;
+        }
       }
 
       if (isContinued && !isYear) {
         doc.font("Helvetica").fontSize(8).fillColor("#9ca3af")
-          .text("(continued)", xBase + colW - 70, y, { width: 70, align: "right" });
-      }
-
-      y += isYear ? 8 : 10;
-
-      if (!isYear && !isContinued) {
-        y += 6;
-        renderLegend(doc, xBase, y, LEGEND_ITEMS);
-        y += 14 + 14;
+          .text("(continued)", xBase + colW - 70, y - 14, { width: 70, align: "right" });
       }
 
       hr(doc, xBase, xBase + colW, y);
-      y += isYear ? 8 : 10;
+      y += 9;
 
       doc.font("Helvetica-Bold").fillColor("#9ca3af");
 
       if (isYear) {
-        const DATE_W_H = Math.max(64, Math.floor(colW * 0.16));
-        const EVENT_W_H = showPartnerLines
-          ? Math.max(170, Math.floor(colW * 0.44))
-          : Math.max(170, Math.floor(colW * 0.40));
-        const THIRD_W_H = colW - (DATE_W_H + EVENT_W_H);
+        const DATE_W_H = 82;
+        const EVENT_W_H = 215;
+        const LOC_W_H = 115;
+        const PARTNER_W_H = colW - (DATE_W_H + EVENT_W_H + LOC_W_H);
 
-        doc.fontSize(7);
-        doc.text("DATE", xBase, y, { width: DATE_W_H });
-        doc.text("EVENT", xBase + DATE_W_H, y, { width: EVENT_W_H });
-        doc.text(
-          showPartnerLines ? "PARTNER(S)" : "LOCATION",
-          xBase + DATE_W_H + EVENT_W_H,
-          y,
-          { width: THIRD_W_H }
-        );
-        y += 7;
-      } else {
         doc.fontSize(8);
-        const DATE_W_H = 78;
-        const EVENT_W_H = showPartnerLines ? 220 : 180;
-        const THIRD_W_H = colW - (DATE_W_H + EVENT_W_H);
-
         doc.text("DATE", xBase, y, { width: DATE_W_H });
         doc.text("EVENT", xBase + DATE_W_H, y, { width: EVENT_W_H });
-        doc.text(
-          showPartnerLines ? "PARTNER(S)" : "LOCATION",
-          xBase + DATE_W_H + EVENT_W_H,
-          y,
-          { width: THIRD_W_H }
-        );
-        y += 8;
+        doc.text("CLUB", xBase + DATE_W_H + EVENT_W_H, y, { width: LOC_W_H });
+        doc.text("PARTNER(S)", xBase + DATE_W_H + EVENT_W_H + LOC_W_H, y, { width: PARTNER_W_H });
+        y += 10;
+      } else {
+        const DATE_W_H = 78;
+        const EVENT_W_H = showPartnerLines ? 150 : 190;
+        const LOC_W_H = showPartnerLines ? 90 : (colW - (DATE_W_H + EVENT_W_H));
+        const PARTNER_W_H = showPartnerLines ? (colW - (DATE_W_H + EVENT_W_H + LOC_W_H)) : 0;
+
+        doc.fontSize(8);
+        doc.text("DATE", xBase, y, { width: DATE_W_H });
+        doc.text("EVENT", xBase + DATE_W_H, y, { width: EVENT_W_H });
+        doc.text("CLUB", xBase + DATE_W_H + EVENT_W_H, y, { width: LOC_W_H });
+        if (showPartnerLines) {
+          doc.text("PARTNER(S)", xBase + DATE_W_H + EVENT_W_H + LOC_W_H, y, { width: PARTNER_W_H });
+        }
+        y += 10;
       }
 
       hr(doc, xBase, xBase + colW, y);
-      y += isYear ? 7 : 10;
+      y += 8;
 
       doc.restore();
     }
@@ -406,11 +405,12 @@ async function buildPdfBuffer(
       return;
     }
 
-    const DATE_W = isYear ? Math.max(64, Math.floor(colW * 0.16)) : 78;
-    const EVENT_W = isYear
-      ? (showPartnerLines ? Math.max(170, Math.floor(colW * 0.44)) : Math.max(170, Math.floor(colW * 0.40)))
-      : (showPartnerLines ? 220 : 180);
-    const THIRD_W = colW - (DATE_W + EVENT_W);
+    const DATE_W = isYear ? 82 : 78;
+    const EVENT_W = isYear ? 215 : (showPartnerLines ? 150 : 190);
+    const LOC_W = isYear ? 115 : (showPartnerLines ? 90 : (colW - (DATE_W + EVENT_W)));
+    const PARTNER_W = isYear
+      ? (colW - (DATE_W + EVENT_W + LOC_W))
+      : (showPartnerLines ? (colW - (DATE_W + EVENT_W + LOC_W)) : 0);
 
     let currentDayKey = "";
 
@@ -442,21 +442,19 @@ async function buildPdfBuffer(
       const dateStr = fmtDateRangeShort(e.start, e.end, e.allDay);
       const title = safeText(e.title) || "(Untitled)";
       const loc = safeText(e.location);
-      const thirdText = showPartnerLines ? "" : loc;
 
-      doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151");
-      const dateTxt = clampLines(doc, dateStr, DATE_W, 1);
+      doc.font("Helvetica").fontSize(8).fillColor("#374151");
+      const dateTxt = clampLines(doc, dateStr, DATE_W - 8, 1);
 
-      doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827");
-      const titleTxt = clampLines(doc, title, EVENT_W - 12, 1);
+      doc.font("Helvetica-Bold").fontSize(8).fillColor("#111827");
+      const titleTxt = clampLines(doc, title, EVENT_W - 10, 1);
 
-      doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280");
-      const thirdTxt = thirdText ? clampLines(doc, thirdText, THIRD_W - 4, 1) : "";
+      doc.font("Helvetica").fontSize(8).fillColor("#6b7280");
+      const locTxt = clampLines(doc, loc || "—", LOC_W - 6, 1);
 
-      const wrapLines = isYear ? (thirdTxt ? thirdTxt.split("\n").length : 1) : 1;
-      const rowH = isYear ? (wrapLines >= 3 ? 22 : wrapLines === 2 ? 16 : 12) : 18;
+      const rowH = isYear ? 16 : 18;
 
-      ensureSpace(rowH + (isYear ? 2 : 6));
+      ensureSpace(rowH + 6);
 
       const rowTop = y;
 
@@ -464,38 +462,29 @@ async function buildPdfBuffer(
       doc.fillColor(e.color || "#2563eb").rect(xBase, rowTop + 2, 3, rowH - 4).fill();
       doc.restore();
 
-      doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151")
-        .text(dateTxt, xBase + 8, rowTop + (isYear ? 2 : 3), { width: DATE_W - 8 });
+      doc.font("Helvetica").fontSize(8).fillColor("#374151")
+        .text(dateTxt, xBase + 8, rowTop + 4, { width: DATE_W - 8 });
 
-      doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827")
-        .text(titleTxt, xBase + DATE_W, rowTop + (isYear ? 2 : 3), { width: EVENT_W });
+      doc.font("Helvetica-Bold").fontSize(8).fillColor("#111827")
+        .text(titleTxt, xBase + DATE_W, rowTop + 4, { width: EVENT_W - 6 });
+
+      doc.font("Helvetica").fontSize(8).fillColor("#6b7280")
+        .text(locTxt, xBase + DATE_W + EVENT_W, rowTop + 4, { width: LOC_W - 4 });
 
       if (showPartnerLines) {
-        const lineY = rowTop + (isYear ? 8 : 11);
-        const lineX1 = xBase + DATE_W + EVENT_W + 4;
-        const lineX2 = xBase + DATE_W + EVENT_W + THIRD_W - 6;
+        const lineY = rowTop + 11;
+        const lineX1 = xBase + DATE_W + EVENT_W + LOC_W + 4;
+        const lineX2 = xBase + DATE_W + EVENT_W + LOC_W + PARTNER_W - 6;
 
         doc.save();
         doc.strokeColor("#9ca3af").lineWidth(0.8);
         doc.moveTo(lineX1, lineY).lineTo(lineX2, lineY).stroke();
         doc.restore();
-      } else if (thirdTxt) {
-        doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280")
-          .text(
-            thirdTxt,
-            xBase + DATE_W + EVENT_W,
-            rowTop + (isYear ? 2 : 4),
-            { width: THIRD_W, lineGap: isYear ? -1 : 0 }
-          );
       }
 
       y += rowH;
-      if (!isYear) {
-        hr(doc, xBase, xBase + colW, y);
-        y += 6;
-      } else {
-        y += 2;
-      }
+      hr(doc, xBase, xBase + colW, y);
+      y += 6;
     }
 
     doc.end();
@@ -529,7 +518,7 @@ export default async function handler(req, res) {
       res.setHeader("Content-Type", "application/pdf");
       res.setHeader(
         "Content-Disposition",
-        `attachment; filename=${showPartnerLines ? "2026-SWBowls-Event-Calendar-with-Partner-Lines.pdf" : "2026-SWBowls-Event-Calendar.pdf"}`
+        `attachment; filename=${showPartnerLines ? "2026-SWBowls-Event-Calendar-with-Club-and-Partner-Lines.pdf" : "2026-SWBowls-Event-Calendar.pdf"}`
       );
       res.setHeader("Cache-Control", "no-store");
       res.setHeader("Content-Length", String(PDF_CACHE.buf.length));
@@ -551,7 +540,7 @@ export default async function handler(req, res) {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=${showPartnerLines ? "2026-SWBowls-Event-Calendar-with-Partner-Lines.pdf" : "2026-SWBowls-Event-Calendar.pdf"}`
+      `attachment; filename=${showPartnerLines ? "2026-SWBowls-Event-Calendar-with-Club-and-Partner-Lines.pdf" : "2026-SWBowls-Event-Calendar.pdf"}`
     );
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("Content-Length", String(pdfBuf.length));
