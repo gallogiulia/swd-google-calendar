@@ -31,17 +31,14 @@ function shortLocation(loc) {
   if (!loc) return "";
   const s = String(loc).replace(/\s+/g, " ").trim();
 
-  // If it's already a short non-address location (e.g., "Arizona, USA"), keep it
   const looksLikeAddress =
     /\b\d{1,6}\b/.test(s) || /\b(ave|st|street|road|rd|blvd|drive|dr|lane|ln|pkwy|park)\b/i.test(s);
 
-  // If it's "Club, 123 Main St, City, CA ..." -> keep "Club"
   if (s.includes(",")) {
     const first = s.split(",")[0].trim();
     if (first) return first;
   }
 
-  // If it's address-y but no comma separation, keep the first ~40 chars
   if (looksLikeAddress) return s.slice(0, 40);
 
   return s;
@@ -60,13 +57,6 @@ function fmtDate(d) {
   }).format(d);
 }
 
-function fmtTime(d) {
-  return new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    minute: "2-digit"
-  }).format(d);
-}
-
 function fmtDateShort(d) {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
@@ -81,7 +71,6 @@ function hr(doc, x1, x2, y) {
   doc.restore();
 }
 
-// Wrap to N lines + ellipsis (fast + predictable)
 function clampLines(doc, text, width, maxLines = 1) {
   const words = String(text || "").split(/\s+/).filter(Boolean);
   let lines = [];
@@ -164,8 +153,6 @@ function fmtDateRangeShort(startISO, endISO, allDay) {
   const s = new Date(startISO);
   if (!endISO) return fmtDateShort(s);
 
-  // Google all-day events use an exclusive end date (next day).
-  // For printing, show inclusive end date.
   let e = new Date(endISO);
   if (allDay) e = new Date(e.getTime() - 86400000);
 
@@ -176,7 +163,6 @@ function fmtDateRangeShort(startISO, endISO, allDay) {
 }
 
 function yearWindow(year) {
-  // Use UTC boundaries so all-day events remain stable.
   const start = new Date(Date.UTC(year, 0, 1, 0, 0, 0));
   const end = new Date(Date.UTC(year + 1, 0, 1, 0, 0, 0));
   return { start, end };
@@ -218,17 +204,12 @@ async function fetchEventsDirect(days) {
       const endRaw = e.end?.dateTime || e.end?.date || "";
       const wasAllDay = !!e.start?.date;
 
-      // PDF output requirement:
-      // - Hide all times/durations
-      // - Treat everything as all-day in the PDF
-      // Normalize to date-only ISO (YYYY-MM-DD), and ensure an exclusive end date.
       const start = isoDateUTC(startRaw);
       if (!start) continue;
 
       let end = endRaw ? isoDateUTC(endRaw) : "";
       if (!end || end === start) end = addDaysISO(start, 1);
 
-      // Timed events become single-day all-day blocks (exclusive end = start+1)
       if (!wasAllDay) {
         end = addDaysISO(start, 1);
       }
@@ -249,13 +230,18 @@ async function fetchEventsDirect(days) {
   return events;
 }
 
-// ===== Compact PDF renderer =====
-// mode: "agenda" (day headers) or "year" (one-line rows, ultra-compact)
-async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", metaYear = null) {
+// mode: "agenda" or "year"
+// showPartnerLines: when true, replace location column with blank writable line
+async function buildPdfBuffer(
+  events,
+  days,
+  compactTwoColumn,
+  mode = "agenda",
+  metaYear = null,
+  showPartnerLines = false
+) {
   return await new Promise((resolve, reject) => {
     const isYear = mode === "year";
-
-    // For year printouts: landscape + tighter margins + smaller type
     const M = isYear ? 16 : 32;
 
     const doc = new PDFDocument({
@@ -276,7 +262,6 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     const top = M;
     const bottom = M;
 
-    // Columns
     const cols = isYear ? 2 : (compactTwoColumn ? 2 : 1);
     const gutter = cols > 1 ? (isYear ? 8 : 18) : 0;
     const colW = cols > 1
@@ -315,23 +300,40 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
     function renderHeader(isContinued) {
       doc.save();
 
-      // Header block
       if (isYear) {
         const yLabel = (metaYear && Number.isFinite(metaYear)) ? String(metaYear) : "";
         if (isContinued) {
           doc.font("Helvetica-Bold").fontSize(9).fillColor("#111827")
-            .text(`SWD Bowls — ${yLabel} Schedule`, xBase, y);
+            .text(
+              showPartnerLines
+                ? `SWD Bowls — ${yLabel} Schedule (Partner Lines)`
+                : `SWD Bowls — ${yLabel} Schedule`,
+              xBase,
+              y
+            );
           y += 10;
         } else {
           doc.font("Helvetica-Bold").fontSize(11).fillColor("#111827")
-            .text(`SWD Bowls — ${yLabel} Full Year Schedule`, xBase, y);
+            .text(
+              showPartnerLines
+                ? `SWD Bowls — ${yLabel} Full Year Schedule with Partner Lines`
+                : `SWD Bowls — ${yLabel} Full Year Schedule`,
+              xBase,
+              y
+            );
           y += 12;
           doc.font("Helvetica").fontSize(8).fillColor("#6b7280")
             .text(`Generated ${new Date().toLocaleDateString()}`, xBase, y);
         }
       } else {
         doc.font("Helvetica-Bold").fontSize(14).fillColor("#111827")
-          .text("SWD Bowls — Events Agenda", xBase, y);
+          .text(
+            showPartnerLines
+              ? "SWD Bowls — Events Agenda with Partner Lines"
+              : "SWD Bowls — Events Agenda",
+            xBase,
+            y
+          );
         y += 16;
         doc.font("Helvetica").fontSize(9).fillColor("#6b7280")
           .text(`Next ${days} days • Generated ${new Date().toLocaleDateString()}`, xBase, y);
@@ -344,7 +346,6 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
 
       y += isYear ? 8 : 10;
 
-      // Legend (only once at the top of the first column on first page)
       if (!isYear && !isContinued) {
         y += 6;
         renderLegend(doc, xBase, y, LEGEND_ITEMS);
@@ -354,34 +355,48 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       hr(doc, xBase, xBase + colW, y);
       y += isYear ? 8 : 10;
 
-      // Column headings
       doc.font("Helvetica-Bold").fillColor("#9ca3af");
+
       if (isYear) {
-        const DATE_W_H = Math.max(64, Math.floor(colW * 0.18));
-        const EVENT_W_H = Math.max(170, Math.floor(colW * 0.40));
-        const LOC_W_H = colW - (DATE_W_H + EVENT_W_H);
+        const DATE_W_H = Math.max(64, Math.floor(colW * 0.16));
+        const EVENT_W_H = showPartnerLines
+          ? Math.max(170, Math.floor(colW * 0.44))
+          : Math.max(170, Math.floor(colW * 0.40));
+        const THIRD_W_H = colW - (DATE_W_H + EVENT_W_H);
 
         doc.fontSize(7);
         doc.text("DATE", xBase, y, { width: DATE_W_H });
         doc.text("EVENT", xBase + DATE_W_H, y, { width: EVENT_W_H });
-        doc.text("LOCATION", xBase + DATE_W_H + EVENT_W_H, y, { width: LOC_W_H });
+        doc.text(
+          showPartnerLines ? "PARTNER(S)" : "LOCATION",
+          xBase + DATE_W_H + EVENT_W_H,
+          y,
+          { width: THIRD_W_H }
+        );
         y += 7;
       } else {
         doc.fontSize(8);
-        // Agenda mode: hide times entirely. Keep a tiny spacer column so rows align.
-        const TIME_W_H = 14;
-        const SPLIT_X_H = Math.floor(colW * 0.60);
-        doc.text("EVENT", xBase + TIME_W_H, y, { width: SPLIT_X_H - TIME_W_H });
-        doc.text("LOCATION", xBase + SPLIT_X_H, y, { width: colW - SPLIT_X_H });
+        const DATE_W_H = 78;
+        const EVENT_W_H = showPartnerLines ? 220 : 180;
+        const THIRD_W_H = colW - (DATE_W_H + EVENT_W_H);
+
+        doc.text("DATE", xBase, y, { width: DATE_W_H });
+        doc.text("EVENT", xBase + DATE_W_H, y, { width: EVENT_W_H });
+        doc.text(
+          showPartnerLines ? "PARTNER(S)" : "LOCATION",
+          xBase + DATE_W_H + EVENT_W_H,
+          y,
+          { width: THIRD_W_H }
+        );
         y += 8;
       }
+
       hr(doc, xBase, xBase + colW, y);
       y += isYear ? 7 : 10;
 
       doc.restore();
     }
 
-    // First header
     renderHeader(false);
 
     if (!events.length) {
@@ -391,16 +406,11 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       return;
     }
 
-    // Column sizing
-    // Agenda mode hides times entirely, so we make the first column a tiny spacer.
-    const AGENDA_SPLIT_X = Math.floor(colW * 0.60); // Event vs location split
-    // For Agenda mode we keep a real DATE column (not just the day header),
-    // so multi-day events can render as a range like "Feb 07–Feb 12".
-    const DATE_W = isYear ? Math.max(64, Math.floor(colW * 0.18)) : 78;
+    const DATE_W = isYear ? Math.max(64, Math.floor(colW * 0.16)) : 78;
     const EVENT_W = isYear
-      ? Math.max(170, Math.floor(colW * 0.40))
-      : (AGENDA_SPLIT_X - DATE_W);
-    const LOC_W = colW - (DATE_W + EVENT_W);
+      ? (showPartnerLines ? Math.max(170, Math.floor(colW * 0.44)) : Math.max(170, Math.floor(colW * 0.40)))
+      : (showPartnerLines ? 220 : 180);
+    const THIRD_W = colW - (DATE_W + EVENT_W);
 
     let currentDayKey = "";
 
@@ -415,7 +425,6 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       const dayKey = start.toISOString().slice(0, 10);
 
       if (!isYear) {
-        // Day header (tight)
         if (dayKey !== currentDayKey) {
           currentDayKey = dayKey;
 
@@ -430,12 +439,10 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
         }
       }
 
-      // Row
-      const dateStr = isYear
-        ? fmtDateRangeShort(e.start, e.end, e.allDay)
-        : fmtDateRangeShort(e.start, e.end, e.allDay);
+      const dateStr = fmtDateRangeShort(e.start, e.end, e.allDay);
       const title = safeText(e.title) || "(Untitled)";
       const loc = safeText(e.location);
+      const thirdText = showPartnerLines ? "" : loc;
 
       doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151");
       const dateTxt = clampLines(doc, dateStr, DATE_W, 1);
@@ -444,32 +451,42 @@ async function buildPdfBuffer(events, days, compactTwoColumn, mode = "agenda", m
       const titleTxt = clampLines(doc, title, EVENT_W - 12, 1);
 
       doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280");
-      const locTxt = loc ? clampLines(doc, loc, LOC_W - 4, 1) : "";
+      const thirdTxt = thirdText ? clampLines(doc, thirdText, THIRD_W - 4, 1) : "";
 
-      const wrapLines = isYear ? (locTxt.split("\n").length) : 1;
+      const wrapLines = isYear ? (thirdTxt ? thirdTxt.split("\n").length : 1) : 1;
       const rowH = isYear ? (wrapLines >= 3 ? 22 : wrapLines === 2 ? 16 : 12) : 18;
 
       ensureSpace(rowH + (isYear ? 2 : 6));
 
       const rowTop = y;
 
-      // Color accent
       doc.save();
       doc.fillColor(e.color || "#2563eb").rect(xBase, rowTop + 2, 3, rowH - 4).fill();
       doc.restore();
 
-      // Date/Spacer
       doc.font("Helvetica").fontSize(isYear ? 7 : 9).fillColor("#374151")
         .text(dateTxt, xBase + 8, rowTop + (isYear ? 2 : 3), { width: DATE_W - 8 });
 
-      // Event
       doc.font("Helvetica-Bold").fontSize(isYear ? 7 : 9).fillColor("#111827")
         .text(titleTxt, xBase + DATE_W, rowTop + (isYear ? 2 : 3), { width: EVENT_W });
 
-      // Location
-      if (locTxt) {
+      if (showPartnerLines) {
+        const lineY = rowTop + (isYear ? 8 : 11);
+        const lineX1 = xBase + DATE_W + EVENT_W + 4;
+        const lineX2 = xBase + DATE_W + EVENT_W + THIRD_W - 6;
+
+        doc.save();
+        doc.strokeColor("#9ca3af").lineWidth(0.8);
+        doc.moveTo(lineX1, lineY).lineTo(lineX2, lineY).stroke();
+        doc.restore();
+      } else if (thirdTxt) {
         doc.font("Helvetica").fontSize(isYear ? 6.5 : 8).fillColor("#6b7280")
-          .text(locTxt, xBase + DATE_W + EVENT_W, rowTop + (isYear ? 2 : 4), { width: LOC_W, lineGap: isYear ? -1 : 0 });
+          .text(
+            thirdTxt,
+            xBase + DATE_W + EVENT_W,
+            rowTop + (isYear ? 2 : 4),
+            { width: THIRD_W, lineGap: isYear ? -1 : 0 }
+          );
       }
 
       y += rowH;
@@ -493,6 +510,9 @@ export default async function handler(req, res) {
     const compact = String(req.query.compact || "").toLowerCase();
     const compactTwoColumn = compact === "1" || compact === "true" || compact === "2col";
 
+    const teamSheet = String(req.query.teamSheet || "").toLowerCase();
+    const showPartnerLines = teamSheet === "1" || teamSheet === "true";
+
     const hasYear = (year && Number.isFinite(year));
     const mode = (modeParam === "year" || modeParam === "agenda")
       ? modeParam
@@ -501,25 +521,38 @@ export default async function handler(req, res) {
     globalThis.__SWD_YEAR__ = hasYear ? year : "";
 
     const cacheKey = hasYear
-      ? `year=${year}&mode=${mode}&compact=${compactTwoColumn ? "2col" : "1col"}`
-      : `days=${days}&mode=${mode}&compact=${compactTwoColumn ? "2col" : "1col"}`;
+      ? `year=${year}&mode=${mode}&compact=${compactTwoColumn ? "2col" : "1col"}&team=${showPartnerLines ? "1" : "0"}`
+      : `days=${days}&mode=${mode}&compact=${compactTwoColumn ? "2col" : "1col"}&team=${showPartnerLines ? "1" : "0"}`;
     const now = Date.now();
 
     if (PDF_CACHE.buf && PDF_CACHE.key === cacheKey && now - PDF_CACHE.t < PDF_TTL_MS) {
       res.setHeader("Content-Type", "application/pdf");
-      res.setHeader("Content-Disposition", "attachment; filename=SWD-events-agenda.pdf");
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=${showPartnerLines ? "2026-SWBowls-Event-Calendar-with-Partner-Lines.pdf" : "2026-SWBowls-Event-Calendar.pdf"}`
+      );
       res.setHeader("Cache-Control", "no-store");
       res.setHeader("Content-Length", String(PDF_CACHE.buf.length));
       return res.status(200).send(PDF_CACHE.buf);
     }
 
     const events = await fetchEventsDirect(days);
-    const pdfBuf = await buildPdfBuffer(events, days, compactTwoColumn, mode, hasYear ? year : null);
+    const pdfBuf = await buildPdfBuffer(
+      events,
+      days,
+      compactTwoColumn,
+      mode,
+      hasYear ? year : null,
+      showPartnerLines
+    );
 
     PDF_CACHE = { t: now, buf: pdfBuf, key: cacheKey };
 
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=2026-SWBowls-Event-Calendar-26117.pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=${showPartnerLines ? "2026-SWBowls-Event-Calendar-with-Partner-Lines.pdf" : "2026-SWBowls-Event-Calendar.pdf"}`
+    );
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("Content-Length", String(pdfBuf.length));
     return res.status(200).send(pdfBuf);
