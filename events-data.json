@@ -962,6 +962,241 @@
         "height": 1800,
         "width": "100%"
       }
+    },
+    {
+      "id": "mens-us-nationals-singles-playdowns-2026",
+      "title": "2026 SWD Men's US Nationals Singles Playdowns",
+      "subtitle": "Men's Sponsored",
+      "date": "Saturday, June 27 – Monday, June 29, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "singles",
+      "formatDetails": "Singles · US Nationals Playdown",
+      "club": {
+        "name": "Long Beach Lawn Bowling Club",
+        "address": "1109 Federation Dr, Long Beach, CA 90804",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "phone": "",
+        "email": "",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "womens-us-nationals-singles-playdowns-2026",
+      "title": "2026 SWD Women's US Nationals Singles Playdowns",
+      "subtitle": "Women's Sponsored",
+      "date": "Saturday, July 11 – Sunday, July 12, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "singles",
+      "formatDetails": "Singles · US Nationals Playdown",
+      "club": {
+        "name": "Laguna Beach Lawn Bowling Club",
+        "address": "455 Cliff Dr, Laguna Beach, CA 92651",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=455+Cliff+Dr,+Laguna+Beach,+CA+92651"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "mens-us-nationals-pairs-playdowns-2026",
+      "title": "2026 SWD Men's US Nationals Pairs Playdowns",
+      "subtitle": "Men's Sponsored",
+      "date": "Saturday, July 25 – Sunday, August 2, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "Pairs · US Nationals Playdown · Skip / Lead",
+      "club": {
+        "name": "Newport Harbor LBC / Laguna Beach LBC",
+        "address": "Multiple clubs",
+        "mapUrl": ""
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "phone": "",
+        "email": "",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "womens-us-nationals-pairs-playdowns-2026",
+      "title": "2026 SWD Women's US Nationals Pairs Playdowns",
+      "subtitle": "Women's Sponsored",
+      "date": "Saturday, July 25 – Sunday, August 2, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "Pairs · US Nationals Playdown · Skip / Lead",
+      "club": {
+        "name": "Newport Harbor LBC / Laguna Beach LBC",
+        "address": "Multiple clubs",
+        "mapUrl": ""
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "fossati-friends-womens-triples-2026",
+      "title": "2026 Fossati & Friends Women's Triples",
+      "subtitle": "Women's Sponsored",
+      "date": "Sunday, August 9, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "triples",
+      "formatDetails": "Triples · Skip / Vice / Lead",
+      "club": {
+        "name": "Newport Harbor Lawn Bowling Club",
+        "address": "1550 Crown Dr N, Newport Beach, CA 92625",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1550+Crown+Dr+N,+Newport+Beach,+CA+92625"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
     }
   ]
 }
