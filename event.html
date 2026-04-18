@@ -4,6 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament — Southwest Lawn Bowls</title>
+
+<!-- PayPal SDK loaded globally so modern buttons work from anywhere -->
+<script src="https://www.paypal.com/sdk/js?client-id=AWnJX5JsXStCJof72XBpoBEVDvd9qkue9Yk8rjrdmU4F8aq4lN1mDCsF0PKYniaQs0qeGUs_XLN_2IZL&currency=USD&disable-funding=paylater,venmo"></script>
+<script>
+function initTournamentButton(config) {
+  if (typeof paypal === 'undefined') {
+    console.error('PayPal SDK not loaded');
+    return;
+  }
+  paypal.Buttons({
+    style: { layout: 'vertical', shape: 'rect', label: 'pay' },
+    createOrder: function(data, actions) {
+      const container = document.querySelector(config.parentBox);
+      const nameInputs = container.querySelectorAll('.player-name');
+      let roster = [];
+      nameInputs.forEach((input, index) => {
+        const val = input.value.trim();
+        if (val !== "") roster.push(`P${index + 1}:${val}`);
+      });
+      const greenSelect = container.querySelector('.green-select');
+      const greenInfo = greenSelect ? `|G:${greenSelect.value}` : "";
+      const customDataString = `T:${config.name}|${roster.join('|')}${greenInfo}|`;
+      return actions.order.create({
+        purchase_units: [{
+          description: config.name,
+          custom_id: customDataString.substring(0, 127),
+          amount: { value: config.price }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+        window.top.location.href = "https://www.swlawnbowls.org/registration-success";
+      });
+    }
+  }).render(config.containerId);
+}
+</script>
+
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: transparent; }
@@ -16,119 +55,46 @@
     color: #1a1a1a;
   }
 
-  .evt-header {
-    text-align: center;
-    padding: 40px 0 32px;
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 32px;
-  }
-  .evt-title {
-    font-size: 36px; font-weight: 700;
-    letter-spacing: -0.5px; color: #111;
-    line-height: 1.15;
-  }
-  .evt-subtitle {
-    font-size: 16px; color: #888; font-weight: 500;
-    margin-top: 6px; text-transform: uppercase; letter-spacing: .08em;
-  }
+  .evt-header { text-align: center; padding: 40px 0 32px; border-bottom: 1px solid #e5e5e5; margin-bottom: 32px; }
+  .evt-title { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; color: #111; line-height: 1.15; }
+  .evt-subtitle { font-size: 14px; color: #888; font-weight: 500; margin-top: 8px; text-transform: uppercase; letter-spacing: .08em; }
 
-  .evt-meta {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px 32px;
-    margin-bottom: 32px;
-    font-size: 14px;
-  }
-  .evt-meta-item .lbl {
-    font-size: 11px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: .08em; color: #999; margin-bottom: 4px;
-  }
+  .evt-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px 32px; margin-bottom: 28px; font-size: 14px; }
+  .evt-meta-item .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #999; margin-bottom: 4px; }
   .evt-meta-item .val { color: #222; line-height: 1.5; }
   .evt-meta-item a { color: #1a5fa8; text-decoration: none; }
   .evt-meta-item a:hover { text-decoration: underline; }
 
-  .evt-deadline {
-    background: #fff4e5; color: #8a4b0a;
-    padding: 10px 14px; border-radius: 6px;
-    font-size: 13px; font-weight: 500;
-    margin-bottom: 28px;
-    border: 1px solid #f0d4a8;
-  }
+  .evt-deadline { background: #fff4e5; color: #8a4b0a; padding: 10px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; margin-bottom: 24px; border: 1px solid #f0d4a8; }
+  .evt-livestream { font-size: 12px; color: #b1351e; font-weight: 500; text-align: center; margin-bottom: 20px; }
 
-  .evt-livestream {
-    font-size: 12px; color: #b1351e;
-    font-weight: 500; text-align: center;
-    margin-bottom: 24px;
-  }
+  .evt-flyer { margin-bottom: 28px; text-align: center; }
+  .evt-flyer img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .evt-flyer-pdf-wrap { position: relative; max-width: 700px; margin: 0 auto; }
+  .evt-flyer-pdf-wrap object, .evt-flyer-pdf-wrap embed { width: 100%; height: 600px; border-radius: 8px; border: 1px solid #e5e5e5; }
+  .evt-flyer-missing { padding: 40px; background: #f8f8f8; color: #999; border-radius: 8px; font-size: 13px; }
 
-  .evt-flyer { margin-bottom: 36px; text-align: center; }
-  .evt-flyer img {
-    max-width: 100%; height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  }
-  .evt-flyer-missing {
-    padding: 40px; background: #f8f8f8; color: #999;
-    border-radius: 8px; font-size: 13px;
-  }
-
-  .evt-buttons {
-    display: flex; gap: 12px; justify-content: center;
-    flex-wrap: wrap; margin-bottom: 40px;
-  }
-  .evt-btn {
-    display: inline-block; padding: 10px 24px;
-    background: #1a1a1a; color: #fff;
-    text-decoration: none; font-size: 14px;
-    font-weight: 500; border-radius: 6px;
-    letter-spacing: .02em; transition: background .15s;
-  }
+  .evt-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+  .evt-btn { display: inline-block; padding: 10px 24px; background: #1a1a1a; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 6px; letter-spacing: .02em; transition: background .15s; }
   .evt-btn:hover { background: #444; }
   .evt-btn.secondary { background: #fff; color: #1a1a1a; border: 1.5px solid #1a1a1a; }
   .evt-btn.secondary:hover { background: #f5f5f5; }
 
-  .evt-section-h {
-    font-size: 13px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .1em;
-    color: #444; margin: 40px 0 14px;
-    padding-bottom: 8px; border-bottom: 1px solid #e5e5e5;
-  }
+  .evt-section-h { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #444; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 1px solid #e5e5e5; }
 
   .evt-rules ul { list-style: none; padding: 0; }
-  .evt-rules li {
-    font-size: 14px; color: #333;
-    padding: 6px 0 6px 22px; line-height: 1.5;
-    position: relative;
-  }
-  .evt-rules li::before {
-    content: '•'; color: #1a5fa8; font-weight: 700;
-    position: absolute; left: 6px;
-  }
+  .evt-rules li { font-size: 14px; color: #333; padding: 6px 0 6px 22px; line-height: 1.5; position: relative; }
+  .evt-rules li::before { content: '•'; color: #1a5fa8; font-weight: 700; position: absolute; left: 6px; }
 
-  .evt-novice {
-    background: #fff9e6; padding: 14px 18px;
-    border-radius: 6px; border-left: 3px solid #f4c842;
-    font-size: 14px; line-height: 1.55; color: #4a3a15;
-  }
-  .evt-novice strong { color: #222; }
+  .evt-novice { background: #fff9e6; padding: 14px 18px; border-radius: 6px; border-left: 3px solid #f4c842; font-size: 14px; line-height: 1.55; color: #4a3a15; }
 
-  .evt-contact {
-    background: #f8f8f8; padding: 16px 20px;
-    border-radius: 6px; font-size: 14px; line-height: 1.6;
-  }
+  .evt-contact { background: #f8f8f8; padding: 16px 20px; border-radius: 6px; font-size: 14px; line-height: 1.6; }
 
   .evt-iframe-wrap { margin: 8px 0 0; }
   .evt-iframe-wrap iframe { display: block; border: 0; width: 100%; }
 
-  .evt-loading {
-    padding: 80px 0; text-align: center;
-    color: #999; font-size: 14px;
-  }
-  .evt-error {
-    padding: 24px; border-radius: 8px;
-    background: #fff3f3; color: #8a1c1c;
-    border: 1px solid #f0c0c0; font-size: 14px;
-    margin: 40px 0;
-  }
+  .evt-loading { padding: 80px 0; text-align: center; color: #999; font-size: 14px; }
+  .evt-error { padding: 24px; border-radius: 8px; background: #fff3f3; color: #8a1c1c; border: 1px solid #f0c0c0; font-size: 14px; margin: 40px 0; }
 </style>
 </head>
 <body>
@@ -140,8 +106,6 @@
 <script>
 (async function () {
   const root = document.getElementById('evt-root');
-
-  // Get ?id=xxx from URL
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   if (!id) {
@@ -149,7 +113,6 @@
     return;
   }
 
-  // Load events data
   let data;
   try {
     const res = await fetch('/events-data.json?v=' + Date.now());
@@ -166,22 +129,35 @@
     return;
   }
 
-  // Update page title
   document.title = event.title + ' — Southwest Lawn Bowls';
-
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-  // ── Flyer ──
+  // ── Flyer block: PDF vs image ──
   const flyerSrc = event.flyer?.localPath || event.flyer?.externalUrl || '';
-  const flyerBlock = flyerSrc
-    ? `<div class="evt-flyer"><img src="${esc(flyerSrc)}" alt="${esc(event.title)} flyer"></div>`
-    : '<div class="evt-flyer"><div class="evt-flyer-missing">Flyer coming soon</div></div>';
+  const flyerType = event.flyer?.type || (flyerSrc.toLowerCase().endsWith('.pdf') ? 'pdf' : 'image');
+  let flyerBlock = '';
+  if (flyerSrc) {
+    if (flyerType === 'pdf') {
+      flyerBlock = `
+        <div class="evt-flyer">
+          <div class="evt-flyer-pdf-wrap">
+            <object data="${esc(flyerSrc)}#toolbar=0&navpanes=0" type="application/pdf">
+              <p style="padding:20px;">Your browser can't display PDFs inline. <a href="${esc(flyerSrc)}" target="_blank">Click here to view the flyer.</a></p>
+            </object>
+          </div>
+        </div>`;
+    } else {
+      flyerBlock = `<div class="evt-flyer"><img src="${esc(flyerSrc)}" alt="${esc(event.title)} flyer"></div>`;
+    }
+  } else {
+    flyerBlock = '<div class="evt-flyer"><div class="evt-flyer-missing">Flyer coming soon</div></div>';
+  }
 
   // ── Buttons ──
   const flyerBtnUrl = event.flyer?.localPath || event.flyer?.externalUrl || '';
   const copsBtnUrl  = event.cops?.localPath || event.cops?.externalUrl || '';
   const buttons = [];
-  if (flyerBtnUrl) buttons.push(`<a class="evt-btn" href="${esc(flyerBtnUrl)}" target="_blank">View Flyer</a>`);
+  if (flyerBtnUrl) buttons.push(`<a class="evt-btn" href="${esc(flyerBtnUrl)}" target="_blank">Download Flyer</a>`);
   if (copsBtnUrl)  buttons.push(`<a class="evt-btn secondary" href="${esc(copsBtnUrl)}" target="_blank">Conditions of Play</a>`);
 
   // ── Meta grid ──
@@ -204,17 +180,14 @@
          ${event.schedule.map(s => `<li>${esc(s)}</li>`).join('')}
        </ul>` : '';
 
-  // ── Rules ──
   const rulesBlock = (event.rules && event.rules.length)
     ? `<div class="evt-section-h">Rules & Notes</div>
        <div class="evt-rules"><ul>${event.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : '';
 
-  // ── Novice definition (if present) ──
   const noviceBlock = event.noviceDefinition
     ? `<div class="evt-section-h">Novice Definition</div>
        <div class="evt-novice">${esc(event.noviceDefinition)}</div>` : '';
 
-  // ── Contact ──
   const contactBlock = event.contact ? (() => {
     const c = event.contact;
     const lines = [];
@@ -223,53 +196,49 @@
     if (c.email)     lines.push(`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`);
     if (c.mailTo)    lines.push('Mail entries to: ' + esc(c.mailTo));
     if (c.payableTo) lines.push('Make checks payable to: <strong>' + esc(c.payableTo) + '</strong>');
+    if (!lines.length) return '';
     return `<div class="evt-section-h">Contact</div><div class="evt-contact">${lines.join('<br>')}</div>`;
   })() : '';
 
   // ── Registration (PayPal) ──
   let regBlock = '';
-  if (event.paypal) {
+  let modernConfig = null;
+  if (event.paypal && event.paypal.system !== 'none') {
     const pp = event.paypal;
     if (pp.system === 'modern') {
       const suffix = pp.containerSuffix || 'reg';
       const labelRows = (pp.playerLabels || []).map(label => `
-          <label style="display: block; font-size: 14px; font-weight: bold; text-align: left;">${esc(label)} Name:</label>
-          <input type="text" class="player-name" data-label="${esc(label)}" placeholder="${esc(label)} Name" style="width:100%; padding:8px; margin-bottom:10px; border: 2px solid #ccc; font-size: 14px; border-radius: 6px; box-sizing: border-box;">
+          <label style="display:block; font-size:14px; font-weight:bold; text-align:left;">${esc(label)} Name:</label>
+          <input type="text" class="player-name" data-label="${esc(label)}" placeholder="${esc(label)} Name" style="width:100%; padding:8px; margin-bottom:10px; border:2px solid #ccc; font-size:14px; border-radius:6px; box-sizing:border-box;">
       `).join('');
       regBlock = `
         <div class="evt-section-h">Tournament Registration</div>
-        <div class="reg-box" id="reg-${esc(suffix)}" style="padding: 25px; border: 2px solid #4a86e8; border-radius: 12px; background: #ffffff; max-width: 450px; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.15); font-family: Arial, sans-serif; text-align: center;">
-          <h2 style="margin-top: 0; font-size: 20px; color: #1a1a1a; border-bottom: 3px solid #4a86e8; padding-bottom: 10px;">Tournament Registration</h2>
-          <p style="font-size: 16px; font-weight: bold; color: #444; margin-bottom: 20px;">${esc(pp.buttonName || event.title)}</p>
+        <div class="reg-box" id="reg-${esc(suffix)}" style="padding:25px; border:2px solid #4a86e8; border-radius:12px; background:#ffffff; max-width:450px; margin:0 auto; box-shadow:0 4px 8px rgba(0,0,0,0.15); font-family:Arial, sans-serif; text-align:center;">
+          <h2 style="margin-top:0; font-size:20px; color:#1a1a1a; border-bottom:3px solid #4a86e8; padding-bottom:10px;">Tournament Registration</h2>
+          <p style="font-size:16px; font-weight:bold; color:#444; margin-bottom:20px;">${esc(pp.buttonName || event.title)}</p>
           ${labelRows}
           <div id="paypal-button-${esc(suffix)}"></div>
         </div>
-        <script>
-          if (typeof initTournamentButton === 'function') {
-            initTournamentButton({
-              parentBox: "#reg-${esc(suffix)}",
-              containerId: "#paypal-button-${esc(suffix)}",
-              name: "${esc(pp.buttonName || event.title)}",
-              price: "${esc(pp.price || '0.00')}"
-            });
-          } else {
-            document.getElementById('paypal-button-${esc(suffix)}').innerHTML = '<div style="padding:12px;background:#fff4e5;color:#8a4b0a;border-radius:6px;font-size:13px;">PayPal button will appear on the main site.<\\/div>';
-          }
-        <\/script>
       `;
+      modernConfig = {
+        parentBox: '#reg-' + suffix,
+        containerId: '#paypal-button-' + suffix,
+        name: pp.buttonName || event.title,
+        price: pp.price || '0.00',
+      };
     } else if (pp.system === 'classic') {
       regBlock = `
         <div class="evt-section-h">Tournament Registration</div>
-        <div style="text-align:center; padding: 20px 0;">
+        <div style="text-align:center; padding:20px 0;">
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_s-xclick" />
             <input type="hidden" name="hosted_button_id" value="${esc(pp.hostedButtonId)}" />
-            <table style="margin: 0 auto;">
+            <table style="margin:0 auto;">
               <tr><td><input type="hidden" name="on0" value="Player Name"/>Player Name</td></tr>
-              <tr><td><input type="text" name="os0" maxlength="200" style="width: 300px; padding: 8px; font-size: 14px; border: 2px solid #ccc; border-radius: 6px; margin-bottom: 12px;"/></td></tr>
+              <tr><td><input type="text" name="os0" maxlength="200" style="width:300px; padding:8px; font-size:14px; border:2px solid #ccc; border-radius:6px; margin-bottom:12px;"/></td></tr>
             </table>
             <input type="hidden" name="currency_code" value="USD" />
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal" alt="Buy Now" />
           </form>
         </div>
       `;
@@ -283,16 +252,7 @@
       <div class="evt-section-h">Entries</div>
       <div class="evt-iframe-wrap">
         <iframe src="${esc(event.entries.pubUrl)}" height="${event.entries.height || 400}" width="100%"></iframe>
-      </div>
-    `;
-  } else if (event.entries?.sheetId) {
-    entriesBlock = `
-      <div class="evt-section-h">Entries</div>
-      <div style="padding:12px;background:#f8f8f8;color:#666;border-radius:6px;font-size:13px;">
-        Entries sheet not yet published to web.
-        <a href="https://docs.google.com/spreadsheets/d/${esc(event.entries.sheetId)}" target="_blank">Open source sheet</a>
-      </div>
-    `;
+      </div>`;
   }
 
   // ── Live scoring iframe ──
@@ -304,8 +264,7 @@
       <div class="evt-section-h">Live Scoring</div>
       <div class="evt-iframe-wrap">
         <iframe src="${esc(event.liveScoring.pubUrl)}" height="${h}" width="${esc(w)}"></iframe>
-      </div>
-    `;
+      </div>`;
   }
 
   // ── Assemble ──
@@ -323,25 +282,34 @@
 
     ${buttons.length ? `<div class="evt-buttons">${buttons.join('')}</div>` : ''}
 
+    ${regBlock}
+
     ${scheduleBlock}
     ${rulesBlock}
     ${noviceBlock}
 
     ${event.livestreamNotice ? `<div class="evt-livestream">${esc(event.livestreamNotice)}</div>` : ''}
 
-    ${regBlock}
     ${entriesBlock}
     ${liveBlock}
 
     ${contactBlock}
   `;
 
-  // Re-execute inline scripts (innerHTML doesn't run them)
-  root.querySelectorAll('script').forEach(old => {
-    const s = document.createElement('script');
-    if (old.src) s.src = old.src; else s.textContent = old.textContent;
-    old.parentNode.replaceChild(s, old);
-  });
+  // Now initialize PayPal if needed — wait a beat for SDK
+  if (modernConfig) {
+    function tryInit(attempts) {
+      if (typeof paypal !== 'undefined' && typeof initTournamentButton === 'function') {
+        initTournamentButton(modernConfig);
+      } else if (attempts < 20) {
+        setTimeout(() => tryInit(attempts + 1), 150);
+      } else {
+        const el = document.querySelector(modernConfig.containerId);
+        if (el) el.innerHTML = '<div style="padding:12px; background:#fff4e5; color:#8a4b0a; border-radius:6px; font-size:13px;">PayPal failed to load. Refresh the page or contact the organizer.</div>';
+      }
+    }
+    tryInit(0);
+  }
 })();
 </script>
 </body>

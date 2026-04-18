@@ -40,11 +40,11 @@
       },
       "flyer": {
         "externalUrl": "https://static1.squarespace.com/static/5e427c8312285d4ecccc6853/t/69b39115f49bac709afa4420/1773375765540/2026+Vet+Novice+Mix+Match+Triples+%28SA%29.pdf",
-        "localPath": ""
+        "localPath": "",
+        "type": "pdf"
       },
       "cops": {
         "externalUrl": "https://static1.squarespace.com/static/5e427c8312285d4ecccc6853/t/69b3913a20ca0327cc59b6ba/1773375802998/2026+Vet-Novice+Mix+Match+Triples+C+of+P.pdf",
-        "googleDocId": "",
         "localPath": ""
       },
       "paypal": {
@@ -55,14 +55,13 @@
         "playerLabels": ["Skip", "Vice", "Lead"]
       },
       "entries": {
-        "sheetId": "1m6wJ7xJAAqyYS19FkBsKmICzyUBKikeCNtmEyKWj_fc",
-        "pubUrl": "",
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YUTGC3WJMPIsS5A_6vSOMCPkgs3WWRPF_e8TaCtqUlDtf-T84sSwWHgZGvBsl5Sge4JrDYn5IcnT/pubhtml?widget=true&headers=false",
         "height": 500
       },
       "liveScoring": {
-        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXdTqwFggAG4vCBA4kIsRxpWCK1o1SiVDEBDweEEsakxqP_l0e077tWXC4EeeY-H2QH5yA0i4gWvTK/pubhtml?widget=true&headers=false",
-        "height": 1800,
-        "width": "80%"
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
       }
     },
     {
@@ -103,11 +102,11 @@
       },
       "flyer": {
         "externalUrl": "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/4230b2cd-09d3-4412-8b21-062167dd4e68/2026+SWD+Women%27s+Novice+Singles+-+Google+Docs.png?format=2500w",
-        "localPath": ""
+        "localPath": "",
+        "type": "image"
       },
       "cops": {
         "externalUrl": "https://docs.google.com/document/u/1/d/e/2PACX-1vTtW675KPS7Xy1DUoAO-DT17bAWZMRqEgeaK8aF3qO9CAZulIE7mRhinnjGP71q_w/pub",
-        "googleDocId": "",
         "localPath": ""
       },
       "paypal": {
@@ -116,12 +115,11 @@
         "price": "15.00"
       },
       "entries": {
-        "sheetId": "1ajhHedQxOhkl1kC-SyUrgNIJPywc6pUE7CyYPfCDp84",
-        "pubUrl": "",
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR1bvrqTjWerU6zFrC33RrB6JX_HTnFBRxOTVAR-uxiJEyAuL9smr8uth2c7Dufj4HW1E4EU_fgAGom/pubhtml?widget=true&headers=false",
         "height": 350
       },
       "liveScoring": {
-        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSXlkwIAxgVVeeYXT1Qq-CaXPMDWtoiMIk0q9l7xn55foaQLm_HWfGnh-Fw_k8VU9xYu63H6_X8irn/pubhtml?widget=true&headers=false",
+        "pubUrl": "",
         "height": 350,
         "width": "100%"
       }
@@ -160,11 +158,11 @@
       },
       "flyer": {
         "externalUrl": "",
-        "localPath": ""
+        "localPath": "",
+        "type": "image"
       },
       "cops": {
         "externalUrl": "https://docs.google.com/document/u/1/d/e/2PACX-1vRNcxf4HbG9pWMbAY9JMg_qnAJdcFruzTWjx-y2UOFa74wEOJuQ5PXej_k3IdtEDA/pub",
-        "googleDocId": "",
         "localPath": ""
       },
       "paypal": {
@@ -173,12 +171,11 @@
         "price": "20.00"
       },
       "entries": {
-        "sheetId": "1XduBQ1Seffj-fTjUnUG41goOWRD0ygbKZVr0Ecfd8Hs",
-        "pubUrl": "",
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSS_FMbnLLcLmNI5pYH4cGm0VhK98EuXNW-RlittAuKrxgwESNb5osNNBjyBbXezZYBZmuXXK6xkkzW/pubhtml?widget=true&headers=false",
         "height": 350
       },
       "liveScoring": {
-        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvpndc-xprdmVhnJeYf1r89t07Jk48Lgwn38EAxKJ1Rb08rP8lpip8GJHSLmWRnoJ7wmM-7ldly46M/pubhtml?widget=true&headers=false",
+        "pubUrl": "",
         "height": 350,
         "width": "100%"
       }
