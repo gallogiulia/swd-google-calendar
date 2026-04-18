@@ -4,26 +4,6 @@
     {
       "source": "/",
       "destination": "/tournament_hub"
-    },
-    {
-      "source": "/calendar",
-      "destination": "/calendar"
-    },
-    {
-      "source": "/index.html",
-      "destination": "/calendar"
-    },
-    {
-      "source": "/agenda",
-      "destination": "/agenda"
-    },
-    {
-      "source": "/tournaments",
-      "destination": "/tournaments"
-    },
-    {
-      "source": "/calendar-ics-links.html",
-      "destination": "/calendar-ics-links"
     }
   ],
   "crons": [
