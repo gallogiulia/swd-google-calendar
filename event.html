@@ -82,6 +82,29 @@ function initTournamentButton(config) {
 
   .evt-section-h { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #444; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 1px solid #e5e5e5; }
 
+  /* Embedded PayPal forms — pasted raw from PayPal/Squarespace */
+  .evt-paypal-embed { text-align: center; }
+  .evt-paypal-embed table { margin: 0 auto; border-collapse: collapse; }
+  .evt-paypal-embed table td { padding: 6px 12px; text-align: left; vertical-align: middle; }
+  .evt-paypal-embed input[type="text"],
+  .evt-paypal-embed select {
+    width: 280px;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+  }
+  .evt-paypal-embed input[type="text"]:focus,
+  .evt-paypal-embed select:focus {
+    border-color: #c1272d;
+    outline: none;
+  }
+  .evt-paypal-embed input[type="image"] {
+    margin-top: 16px;
+    cursor: pointer;
+  }
+
   .evt-rules ul { list-style: none; padding: 0; }
   .evt-rules li { font-size: 14px; color: #333; padding: 6px 0 6px 22px; line-height: 1.5; position: relative; }
   .evt-rules li::before { content: '•'; color: #1a5fa8; font-weight: 700; position: absolute; left: 6px; }
@@ -240,6 +263,14 @@ function initTournamentButton(config) {
             <input type="hidden" name="currency_code" value="USD" />
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal" alt="Buy Now" />
           </form>
+        </div>
+      `;
+    } else if (pp.system === 'embed') {
+      // Raw PayPal HTML form pasted from Squarespace/PayPal - rendered as-is
+      regBlock = `
+        <div class="evt-section-h">Tournament Registration</div>
+        <div class="evt-paypal-embed" style="padding:20px 0;">
+          ${pp.html || ''}
         </div>
       `;
     }
