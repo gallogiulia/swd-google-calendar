@@ -59,9 +59,9 @@
         "height": 500
       },
       "liveScoring": {
-        "pubUrl": "",
-        "height": 400,
-        "width": "100%"
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvpndc-xprdmVhnJeYf1r89t07Jk48Lgwn38EAxKJ1Rb08rP8lpip8GJHSLmWRnoJ7wmM-7ldly46M/pubhtml?widget=true&headers=false",
+        "height": 1800,
+        "width": "80%"
       }
     },
     {
@@ -119,9 +119,9 @@
         "height": 350
       },
       "liveScoring": {
-        "pubUrl": "",
-        "height": 350,
-        "width": "100%"
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSXlkwIAxgVVeeYXT1Qq-CaXPMDWtoiMIk0q9l7xn55foaQLm_HWfGnh-Fw_k8VU9xYu63H6_X8irn/pubhtml?widget=true&headers=false",
+        "height": 1800,
+        "width": "80%"
       }
     },
     {
@@ -157,9 +157,9 @@
         "payableTo": "SW Division Bowls USA"
       },
       "flyer": {
-        "externalUrl": "",
+        "externalUrl": "https://docs.google.com/document/d/1D3kmM5xg2-kyTr1lQDO8yjnU2unE9S6f/export?format=pdf",
         "localPath": "",
-        "type": "image"
+        "type": "pdf"
       },
       "cops": {
         "externalUrl": "https://docs.google.com/document/u/1/d/e/2PACX-1vRNcxf4HbG9pWMbAY9JMg_qnAJdcFruzTWjx-y2UOFa74wEOJuQ5PXej_k3IdtEDA/pub",
@@ -175,9 +175,9 @@
         "height": 350
       },
       "liveScoring": {
-        "pubUrl": "",
-        "height": 350,
-        "width": "100%"
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXdTqwFggAG4vCBA4kIsRxpWCK1o1SiVDEBDweEEsakxqP_l0e077tWXC4EeeY-H2QH5yA0i4gWvTK/pubhtml?widget=true&headers=false",
+        "height": 1800,
+        "width": "80%"
       }
     }
   ]
