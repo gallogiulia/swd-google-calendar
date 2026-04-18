@@ -65,9 +65,8 @@
       "liveScoring": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvpndc-xprdmVhnJeYf1r89t07Jk48Lgwn38EAxKJ1Rb08rP8lpip8GJHSLmWRnoJ7wmM-7ldly46M/pubhtml?widget=true&headers=false",
         "height": 1800,
-        "width": "80%"
-      },
-      "payableTo": "SW Division Bowls USA"
+        "width": "100%"
+      }
     },
     {
       "id": "womens-novice-singles-2026",
@@ -126,9 +125,8 @@
       "liveScoring": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSXlkwIAxgVVeeYXT1Qq-CaXPMDWtoiMIk0q9l7xn55foaQLm_HWfGnh-Fw_k8VU9xYu63H6_X8irn/pubhtml?widget=true&headers=false",
         "height": 1800,
-        "width": "80%"
-      },
-      "payableTo": "SW Division Bowls USA"
+        "width": "100%"
+      }
     },
     {
       "id": "mens-novice-singles-2026",
@@ -164,7 +162,7 @@
       },
       "flyer": {
         "externalUrl": "https://docs.google.com/document/d/1D3kmM5xg2-kyTr1lQDO8yjnU2unE9S6f/export?format=pdf",
-        "localPath": "/pdfs/mens-novice-singles-2026/flyer.pdf",
+        "localPath": "",
         "type": "pdf"
       },
       "cops": {
@@ -183,7 +181,269 @@
       "liveScoring": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXdTqwFggAG4vCBA4kIsRxpWCK1o1SiVDEBDweEEsakxqP_l0e077tWXC4EeeY-H2QH5yA0i4gWvTK/pubhtml?widget=true&headers=false",
         "height": 1800,
-        "width": "80%"
+        "width": "100%"
+      }
+    },
+    {
+      "id": "joe-siegman-pairs-2026",
+      "title": "2026 Joe Siegman Pairs",
+      "subtitle": null,
+      "date": "Sunday, May 3, 2026",
+      "time": "9:00 AM – 5:00 PM",
+      "schedule": [
+        "8:00 AM — Light breakfast",
+        "8:30 AM — Registration",
+        "9:00 AM — Play begins"
+      ],
+      "format": "pairs",
+      "formatDetails": "4 bowls, 4 × 10 ends · Open to all men/women mix or match teams",
+      "club": {
+        "name": "Beverly Hills Lawn Bowling Club",
+        "address": "401 S Roxbury Dr, Beverly Hills, CA 90212",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=401+S+Roxbury+Dr+Beverly+Hills+CA+90212"
+      },
+      "fee": "$100/team",
+      "deadline": "",
+      "rules": [
+        "Entry fee $100 per team",
+        "Prize money total $2,000",
+        "Winners $1,200 · 2nd place $500 · 3rd place $300",
+        "Individual medals for all winners",
+        "Lunch provided"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {},
+      "flyer": {
+        "externalUrl": "https://www.swlawnbowls.org/s/Siegman-Flyer-2026-3.docx",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "friendly-valley-mix-match-triples-2026",
+      "title": "2026 Friendly Valley Mix/Match Triples",
+      "subtitle": null,
+      "date": "Saturday, May 16, 2026",
+      "time": "9:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "triples",
+      "formatDetails": "Mix/Match Triples",
+      "club": {
+        "name": "Friendly Valley Lawn Bowling Club",
+        "address": "Santa Clarita, CA",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=Friendly+Valley+Lawn+Bowling+Club+Santa+Clarita+CA"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {},
+      "flyer": {
+        "externalUrl": "https://www.swlawnbowls.org/s/Lawn-Bowls-Tournament-Reg-2026-4.pdf",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "jack-beckley-friendship-tournament-2026",
+      "title": "24th Jack Beckley Friendship Tournament",
+      "subtitle": null,
+      "date": "Sunday, May 17, 2026",
+      "time": "9:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "",
+      "formatDetails": "",
+      "club": {
+        "name": "Santa Monica Lawn Bowling Club",
+        "address": "1642 7th St, Santa Monica, CA 90401",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=Santa+Monica+Lawn+Bowling+Club"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {},
+      "flyer": {
+        "externalUrl": "https://www.swlawnbowls.org/s/2026-Beckley-Flyer-031026.pdf",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "bhlbc-disney-pairs-2026",
+      "title": "2026 BHLBC Disney Pairs Tournament",
+      "subtitle": null,
+      "date": "Saturday, May 23 – Monday, May 25, 2026",
+      "time": "9:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "Pairs · 3-day tournament",
+      "club": {
+        "name": "Beverly Hills Lawn Bowling Club",
+        "address": "401 S Roxbury Dr, Beverly Hills, CA 90212",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=401+S+Roxbury+Dr+Beverly+Hills+CA+90212"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {},
+      "flyer": {
+        "externalUrl": "https://www.swlawnbowls.org/s/Disney-Flyer-2026.pdf",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "john-clark-2-bowls-triples-2026",
+      "title": "2026 John Clark 2-Bowl Mixed Triples",
+      "subtitle": null,
+      "date": "Sunday, May 31, 2026",
+      "time": "9:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "triples",
+      "formatDetails": "2-Bowl Mixed Triples",
+      "club": {
+        "name": "",
+        "address": "",
+        "mapUrl": ""
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {},
+      "flyer": {
+        "externalUrl": "https://www.swlawnbowls.org/s/John-Clark-Mixed-Triples-Flyer-2026.pdf",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "https://www.swlawnbowls.org/s/John-Clark-Mixed-Triples-Flyer-2026.pdf",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "truvic-seniors-3-bowls-pairs-2026",
+      "title": "2026 TRUVIC Seniors 3 Bowls Pairs",
+      "subtitle": null,
+      "date": "Saturday, June 20, 2026",
+      "time": "9:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "3-Bowl Pairs · Seniors",
+      "club": {
+        "name": "Beverly Hills Lawn Bowling Club",
+        "address": "401 S Roxbury Dr, Beverly Hills, CA 90212",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=401+S+Roxbury+Dr+Beverly+Hills+CA+90212"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {},
+      "flyer": {
+        "externalUrl": "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/f199f64c-e3e3-4279-95e7-05cfa1f5f644/Truvic+seniors+flyer+2026.png",
+        "localPath": "",
+        "type": "image"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
       }
     }
   ]
