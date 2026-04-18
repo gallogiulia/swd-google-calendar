@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tournament — Southwest Lawn Bowls</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: transparent; }
+
+  .evt {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+    color: #1a1a1a;
+  }
+
+  .evt-header {
+    text-align: center;
+    padding: 40px 0 32px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 32px;
+  }
+  .evt-title {
+    font-size: 36px; font-weight: 700;
+    letter-spacing: -0.5px; color: #111;
+    line-height: 1.15;
+  }
+  .evt-subtitle {
+    font-size: 16px; color: #888; font-weight: 500;
+    margin-top: 6px; text-transform: uppercase; letter-spacing: .08em;
+  }
+
+  .evt-meta {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px 32px;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+  .evt-meta-item .lbl {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .08em; color: #999; margin-bottom: 4px;
+  }
+  .evt-meta-item .val { color: #222; line-height: 1.5; }
+  .evt-meta-item a { color: #1a5fa8; text-decoration: none; }
+  .evt-meta-item a:hover { text-decoration: underline; }
+
+  .evt-deadline {
+    background: #fff4e5; color: #8a4b0a;
+    padding: 10px 14px; border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    margin-bottom: 28px;
+    border: 1px solid #f0d4a8;
+  }
+
+  .evt-livestream {
+    font-size: 12px; color: #b1351e;
+    font-weight: 500; text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .evt-flyer { margin-bottom: 36px; text-align: center; }
+  .evt-flyer img {
+    max-width: 100%; height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .evt-flyer-missing {
+    padding: 40px; background: #f8f8f8; color: #999;
+    border-radius: 8px; font-size: 13px;
+  }
+
+  .evt-buttons {
+    display: flex; gap: 12px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .evt-btn {
+    display: inline-block; padding: 10px 24px;
+    background: #1a1a1a; color: #fff;
+    text-decoration: none; font-size: 14px;
+    font-weight: 500; border-radius: 6px;
+    letter-spacing: .02em; transition: background .15s;
+  }
+  .evt-btn:hover { background: #444; }
+  .evt-btn.secondary { background: #fff; color: #1a1a1a; border: 1.5px solid #1a1a1a; }
+  .evt-btn.secondary:hover { background: #f5f5f5; }
+
+  .evt-section-h {
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .1em;
+    color: #444; margin: 40px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid #e5e5e5;
+  }
+
+  .evt-rules ul { list-style: none; padding: 0; }
+  .evt-rules li {
+    font-size: 14px; color: #333;
+    padding: 6px 0 6px 22px; line-height: 1.5;
+    position: relative;
+  }
+  .evt-rules li::before {
+    content: '•'; color: #1a5fa8; font-weight: 700;
+    position: absolute; left: 6px;
+  }
+
+  .evt-novice {
+    background: #fff9e6; padding: 14px 18px;
+    border-radius: 6px; border-left: 3px solid #f4c842;
+    font-size: 14px; line-height: 1.55; color: #4a3a15;
+  }
+  .evt-novice strong { color: #222; }
+
+  .evt-contact {
+    background: #f8f8f8; padding: 16px 20px;
+    border-radius: 6px; font-size: 14px; line-height: 1.6;
+  }
+
+  .evt-iframe-wrap { margin: 8px 0 0; }
+  .evt-iframe-wrap iframe { display: block; border: 0; width: 100%; }
+
+  .evt-loading {
+    padding: 80px 0; text-align: center;
+    color: #999; font-size: 14px;
+  }
+  .evt-error {
+    padding: 24px; border-radius: 8px;
+    background: #fff3f3; color: #8a1c1c;
+    border: 1px solid #f0c0c0; font-size: 14px;
+    margin: 40px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="evt" id="evt-root">
+  <div class="evt-loading">Loading event…</div>
+</div>
+
+<script>
+(async function () {
+  const root = document.getElementById('evt-root');
+
+  // Get ?id=xxx from URL
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) {
+    root.innerHTML = '<div class="evt-error">Missing event ID. Use <code>?id=tournament-id</code> in the URL.</div>';
+    return;
+  }
+
+  // Load events data
+  let data;
+  try {
+    const res = await fetch('/events-data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (e) {
+    root.innerHTML = '<div class="evt-error">Could not load event data: ' + e.message + '</div>';
+    return;
+  }
+
+  const event = data.events.find(e => e.id === id);
+  if (!event) {
+    root.innerHTML = '<div class="evt-error">Event not found: ' + id + '</div>';
+    return;
+  }
+
+  // Update page title
+  document.title = event.title + ' — Southwest Lawn Bowls';
+
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // ── Flyer ──
+  const flyerSrc = event.flyer?.localPath || event.flyer?.externalUrl || '';
+  const flyerBlock = flyerSrc
+    ? `<div class="evt-flyer"><img src="${esc(flyerSrc)}" alt="${esc(event.title)} flyer"></div>`
+    : '<div class="evt-flyer"><div class="evt-flyer-missing">Flyer coming soon</div></div>';
+
+  // ── Buttons ──
+  const flyerBtnUrl = event.flyer?.localPath || event.flyer?.externalUrl || '';
+  const copsBtnUrl  = event.cops?.localPath || event.cops?.externalUrl || '';
+  const buttons = [];
+  if (flyerBtnUrl) buttons.push(`<a class="evt-btn" href="${esc(flyerBtnUrl)}" target="_blank">View Flyer</a>`);
+  if (copsBtnUrl)  buttons.push(`<a class="evt-btn secondary" href="${esc(copsBtnUrl)}" target="_blank">Conditions of Play</a>`);
+
+  // ── Meta grid ──
+  const metaItems = [];
+  if (event.date) metaItems.push(`<div class="evt-meta-item"><div class="lbl">Date</div><div class="val">${esc(event.date)}</div></div>`);
+  if (event.time) metaItems.push(`<div class="evt-meta-item"><div class="lbl">Time</div><div class="val">${esc(event.time)}</div></div>`);
+  if (event.fee)  metaItems.push(`<div class="evt-meta-item"><div class="lbl">Entry Fee</div><div class="val">${esc(event.fee)}</div></div>`);
+  if (event.club?.name) {
+    let clubVal = esc(event.club.name) + '<br>' + esc(event.club.address || '');
+    if (event.club.phone) clubVal += '<br>' + esc(event.club.phone);
+    if (event.club.mapUrl) clubVal += `<br><a href="${esc(event.club.mapUrl)}" target="_blank">View on map</a>`;
+    metaItems.push(`<div class="evt-meta-item"><div class="lbl">Location</div><div class="val">${clubVal}</div></div>`);
+  }
+  if (event.formatDetails) metaItems.push(`<div class="evt-meta-item"><div class="lbl">Format</div><div class="val">${esc(event.formatDetails)}</div></div>`);
+
+  // ── Schedule ──
+  const scheduleBlock = (event.schedule && event.schedule.length)
+    ? `<div class="evt-section-h">Schedule</div>
+       <ul style="list-style:none; padding:0; font-size:14px; line-height:1.8;">
+         ${event.schedule.map(s => `<li>${esc(s)}</li>`).join('')}
+       </ul>` : '';
+
+  // ── Rules ──
+  const rulesBlock = (event.rules && event.rules.length)
+    ? `<div class="evt-section-h">Rules & Notes</div>
+       <div class="evt-rules"><ul>${event.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : '';
+
+  // ── Novice definition (if present) ──
+  const noviceBlock = event.noviceDefinition
+    ? `<div class="evt-section-h">Novice Definition</div>
+       <div class="evt-novice">${esc(event.noviceDefinition)}</div>` : '';
+
+  // ── Contact ──
+  const contactBlock = event.contact ? (() => {
+    const c = event.contact;
+    const lines = [];
+    if (c.name)      lines.push(`<strong>${esc(c.name)}</strong>`);
+    if (c.phone)     lines.push(esc(c.phone));
+    if (c.email)     lines.push(`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`);
+    if (c.mailTo)    lines.push('Mail entries to: ' + esc(c.mailTo));
+    if (c.payableTo) lines.push('Make checks payable to: <strong>' + esc(c.payableTo) + '</strong>');
+    return `<div class="evt-section-h">Contact</div><div class="evt-contact">${lines.join('<br>')}</div>`;
+  })() : '';
+
+  // ── Registration (PayPal) ──
+  let regBlock = '';
+  if (event.paypal) {
+    const pp = event.paypal;
+    if (pp.system === 'modern') {
+      const suffix = pp.containerSuffix || 'reg';
+      const labelRows = (pp.playerLabels || []).map(label => `
+          <label style="display: block; font-size: 14px; font-weight: bold; text-align: left;">${esc(label)} Name:</label>
+          <input type="text" class="player-name" data-label="${esc(label)}" placeholder="${esc(label)} Name" style="width:100%; padding:8px; margin-bottom:10px; border: 2px solid #ccc; font-size: 14px; border-radius: 6px; box-sizing: border-box;">
+      `).join('');
+      regBlock = `
+        <div class="evt-section-h">Tournament Registration</div>
+        <div class="reg-box" id="reg-${esc(suffix)}" style="padding: 25px; border: 2px solid #4a86e8; border-radius: 12px; background: #ffffff; max-width: 450px; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.15); font-family: Arial, sans-serif; text-align: center;">
+          <h2 style="margin-top: 0; font-size: 20px; color: #1a1a1a; border-bottom: 3px solid #4a86e8; padding-bottom: 10px;">Tournament Registration</h2>
+          <p style="font-size: 16px; font-weight: bold; color: #444; margin-bottom: 20px;">${esc(pp.buttonName || event.title)}</p>
+          ${labelRows}
+          <div id="paypal-button-${esc(suffix)}"></div>
+        </div>
+        <script>
+          if (typeof initTournamentButton === 'function') {
+            initTournamentButton({
+              parentBox: "#reg-${esc(suffix)}",
+              containerId: "#paypal-button-${esc(suffix)}",
+              name: "${esc(pp.buttonName || event.title)}",
+              price: "${esc(pp.price || '0.00')}"
+            });
+          } else {
+            document.getElementById('paypal-button-${esc(suffix)}').innerHTML = '<div style="padding:12px;background:#fff4e5;color:#8a4b0a;border-radius:6px;font-size:13px;">PayPal button will appear on the main site.<\\/div>';
+          }
+        <\/script>
+      `;
+    } else if (pp.system === 'classic') {
+      regBlock = `
+        <div class="evt-section-h">Tournament Registration</div>
+        <div style="text-align:center; padding: 20px 0;">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="${esc(pp.hostedButtonId)}" />
+            <table style="margin: 0 auto;">
+              <tr><td><input type="hidden" name="on0" value="Player Name"/>Player Name</td></tr>
+              <tr><td><input type="text" name="os0" maxlength="200" style="width: 300px; padding: 8px; font-size: 14px; border: 2px solid #ccc; border-radius: 6px; margin-bottom: 12px;"/></td></tr>
+            </table>
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" />
+          </form>
+        </div>
+      `;
+    }
+  }
+
+  // ── Entries iframe ──
+  let entriesBlock = '';
+  if (event.entries?.pubUrl) {
+    entriesBlock = `
+      <div class="evt-section-h">Entries</div>
+      <div class="evt-iframe-wrap">
+        <iframe src="${esc(event.entries.pubUrl)}" height="${event.entries.height || 400}" width="100%"></iframe>
+      </div>
+    `;
+  } else if (event.entries?.sheetId) {
+    entriesBlock = `
+      <div class="evt-section-h">Entries</div>
+      <div style="padding:12px;background:#f8f8f8;color:#666;border-radius:6px;font-size:13px;">
+        Entries sheet not yet published to web.
+        <a href="https://docs.google.com/spreadsheets/d/${esc(event.entries.sheetId)}" target="_blank">Open source sheet</a>
+      </div>
+    `;
+  }
+
+  // ── Live scoring iframe ──
+  let liveBlock = '';
+  if (event.liveScoring?.pubUrl) {
+    const h = event.liveScoring.height || 400;
+    const w = event.liveScoring.width || '100%';
+    liveBlock = `
+      <div class="evt-section-h">Live Scoring</div>
+      <div class="evt-iframe-wrap">
+        <iframe src="${esc(event.liveScoring.pubUrl)}" height="${h}" width="${esc(w)}"></iframe>
+      </div>
+    `;
+  }
+
+  // ── Assemble ──
+  root.innerHTML = `
+    <div class="evt-header">
+      <div class="evt-title">${esc(event.title)}</div>
+      ${event.subtitle ? `<div class="evt-subtitle">${esc(event.subtitle)}</div>` : ''}
+    </div>
+
+    ${event.deadline ? `<div class="evt-deadline">${esc(event.deadline)}</div>` : ''}
+
+    ${flyerBlock}
+
+    <div class="evt-meta">${metaItems.join('')}</div>
+
+    ${buttons.length ? `<div class="evt-buttons">${buttons.join('')}</div>` : ''}
+
+    ${scheduleBlock}
+    ${rulesBlock}
+    ${noviceBlock}
+
+    ${event.livestreamNotice ? `<div class="evt-livestream">${esc(event.livestreamNotice)}</div>` : ''}
+
+    ${regBlock}
+    ${entriesBlock}
+    ${liveBlock}
+
+    ${contactBlock}
+  `;
+
+  // Re-execute inline scripts (innerHTML doesn't run them)
+  root.querySelectorAll('script').forEach(old => {
+    const s = document.createElement('script');
+    if (old.src) s.src = old.src; else s.textContent = old.textContent;
+    old.parentNode.replaceChild(s, old);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,680 @@
+<style>
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+  .evp { font-family: var(--font-sans); color: var(--color-text-primary); max-width: 1200px; margin: 0 auto; padding: 1rem 0 3rem; }
+  .evp h1 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
+  .evp h2 { font-size: 18px; font-weight: 500; margin: 0; }
+  .evp h3 { font-size: 15px; font-weight: 500; margin: 0 0 6px; }
+  .evp .muted { color: var(--color-text-secondary); font-size: 13px; }
+
+  .evp-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:1.5rem; flex-wrap:wrap; }
+  .evp-status { font-size: 12px; color: var(--color-text-secondary); }
+  .evp-status.ok  { color: var(--color-text-success); }
+  .evp-status.err { color: var(--color-text-danger); }
+
+  .evp-setup { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1.25rem; }
+  .evp-setup p { font-size: 13px; line-height: 1.6; margin: 0 0 10px; color: var(--color-text-secondary); }
+  .evp-setup label { display:block; font-size: 12px; color: var(--color-text-secondary); margin: 10px 0 4px; }
+  .evp-setup input { width: 100%; }
+
+  .evp-toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 1rem; align-items:center; }
+  .evp-pending-badge { font-size: 12px; background: var(--color-background-warning); color: var(--color-text-warning); padding: 4px 10px; border-radius: var(--border-radius-md); }
+
+  .evp-event { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 12px; }
+  .evp-event-head { display:flex; align-items:center; gap:12px; margin-bottom: 6px; }
+  .evp-event-head .title-in { flex:1; min-width:0; font-size:16px; font-weight:500; background:transparent; border:none; padding:4px 0; }
+  .evp-event-head .title-in:focus { outline: none; border-bottom: 1px solid var(--color-border-secondary); }
+  .evp-event-preview-link { font-size: 12px; color: var(--color-text-info); text-decoration: none; }
+  .evp-event-preview-link:hover { text-decoration: underline; }
+
+  .evp-section { border-top: 0.5px solid var(--color-border-tertiary); margin-top: 14px; padding-top: 14px; }
+  .evp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .evp-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 700px) { .evp-grid-2 { grid-template-columns: 1fr; } }
+  .evp-field label { display:block; font-size: 11px; color: var(--color-text-secondary); margin-bottom: 3px; }
+  .evp-field input, .evp-field select, .evp-field textarea { width: 100%; font-size: 13px; }
+  .evp-field textarea { min-height: 60px; resize: vertical; padding: 6px 8px; font-family: inherit; }
+
+  .evp-list { display: flex; flex-direction: column; gap: 6px; }
+  .evp-list-item { display: flex; gap: 6px; align-items: center; }
+  .evp-list-item input { flex: 1; font-size: 13px; }
+
+  .evp-pdf-slot {
+    background: var(--color-background-secondary);
+    padding: 10px; border-radius: var(--border-radius-md);
+    display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: center;
+  }
+  .evp-pdf-drop {
+    width: 110px; height: 70px; border-radius: var(--border-radius-md);
+    border: 1.5px dashed var(--color-border-secondary);
+    background: var(--color-background-primary);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; font-size: 11px; color: var(--color-text-tertiary);
+    cursor: pointer; padding: 4px; position: relative;
+  }
+  .evp-pdf-drop.has-file { border-style: solid; border-color: var(--color-border-info); background: var(--color-background-info); color: var(--color-text-info); }
+  .evp-pdf-drop.dragover { border-color: var(--color-border-info); background: var(--color-background-info); }
+  .evp-pdf-drop input[type=file] { display: none; }
+
+  .evp-paypal-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 8px; }
+
+  .evp-btn-row { display:flex; gap:6px; flex-wrap:wrap; margin-top: 10px; }
+  .evp-btn-sm { font-size: 12px; padding: 4px 10px; height: auto; }
+
+  .evp-icon-btn { background: transparent; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); width: 28px; height: 28px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; color: var(--color-text-secondary); padding: 0; }
+  .evp-icon-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+  .evp-icon-btn.danger:hover { color: var(--color-text-danger); border-color: var(--color-border-danger); }
+
+  .evp-collapsed .evp-event-body { display: none; }
+  .evp-event.evp-collapsed { padding: 10px 1.25rem; }
+
+  .evp-commit-card { background: var(--color-background-info); color: var(--color-text-info); border-radius: var(--border-radius-lg); padding: 14px 18px; margin-top: 1.5rem; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .evp-sha { font-family: var(--font-mono); font-size: 11px; }
+  .hidden { display: none !important; }
+
+  .evp-progress { margin-top: 10px; font-size: 12px; color: var(--color-text-secondary); }
+  .evp-progress .bar { height: 4px; background: var(--color-background-secondary); border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .evp-progress .bar-fill { height: 100%; background: var(--color-text-info); width: 0%; transition: width .2s; }
+
+  .evp-section-label {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .1em;
+    color: var(--color-text-secondary); margin-bottom: 10px;
+  }
+</style>
+
+<h2 class="sr-only">Event Publisher — create and edit tournament event pages, upload flyer and COPs PDFs, and commit to GitHub</h2>
+
+<div class="evp">
+  <div class="evp-bar">
+    <div>
+      <h1>Event Publisher</h1>
+      <div class="muted">Fill in event info · Upload PDFs · Commit to deploy</div>
+    </div>
+    <div id="status" class="evp-status">Not connected</div>
+  </div>
+
+  <div id="setup" class="evp-setup">
+    <h3 style="margin-bottom:8px;">Connect to GitHub</h3>
+    <p>Same token you used for the Results Publisher. If you already saved it there, paste again here — tokens are stored per-tool.</p>
+    <label>GitHub Personal Access Token</label>
+    <input type="password" id="tokenInput" placeholder="github_pat_..." autocomplete="off">
+    <label>Repo owner</label><input type="text" id="ownerInput" value="gallogiulia">
+    <label>Repo name</label><input type="text" id="repoInput" value="swd-google-calendar">
+    <label>Branch</label><input type="text" id="branchInput" value="main">
+    <label>Data file path</label><input type="text" id="pathInput" value="events-data.json">
+    <label>PDFs folder</label><input type="text" id="pdfsInput" value="pdfs">
+    <div class="evp-btn-row">
+      <button id="connectBtn">Save &amp; Load</button>
+      <button id="clearBtn" style="color: var(--color-text-danger);">Clear token</button>
+    </div>
+  </div>
+
+  <div id="editor" class="hidden">
+    <div class="evp-toolbar">
+      <button id="addEventBtn">+ Add event</button>
+      <button id="reloadBtn">Reload from GitHub</button>
+      <button id="collapseAllBtn">Collapse all</button>
+      <button id="expandAllBtn">Expand all</button>
+      <span id="pendingBadge" class="evp-pending-badge hidden">0 pending uploads</span>
+      <button id="showSetupBtn" style="margin-left:auto;">Settings</button>
+    </div>
+
+    <div id="eventList"></div>
+
+    <div class="evp-commit-card">
+      <div>
+        <div style="font-weight:500; margin-bottom:2px;">Ready to publish</div>
+        <div style="font-size: 12px; opacity: 0.85;">JSON + all pending PDFs commit together on <span id="currentBranch">main</span>.</div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <input id="commitMsg" type="text" placeholder="Commit message" style="min-width: 220px; background: var(--color-background-primary);">
+        <button id="publishBtn" style="font-weight: 500;">Commit &amp; Push</button>
+      </div>
+    </div>
+    <div id="commitProgress" class="evp-progress hidden">
+      <div id="progressLabel">Preparing…</div>
+      <div class="bar"><div class="bar-fill" id="progressBar"></div></div>
+    </div>
+    <div id="commitResult" style="margin-top: 10px;"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const STORAGE_PREFIX = 'swlb-evp-';
+  const $ = (id) => document.getElementById(id);
+
+  const state = {
+    token: '', owner: 'gallogiulia', repo: 'swd-google-calendar',
+    branch: 'main', path: 'events-data.json', pdfsDir: 'pdfs',
+    data: null, sha: null, dirty: false,
+    // path -> { blob, name, eventRef, kind }
+    pendingUploads: new Map(),
+  };
+
+  async function saveSetting(k, v) { try { await window.storage.set(STORAGE_PREFIX + k, v); } catch {} }
+  async function loadSetting(k)   { try { const r = await window.storage.get(STORAGE_PREFIX + k); return r ? r.value : null; } catch { return null; } }
+  async function loadSaved() {
+    const keys = ['token','owner','repo','branch','path','pdfsDir'];
+    const ids  = ['tokenInput','ownerInput','repoInput','branchInput','pathInput','pdfsInput'];
+    for (let i = 0; i < keys.length; i++) { const v = await loadSetting(keys[i]); if (v) $(ids[i]).value = v; }
+  }
+
+  function setStatus(msg, kind = '') { $('status').textContent = msg; $('status').className = 'evp-status' + (kind ? ' ' + kind : ''); }
+  function updateBadge() {
+    const n = state.pendingUploads.size;
+    const el = $('pendingBadge');
+    if (n === 0) el.classList.add('hidden');
+    else { el.classList.remove('hidden'); el.textContent = n + ' pending upload' + (n === 1 ? '' : 's'); }
+  }
+
+  async function gh(endpoint, opts = {}) {
+    const res = await fetch('https://api.github.com' + endpoint, {
+      ...opts,
+      headers: {
+        'Authorization': 'Bearer ' + state.token,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        ...(opts.headers || {}),
+      },
+    });
+    if (!res.ok) { const txt = await res.text(); throw new Error('GitHub ' + res.status + ': ' + txt.slice(0, 300)); }
+    return res.json();
+  }
+
+  async function loadFromGitHub() {
+    setStatus('Loading…');
+    try {
+      const file = await gh(`/repos/${state.owner}/${state.repo}/contents/${state.path}?ref=${state.branch}`);
+      state.sha = file.sha;
+      const binary = atob(file.content.replace(/\n/g, ''));
+      const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+      state.data = JSON.parse(new TextDecoder().decode(bytes));
+    } catch (e) {
+      if (String(e.message).includes('404')) {
+        // File doesn't exist yet — start fresh
+        state.data = { events: [] };
+        state.sha = null;
+        setStatus('No events-data.json yet — creating on first commit', 'ok');
+        state.dirty = false;
+        state.pendingUploads.clear();
+        updateBadge();
+        return;
+      }
+      throw e;
+    }
+    state.dirty = false;
+    state.pendingUploads.clear();
+    updateBadge();
+    setStatus('Loaded · sha ' + (state.sha ? state.sha.slice(0, 7) : 'new'), 'ok');
+  }
+
+  async function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(r.result.split(',')[1]);
+      r.onerror = reject;
+      r.readAsDataURL(blob);
+    });
+  }
+  function utf8ToBase64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let binary = ''; bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary);
+  }
+
+  async function commitAll(message, onProgress) {
+    const o = state.owner, r = state.repo, br = state.branch;
+    onProgress(5, 'Reading branch HEAD…');
+    const ref = await gh(`/repos/${o}/${r}/git/ref/heads/${br}`);
+    const baseCommitSha = ref.object.sha;
+    const baseCommit = await gh(`/repos/${o}/${r}/git/commits/${baseCommitSha}`);
+    const baseTreeSha = baseCommit.tree.sha;
+
+    const total = state.pendingUploads.size;
+    const treeEntries = [];
+    let i = 0;
+    for (const [path, entry] of state.pendingUploads.entries()) {
+      i++;
+      onProgress(20 + (50 * i / Math.max(total, 1)), `Uploading ${entry.kind} ${i}/${total}…`);
+      const base64 = await blobToBase64(entry.blob);
+      const blobRes = await gh(`/repos/${o}/${r}/git/blobs`, {
+        method: 'POST', body: JSON.stringify({ content: base64, encoding: 'base64' }),
+      });
+      treeEntries.push({ path, mode: '100644', type: 'blob', sha: blobRes.sha });
+    }
+
+    onProgress(75, 'Packaging JSON…');
+    const jsonText = JSON.stringify(state.data, null, 2) + '\n';
+    const jsonBlob = await gh(`/repos/${o}/${r}/git/blobs`, {
+      method: 'POST', body: JSON.stringify({ content: utf8ToBase64(jsonText), encoding: 'base64' }),
+    });
+    treeEntries.push({ path: state.path, mode: '100644', type: 'blob', sha: jsonBlob.sha });
+
+    onProgress(85, 'Building tree…');
+    const tree = await gh(`/repos/${o}/${r}/git/trees`, {
+      method: 'POST', body: JSON.stringify({ base_tree: baseTreeSha, tree: treeEntries }),
+    });
+
+    onProgress(92, 'Creating commit…');
+    const commit = await gh(`/repos/${o}/${r}/git/commits`, {
+      method: 'POST', body: JSON.stringify({ message, tree: tree.sha, parents: [baseCommitSha] }),
+    });
+
+    onProgress(98, 'Updating branch…');
+    await gh(`/repos/${o}/${r}/git/refs/heads/${br}`, {
+      method: 'PATCH', body: JSON.stringify({ sha: commit.sha }),
+    });
+
+    onProgress(100, 'Done');
+    const reloaded = await gh(`/repos/${o}/${r}/contents/${state.path}?ref=${br}`);
+    state.sha = reloaded.sha;
+    state.dirty = false;
+    state.pendingUploads.clear();
+    updateBadge();
+    return commit;
+  }
+
+  function slugify(s) {
+    return String(s || '').toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-').slice(0, 60) || 'item';
+  }
+
+  function escAttr(s) {
+    return String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // ── Fetch Google Doc/Sheet as PDF (browser-side) ──
+  async function fetchAsPdf(sourceUrl) {
+    // Extract ID and type
+    let exportUrl = null;
+    const docMatch = sourceUrl.match(/docs\.google\.com\/document\/(?:u\/\d+\/)?d\/([a-zA-Z0-9_-]+)/);
+    const sheetMatch = sourceUrl.match(/docs\.google\.com\/spreadsheets\/(?:u\/\d+\/)?d\/([a-zA-Z0-9_-]+)/);
+    const pubDocMatch = sourceUrl.match(/docs\.google\.com\/document\/(?:u\/\d+\/)?d\/e\/([a-zA-Z0-9_-]+)\/pub/);
+    if (pubDocMatch) {
+      exportUrl = `https://docs.google.com/document/d/e/${pubDocMatch[1]}/pub?output=pdf`;
+    } else if (docMatch) {
+      exportUrl = `https://docs.google.com/document/d/${docMatch[1]}/export?format=pdf`;
+    } else if (sheetMatch) {
+      exportUrl = `https://docs.google.com/spreadsheets/d/${sheetMatch[1]}/export?format=pdf`;
+    } else if (sourceUrl.endsWith('.pdf')) {
+      exportUrl = sourceUrl;
+    } else {
+      throw new Error('Not a recognized Google Docs/Sheets URL');
+    }
+
+    const res = await fetch(exportUrl, { mode: 'cors' });
+    if (!res.ok) throw new Error('Fetch failed: HTTP ' + res.status);
+    return await res.blob();
+  }
+
+  // ── Rendering ──
+  function renderAll() {
+    $('eventList').innerHTML = '';
+    if (!state.data || !state.data.events) return;
+    state.data.events.forEach((e, i) => $('eventList').appendChild(renderEvent(e, i)));
+    $('currentBranch').textContent = state.branch;
+  }
+
+  function renderEvent(e, idx) {
+    const wrap = document.createElement('div');
+    wrap.className = 'evp-event';
+    const vercelPreview = `https://${state.owner === 'gallogiulia' ? 'swd-google-calendar.vercel.app' : '[your-vercel].app'}/event?id=${encodeURIComponent(e.id || '')}`;
+
+    wrap.innerHTML = `
+      <div class="evp-event-head">
+        <button class="evp-icon-btn" data-action="toggle">▾</button>
+        <input class="title-in" data-field="title" value="${escAttr(e.title || '')}" placeholder="Tournament title">
+        <a class="evp-event-preview-link" href="${escAttr(vercelPreview)}" target="_blank" title="Open preview">↗ Preview</a>
+        <button class="evp-icon-btn" data-action="move-up">↑</button>
+        <button class="evp-icon-btn" data-action="move-down">↓</button>
+        <button class="evp-icon-btn danger" data-action="delete">✕</button>
+      </div>
+      <div class="evp-event-body">
+        <!-- BASICS -->
+        <div class="evp-grid-2" style="margin-top: 10px;">
+          <div class="evp-field"><label>ID (URL-safe, used in /event?id=)</label><input type="text" data-field="id" value="${escAttr(e.id || '')}" placeholder="e.g. vet-novice-triples-2026"></div>
+          <div class="evp-field"><label>Subtitle (optional)</label><input type="text" data-field="subtitle" value="${escAttr(e.subtitle || '')}" placeholder="e.g. Women's Sponsored"></div>
+          <div class="evp-field"><label>Date</label><input type="text" data-field="date" value="${escAttr(e.date || '')}" placeholder="Saturday, April 18, 2026"></div>
+          <div class="evp-field"><label>Time</label><input type="text" data-field="time" value="${escAttr(e.time || '')}" placeholder="8:00 AM – 5:00 PM"></div>
+          <div class="evp-field"><label>Entry Fee</label><input type="text" data-field="fee" value="${escAttr(e.fee || '')}" placeholder="$45/team"></div>
+          <div class="evp-field"><label>Format (free text)</label><input type="text" data-field="format" value="${escAttr(e.format || '')}" placeholder="triples"></div>
+          <div class="evp-field" style="grid-column: 1 / -1;"><label>Format details</label><input type="text" data-field="formatDetails" value="${escAttr(e.formatDetails || '')}" placeholder="e.g. Four 12-end games, 2-bowl triples · Skip / Vice / Lead"></div>
+          <div class="evp-field" style="grid-column: 1 / -1;"><label>Entry deadline (full sentence)</label><input type="text" data-field="deadline" value="${escAttr(e.deadline || '')}" placeholder="Entry deadline: April 11, 2026 (no refunds after)"></div>
+        </div>
+
+        <!-- CLUB -->
+        <div class="evp-section">
+          <div class="evp-section-label">Location</div>
+          <div class="evp-grid-2" data-obj="club">
+            <div class="evp-field"><label>Club name</label><input type="text" data-field="name" value="${escAttr(e.club?.name || '')}"></div>
+            <div class="evp-field"><label>Address</label><input type="text" data-field="address" value="${escAttr(e.club?.address || '')}"></div>
+            <div class="evp-field"><label>Phone</label><input type="text" data-field="phone" value="${escAttr(e.club?.phone || '')}"></div>
+            <div class="evp-field"><label>Google Maps URL (auto-generated if blank)</label><input type="text" data-field="mapUrl" value="${escAttr(e.club?.mapUrl || '')}"></div>
+          </div>
+        </div>
+
+        <!-- SCHEDULE & RULES -->
+        <div class="evp-section">
+          <div class="evp-grid-2">
+            <div class="evp-field"><label>Schedule (one per line)</label><textarea data-field="schedule-text" placeholder="8:00 AM — Green open for practice">${escAttr((e.schedule || []).join('\n'))}</textarea></div>
+            <div class="evp-field"><label>Rules & notes (one per line)</label><textarea data-field="rules-text" placeholder="All players must be Bowls USA members">${escAttr((e.rules || []).join('\n'))}</textarea></div>
+          </div>
+          <div class="evp-field" style="margin-top: 8px;"><label>Novice definition (optional)</label><textarea data-field="noviceDefinition">${escAttr(e.noviceDefinition || '')}</textarea></div>
+          <div class="evp-field" style="margin-top: 8px;"><label>Livestream notice (optional)</label><input type="text" data-field="livestreamNotice" value="${escAttr(e.livestreamNotice || '')}"></div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="evp-section">
+          <div class="evp-section-label">Contact</div>
+          <div class="evp-grid-2" data-obj="contact">
+            <div class="evp-field"><label>Name</label><input type="text" data-field="name" value="${escAttr(e.contact?.name || '')}"></div>
+            <div class="evp-field"><label>Phone</label><input type="text" data-field="phone" value="${escAttr(e.contact?.phone || '')}"></div>
+            <div class="evp-field"><label>Email</label><input type="text" data-field="email" value="${escAttr(e.contact?.email || '')}"></div>
+            <div class="evp-field"><label>Mail entries to</label><input type="text" data-field="mailTo" value="${escAttr(e.contact?.mailTo || '')}"></div>
+            <div class="evp-field" style="grid-column: 1 / -1;"><label>Checks payable to</label><input type="text" data-field="payableTo" value="${escAttr(e.contact?.payableTo || '')}"></div>
+          </div>
+        </div>
+
+        <!-- FLYER -->
+        <div class="evp-section">
+          <div class="evp-section-label">Flyer</div>
+          <div class="evp-pdf-slot" data-kind="flyer">
+            <label class="evp-pdf-drop">
+              <input type="file" accept="application/pdf,image/*">
+              <span class="drop-hint">Drop PDF or image</span>
+            </label>
+            <div>
+              <div class="evp-field"><label>Source URL (Google Sheet/Doc or public link)</label><input type="text" data-field="externalUrl" data-obj="flyer" value="${escAttr(e.flyer?.externalUrl || '')}" placeholder="https://docs.google.com/spreadsheets/..."></div>
+              <div class="evp-btn-row">
+                <button class="evp-btn-sm" data-action="fetch-pdf" data-target="flyer">Fetch from Google as PDF</button>
+                <button class="evp-btn-sm" data-action="use-external" data-target="flyer">Use external URL as-is</button>
+              </div>
+              <div style="font-size:11px; color:var(--color-text-tertiary); margin-top:4px;" data-status="flyer">${e.flyer?.localPath ? 'Saved: ' + escAttr(e.flyer.localPath) : (e.flyer?.externalUrl ? 'External link' : '')}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COPS -->
+        <div class="evp-section">
+          <div class="evp-section-label">Conditions of Play</div>
+          <div class="evp-pdf-slot" data-kind="cops">
+            <label class="evp-pdf-drop">
+              <input type="file" accept="application/pdf">
+              <span class="drop-hint">Drop PDF</span>
+            </label>
+            <div>
+              <div class="evp-field"><label>Source URL (Google Doc or public PDF)</label><input type="text" data-field="externalUrl" data-obj="cops" value="${escAttr(e.cops?.externalUrl || '')}" placeholder="https://docs.google.com/document/..."></div>
+              <div class="evp-btn-row">
+                <button class="evp-btn-sm" data-action="fetch-pdf" data-target="cops">Fetch from Google as PDF</button>
+                <button class="evp-btn-sm" data-action="use-external" data-target="cops">Use external URL as-is</button>
+              </div>
+              <div style="font-size:11px; color:var(--color-text-tertiary); margin-top:4px;" data-status="cops">${e.cops?.localPath ? 'Saved: ' + escAttr(e.cops.localPath) : (e.cops?.externalUrl ? 'External link' : '')}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYPAL -->
+        <div class="evp-section">
+          <div class="evp-section-label">PayPal registration</div>
+          <div class="evp-field"><label>PayPal system</label>
+            <select data-field="system" data-obj="paypal">
+              <option value="modern" ${e.paypal?.system === 'modern' ? 'selected' : ''}>Modern — initTournamentButton with player fields</option>
+              <option value="classic" ${e.paypal?.system === 'classic' ? 'selected' : ''}>Classic — hosted button ID (Buy Now)</option>
+              <option value="none" ${(!e.paypal || e.paypal?.system === 'none') ? 'selected' : ''}>No PayPal registration</option>
+            </select>
+          </div>
+          <div class="evp-paypal-modern" style="${e.paypal?.system === 'modern' ? '' : 'display:none;'}">
+            <div class="evp-grid-2">
+              <div class="evp-field"><label>Button name (shown in PayPal)</label><input type="text" data-field="buttonName" data-obj="paypal" value="${escAttr(e.paypal?.buttonName || '')}"></div>
+              <div class="evp-field"><label>Price</label><input type="text" data-field="price" data-obj="paypal" value="${escAttr(e.paypal?.price || '')}" placeholder="45.00"></div>
+              <div class="evp-field"><label>Container suffix (unique per page)</label><input type="text" data-field="containerSuffix" data-obj="paypal" value="${escAttr(e.paypal?.containerSuffix || '')}" placeholder="e.g. vettrips"></div>
+              <div class="evp-field"><label>Player labels (comma-separated)</label><input type="text" data-field="playerLabels-text" data-obj="paypal" value="${escAttr((e.paypal?.playerLabels || []).join(', '))}" placeholder="Skip, Vice, Lead"></div>
+            </div>
+          </div>
+          <div class="evp-paypal-classic" style="${e.paypal?.system === 'classic' ? '' : 'display:none;'}">
+            <div class="evp-grid-2">
+              <div class="evp-field"><label>Hosted button ID (from PayPal)</label><input type="text" data-field="hostedButtonId" data-obj="paypal" value="${escAttr(e.paypal?.hostedButtonId || '')}" placeholder="e.g. BAC9BZHWM9WQS"></div>
+              <div class="evp-field"><label>Price (informational only)</label><input type="text" data-field="price" data-obj="paypal" value="${escAttr(e.paypal?.price || '')}" placeholder="20.00"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENTRIES + LIVE SCORING -->
+        <div class="evp-section">
+          <div class="evp-section-label">Entries & Live Scoring</div>
+          <div class="evp-grid-2">
+            <div class="evp-field"><label>Entries sheet ID (optional, for reference)</label><input type="text" data-field="sheetId" data-obj="entries" value="${escAttr(e.entries?.sheetId || '')}"></div>
+            <div class="evp-field"><label>Entries iframe URL (pubhtml)</label><input type="text" data-field="pubUrl" data-obj="entries" value="${escAttr(e.entries?.pubUrl || '')}" placeholder="https://docs.google.com/spreadsheets/d/e/2PACX.../pubhtml?..."></div>
+            <div class="evp-field"><label>Entries height (px)</label><input type="number" data-field="height" data-obj="entries" value="${escAttr(e.entries?.height || 400)}"></div>
+            <div class="evp-field"><label>Live scoring iframe URL (pubhtml)</label><input type="text" data-field="pubUrl" data-obj="liveScoring" value="${escAttr(e.liveScoring?.pubUrl || '')}" placeholder="https://docs.google.com/spreadsheets/..."></div>
+            <div class="evp-field"><label>Live scoring height (px)</label><input type="number" data-field="height" data-obj="liveScoring" value="${escAttr(e.liveScoring?.height || 400)}"></div>
+            <div class="evp-field"><label>Live scoring width</label><input type="text" data-field="width" data-obj="liveScoring" value="${escAttr(e.liveScoring?.width || '100%')}" placeholder="100% or 80%"></div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // ── Wire up all inputs ──
+    // Top-level fields
+    wrap.querySelectorAll('[data-field]:not([data-obj])').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const f = inp.dataset.field;
+        let v = inp.value;
+        if (f === 'schedule-text') { e.schedule = v.split('\n').map(s => s.trim()).filter(Boolean); }
+        else if (f === 'rules-text') { e.rules = v.split('\n').map(s => s.trim()).filter(Boolean); }
+        else { e[f] = v; }
+        state.dirty = true;
+      });
+    });
+    // Object fields (club, contact, flyer, cops, paypal, entries, liveScoring)
+    wrap.querySelectorAll('[data-obj][data-field]').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const obj = inp.dataset.obj;
+        const f = inp.dataset.field;
+        e[obj] = e[obj] || {};
+        let v = inp.value;
+        if (f === 'height') v = parseInt(v, 10) || 400;
+        if (f === 'playerLabels-text') { e[obj].playerLabels = v.split(',').map(s => s.trim()).filter(Boolean); }
+        else { e[obj][f] = v; }
+        state.dirty = true;
+      });
+      inp.addEventListener('change', () => {
+        if (inp.dataset.field === 'system' && inp.dataset.obj === 'paypal') {
+          const m = wrap.querySelector('.evp-paypal-modern');
+          const c = wrap.querySelector('.evp-paypal-classic');
+          m.style.display = inp.value === 'modern' ? '' : 'none';
+          c.style.display = inp.value === 'classic' ? '' : 'none';
+        }
+      });
+    });
+
+    // Actions on event card
+    wrap.addEventListener('click', async (ev) => {
+      const btn = ev.target.closest('[data-action]');
+      if (!btn || btn.closest('.evp-event') !== wrap) return;
+      const action = btn.dataset.action;
+
+      if (action === 'toggle') {
+        wrap.classList.toggle('evp-collapsed');
+        btn.textContent = wrap.classList.contains('evp-collapsed') ? '▸' : '▾';
+      } else if (action === 'move-up' && idx > 0) {
+        const a = state.data.events; [a[idx - 1], a[idx]] = [a[idx], a[idx - 1]]; state.dirty = true; renderAll();
+      } else if (action === 'move-down' && idx < state.data.events.length - 1) {
+        const a = state.data.events; [a[idx + 1], a[idx]] = [a[idx], a[idx + 1]]; state.dirty = true; renderAll();
+      } else if (action === 'delete') {
+        if (confirm('Delete event "' + (e.title || 'Untitled') + '"?')) {
+          state.data.events.splice(idx, 1); state.dirty = true; renderAll();
+        }
+      } else if (action === 'fetch-pdf') {
+        const kind = btn.dataset.target; // 'flyer' or 'cops'
+        const url = e[kind]?.externalUrl;
+        const statusEl = wrap.querySelector(`[data-status="${kind}"]`);
+        if (!url) { statusEl.textContent = 'Paste a source URL first'; return; }
+        statusEl.textContent = 'Fetching from Google…';
+        try {
+          const blob = await fetchAsPdf(url);
+          if (!e.id) { alert('Set an event ID first'); return; }
+          const path = `${state.pdfsDir}/${e.id}/${kind}.pdf`;
+          // Remove any existing pending upload for this slot
+          for (const [k, v] of state.pendingUploads.entries()) {
+            if (v.eventRef === e && v.kind === kind) state.pendingUploads.delete(k);
+          }
+          state.pendingUploads.set(path, { blob, eventRef: e, kind });
+          e[kind] = e[kind] || {};
+          e[kind].localPath = '/' + path;
+          statusEl.textContent = 'Pending upload → ' + path + ' (' + Math.round(blob.size / 1024) + ' KB)';
+          state.dirty = true;
+          updateBadge();
+        } catch (err) {
+          statusEl.textContent = 'Fetch failed: ' + err.message + ' — try "Use external URL as-is" or drop a file instead';
+        }
+      } else if (action === 'use-external') {
+        const kind = btn.dataset.target;
+        e[kind] = e[kind] || {};
+        e[kind].localPath = '';
+        const statusEl = wrap.querySelector(`[data-status="${kind}"]`);
+        statusEl.textContent = e[kind].externalUrl ? 'Using external link: ' + e[kind].externalUrl.slice(0, 80) : 'No external URL set';
+        state.dirty = true;
+      }
+    });
+
+    // Drop zones for flyer + COPs
+    ['flyer', 'cops'].forEach(kind => {
+      const slot = wrap.querySelector(`.evp-pdf-slot[data-kind="${kind}"]`);
+      if (!slot) return;
+      const drop = slot.querySelector('.evp-pdf-drop');
+      const fileIn = slot.querySelector('input[type=file]');
+      const statusEl = wrap.querySelector(`[data-status="${kind}"]`);
+
+      async function handleFile(file) {
+        if (!file) return;
+        if (!e.id) { alert('Set an event ID first'); return; }
+        // Determine extension
+        const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] || (file.type.includes('pdf') ? '.pdf' : '.bin');
+        const path = `${state.pdfsDir}/${e.id}/${kind}${ext}`;
+        for (const [k, v] of state.pendingUploads.entries()) {
+          if (v.eventRef === e && v.kind === kind) state.pendingUploads.delete(k);
+        }
+        state.pendingUploads.set(path, { blob: file, eventRef: e, kind });
+        e[kind] = e[kind] || {};
+        e[kind].localPath = '/' + path;
+        statusEl.textContent = 'Pending upload → ' + path + ' (' + Math.round(file.size / 1024) + ' KB)';
+        drop.classList.add('has-file');
+        drop.querySelector('.drop-hint').textContent = '✓ ' + file.name.slice(0, 20);
+        state.dirty = true;
+        updateBadge();
+      }
+
+      fileIn.addEventListener('change', (ev) => handleFile(ev.target.files[0]));
+      drop.addEventListener('dragover', (ev) => { ev.preventDefault(); drop.classList.add('dragover'); });
+      drop.addEventListener('dragleave', () => drop.classList.remove('dragover'));
+      drop.addEventListener('drop', (ev) => {
+        ev.preventDefault(); drop.classList.remove('dragover');
+        const f = ev.dataTransfer.files[0]; if (f) handleFile(f);
+      });
+
+      // Show existing state
+      if (e[kind]?.localPath) {
+        drop.classList.add('has-file');
+        drop.querySelector('.drop-hint').textContent = '✓ saved';
+      }
+    });
+
+    return wrap;
+  }
+
+  // ── Button wiring ──
+  $('connectBtn').addEventListener('click', async () => {
+    state.token  = $('tokenInput').value.trim();
+    state.owner  = $('ownerInput').value.trim();
+    state.repo   = $('repoInput').value.trim();
+    state.branch = $('branchInput').value.trim() || 'main';
+    state.path   = $('pathInput').value.trim() || 'events-data.json';
+    state.pdfsDir = $('pdfsInput').value.trim().replace(/^\/|\/$/g, '') || 'pdfs';
+    if (!state.token) { setStatus('Token required', 'err'); return; }
+    await saveSetting('token', state.token);
+    await saveSetting('owner', state.owner);
+    await saveSetting('repo', state.repo);
+    await saveSetting('branch', state.branch);
+    await saveSetting('path', state.path);
+    await saveSetting('pdfsDir', state.pdfsDir);
+    try {
+      await loadFromGitHub();
+      $('setup').classList.add('hidden');
+      $('editor').classList.remove('hidden');
+      renderAll();
+    } catch (e) { setStatus('Error: ' + e.message, 'err'); }
+  });
+
+  $('clearBtn').addEventListener('click', async () => {
+    try { await window.storage.delete(STORAGE_PREFIX + 'token'); } catch {}
+    $('tokenInput').value = ''; setStatus('Token cleared');
+  });
+
+  $('reloadBtn').addEventListener('click', async () => {
+    if ((state.dirty || state.pendingUploads.size > 0) && !confirm('Discard unsaved changes?')) return;
+    try { await loadFromGitHub(); renderAll(); } catch (e) { setStatus('Error: ' + e.message, 'err'); }
+  });
+
+  $('addEventBtn').addEventListener('click', () => {
+    state.data = state.data || { events: [] };
+    state.data.events.unshift({
+      id: 'new-event-' + Date.now().toString(36),
+      title: 'New Event',
+      date: '', time: '',
+      club: { name: '', address: '' },
+      format: '', formatDetails: '',
+      fee: '', deadline: '',
+      schedule: [], rules: [],
+      contact: {},
+      flyer: {}, cops: {},
+      paypal: { system: 'none' },
+      entries: {}, liveScoring: {},
+    });
+    state.dirty = true; renderAll();
+  });
+
+  $('collapseAllBtn').addEventListener('click', () => {
+    document.querySelectorAll('.evp-event').forEach(el => {
+      el.classList.add('evp-collapsed');
+      const b = el.querySelector('[data-action="toggle"]'); if (b) b.textContent = '▸';
+    });
+  });
+  $('expandAllBtn').addEventListener('click', () => {
+    document.querySelectorAll('.evp-event').forEach(el => {
+      el.classList.remove('evp-collapsed');
+      const b = el.querySelector('[data-action="toggle"]'); if (b) b.textContent = '▾';
+    });
+  });
+  $('showSetupBtn').addEventListener('click', () => $('setup').classList.toggle('hidden'));
+
+  $('publishBtn').addEventListener('click', async () => {
+    const msg = $('commitMsg').value.trim() || 'Update events';
+    const resultEl = $('commitResult');
+    const progEl = $('commitProgress');
+    const labelEl = $('progressLabel');
+    const barEl = $('progressBar');
+    progEl.classList.remove('hidden');
+    resultEl.innerHTML = '';
+    const onProgress = (pct, label) => { barEl.style.width = Math.round(pct) + '%'; labelEl.textContent = label; };
+    try {
+      const commit = await commitAll(msg, onProgress);
+      resultEl.innerHTML = `<div style="padding: 10px 14px; background: var(--color-background-success); color: var(--color-text-success); border-radius: var(--border-radius-md); font-size: 13px;">✓ Committed <span class="evp-sha">${commit.sha.slice(0,7)}</span> — <a href="https://github.com/${state.owner}/${state.repo}/commit/${commit.sha}" target="_blank">view on GitHub</a>. Vercel will redeploy shortly.</div>`;
+      $('commitMsg').value = '';
+      setStatus('Clean · sha ' + state.sha.slice(0, 7), 'ok');
+      setTimeout(() => progEl.classList.add('hidden'), 1500);
+      renderAll();
+    } catch (e) {
+      progEl.classList.add('hidden');
+      resultEl.innerHTML = `<div style="padding: 10px 14px; background: var(--color-background-danger); color: var(--color-text-danger); border-radius: var(--border-radius-md); font-size: 13px;">✗ ${e.message}</div>`;
+    }
+  });
+
+  window.addEventListener('beforeunload', (ev) => {
+    if (state.dirty || state.pendingUploads.size > 0) { ev.preventDefault(); ev.returnValue = ''; }
+  });
+
+  loadSaved();
+})();
+</script>

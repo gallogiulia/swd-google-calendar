@@ -1,0 +1,187 @@
+{
+  "events": [
+    {
+      "id": "vet-novice-mix-match-triples-2026",
+      "title": "2026 SWD Vet/Novice Mix/Match Triples",
+      "subtitle": "Women's Sponsored",
+      "date": "Saturday, April 18, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [
+        "8:00 AM — Green open for practice",
+        "8:15 AM — Check-in",
+        "8:45 AM — Announcements and trial ends",
+        "9:00 AM — Games begin"
+      ],
+      "format": "triples",
+      "formatDetails": "Four 12-end games, 2-bowl triples · Skip / Vice / Lead",
+      "club": {
+        "name": "Santa Anita Bowling Green Club",
+        "address": "405 S Santa Anita Ave, Arcadia, CA 91007",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=405+S+Santa+Anita+Ave+Arcadia+CA+91007"
+      },
+      "fee": "$45/team",
+      "deadline": "Entry deadline: Friday, April 11, 2026 (no refunds after)",
+      "rules": [
+        "Teams to consist of 3 players, including at least 1 woman and 1 novice",
+        "All players must be Bowls USA members",
+        "If there are enough entries for more than 1 green, they shall be played as individual tournaments with each green having its own winners",
+        "Shirts must have sleeves and collars, no cutoffs",
+        "Teams must match colors for tops and bottoms",
+        "Bring your own lunch and water bottle — Santa Anita will provide limited hospitality",
+        "Every effort will be made to keep entry numbers even"
+      ],
+      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event. If you started bowling on or after April 1, 2024, you are still a novice.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "https://static1.squarespace.com/static/5e427c8312285d4ecccc6853/t/69b39115f49bac709afa4420/1773375765540/2026+Vet+Novice+Mix+Match+Triples+%28SA%29.pdf",
+        "localPath": ""
+      },
+      "cops": {
+        "externalUrl": "https://static1.squarespace.com/static/5e427c8312285d4ecccc6853/t/69b3913a20ca0327cc59b6ba/1773375802998/2026+Vet-Novice+Mix+Match+Triples+C+of+P.pdf",
+        "googleDocId": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "modern",
+        "buttonName": "SWD Veteran/Novice Mix/Match Triples",
+        "price": "45.00",
+        "containerSuffix": "vetnovicemixtrips",
+        "playerLabels": ["Skip", "Vice", "Lead"]
+      },
+      "entries": {
+        "sheetId": "1m6wJ7xJAAqyYS19FkBsKmICzyUBKikeCNtmEyKWj_fc",
+        "pubUrl": "",
+        "height": 500
+      },
+      "liveScoring": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXdTqwFggAG4vCBA4kIsRxpWCK1o1SiVDEBDweEEsakxqP_l0e077tWXC4EeeY-H2QH5yA0i4gWvTK/pubhtml?widget=true&headers=false",
+        "height": 1800,
+        "width": "80%"
+      }
+    },
+    {
+      "id": "womens-novice-singles-2026",
+      "title": "2026 SWD Women's Novice Singles",
+      "subtitle": null,
+      "date": "Sunday, April 19, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [
+        "8:00 AM — Green open for practice",
+        "8:45 AM — Announcements and trial ends",
+        "9:00 AM — Games begin"
+      ],
+      "format": "singles",
+      "formatDetails": "Three 15-point games · Singles",
+      "club": {
+        "name": "Newport Harbor Lawn Bowling Club",
+        "address": "1550 Crown Drive, Corona Del Mar, CA 92625",
+        "phone": "949-640-1022",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1550+Crown+Drive+Corona+Del+Mar+CA+92625"
+      },
+      "fee": "$15/player",
+      "deadline": "Entry deadline: Sunday, April 12, 2026 (no refunds after)",
+      "rules": [
+        "All players must be Bowls USA members",
+        "Shirts must have sleeves and collars, no cutoff bottoms",
+        "Teams must match in color of shirts and bottoms",
+        "Bring your lunch and water bottle — Newport will provide hospitality",
+        "Every effort will be made to keep entry numbers even"
+      ],
+      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event. If you started bowling on or after April 1, 2024, you are still a novice.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/4230b2cd-09d3-4412-8b21-062167dd4e68/2026+SWD+Women%27s+Novice+Singles+-+Google+Docs.png?format=2500w",
+        "localPath": ""
+      },
+      "cops": {
+        "externalUrl": "https://docs.google.com/document/u/1/d/e/2PACX-1vTtW675KPS7Xy1DUoAO-DT17bAWZMRqEgeaK8aF3qO9CAZulIE7mRhinnjGP71q_w/pub",
+        "googleDocId": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "classic",
+        "hostedButtonId": "JZ7USEHXRC2FN",
+        "price": "15.00"
+      },
+      "entries": {
+        "sheetId": "1ajhHedQxOhkl1kC-SyUrgNIJPywc6pUE7CyYPfCDp84",
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSXlkwIAxgVVeeYXT1Qq-CaXPMDWtoiMIk0q9l7xn55foaQLm_HWfGnh-Fw_k8VU9xYu63H6_X8irn/pubhtml?widget=true&headers=false",
+        "height": 350,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "mens-novice-singles-2026",
+      "title": "2026 SWD Men's Novice Singles",
+      "subtitle": null,
+      "date": "Sunday, April 19, 2026",
+      "time": "8:30 AM – 5:00 PM",
+      "schedule": [
+        "8:30 AM — Check-in",
+        "8:45 AM — Announcements",
+        "9:00 AM Sharp — Start"
+      ],
+      "format": "singles",
+      "formatDetails": "3 × 15-point games (format dependent on number of entries)",
+      "club": {
+        "name": "Newport Harbor Lawn Bowling Club",
+        "address": "1550 Crown Drive, Corona Del Mar, CA 92625",
+        "phone": "949-640-1022",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1550+Crown+Drive+Corona+Del+Mar+CA+92625"
+      },
+      "fee": "$20",
+      "deadline": "Entry deadline: Sunday, April 12, 2026",
+      "rules": [
+        "Prizes based on the number of entries",
+        "Bring your own lunch and water. Newport will provide some hospitality"
+      ],
+      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event. If you started bowling on or after April 1, 2024, you are still a novice.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870",
+        "payableTo": "SW Division Bowls USA"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "cops": {
+        "externalUrl": "https://docs.google.com/document/u/1/d/e/2PACX-1vRNcxf4HbG9pWMbAY9JMg_qnAJdcFruzTWjx-y2UOFa74wEOJuQ5PXej_k3IdtEDA/pub",
+        "googleDocId": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "classic",
+        "hostedButtonId": "BAC9BZHWM9WQS",
+        "price": "20.00"
+      },
+      "entries": {
+        "sheetId": "1XduBQ1Seffj-fTjUnUG41goOWRD0ygbKZVr0Ecfd8Hs",
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvpndc-xprdmVhnJeYf1r89t07Jk48Lgwn38EAxKJ1Rb08rP8lpip8GJHSLmWRnoJ7wmM-7ldly46M/pubhtml?widget=true&headers=false",
+        "height": 350,
+        "width": "100%"
+      }
+    }
+  ]
+}
