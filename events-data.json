@@ -445,6 +445,523 @@
         "height": 400,
         "width": "100%"
       }
+    },
+    {
+      "id": "swd-womens-singles-katy-stone-2026",
+      "title": "2026 SWD Women's Singles (Katy Stone)",
+      "subtitle": "Women's Sponsored",
+      "date": "Saturday, May 30, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "singles",
+      "formatDetails": "Singles",
+      "club": {
+        "name": "Long Beach Lawn Bowling Club",
+        "address": "1109 Federation Dr, Long Beach, CA 90804",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "mens-novice-pairs-2026",
+      "title": "2026 SWD Men's Novice Pairs",
+      "subtitle": "Men's Sponsored",
+      "date": "Saturday, July 4, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "Pairs · Skip / Lead",
+      "club": {
+        "name": "Newport Harbor Lawn Bowling Club",
+        "address": "1550 Crown Dr N, Newport Beach, CA 92625",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1550+Crown+Dr+N,+Newport+Beach,+CA+92625"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "phone": "",
+        "email": "",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "womens-division-rinks-2026",
+      "title": "2026 SWD Women's Division Rinks",
+      "subtitle": "Women's Sponsored",
+      "date": "Saturday, August 8, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "fours",
+      "formatDetails": "Rinks (Fours)",
+      "club": {
+        "name": "Coronado Lawn Bowling Club",
+        "address": "1019 7th St, Coronado, CA 92118",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1019+7th+St,+Coronado,+CA+92118"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "cary-macdonald-mens-pairs-2026",
+      "title": "2026 SWD Men's Cary/MacDonald Pairs",
+      "subtitle": "Men's Sponsored",
+      "date": "Saturday, August 9 – Sunday, August 10, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "3-Bowl Pairs · Skip / Lead",
+      "club": {
+        "name": "Long Beach Lawn Bowling Club",
+        "address": "1109 Federation Dr, Long Beach, CA 90804",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "phone": "",
+        "email": "",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "mens-vet-novice-mix-match-pairs-2026",
+      "title": "2026 SWD Men's Vet-Novice Mix/Match Pairs",
+      "subtitle": "Men's Sponsored",
+      "date": "Saturday, September 26, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "Vet-Novice Mix/Match Pairs · Skip / Lead",
+      "club": {
+        "name": "Laguna Beach / MacKenzie Park / Sun City Lawn Bowling Clubs",
+        "address": "",
+        "mapUrl": ""
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "phone": "",
+        "email": "",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "izzie-forbes-vet-novice-triples-2026",
+      "title": "2026 SWD Izzie Forbes Vet Novice Triples",
+      "subtitle": "Women's Sponsored",
+      "date": "Saturday, October 3, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "triples",
+      "formatDetails": "Mix/Match Vet Novice Triples · Skip / Vice / Lead",
+      "club": {
+        "name": "Long Beach Lawn Bowling Club",
+        "address": "1109 Federation Dr, Long Beach, CA 90804",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "womens-vet-novice-pairs-2026",
+      "title": "2026 SWD Women's Vet/Novice Pairs",
+      "subtitle": "Women's Sponsored",
+      "date": "Saturday, October 17, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "Vet/Novice Pairs · Skip / Lead",
+      "club": {
+        "name": "Long Beach Lawn Bowling Club",
+        "address": "1109 Federation Dr, Long Beach, CA 90804",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "womens-ca-bears-2026",
+      "title": "2026 SWD Women's CA Bears",
+      "subtitle": "Women's Sponsored",
+      "date": "Sunday, October 18, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "fours",
+      "formatDetails": "CA Bears (Fours)",
+      "club": {
+        "name": "Laguna Beach Lawn Bowling Club",
+        "address": "455 Cliff Dr, Laguna Beach, CA 92651",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=455+Cliff+Dr,+Laguna+Beach,+CA+92651"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "mens-so-california-triples-2026",
+      "title": "2026 SWD Men's So. California Triples",
+      "subtitle": "Men's Sponsored",
+      "date": "Saturday, October 17 – Sunday, October 18, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "triples",
+      "formatDetails": "Triples · Skip / Vice / Lead",
+      "club": {
+        "name": "Newport Harbor Lawn Bowling Club",
+        "address": "1550 Crown Dr N, Newport Beach, CA 92625",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1550+Crown+Dr+N,+Newport+Beach,+CA+92625"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "phone": "",
+        "email": "",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "waterbury-2026",
+      "title": "2026 SWD Waterbury",
+      "subtitle": null,
+      "date": "Sunday, October 25, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "",
+      "formatDetails": "Waterbury Tournament",
+      "club": {
+        "name": "Laguna Woods Lawn Bowling Club",
+        "address": "Moulton Pkwy, Laguna Woods, CA 92637",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=Moulton+Pkwy,+Laguna+Woods,+CA+92637"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "mens-5-man-all-star-2026",
+      "title": "2026 SWD Men's 5-Man All-Star",
+      "subtitle": "Men's Sponsored",
+      "date": "Sunday, November 22, 2026",
+      "time": "8:00 AM – 5:00 PM",
+      "schedule": [],
+      "format": "",
+      "formatDetails": "5-Man All-Star",
+      "club": {
+        "name": "Laguna Beach Lawn Bowling Club",
+        "address": "455 Cliff Dr, Laguna Beach, CA 92651",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=455+Cliff+Dr,+Laguna+Beach,+CA+92651"
+      },
+      "fee": "",
+      "deadline": "",
+      "rules": [],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Bill Brault",
+        "phone": "",
+        "email": "",
+        "mailTo": "Bill Brault, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
     }
   ]
 }
