@@ -1,0 +1,162 @@
+{
+  "tournaments": [
+    {
+      "id": "murray-allison",
+      "title": "2026 SWD Murray-Allison Singles",
+      "meta": "April 11 · Riverside LBC",
+      "navLabel": "Murray-Allison Singles",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/swd-mens-murray-allison-singles26",
+      "divisions": [
+        {
+          "label": "Murray Division",
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Robert Busciglio", "photo": "" },
+            { "rank": 2, "names": "Dean Warmington", "photo": "" },
+            { "rank": 3, "names": "Peter Ritchie",    "photo": "" },
+            { "rank": 4, "names": "Tom Richeson",     "photo": "" }
+          ]
+        },
+        {
+          "label": "Allison Division",
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Angel Rocha",  "photo": "" },
+            { "rank": 2, "names": "John Slater",  "photo": "" },
+            { "rank": 3, "names": "Ed Powers",    "photo": "" },
+            { "rank": 4, "names": "Mike Koizumi", "photo": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "newport",
+      "title": "2026 Newport Classic — Mixed Triples",
+      "meta": "March 29 · Newport Harbor LBC",
+      "navLabel": "Newport Classic",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/newportclassic",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "D. Warmington / T. Mar / J. Hedgespeth", "photo": "" },
+            { "rank": 2, "names": "I. Hyland / D. McSparran / M. Ruggles",  "photo": "" },
+            { "rank": 3, "names": "R. Busciglio / C. DeFazio / B. Sturgill", "photo": "" },
+            { "rank": 4, "names": "H. Glazeroff / C. Nolan / L. Boyer",     "photo": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mixed-pairs",
+      "title": "2026 SWD Mixed Pairs",
+      "meta": "March 28 · Laguna Woods LBC",
+      "navLabel": "SWD Mixed Pairs",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/2026-swd-mixed-pairs",
+      "divisions": [
+        {
+          "label": "A Green",
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Mary Thompson / John Monahan",  "photo": "" },
+            { "rank": 2, "names": "Terry Mar / Joan Robbins",      "photo": "" },
+            { "rank": 3, "names": "Russ Kindorf / Dee McSparran",  "photo": "" },
+            { "rank": 4, "names": "Anne Nunes / Michael Siddall",  "photo": "" },
+            { "rank": 5, "names": "Angel Gomez / Melanie Vizenor", "photo": "" }
+          ]
+        },
+        {
+          "label": "B Green",
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Brian Tracy / Deborah Long", "photo": "" },
+            { "rank": 2, "names": "Kevin & Kelley Lacey",       "photo": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "socal-rinks",
+      "title": "2026 SWD Men's So Cal Rinks",
+      "meta": "March 14–15 · Santa Monica LBC",
+      "navLabel": "So Cal Rinks",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/2026-swd-mens-socal-rinks",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "A. O'Brien / C. Vose / D. Warmington / M. Koizumi", "photo": "" },
+            { "rank": 2, "names": "B. Brault / L. Dion / T. Richeson / I. Ho",         "photo": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cal5s",
+      "title": "2026 SWD Women's Cal 5s",
+      "meta": "March 14 · Laguna Beach LBC",
+      "navLabel": "Cal 5s",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/2026-swd-women-cal-5s",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 3,
+          "places": [
+            { "rank": 1, "names": "A. Nunes / M. Spease / T. Quan / E. Lee / G. Gallo",                "photo": "" },
+            { "rank": 2, "names": "R. Greenberg / N. Santos / P. Lewis / J. Narmontas / L. Coutee",    "photo": "" },
+            { "rank": 3, "names": "J. Buchanan / M. Beath / M. Urane / K. Spangler-Moore / S. Houston", "photo": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mumma",
+      "title": "2026 SWD Mumma Mixed Pairs",
+      "meta": "February 28 · Riverside LBC",
+      "navLabel": "Mumma Mixed Pairs",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/2026-swdmumma-mixed-pairs",
+      "divisions": [
+        {
+          "label": "A Green",
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Candy DeFazio / Robert Busciglio", "photo": "" },
+            { "rank": 2, "names": "Barbara Krause / Scott Yahnke",    "photo": "" },
+            { "rank": 3, "names": "Patti Lewis / Gord House",         "photo": "" },
+            { "rank": 4, "names": "Manya Urane / Chris Dodd",         "photo": "" }
+          ]
+        },
+        {
+          "label": "B Green",
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Joanne & Wilf Steckler",   "photo": "" },
+            { "rank": 2, "names": "Kathy & Steve Yezarski",    "photo": "" },
+            { "rank": 3, "names": "Mary Jo & Patrick Veysey",  "photo": "" },
+            { "rank": 4, "names": "Debra & Graham Wong",       "photo": "" },
+            { "rank": 5, "names": "Joy & Jeff Woolsey",        "photo": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "carnival",
+      "title": "27th Annual Pat Gonzales Carnival",
+      "meta": "March 21 · Long Beach LBC",
+      "navLabel": "Carnival",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/2026-annual-pat-gonzales-carnival",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            { "rank": "1st – 6th Place",   "rankStyle": "gold",  "names": "1st Kevin Lacey · 2nd Esther Lee · 3rd Mark De Dubovy · 4th Wilf Steckler · 5th Mohammad Ahrar · 6th Fred Schwartz", "photo": "" },
+            { "rank": "7th – Consolation", "rankStyle": "other", "names": "7th Gord House · 8th Inger Benson · 9th Joan Narmontas · 10th Steve Narmontas · Consolation Joann Steckler",        "photo": "" }
+          ]
+        }
+      ]
+    }
+  ]
+}

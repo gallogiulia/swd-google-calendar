@@ -1,0 +1,762 @@
+<style>
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+  .pub-wrap { font-family: var(--font-sans); color: var(--color-text-primary); max-width: 1100px; margin: 0 auto; padding: 1rem 0 3rem; }
+  .pub-wrap h1 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
+  .pub-wrap h2 { font-size: 18px; font-weight: 500; margin: 0; }
+  .pub-wrap h3 { font-size: 16px; font-weight: 500; margin: 0; }
+  .pub-wrap .muted { color: var(--color-text-secondary); font-size: 13px; }
+
+  .pub-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:1.5rem; flex-wrap:wrap; }
+  .pub-status { font-size: 12px; color: var(--color-text-secondary); }
+  .pub-status.ok  { color: var(--color-text-success); }
+  .pub-status.err { color: var(--color-text-danger); }
+
+  .pub-setup { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1.25rem; }
+  .pub-setup p { font-size: 13px; line-height: 1.6; margin: 0 0 10px; color: var(--color-text-secondary); }
+  .pub-setup label { display:block; font-size: 12px; color: var(--color-text-secondary); margin: 10px 0 4px; }
+  .pub-setup input { width: 100%; }
+
+  .pub-toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 1rem; align-items:center; }
+  .pub-pending-badge { font-size: 12px; background: var(--color-background-warning); color: var(--color-text-warning); padding: 4px 10px; border-radius: var(--border-radius-md); }
+
+  .pub-tourn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 12px; }
+  .pub-tourn-head { display:flex; align-items:center; gap:12px; }
+  .pub-tourn-head .title-in { flex:1; min-width:0; font-size:15px; font-weight:500; background:transparent; border:none; padding:4px 0; }
+  .pub-tourn-head .title-in:focus { outline: none; border-bottom: 1px solid var(--color-border-secondary); }
+  .pub-tourn-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-top: 10px; }
+  .pub-tourn-meta-grid label { font-size: 11px; color: var(--color-text-secondary); display:block; margin-bottom: 2px; }
+
+  .pub-div { border-top: 0.5px solid var(--color-border-tertiary); margin-top: 12px; padding-top: 12px; }
+  .pub-div-head { display:flex; align-items:center; gap:8px; margin-bottom: 8px; }
+  .pub-div-head input[type=text] { flex:1; font-size: 13px; font-weight:500; }
+  .pub-div-head select { width: 130px; }
+
+  .pub-places { display: grid; gap: 10px; }
+  .pub-place {
+    display: grid;
+    grid-template-columns: 110px 110px 1fr auto;
+    gap: 10px;
+    align-items: start;
+    padding: 8px;
+    border-radius: var(--border-radius-md);
+    background: var(--color-background-secondary);
+  }
+
+  .pub-photo-drop {
+    width: 110px; height: 82px; border-radius: var(--border-radius-md);
+    border: 1.5px dashed var(--color-border-secondary);
+    background: var(--color-background-primary);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+    font-size: 11px; color: var(--color-text-tertiary); text-align: center;
+    cursor: pointer; padding: 4px;
+  }
+  .pub-photo-drop.has-photo { border-style: solid; border-color: var(--color-border-tertiary); padding: 0; }
+  .pub-photo-drop.dragover { border-color: var(--color-border-info); background: var(--color-background-info); }
+  .pub-photo-drop img { width: 100%; height: 100%; object-fit: cover; }
+  .pub-photo-drop input[type=file] { display: none; }
+  .pub-photo-remove {
+    position: absolute; top: 2px; right: 2px;
+    width: 18px; height: 18px;
+    background: rgba(0,0,0,0.6); color: #fff;
+    border: none; border-radius: 50%;
+    font-size: 11px; cursor: pointer;
+    display:flex; align-items:center; justify-content:center; padding:0;
+  }
+  .pub-photo-status { font-size: 10px; margin-top: 2px; color: var(--color-text-tertiary); }
+  .pub-photo-status.pending { color: var(--color-text-warning); font-weight: 500; }
+
+  .pub-place-rank { display: flex; flex-direction: column; gap: 4px; }
+  .pub-place-rank select, .pub-place-rank input { font-size: 13px; }
+
+  .pub-place-names-col { display: flex; flex-direction: column; gap: 6px; }
+  .pub-place-names-col input { font-size: 13px; }
+
+  .pub-btn-row { display:flex; gap:6px; flex-wrap:wrap; margin-top: 10px; }
+  .pub-btn-sm { font-size: 12px; padding: 4px 10px; height: auto; }
+
+  .pub-icon-btn { background: transparent; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); width: 28px; height: 28px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; color: var(--color-text-secondary); padding: 0; }
+  .pub-icon-btn:hover { background: var(--color-background-primary); color: var(--color-text-primary); }
+  .pub-icon-btn.danger:hover { color: var(--color-text-danger); border-color: var(--color-border-danger); }
+
+  .pub-collapsed .pub-tourn-body { display: none; }
+  .pub-tourn.pub-collapsed { padding: 10px 1.25rem; }
+
+  .pub-commit-card { background: var(--color-background-info); color: var(--color-text-info); border-radius: var(--border-radius-lg); padding: 14px 18px; margin-top: 1.5rem; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .pub-sha { font-family: var(--font-mono); font-size: 11px; }
+  .hidden { display: none !important; }
+
+  .pub-progress { margin-top: 10px; font-size: 12px; color: var(--color-text-secondary); }
+  .pub-progress .bar { height: 4px; background: var(--color-background-secondary); border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .pub-progress .bar-fill { height: 100%; background: var(--color-text-info); width: 0%; transition: width .2s; }
+</style>
+
+<h2 class="sr-only">Results Publisher — edit tournament results, upload photos, and commit everything to GitHub as a single deploy</h2>
+
+<div class="pub-wrap">
+  <div class="pub-bar">
+    <div>
+      <h1>Results Publisher</h1>
+      <div class="muted">Drag photos · Edit data · One-click deploy</div>
+    </div>
+    <div id="status" class="pub-status">Not connected</div>
+  </div>
+
+  <div id="setup" class="pub-setup">
+    <h3 style="margin-bottom:8px;">One-time setup</h3>
+    <p>Paste your GitHub Personal Access Token below. It stays in this browser only. Create one at <a href="https://github.com/settings/personal-access-tokens">github.com/settings/personal-access-tokens</a> (fine-grained, scoped to <code>swd-google-calendar</code>, with Contents: Read and write).</p>
+    <label>GitHub Personal Access Token</label>
+    <input type="password" id="tokenInput" placeholder="github_pat_... or ghp_..." autocomplete="off">
+    <label>Repo owner</label>
+    <input type="text" id="ownerInput" value="gallogiulia">
+    <label>Repo name</label>
+    <input type="text" id="repoInput" value="swd-google-calendar">
+    <label>Branch</label>
+    <input type="text" id="branchInput" value="main">
+    <label>Data file path</label>
+    <input type="text" id="pathInput" value="results-data.json">
+    <label>Photos folder (relative to repo root)</label>
+    <input type="text" id="photosInput" value="photos">
+    <div class="pub-btn-row">
+      <button id="connectBtn">Save &amp; Load</button>
+      <button id="clearBtn" style="color: var(--color-text-danger);">Clear saved token</button>
+    </div>
+  </div>
+
+  <div id="editor" class="hidden">
+    <div class="pub-toolbar">
+      <button id="addTournBtn">+ Add tournament</button>
+      <button id="reloadBtn">Reload from GitHub</button>
+      <button id="collapseAllBtn">Collapse all</button>
+      <button id="expandAllBtn">Expand all</button>
+      <span id="pendingBadge" class="pub-pending-badge hidden">0 pending uploads</span>
+      <button id="showSetupBtn" style="margin-left:auto;">Settings</button>
+    </div>
+
+    <div id="tournList"></div>
+
+    <div class="pub-commit-card">
+      <div>
+        <div style="font-weight:500; margin-bottom:2px;">Ready to publish</div>
+        <div style="font-size: 12px; opacity: 0.85;">JSON + all pending photos commit together on <span id="currentBranch">main</span>. Vercel redeploys once.</div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <input id="commitMsg" type="text" placeholder="Commit message" style="min-width: 220px; background: var(--color-background-primary);">
+        <button id="publishBtn" style="font-weight: 500;">Commit &amp; Push</button>
+      </div>
+    </div>
+    <div id="commitProgress" class="pub-progress hidden">
+      <div id="progressLabel">Preparing…</div>
+      <div class="bar"><div class="bar-fill" id="progressBar"></div></div>
+    </div>
+    <div id="commitResult" style="margin-top: 10px;"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const STORAGE_PREFIX = 'swlb-pub-';
+  const $ = (id) => document.getElementById(id);
+
+  const state = {
+    token: '',
+    owner: 'gallogiulia',
+    repo: 'swd-google-calendar',
+    branch: 'main',
+    path: 'results-data.json',
+    photosDir: 'photos',
+    data: null,
+    sha: null,
+    dirty: false,
+    pendingPhotos: new Map(),
+  };
+
+  async function saveSetting(k, v) { try { await window.storage.set(STORAGE_PREFIX + k, v); } catch {} }
+  async function loadSetting(k)   { try { const r = await window.storage.get(STORAGE_PREFIX + k); return r ? r.value : null; } catch { return null; } }
+
+  async function loadSavedSettings() {
+    const keys = ['token','owner','repo','branch','path','photosDir'];
+    const ids  = ['tokenInput','ownerInput','repoInput','branchInput','pathInput','photosInput'];
+    for (let i = 0; i < keys.length; i++) {
+      const v = await loadSetting(keys[i]); if (v) $(ids[i]).value = v;
+    }
+  }
+
+  function setStatus(msg, kind = '') {
+    $('status').textContent = msg;
+    $('status').className = 'pub-status' + (kind ? ' ' + kind : '');
+  }
+
+  function updatePendingBadge() {
+    const n = state.pendingPhotos.size;
+    const el = $('pendingBadge');
+    if (n === 0) { el.classList.add('hidden'); }
+    else { el.classList.remove('hidden'); el.textContent = n + ' pending upload' + (n === 1 ? '' : 's'); }
+  }
+
+  async function gh(endpoint, opts = {}) {
+    const url = 'https://api.github.com' + endpoint;
+    const res = await fetch(url, {
+      ...opts,
+      headers: {
+        'Authorization': 'Bearer ' + state.token,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        ...(opts.headers || {}),
+      },
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error('GitHub ' + res.status + ': ' + txt.slice(0, 300));
+    }
+    return res.json();
+  }
+
+  async function loadFromGitHub() {
+    setStatus('Loading from GitHub…');
+    const endpoint = `/repos/${state.owner}/${state.repo}/contents/${state.path}?ref=${state.branch}`;
+    const file = await gh(endpoint);
+    state.sha = file.sha;
+    const binary = atob(file.content.replace(/\n/g, ''));
+    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+    const text = new TextDecoder().decode(bytes);
+    state.data = JSON.parse(text);
+    state.dirty = false;
+    state.pendingPhotos.clear();
+    updatePendingBadge();
+    setStatus('Loaded · sha ' + state.sha.slice(0, 7), 'ok');
+  }
+
+  async function commitAllChanges(message, onProgress) {
+    const o = state.owner, r = state.repo, br = state.branch;
+
+    onProgress(5, 'Reading branch HEAD…');
+    const ref = await gh(`/repos/${o}/${r}/git/ref/heads/${br}`);
+    const baseCommitSha = ref.object.sha;
+    const baseCommit = await gh(`/repos/${o}/${r}/git/commits/${baseCommitSha}`);
+    const baseTreeSha = baseCommit.tree.sha;
+
+    const totalPhotos = state.pendingPhotos.size;
+    const treeEntries = [];
+    let i = 0;
+    for (const [path, entry] of state.pendingPhotos.entries()) {
+      i++;
+      const pct = 20 + (50 * i / Math.max(totalPhotos, 1));
+      onProgress(pct, `Uploading photo ${i}/${totalPhotos}…`);
+      const base64 = await blobToBase64(entry.blob);
+      const blobRes = await gh(`/repos/${o}/${r}/git/blobs`, {
+        method: 'POST',
+        body: JSON.stringify({ content: base64, encoding: 'base64' }),
+      });
+      treeEntries.push({ path, mode: '100644', type: 'blob', sha: blobRes.sha });
+    }
+
+    onProgress(75, 'Packaging JSON…');
+    const jsonText = JSON.stringify(state.data, null, 2) + '\n';
+    const jsonBlob = await gh(`/repos/${o}/${r}/git/blobs`, {
+      method: 'POST',
+      body: JSON.stringify({ content: base64EncodeUtf8(jsonText), encoding: 'base64' }),
+    });
+    treeEntries.push({ path: state.path, mode: '100644', type: 'blob', sha: jsonBlob.sha });
+
+    onProgress(85, 'Building commit tree…');
+    const tree = await gh(`/repos/${o}/${r}/git/trees`, {
+      method: 'POST',
+      body: JSON.stringify({ base_tree: baseTreeSha, tree: treeEntries }),
+    });
+
+    onProgress(92, 'Creating commit…');
+    const commit = await gh(`/repos/${o}/${r}/git/commits`, {
+      method: 'POST',
+      body: JSON.stringify({ message, tree: tree.sha, parents: [baseCommitSha] }),
+    });
+
+    onProgress(98, 'Updating branch…');
+    await gh(`/repos/${o}/${r}/git/refs/heads/${br}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ sha: commit.sha }),
+    });
+
+    onProgress(100, 'Done');
+    const reloaded = await gh(`/repos/${o}/${r}/contents/${state.path}?ref=${br}`);
+    state.sha = reloaded.sha;
+    state.dirty = false;
+    for (const [, v] of state.pendingPhotos) { URL.revokeObjectURL(v.previewUrl); }
+    state.pendingPhotos.clear();
+    updatePendingBadge();
+    return commit;
+  }
+
+  async function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  function base64EncodeUtf8(str) {
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary);
+  }
+
+  async function resizeImage(file, maxWidth = 1400, quality = 0.85) {
+    const dataUrl = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+    const img = await new Promise((res, rej) => {
+      const i = new Image();
+      i.onload = () => res(i);
+      i.onerror = rej;
+      i.src = dataUrl;
+    });
+    const scale = Math.min(1, maxWidth / img.width);
+    const w = Math.round(img.width * scale);
+    const h = Math.round(img.height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, 0, 0, w, h);
+    const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
+    const previewUrl = URL.createObjectURL(blob);
+    return { blob, previewUrl, width: w, height: h };
+  }
+
+  function slugify(s) {
+    return String(s || '')
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .slice(0, 60) || 'photo';
+  }
+
+  function photoPath(tournamentId, place) {
+    const rankPart = typeof place.rank === 'number'
+      ? place.rank + 'th'
+      : slugify(String(place.rank));
+    const namePart = slugify(place.names) || 'entry';
+    return `${state.photosDir}/${tournamentId}/${rankPart}-${namePart}.jpg`;
+  }
+
+  const rankOptions = [
+    { v: 1, t: '1st Place' }, { v: 2, t: '2nd Place' }, { v: 3, t: '3rd Place' },
+    { v: 4, t: '4th Place' }, { v: 5, t: '5th Place' }, { v: 6, t: '6th Place' },
+    { v: 7, t: '7th Place' }, { v: 8, t: '8th Place' },
+    { v: '__custom', t: 'Custom label…' },
+  ];
+
+  function renderAll() {
+    const list = $('tournList');
+    list.innerHTML = '';
+    if (!state.data || !state.data.tournaments) return;
+    state.data.tournaments.forEach((t, ti) => list.appendChild(renderTournament(t, ti)));
+    $('currentBranch').textContent = state.branch;
+  }
+
+  function escAttr(s) {
+    return String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function renderTournament(t, ti) {
+    const wrap = document.createElement('div');
+    wrap.className = 'pub-tourn';
+    wrap.dataset.ti = ti;
+
+    wrap.innerHTML = `
+      <div class="pub-tourn-head">
+        <button class="pub-icon-btn" data-action="toggle" title="Collapse/expand">▾</button>
+        <input class="title-in" data-field="title" value="${escAttr(t.title || '')}" placeholder="Tournament title">
+        <button class="pub-icon-btn" data-action="move-up"   title="Move up">↑</button>
+        <button class="pub-icon-btn" data-action="move-down" title="Move down">↓</button>
+        <button class="pub-icon-btn danger" data-action="delete-tourn" title="Delete tournament">✕</button>
+      </div>
+      <div class="pub-tourn-body">
+        <div class="pub-tourn-meta-grid">
+          <div><label>ID (anchor · used in photo paths)</label><input type="text" data-field="id" value="${escAttr(t.id || '')}" placeholder="e.g. murray-allison"></div>
+          <div><label>Nav label (short)</label><input type="text" data-field="navLabel" value="${escAttr(t.navLabel || '')}" placeholder="e.g. Murray-Allison"></div>
+          <div><label>Meta (date · club)</label><input type="text" data-field="meta" value="${escAttr(t.meta || '')}" placeholder="April 11 · Riverside LBC"></div>
+          <div><label>Event URL</label><input type="text" data-field="eventUrl" value="${escAttr(t.eventUrl || '')}" placeholder="https://..."></div>
+        </div>
+        <div class="pub-divs"></div>
+        <div class="pub-btn-row"><button class="pub-btn-sm" data-action="add-div">+ Add division</button></div>
+      </div>
+    `;
+
+    wrap.querySelectorAll('[data-field]').forEach(inp => {
+      inp.addEventListener('input', (e) => {
+        t[e.target.dataset.field] = e.target.value;
+        state.dirty = true;
+      });
+    });
+
+    wrap.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      if (btn.closest('.pub-tourn') !== wrap) return;
+      const action = btn.dataset.action;
+      if (action === 'toggle') {
+        wrap.classList.toggle('pub-collapsed');
+        btn.textContent = wrap.classList.contains('pub-collapsed') ? '▸' : '▾';
+      } else if (action === 'move-up' && ti > 0) {
+        const a = state.data.tournaments;
+        [a[ti - 1], a[ti]] = [a[ti], a[ti - 1]];
+        state.dirty = true; renderAll();
+      } else if (action === 'move-down' && ti < state.data.tournaments.length - 1) {
+        const a = state.data.tournaments;
+        [a[ti + 1], a[ti]] = [a[ti], a[ti + 1]];
+        state.dirty = true; renderAll();
+      } else if (action === 'delete-tourn') {
+        if (confirm('Delete "' + (t.title || 'this tournament') + '"?')) {
+          state.data.tournaments.splice(ti, 1);
+          state.dirty = true; renderAll();
+        }
+      } else if (action === 'add-div') {
+        t.divisions = t.divisions || [];
+        t.divisions.push({ label: null, columns: 2, places: [] });
+        state.dirty = true; renderAll();
+      }
+    });
+
+    const divsEl = wrap.querySelector('.pub-divs');
+    (t.divisions || []).forEach((d, di) => divsEl.appendChild(renderDivision(t, d, ti, di)));
+    return wrap;
+  }
+
+  function renderDivision(t, d, ti, di) {
+    const el = document.createElement('div');
+    el.className = 'pub-div';
+    el.innerHTML = `
+      <div class="pub-div-head">
+        <input type="text" placeholder="Division label (leave blank for none)" value="${escAttr(d.label || '')}">
+        <select title="Columns">
+          <option value="2" ${d.columns === 2 ? 'selected' : ''}>2 columns</option>
+          <option value="3" ${d.columns === 3 ? 'selected' : ''}>3 columns</option>
+        </select>
+        <button class="pub-icon-btn danger" title="Delete division">✕</button>
+      </div>
+      <div class="pub-places"></div>
+      <div class="pub-btn-row">
+        <button class="pub-btn-sm" data-add-place>+ Add place</button>
+      </div>
+    `;
+
+    const [labelIn, colsSel, delBtn] = el.querySelectorAll('.pub-div-head > *');
+    labelIn.addEventListener('input', () => { d.label = labelIn.value.trim() || null; state.dirty = true; });
+    colsSel.addEventListener('change', () => { d.columns = parseInt(colsSel.value, 10); state.dirty = true; });
+    delBtn.addEventListener('click', () => {
+      if (confirm('Delete this division and all its places?')) {
+        t.divisions.splice(di, 1); state.dirty = true; renderAll();
+      }
+    });
+
+    const placesEl = el.querySelector('.pub-places');
+    (d.places || []).forEach((p, pi) => placesEl.appendChild(renderPlace(t, d, p, pi)));
+
+    el.querySelector('[data-add-place]').addEventListener('click', () => {
+      d.places = d.places || [];
+      d.places.push({ rank: d.places.length + 1, names: '', photo: '' });
+      state.dirty = true; renderAll();
+    });
+
+    return el;
+  }
+
+  function renderPlace(t, d, p, pi) {
+    const el = document.createElement('div');
+    el.className = 'pub-place';
+    const rankIsNumber = typeof p.rank === 'number';
+    const selectValue = rankIsNumber ? String(p.rank) : '__custom';
+
+    el.innerHTML = `
+      <div class="pub-photo-wrap">
+        <label class="pub-photo-drop" title="Click or drop a photo">
+          <input type="file" accept="image/*">
+          <span class="pub-photo-hint">Drop or click to upload</span>
+        </label>
+        <div class="pub-photo-status"></div>
+      </div>
+
+      <div class="pub-place-rank">
+        <select class="place-rank"></select>
+        <input type="text" class="place-rank-text" placeholder="Custom label" style="display:none;">
+        <select class="place-rank-style" style="display:none;">
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+          <option value="other">Neutral</option>
+        </select>
+      </div>
+
+      <div class="pub-place-names-col">
+        <input type="text" class="place-names" placeholder="Names (e.g. Jane Doe or J. Doe / K. Smith)" value="${escAttr(p.names || '')}">
+        <input type="text" class="place-photo-path" placeholder="Photo path (auto-filled)" value="${escAttr(p.photo || '')}" style="font-size: 11px; color: var(--color-text-tertiary);">
+      </div>
+
+      <button class="pub-icon-btn danger" title="Delete place">✕</button>
+    `;
+
+    const sel = el.querySelector('.place-rank');
+    sel.innerHTML = rankOptions.map(o => `<option value="${o.v}">${o.t}</option>`).join('');
+    sel.value = selectValue;
+    const customText  = el.querySelector('.place-rank-text');
+    const customStyle = el.querySelector('.place-rank-style');
+    if (!rankIsNumber) {
+      customText.value = p.rank || '';
+      customStyle.value = p.rankStyle || 'other';
+      customText.style.display = 'block';
+      customStyle.style.display = 'block';
+    }
+
+    sel.addEventListener('change', () => {
+      if (sel.value === '__custom') {
+        p.rank = customText.value || '';
+        p.rankStyle = p.rankStyle || 'other';
+        customText.style.display = 'block';
+        customStyle.style.display = 'block';
+        customStyle.value = p.rankStyle;
+      } else {
+        p.rank = parseInt(sel.value, 10);
+        delete p.rankStyle;
+        customText.style.display = 'none';
+        customStyle.style.display = 'none';
+      }
+      state.dirty = true;
+    });
+    customText.addEventListener('input',  () => { p.rank = customText.value; state.dirty = true; });
+    customStyle.addEventListener('change', () => { p.rankStyle = customStyle.value; state.dirty = true; });
+
+    el.querySelector('.place-names').addEventListener('input', (e) => { p.names = e.target.value; state.dirty = true; });
+    el.querySelector('.place-photo-path').addEventListener('input', (e) => { p.photo = e.target.value; state.dirty = true; });
+
+    el.querySelector('.pub-icon-btn.danger').addEventListener('click', () => {
+      if (confirm('Delete this place?')) { d.places.splice(pi, 1); state.dirty = true; renderAll(); }
+    });
+
+    const drop   = el.querySelector('.pub-photo-drop');
+    const fileIn = el.querySelector('input[type=file]');
+    const status = el.querySelector('.pub-photo-status');
+    const pathIn = el.querySelector('.place-photo-path');
+
+    function updatePhotoPreview() {
+      let pending = null;
+      for (const [k, v] of state.pendingPhotos.entries()) {
+        if (v.placeRef === p) { pending = { path: k, ...v }; break; }
+      }
+      drop.innerHTML = '';
+      drop.appendChild(fileIn);
+      if (pending) {
+        const img = document.createElement('img');
+        img.src = pending.previewUrl;
+        drop.appendChild(img);
+        drop.classList.add('has-photo');
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'pub-photo-remove';
+        removeBtn.textContent = '×';
+        removeBtn.title = 'Remove pending photo';
+        removeBtn.addEventListener('click', (ev) => {
+          ev.stopPropagation(); ev.preventDefault();
+          state.pendingPhotos.delete(pending.path);
+          URL.revokeObjectURL(pending.previewUrl);
+          p.photo = '';
+          pathIn.value = '';
+          state.dirty = true;
+          updatePendingBadge();
+          updatePhotoPreview();
+        });
+        drop.appendChild(removeBtn);
+        status.textContent = 'Pending upload';
+        status.className = 'pub-photo-status pending';
+      } else if (p.photo) {
+        const img = document.createElement('img');
+        if (p.photo.startsWith('http')) {
+          img.src = p.photo;
+        } else {
+          const cleanPath = p.photo.replace(/^\//, '');
+          img.src = `https://raw.githubusercontent.com/${state.owner}/${state.repo}/${state.branch}/${cleanPath}`;
+        }
+        img.onerror = () => {
+          drop.classList.remove('has-photo');
+          drop.innerHTML = '';
+          drop.appendChild(fileIn);
+          const span = document.createElement('span');
+          span.className = 'pub-photo-hint';
+          span.textContent = 'Not found — re-upload';
+          drop.appendChild(span);
+        };
+        drop.appendChild(img);
+        drop.classList.add('has-photo');
+        status.textContent = 'Saved';
+        status.className = 'pub-photo-status';
+      } else {
+        drop.classList.remove('has-photo');
+        const span = document.createElement('span');
+        span.className = 'pub-photo-hint';
+        span.textContent = 'Drop or click';
+        drop.appendChild(span);
+        status.textContent = '';
+        status.className = 'pub-photo-status';
+      }
+    }
+    updatePhotoPreview();
+
+    async function handleFile(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+      if (!t.id) { alert('Set a tournament ID first (it becomes the photo folder name).'); return; }
+      if (!p.names) {
+        if (!confirm('No names entered yet — the photo file will be named generically. You can fix this by entering the names and re-dropping the photo. Continue?')) return;
+      }
+      status.textContent = 'Resizing…';
+      status.className = 'pub-photo-status pending';
+      try {
+        const { blob, previewUrl } = await resizeImage(file, 1400, 0.85);
+        const path = photoPath(t.id, p);
+        for (const [k, v] of state.pendingPhotos.entries()) {
+          if (v.placeRef === p) {
+            URL.revokeObjectURL(v.previewUrl);
+            state.pendingPhotos.delete(k);
+          }
+        }
+        state.pendingPhotos.set(path, { blob, previewUrl, placeRef: p });
+        p.photo = '/' + path;
+        pathIn.value = p.photo;
+        state.dirty = true;
+        updatePendingBadge();
+        updatePhotoPreview();
+      } catch (e) {
+        status.textContent = 'Error: ' + e.message;
+        status.className = 'pub-photo-status';
+        alert('Image processing failed: ' + e.message);
+      }
+    }
+
+    fileIn.addEventListener('change', (e) => handleFile(e.target.files[0]));
+    drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('dragover'); });
+    drop.addEventListener('dragleave', () => drop.classList.remove('dragover'));
+    drop.addEventListener('drop', (e) => {
+      e.preventDefault();
+      drop.classList.remove('dragover');
+      const f = e.dataTransfer.files[0];
+      if (f) handleFile(f);
+    });
+
+    return el;
+  }
+
+  $('connectBtn').addEventListener('click', async () => {
+    state.token     = $('tokenInput').value.trim();
+    state.owner     = $('ownerInput').value.trim();
+    state.repo      = $('repoInput').value.trim();
+    state.branch    = $('branchInput').value.trim() || 'main';
+    state.path      = $('pathInput').value.trim() || 'results-data.json';
+    state.photosDir = $('photosInput').value.trim().replace(/^\/|\/$/g, '') || 'photos';
+
+    if (!state.token) { setStatus('Token required', 'err'); return; }
+
+    await saveSetting('token', state.token);
+    await saveSetting('owner', state.owner);
+    await saveSetting('repo', state.repo);
+    await saveSetting('branch', state.branch);
+    await saveSetting('path', state.path);
+    await saveSetting('photosDir', state.photosDir);
+
+    try {
+      await loadFromGitHub();
+      $('setup').classList.add('hidden');
+      $('editor').classList.remove('hidden');
+      renderAll();
+    } catch (e) {
+      setStatus('Error: ' + e.message, 'err');
+    }
+  });
+
+  $('clearBtn').addEventListener('click', async () => {
+    try { await window.storage.delete(STORAGE_PREFIX + 'token'); } catch {}
+    $('tokenInput').value = '';
+    setStatus('Token cleared');
+  });
+
+  $('reloadBtn').addEventListener('click', async () => {
+    if ((state.dirty || state.pendingPhotos.size > 0) && !confirm('Discard unsaved changes and pending photos?')) return;
+    try { await loadFromGitHub(); renderAll(); } catch (e) { setStatus('Error: ' + e.message, 'err'); }
+  });
+
+  $('addTournBtn').addEventListener('click', () => {
+    state.data = state.data || { tournaments: [] };
+    state.data.tournaments.unshift({
+      id: 'new-tournament-' + Date.now().toString(36),
+      title: 'New Tournament',
+      navLabel: 'New',
+      meta: '',
+      eventUrl: '',
+      divisions: [{ label: null, columns: 2, places: [] }],
+    });
+    state.dirty = true;
+    renderAll();
+  });
+
+  $('collapseAllBtn').addEventListener('click', () => {
+    document.querySelectorAll('.pub-tourn').forEach(el => {
+      el.classList.add('pub-collapsed');
+      const b = el.querySelector('[data-action="toggle"]'); if (b) b.textContent = '▸';
+    });
+  });
+  $('expandAllBtn').addEventListener('click', () => {
+    document.querySelectorAll('.pub-tourn').forEach(el => {
+      el.classList.remove('pub-collapsed');
+      const b = el.querySelector('[data-action="toggle"]'); if (b) b.textContent = '▾';
+    });
+  });
+  $('showSetupBtn').addEventListener('click', () => $('setup').classList.toggle('hidden'));
+
+  $('publishBtn').addEventListener('click', async () => {
+    const msg = $('commitMsg').value.trim() || 'Update results data';
+    const resultEl   = $('commitResult');
+    const progressEl = $('commitProgress');
+    const labelEl    = $('progressLabel');
+    const barEl      = $('progressBar');
+
+    progressEl.classList.remove('hidden');
+    resultEl.innerHTML = '';
+
+    const onProgress = (pct, label) => {
+      barEl.style.width = Math.round(pct) + '%';
+      labelEl.textContent = label;
+    };
+
+    try {
+      const commit = await commitAllChanges(msg, onProgress);
+      resultEl.innerHTML = `
+        <div style="padding: 10px 14px; background: var(--color-background-success); color: var(--color-text-success); border-radius: var(--border-radius-md); font-size: 13px;">
+          ✓ Committed <span class="pub-sha">${commit.sha.slice(0,7)}</span> —
+          <a href="https://github.com/${state.owner}/${state.repo}/commit/${commit.sha}" target="_blank">view on GitHub</a>.
+          Vercel will redeploy shortly.
+        </div>`;
+      $('commitMsg').value = '';
+      setStatus('Clean · sha ' + state.sha.slice(0, 7), 'ok');
+      setTimeout(() => progressEl.classList.add('hidden'), 1500);
+      renderAll();
+    } catch (e) {
+      progressEl.classList.add('hidden');
+      resultEl.innerHTML = `<div style="padding: 10px 14px; background: var(--color-background-danger); color: var(--color-text-danger); border-radius: var(--border-radius-md); font-size: 13px;">✗ ${e.message}</div>`;
+    }
+  });
+
+  window.addEventListener('beforeunload', (e) => {
+    if (state.dirty || state.pendingPhotos.size > 0) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  loadSavedSettings();
+})();
+</script>
