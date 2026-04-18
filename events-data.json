@@ -57,6 +57,11 @@
           "Vice",
           "Lead"
         ]
+        "playerLabels": [
+          "Skip",
+          "Vice",
+          "Lead"
+        ]
       },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YUTGC3WJMPIsS5A_6vSOMCPkgs3WWRPF_e8TaCtqUlDtf-T84sSwWHgZGvBsl5Sge4JrDYn5IcnT/pubhtml?widget=true&headers=false",
@@ -162,7 +167,7 @@
       },
       "flyer": {
         "externalUrl": "https://docs.google.com/document/d/1D3kmM5xg2-kyTr1lQDO8yjnU2unE9S6f/export?format=pdf",
-        "localPath": "",
+        "localPath": "/pdfs/mens-novice-singles-2026/flyer.pdf",
         "type": "pdf"
       },
       "cops": {
