@@ -869,8 +869,8 @@
         "html": "<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_top\">\n  <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n  <input type=\"hidden\" name=\"hosted_button_id\" value=\"DYQEAZ46NWYYA\" />\n  <table>\n    <tr><td><input type=\"hidden\" name=\"on0\" value=\"Skip\"/>Skip</td></tr>\n    <tr><td><input type=\"text\" name=\"os0\" maxlength=\"200\" /></td></tr>\n    <tr><td><input type=\"hidden\" name=\"on1\" value=\"Vice\"/>Vice</td></tr>\n    <tr><td><input type=\"text\" name=\"os1\" maxlength=\"200\" /></td></tr>\n    <tr><td><input type=\"hidden\" name=\"on2\" value=\"Lead\"/>Lead</td></tr>\n    <tr><td><input type=\"text\" name=\"os2\" maxlength=\"200\" /></td></tr>\n  </table>\n  <input type=\"hidden\" name=\"currency_code\" value=\"USD\" />\n  <input type=\"image\" src=\"https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Buy Now\" />\n</form>"
       },
       "entries": {
-        "pubUrl": "",
-        "height": 350
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-57TUe71pDmxhPvl7tKWdUqYFxLegSafxQgye1-e3PEW6LKU_U5QrbAFKq22iZ5un9aI05XExTVD8/pubhtml?widget=true&headers=false",
+        "height": 400
       },
       "liveScoring": {
         "pubUrl": "",
