@@ -11,20 +11,52 @@
           "label": "Murray Division",
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Robert Busciglio", "photo": "" },
-            { "rank": 2, "names": "Dean Warmington", "photo": "" },
-            { "rank": 3, "names": "Peter Ritchie",    "photo": "" },
-            { "rank": 4, "names": "Tom Richeson",     "photo": "" }
+            {
+              "rank": 1,
+              "names": "Robert Busciglio",
+              "photo": "/photos/murray-allison/1th-robert-busciglio.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Dean Warmington",
+              "photo": "/photos/murray-allison/2th-dean-warmington.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Peter Ritchie",
+              "photo": "/photos/murray-allison/3th-peter-ritchie.jpg"
+            },
+            {
+              "rank": 4,
+              "names": "Tom Richeson",
+              "photo": "/photos/murray-allison/4th-tom-richeson.jpg"
+            }
           ]
         },
         {
           "label": "Allison Division",
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Angel Rocha",  "photo": "" },
-            { "rank": 2, "names": "John Slater",  "photo": "" },
-            { "rank": 3, "names": "Ed Powers",    "photo": "" },
-            { "rank": 4, "names": "Mike Koizumi", "photo": "" }
+            {
+              "rank": 1,
+              "names": "Angel Rocha",
+              "photo": "/photos/murray-allison/1th-angel-rocha.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "John Slater",
+              "photo": "/photos/murray-allison/2th-john-slater.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Ed Powers",
+              "photo": "/photos/murray-allison/3th-ed-powers.jpg"
+            },
+            {
+              "rank": 4,
+              "names": "Mike Koizumi",
+              "photo": "/photos/murray-allison/4th-mike-koizumi.jpg"
+            }
           ]
         }
       ]
@@ -40,10 +72,26 @@
           "label": null,
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "D. Warmington / T. Mar / J. Hedgespeth", "photo": "" },
-            { "rank": 2, "names": "I. Hyland / D. McSparran / M. Ruggles",  "photo": "" },
-            { "rank": 3, "names": "R. Busciglio / C. DeFazio / B. Sturgill", "photo": "" },
-            { "rank": 4, "names": "H. Glazeroff / C. Nolan / L. Boyer",     "photo": "" }
+            {
+              "rank": 1,
+              "names": "D. Warmington / T. Mar / J. Hedgespeth",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "I. Hyland / D. McSparran / M. Ruggles",
+              "photo": ""
+            },
+            {
+              "rank": 3,
+              "names": "R. Busciglio / C. DeFazio / B. Sturgill",
+              "photo": ""
+            },
+            {
+              "rank": 4,
+              "names": "H. Glazeroff / C. Nolan / L. Boyer",
+              "photo": ""
+            }
           ]
         }
       ]
@@ -59,19 +107,47 @@
           "label": "A Green",
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Mary Thompson / John Monahan",  "photo": "" },
-            { "rank": 2, "names": "Terry Mar / Joan Robbins",      "photo": "" },
-            { "rank": 3, "names": "Russ Kindorf / Dee McSparran",  "photo": "" },
-            { "rank": 4, "names": "Anne Nunes / Michael Siddall",  "photo": "" },
-            { "rank": 5, "names": "Angel Gomez / Melanie Vizenor", "photo": "" }
+            {
+              "rank": 1,
+              "names": "Mary Thompson / John Monahan",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "Terry Mar / Joan Robbins",
+              "photo": ""
+            },
+            {
+              "rank": 3,
+              "names": "Russ Kindorf / Dee McSparran",
+              "photo": ""
+            },
+            {
+              "rank": 4,
+              "names": "Anne Nunes / Michael Siddall",
+              "photo": ""
+            },
+            {
+              "rank": 5,
+              "names": "Angel Gomez / Melanie Vizenor",
+              "photo": ""
+            }
           ]
         },
         {
           "label": "B Green",
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Brian Tracy / Deborah Long", "photo": "" },
-            { "rank": 2, "names": "Kevin & Kelley Lacey",       "photo": "" }
+            {
+              "rank": 1,
+              "names": "Brian Tracy / Deborah Long",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "Kevin & Kelley Lacey",
+              "photo": ""
+            }
           ]
         }
       ]
@@ -87,8 +163,16 @@
           "label": null,
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "A. O'Brien / C. Vose / D. Warmington / M. Koizumi", "photo": "" },
-            { "rank": 2, "names": "B. Brault / L. Dion / T. Richeson / I. Ho",         "photo": "" }
+            {
+              "rank": 1,
+              "names": "A. O'Brien / C. Vose / D. Warmington / M. Koizumi",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "B. Brault / L. Dion / T. Richeson / I. Ho",
+              "photo": ""
+            }
           ]
         }
       ]
@@ -104,9 +188,21 @@
           "label": null,
           "columns": 3,
           "places": [
-            { "rank": 1, "names": "A. Nunes / M. Spease / T. Quan / E. Lee / G. Gallo",                "photo": "" },
-            { "rank": 2, "names": "R. Greenberg / N. Santos / P. Lewis / J. Narmontas / L. Coutee",    "photo": "" },
-            { "rank": 3, "names": "J. Buchanan / M. Beath / M. Urane / K. Spangler-Moore / S. Houston", "photo": "" }
+            {
+              "rank": 1,
+              "names": "A. Nunes / M. Spease / T. Quan / E. Lee / G. Gallo",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "R. Greenberg / N. Santos / P. Lewis / J. Narmontas / L. Coutee",
+              "photo": ""
+            },
+            {
+              "rank": 3,
+              "names": "J. Buchanan / M. Beath / M. Urane / K. Spangler-Moore / S. Houston",
+              "photo": ""
+            }
           ]
         }
       ]
@@ -122,21 +218,57 @@
           "label": "A Green",
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Candy DeFazio / Robert Busciglio", "photo": "" },
-            { "rank": 2, "names": "Barbara Krause / Scott Yahnke",    "photo": "" },
-            { "rank": 3, "names": "Patti Lewis / Gord House",         "photo": "" },
-            { "rank": 4, "names": "Manya Urane / Chris Dodd",         "photo": "" }
+            {
+              "rank": 1,
+              "names": "Candy DeFazio / Robert Busciglio",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "Barbara Krause / Scott Yahnke",
+              "photo": ""
+            },
+            {
+              "rank": 3,
+              "names": "Patti Lewis / Gord House",
+              "photo": ""
+            },
+            {
+              "rank": 4,
+              "names": "Manya Urane / Chris Dodd",
+              "photo": ""
+            }
           ]
         },
         {
           "label": "B Green",
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Joanne & Wilf Steckler",   "photo": "" },
-            { "rank": 2, "names": "Kathy & Steve Yezarski",    "photo": "" },
-            { "rank": 3, "names": "Mary Jo & Patrick Veysey",  "photo": "" },
-            { "rank": 4, "names": "Debra & Graham Wong",       "photo": "" },
-            { "rank": 5, "names": "Joy & Jeff Woolsey",        "photo": "" }
+            {
+              "rank": 1,
+              "names": "Joanne & Wilf Steckler",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "Kathy & Steve Yezarski",
+              "photo": ""
+            },
+            {
+              "rank": 3,
+              "names": "Mary Jo & Patrick Veysey",
+              "photo": ""
+            },
+            {
+              "rank": 4,
+              "names": "Debra & Graham Wong",
+              "photo": ""
+            },
+            {
+              "rank": 5,
+              "names": "Joy & Jeff Woolsey",
+              "photo": ""
+            }
           ]
         }
       ]
@@ -152,8 +284,18 @@
           "label": null,
           "columns": 2,
           "places": [
-            { "rank": "1st – 6th Place",   "rankStyle": "gold",  "names": "1st Kevin Lacey · 2nd Esther Lee · 3rd Mark De Dubovy · 4th Wilf Steckler · 5th Mohammad Ahrar · 6th Fred Schwartz", "photo": "" },
-            { "rank": "7th – Consolation", "rankStyle": "other", "names": "7th Gord House · 8th Inger Benson · 9th Joan Narmontas · 10th Steve Narmontas · Consolation Joann Steckler",        "photo": "" }
+            {
+              "rank": "1st – 6th Place",
+              "rankStyle": "gold",
+              "names": "1st Kevin Lacey · 2nd Esther Lee · 3rd Mark De Dubovy · 4th Wilf Steckler · 5th Mohammad Ahrar · 6th Fred Schwartz",
+              "photo": ""
+            },
+            {
+              "rank": "7th – Consolation",
+              "rankStyle": "other",
+              "names": "7th Gord House · 8th Inger Benson · 9th Joan Narmontas · 10th Steve Narmontas · Consolation Joann Steckler",
+              "photo": ""
+            }
           ]
         }
       ]
