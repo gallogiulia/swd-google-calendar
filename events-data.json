@@ -5,15 +5,15 @@
       "title": "2026 SWD Vet/Novice Mix/Match Triples",
       "subtitle": "Women's Sponsored",
       "date": "Saturday, April 18, 2026",
-      "time": "8:00 AM – 5:00 PM",
+      "time": "8:00 AM \u2013 5:00 PM",
       "schedule": [
-        "8:00 AM — Green open for practice",
-        "8:15 AM — Check-in",
-        "8:45 AM — Announcements and trial ends",
-        "9:00 AM — Games begin"
+        "8:00 AM \u2014 Green open for practice",
+        "8:15 AM \u2014 Check-in",
+        "8:45 AM \u2014 Announcements and trial ends",
+        "9:00 AM \u2014 Games begin"
       ],
       "format": "triples",
-      "formatDetails": "Four 12-end games, 2-bowl triples · Skip / Vice / Lead",
+      "formatDetails": "Four 12-end games, 2-bowl triples \u00b7 Skip / Vice / Lead",
       "club": {
         "name": "Santa Anita Bowling Green Club",
         "address": "405 S Santa Anita Ave, Arcadia, CA 91007",
@@ -27,7 +27,7 @@
         "If there are enough entries for more than 1 green, they shall be played as individual tournaments with each green having its own winners",
         "Shirts must have sleeves and collars, no cutoffs",
         "Teams must match colors for tops and bottoms",
-        "Bring your own lunch and water bottle — Santa Anita will provide limited hospitality",
+        "Bring your own lunch and water bottle \u2014 Santa Anita will provide limited hospitality",
         "Every effort will be made to keep entry numbers even"
       ],
       "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event. If you started bowling on or after April 1, 2024, you are still a novice.",
@@ -52,7 +52,11 @@
         "buttonName": "SWD Veteran/Novice Mix/Match Triples",
         "price": "45.00",
         "containerSuffix": "vetnovicemixtrips",
-        "playerLabels": ["Skip", "Vice", "Lead"]
+        "playerLabels": [
+          "Skip",
+          "Vice",
+          "Lead"
+        ]
       },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0YUTGC3WJMPIsS5A_6vSOMCPkgs3WWRPF_e8TaCtqUlDtf-T84sSwWHgZGvBsl5Sge4JrDYn5IcnT/pubhtml?widget=true&headers=false",
@@ -61,7 +65,7 @@
       "liveScoring": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvpndc-xprdmVhnJeYf1r89t07Jk48Lgwn38EAxKJ1Rb08rP8lpip8GJHSLmWRnoJ7wmM-7ldly46M/pubhtml?widget=true&headers=false",
         "height": 1800,
-        "width": "80%"
+        "width": "100%"
       }
     },
     {
@@ -69,14 +73,14 @@
       "title": "2026 SWD Women's Novice Singles",
       "subtitle": null,
       "date": "Sunday, April 19, 2026",
-      "time": "8:00 AM – 5:00 PM",
+      "time": "8:00 AM \u2013 5:00 PM",
       "schedule": [
-        "8:00 AM — Green open for practice",
-        "8:45 AM — Announcements and trial ends",
-        "9:00 AM — Games begin"
+        "8:00 AM \u2014 Green open for practice",
+        "8:45 AM \u2014 Announcements and trial ends",
+        "9:00 AM \u2014 Games begin"
       ],
       "format": "singles",
-      "formatDetails": "Three 15-point games · Singles",
+      "formatDetails": "Three 15-point games \u00b7 Singles",
       "club": {
         "name": "Newport Harbor Lawn Bowling Club",
         "address": "1550 Crown Drive, Corona Del Mar, CA 92625",
@@ -89,7 +93,7 @@
         "All players must be Bowls USA members",
         "Shirts must have sleeves and collars, no cutoff bottoms",
         "Teams must match in color of shirts and bottoms",
-        "Bring your lunch and water bottle — Newport will provide hospitality",
+        "Bring your lunch and water bottle \u2014 Newport will provide hospitality",
         "Every effort will be made to keep entry numbers even"
       ],
       "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event. If you started bowling on or after April 1, 2024, you are still a novice.",
@@ -121,7 +125,7 @@
       "liveScoring": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTSXlkwIAxgVVeeYXT1Qq-CaXPMDWtoiMIk0q9l7xn55foaQLm_HWfGnh-Fw_k8VU9xYu63H6_X8irn/pubhtml?widget=true&headers=false",
         "height": 1800,
-        "width": "80%"
+        "width": "100%"
       }
     },
     {
@@ -129,14 +133,14 @@
       "title": "2026 SWD Men's Novice Singles",
       "subtitle": null,
       "date": "Sunday, April 19, 2026",
-      "time": "8:30 AM – 5:00 PM",
+      "time": "8:30 AM \u2013 5:00 PM",
       "schedule": [
-        "8:30 AM — Check-in",
-        "8:45 AM — Announcements",
-        "9:00 AM Sharp — Start"
+        "8:30 AM \u2014 Check-in",
+        "8:45 AM \u2014 Announcements",
+        "9:00 AM Sharp \u2014 Start"
       ],
       "format": "singles",
-      "formatDetails": "3 × 15-point games (format dependent on number of entries)",
+      "formatDetails": "3 \u00d7 15-point games (format dependent on number of entries)",
       "club": {
         "name": "Newport Harbor Lawn Bowling Club",
         "address": "1550 Crown Drive, Corona Del Mar, CA 92625",
@@ -177,7 +181,7 @@
       "liveScoring": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXdTqwFggAG4vCBA4kIsRxpWCK1o1SiVDEBDweEEsakxqP_l0e077tWXC4EeeY-H2QH5yA0i4gWvTK/pubhtml?widget=true&headers=false",
         "height": 1800,
-        "width": "80%"
+        "width": "100%"
       }
     }
   ]
