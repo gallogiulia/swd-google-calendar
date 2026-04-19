@@ -1,6 +1,41 @@
 {
   "tournaments": [
     {
+      "id": "vet-novice-mix-match-triples",
+      "title": "2026 SWD Vet/Novice Mix/Match Triples",
+      "meta": "April 18 · Santa Anita Bowling Green Club",
+      "navLabel": "Vet/Novice Mix/Match Triples",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/vet-novice-mix-match-triples-2026",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Anne Nunes, Bill Brault, Kevin Lacey",
+              "photo": "/photos/vet-novice-mix-match-triples/1-anne-nunes-bill-brault-kevin-lacey.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Darrell DeCastro, Jeri DeCastro, Steve Carriger",
+              "photo": "/photos/vet-novice-mix-match-triples/2-darrell-decastro-jeri-decastro-steve-carriger.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Herman Lee, Alan Ngo, Irene Zhang",
+              "photo": "/photos/vet-novice-mix-match-triples/3-herman-lee-alan-ngo-irene-zhang.jpg"
+            },
+            {
+              "rank": 4,
+              "names": "Jeff Ge, Yan Ping Su, Mike Lee",
+              "photo": "/photos/vet-novice-mix-match-triples/4-jeff-ge-yan-ping-su-mike-lee.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "murray-allison",
       "title": "2026 SWD Murray-Allison Singles",
       "meta": "April 11 · Riverside LBC",
