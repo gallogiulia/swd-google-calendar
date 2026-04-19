@@ -12,407 +12,237 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #c1272d;         /* Southwest Bowls red banner */
-    --red-dark: #9a1f24;
-    --red-soft: #f7e7e8;
-    --sky: #3aaee0;          /* SWD logo blue */
-    --sky-soft: #e8f4fb;
-    --palm: #1f5f3a;         /* SWD logo palm green */
-    --sun: #f4a83a;          /* SWD logo sun orange */
-    --ink: #1a1a1a;
-    --mute: #6b6b6b;
-    --line: #e6e8eb;
-    --paper: #fafbfc;
-    --white: #ffffff;
-    --green: #1f5f3a;        /* alias of palm for success states */
-    --amber: #c8860d;
+    --red: #c1272d; --red-dark: #9a1f24; --red-soft: #f7e7e8;
+    --sky: #3aaee0; --sky-soft: #e8f4fb;
+    --palm: #1f5f3a; --palm-soft: #e6f0ea;
+    --sun: #f4a83a; --sun-soft: #fdf3e0;
+    --ink: #1a1a1a; --mute: #6b6b6b; --line: #e6e8eb;
+    --paper: #fafbfc; --white: #ffffff;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; }
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
-    min-height: 100dvh;
+    background: var(--paper); color: var(--ink);
+    min-height: 100vh; min-height: 100dvh;
     padding-bottom: env(safe-area-inset-bottom);
     padding-top: env(safe-area-inset-top);
     overscroll-behavior: none;
   }
-
-  /* Header */
   .topbar {
     position: sticky; top: 0; z-index: 50;
-    background: var(--white);
-    border-bottom: 1px solid var(--line);
-    padding: 14px 18px;
-    display: flex; align-items: center; justify-content: space-between;
+    background: var(--white); border-bottom: 1px solid var(--line);
+    padding: 14px 18px; display: flex; align-items: center; justify-content: space-between;
     padding-top: max(14px, env(safe-area-inset-top));
   }
   .brand { display: flex; align-items: center; gap: 10px; }
   .brand-mark {
-    width: 38px; height: 38px;
-    display: grid; place-items: center;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
+    width: 38px; height: 38px; display: grid; place-items: center;
+    background: white; border-radius: 8px; overflow: hidden;
   }
-  .brand-mark img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-  }
-  .brand-text {
-    font-family: 'Fraunces', serif;
-    font-weight: 600; font-size: 15px;
-    line-height: 1.1;
-  }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+  .brand-text { font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; line-height: 1.1; }
   .brand-text small {
-    display: block;
-    font-family: 'Inter', sans-serif;
+    display: block; font-family: 'Inter', sans-serif;
     font-size: 10px; color: var(--mute);
-    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
-    margin-top: 1px;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; margin-top: 1px;
   }
-  .who {
-    font-size: 12px; color: var(--mute);
-    display: flex; align-items: center; gap: 8px;
-  }
+  .who { font-size: 12px; color: var(--mute); display: flex; align-items: center; gap: 8px; }
   .logout-btn {
     background: none; border: none; color: var(--red);
-    font-size: 12px; font-weight: 500; cursor: pointer;
-    padding: 4px 8px; border-radius: 6px;
+    font-size: 12px; font-weight: 500; cursor: pointer; padding: 4px 8px; border-radius: 6px;
   }
-  .logout-btn:active { background: var(--red-soft); }
-
-  /* Hero */
-  .hero {
-    padding: 32px 20px 24px;
-    text-align: center;
-  }
-  .login-logo-wrap {
-    display: flex; justify-content: center;
-    margin-bottom: 16px;
-  }
-  .login-logo {
-    width: 96px; height: auto;
-    filter: drop-shadow(0 4px 12px rgba(58, 174, 224, 0.25));
-  }
+  .hero { padding: 32px 20px 24px; text-align: center; }
+  .login-logo-wrap { display: flex; justify-content: center; margin-bottom: 16px; }
+  .login-logo { width: 96px; height: auto; filter: drop-shadow(0 4px 12px rgba(58, 174, 224, 0.25)); }
   .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 800;
+    font-family: 'Fraunces', serif; font-weight: 800;
     font-size: clamp(28px, 8vw, 38px);
-    letter-spacing: -0.03em;
-    margin: 0 0 8px;
-    line-height: 1.05;
+    letter-spacing: -0.03em; margin: 0 0 8px; line-height: 1.05;
   }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--sky);
-    font-weight: 400;
-  }
-  .hero p {
-    color: var(--mute);
-    font-size: 14px;
-    margin: 0;
-  }
-
-  /* Login screen */
+  .hero h1 em { font-style: italic; color: var(--sky); font-weight: 400; }
+  .hero p { color: var(--mute); font-size: 14px; margin: 0; }
   .login-card {
-    background: var(--white);
-    margin: 24px 18px;
-    padding: 28px 22px;
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04), 0 0 0 1px var(--line);
+    background: var(--white); margin: 24px 18px; padding: 28px 22px;
+    border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04), 0 0 0 1px var(--line);
   }
   .field { margin-bottom: 16px; }
   .field label {
-    display: block;
-    font-size: 12px; font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 6px;
-    letter-spacing: 0.02em;
+    display: block; font-size: 12px; font-weight: 600;
+    color: var(--ink); margin-bottom: 6px; letter-spacing: 0.02em;
   }
-  .input {
-    width: 100%;
-    font-family: inherit;
-    font-size: 16px;
-    padding: 14px 14px;
-    border: 1.5px solid var(--line);
-    border-radius: 10px;
-    background: var(--paper);
-    color: var(--ink);
+  .input, select.input {
+    width: 100%; font-family: inherit; font-size: 16px; padding: 14px 14px;
+    border: 1.5px solid var(--line); border-radius: 10px;
+    background: var(--paper); color: var(--ink);
     transition: border-color .15s, background .15s;
     -webkit-appearance: none;
   }
-  .input:focus {
-    outline: none;
-    border-color: var(--red);
-    background: var(--white);
-  }
-
+  .input:focus { outline: none; border-color: var(--red); background: var(--white); }
   .btn {
-    width: 100%;
-    font-family: inherit;
-    font-size: 15px; font-weight: 600;
-    padding: 14px 18px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: transform .1s, opacity .15s;
+    width: 100%; font-family: inherit; font-size: 15px; font-weight: 600;
+    padding: 14px 18px; border-radius: 10px; border: none;
+    cursor: pointer; transition: transform .1s, opacity .15s;
   }
-  .btn-primary {
-    background: var(--red); color: white;
-  }
+  .btn-primary { background: var(--red); color: white; }
   .btn-primary:active { transform: scale(0.98); }
   .btn-primary:disabled { opacity: .5; cursor: default; }
-  .btn-ghost {
-    background: transparent; color: var(--ink);
-    border: 1.5px solid var(--line);
-  }
-
-  /* Step layout */
-  .wizard {
-    padding: 0 16px 24px;
-  }
+  .wizard { padding: 0 16px 24px; }
   .step {
-    background: var(--white);
-    border-radius: 16px;
-    padding: 18px 16px;
-    margin-bottom: 14px;
+    background: var(--white); border-radius: 16px;
+    padding: 18px 16px; margin-bottom: 14px;
     box-shadow: 0 1px 6px rgba(0,0,0,0.03), 0 0 0 1px var(--line);
   }
   .step-num {
-    display: inline-block;
-    background: var(--sky-soft); color: var(--sky);
-    font-size: 11px; font-weight: 700;
-    padding: 3px 10px; border-radius: 999px;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    margin-bottom: 8px;
+    display: inline-block; background: var(--sky-soft); color: var(--sky);
+    font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;
   }
   .step h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 20px;
-    letter-spacing: -0.02em;
-    margin: 0 0 4px;
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: 20px; letter-spacing: -0.02em; margin: 0 0 4px;
   }
-  .step .sub {
-    font-size: 13px; color: var(--mute);
-    margin: 0 0 14px;
-  }
-
-  /* Tournament picker */
-  .tournament-list {
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .tournament-card {
+  .step .sub { font-size: 13px; color: var(--mute); margin: 0 0 14px; }
+  .event-list { display: flex; flex-direction: column; gap: 8px; }
+  .event-card {
     display: flex; align-items: center; gap: 12px;
-    padding: 12px 14px;
-    background: var(--paper);
-    border: 1.5px solid transparent;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: border-color .15s;
+    padding: 12px 14px; background: var(--paper);
+    border: 1.5px solid transparent; border-radius: 12px;
+    cursor: pointer; transition: border-color .15s;
   }
-  .tournament-card:active { transform: scale(0.99); }
-  .tournament-card.active {
-    border-color: var(--red);
-    background: var(--red-soft);
+  .event-card.active { border-color: var(--red); background: var(--red-soft); }
+  .event-card .e-date {
+    font-family: 'Fraunces', serif; font-weight: 800;
+    font-size: 12px; color: var(--palm);
+    min-width: 50px; line-height: 1.1; text-align: center;
   }
-  .tournament-card .t-year {
-    font-family: 'Fraunces', serif;
-    font-weight: 800;
-    font-size: 18px;
-    color: var(--palm);
-    min-width: 40px;
+  .event-card .e-date strong { display: block; font-size: 20px; color: var(--ink); }
+  .event-card .e-title { flex: 1; font-weight: 500; font-size: 14px; line-height: 1.3; }
+  .event-card .e-chev { color: var(--mute); font-size: 18px; }
+  .event-card .e-badge {
+    display: inline-block; margin-left: 6px;
+    font-size: 10px; color: var(--sun); font-weight: 600;
+    background: var(--sun-soft); padding: 2px 6px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.05em;
   }
-  .tournament-card .t-title {
-    flex: 1;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.3;
+  .division-block {
+    border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 14px; margin-bottom: 12px; background: var(--paper);
   }
-  .tournament-card .t-chev {
-    color: var(--mute);
-    font-size: 18px;
+  .division-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
   }
-
-  /* Division tabs */
-  .division-tabs {
-    display: flex; gap: 8px;
-    margin-bottom: 14px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: none;
+  .division-label-input {
+    flex: 1; font-family: inherit; font-weight: 600;
+    font-size: 15px; padding: 8px 10px;
+    border: 1.5px solid transparent; border-radius: 8px;
+    background: transparent; margin-right: 8px;
   }
-  .division-tabs::-webkit-scrollbar { display: none; }
-  .division-tab {
-    padding: 8px 14px;
-    border-radius: 999px;
-    background: var(--paper);
-    border: 1.5px solid var(--line);
-    font-size: 13px; font-weight: 500;
-    white-space: nowrap;
-    cursor: pointer;
+  .division-label-input:focus { outline: none; border-color: var(--line); background: var(--white); }
+  .icon-btn {
+    background: none; border: none; color: var(--mute);
+    font-size: 16px; cursor: pointer; padding: 6px; border-radius: 6px;
   }
-  .division-tab.active {
-    background: var(--ink); color: white;
-    border-color: var(--ink);
-  }
-
-  /* Place rows */
-  .place-row {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
-  }
+  .icon-btn:active { background: var(--line); }
+  .icon-btn.danger { color: var(--red); }
+  .place-row { padding: 10px 0; border-bottom: 1px dashed var(--line); }
   .place-row:last-child { border-bottom: none; }
   .place-label {
     display: flex; align-items: center; gap: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-weight: 600; font-size: 14px; margin-bottom: 8px;
   }
   .place-medal {
     width: 24px; height: 24px; border-radius: 50%;
     display: grid; place-items: center;
     font-size: 12px; font-weight: 800; color: white;
-    font-family: 'Fraunces', serif;
+    font-family: 'Fraunces', serif; flex-shrink: 0;
   }
   .place-medal.gold { background: var(--sun); }
   .place-medal.silver { background: #a8a8a8; }
   .place-medal.bronze { background: #b87333; }
   .place-medal.other { background: var(--mute); }
-
   .players-input {
-    width: 100%;
-    font-family: inherit;
-    font-size: 15px;
-    padding: 10px 12px;
-    border: 1.5px solid var(--line);
-    border-radius: 8px;
-    background: var(--paper);
-    min-height: 44px;
-    resize: none;
+    width: 100%; font-family: inherit; font-size: 15px;
+    padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px;
+    background: var(--white); min-height: 44px; resize: none;
     -webkit-appearance: none;
   }
-  .players-input:focus {
-    outline: none; border-color: var(--red); background: var(--white);
-  }
-
-  /* Photo dropzone */
+  .players-input:focus { outline: none; border-color: var(--red); }
   .photo-zone {
     margin-top: 10px;
-    border: 2px dashed var(--line);
-    border-radius: 10px;
-    padding: 14px;
-    text-align: center;
-    background: var(--paper);
-    cursor: pointer;
+    border: 2px dashed var(--line); border-radius: 10px;
+    padding: 14px; text-align: center;
+    background: var(--white); cursor: pointer;
     transition: border-color .15s, background .15s;
   }
-  .photo-zone.has-photo {
-    border-style: solid;
-    border-color: var(--green);
-    background: #eaf5ee;
-  }
+  .photo-zone.has-photo { border-style: solid; border-color: var(--palm); background: var(--palm-soft); }
   .photo-zone input[type=file] { display: none; }
-  .photo-zone .upload-hint {
-    font-size: 13px; color: var(--mute);
-  }
+  .photo-zone .upload-hint { font-size: 13px; color: var(--mute); }
   .photo-zone .upload-hint strong { color: var(--red); font-weight: 600; }
   .photo-preview {
-    max-width: 100%; max-height: 200px;
-    border-radius: 8px;
-    display: block;
-    margin: 0 auto 6px;
+    max-width: 100%; max-height: 200px; border-radius: 8px;
+    display: block; margin: 0 auto 6px;
   }
   .photo-filename {
-    font-size: 11px; color: var(--green); font-weight: 500;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    word-break: break-all;
+    font-size: 11px; color: var(--palm); font-weight: 500;
+    font-family: 'JetBrains Mono', 'Courier New', monospace; word-break: break-all;
   }
-
-  /* Commit bar */
   .commit-bar {
-    position: sticky; bottom: 0;
-    background: var(--white);
-    border-top: 1px solid var(--line);
-    padding: 14px 18px;
+    position: sticky; bottom: 0; background: var(--white);
+    border-top: 1px solid var(--line); padding: 14px 18px;
     padding-bottom: max(14px, env(safe-area-inset-bottom));
-    display: flex; gap: 10px;
-    z-index: 20;
+    display: flex; gap: 10px; z-index: 20;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
   }
-  .commit-bar .btn-primary {
-    flex: 1;
-  }
-
-  /* Status messages */
+  .commit-bar .btn-primary { flex: 1; }
   .status {
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    margin-bottom: 14px;
-    line-height: 1.5;
+    padding: 12px 14px; border-radius: 10px;
+    font-size: 13px; margin-bottom: 14px; line-height: 1.5;
   }
-  .status.error {
-    background: #fbeaea; color: #8a1f1f;
-    border: 1px solid #f0c4c4;
-  }
-  .status.success {
-    background: #eaf5ee; color: #1a5c34;
-    border: 1px solid #c0e0cc;
-  }
-  .status.info {
-    background: #fff7e6; color: #7a5a0e;
-    border: 1px solid #f0dca5;
-  }
-
-  /* Loading spinner */
+  .status.error { background: #fbeaea; color: #8a1f1f; border: 1px solid #f0c4c4; }
+  .status.success { background: var(--palm-soft); color: #1a5c34; border: 1px solid #c0e0cc; }
+  .status.info { background: var(--sun-soft); color: #7a5a0e; border: 1px solid #f0dca5; }
   .spinner {
-    display: inline-block;
-    width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-    margin-right: 8px;
-    vertical-align: -2px;
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+    border-radius: 50%; animation: spin .8s linear infinite;
+    margin-right: 8px; vertical-align: -2px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-
   .hidden { display: none !important; }
-
-  /* Footer */
-  .foot {
-    text-align: center;
-    font-size: 11px; color: var(--mute);
-    padding: 24px 16px 12px;
-    letter-spacing: 0.02em;
-  }
+  .foot { text-align: center; font-size: 11px; color: var(--mute); padding: 24px 16px 12px; letter-spacing: 0.02em; }
   .foot em { font-family: 'Fraunces', serif; color: var(--red); }
+  .add-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent; border: 1.5px dashed var(--line);
+    color: var(--sky); font-weight: 600; font-size: 13px;
+    padding: 10px 14px; border-radius: 10px;
+    cursor: pointer; width: 100%; justify-content: center;
+    transition: border-color .15s, color .15s; margin-top: 8px;
+  }
+  .add-btn:active { border-color: var(--sky); }
+  .exists-warning {
+    background: var(--sun-soft); color: #7a5a0e;
+    padding: 10px 12px; border-radius: 8px;
+    font-size: 13px; margin-bottom: 14px;
+    border: 1px solid #f0dca5;
+  }
 </style>
 </head>
 <body>
 
-<!-- ╔══════════ TOP BAR ══════════╗ -->
 <div class="topbar">
   <div class="brand">
     <div class="brand-mark"><img src="/assets/swd-logo.jpg" alt="SWD"></div>
-    <div class="brand-text">
-      Results Publisher
-      <small>Southwest Lawn Bowls</small>
-    </div>
+    <div class="brand-text">Results Publisher<small>Southwest Lawn Bowls</small></div>
   </div>
   <div class="who" id="whoBar"></div>
 </div>
 
-<!-- ╔══════════ LOGIN SCREEN ══════════╗ -->
 <div id="loginScreen">
   <div class="hero">
-    <div class="login-logo-wrap">
-      <img src="/assets/swd-logo.jpg" alt="Southwest Bowls" class="login-logo">
-    </div>
+    <div class="login-logo-wrap"><img src="/assets/swd-logo.jpg" alt="Southwest Bowls" class="login-logo"></div>
     <h1>Welcome <em>back</em></h1>
     <p>Sign in to publish tournament results from your phone</p>
   </div>
@@ -428,441 +258,396 @@
     <div id="loginStatus"></div>
     <button class="btn btn-primary" id="loginBtn">Sign in</button>
   </div>
-  <div class="foot">
-    Need help? Ask <em>GG</em>
-  </div>
+  <div class="foot">Need help? Ask <em>GG</em></div>
 </div>
 
-<!-- ╔══════════ MAIN APP ══════════╗ -->
 <div id="appScreen" class="hidden">
   <div class="hero">
     <h1>Publish <em>results</em></h1>
-    <p>Pick a tournament, fill in winners, add photos</p>
+    <p>Pick the event, add winners + photos, publish</p>
   </div>
-
   <div class="wizard">
-    <!-- STEP 1: Pick tournament -->
     <div class="step">
       <span class="step-num">Step 1</span>
-      <h2>Which tournament?</h2>
-      <p class="sub">Choose the event you're publishing results for</p>
-      <div id="tournamentList" class="tournament-list">
-        <div class="status info">Loading tournaments…</div>
+      <h2>Which event just happened?</h2>
+      <p class="sub">Pick from your 2026 events</p>
+      <div id="eventList" class="event-list">
+        <div class="status info">Loading events…</div>
       </div>
     </div>
-
-    <!-- STEP 2: Enter results -->
-    <div class="step hidden" id="resultsStep">
+    <div class="step hidden" id="setupStep">
       <span class="step-num">Step 2</span>
-      <h2 id="resultsStepTitle">Enter winners</h2>
-      <p class="sub">Tap a place to add names. Drag or tap the photo box to upload.</p>
-
-      <div class="division-tabs" id="divisionTabs"></div>
-      <div id="placesContainer"></div>
+      <h2 id="setupTitle">Tournament structure</h2>
+      <p class="sub">Divisions, places, names, photos</p>
+      <div id="existsWarning"></div>
+      <div id="divisionsContainer"></div>
+      <button class="add-btn" id="addDivisionBtn">＋ Add another division</button>
     </div>
-
-    <!-- STEP 3: Review + commit -->
     <div class="step hidden" id="commitStep">
       <span class="step-num">Step 3</span>
       <h2>Ready to publish?</h2>
-      <p class="sub">Results will go live on swlawnbowls.org in about 60 seconds after publishing.</p>
-
-      <div id="commitSummary"></div>
+      <p class="sub">Results will appear on swlawnbowls.org in about 60 seconds.</p>
       <div id="commitStatus"></div>
     </div>
   </div>
-
   <div class="commit-bar hidden" id="commitBar">
     <button class="btn btn-primary" id="publishBtn">Publish results</button>
   </div>
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════
-   SWD Results Publisher — mobile-friendly app
-   ═══════════════════════════════════════════════ */
-
 const state = {
-  token: null,
-  username: null,
-  expiresAt: null,
-  resultsData: null,
-  tournamentId: null,
-  division: null,
-  pendingPhotos: {}, // { "tournamentId/division/rank": { path, base64, filename } }
+  token: null, username: null, expiresAt: null,
+  eventsData: null, resultsData: null,
+  selectedEvent: null, newTournament: null,
+  pendingPhotos: {}
 };
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
 
-const $ = sel => document.querySelector(sel);
-const $$ = sel => document.querySelectorAll(sel);
-
-/* ─── Session storage ─── */
-function saveSession(data) {
-  try { sessionStorage.setItem('swd_session', JSON.stringify(data)); } catch {}
-}
+function saveSession(d) { try { sessionStorage.setItem('swd_session', JSON.stringify(d)); } catch {} }
 function loadSession() {
-  try {
-    const s = JSON.parse(sessionStorage.getItem('swd_session') || 'null');
+  try { const s = JSON.parse(sessionStorage.getItem('swd_session') || 'null');
     if (s && s.expiresAt && s.expiresAt > Date.now()) return s;
-  } catch {}
-  return null;
+  } catch {} return null;
 }
-function clearSession() {
-  try { sessionStorage.removeItem('swd_session'); } catch {}
-}
+function clearSession() { try { sessionStorage.removeItem('swd_session'); } catch {} }
 
-/* ─── API wrappers ─── */
-async function apiLogin(username, password) {
+async function apiLogin(u, p) {
   const r = await fetch('/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: u, password: p })
   });
-  const data = await r.json();
-  if (!r.ok) throw new Error(data.error || 'Login failed');
-  return data;
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error || 'Login failed');
+  return d;
 }
-
 async function apiLoadResults() {
-  const r = await fetch('/api/results/load', {
-    headers: { 'Authorization': `Bearer ${state.token}` }
-  });
-  const data = await r.json();
-  if (!r.ok) throw new Error(data.error || 'Load failed');
-  return data.resultsData;
+  const r = await fetch('/api/results/load', { headers: { 'Authorization': `Bearer ${state.token}` } });
+  const t = await r.text();
+  let d; try { d = JSON.parse(t); } catch { throw new Error('Server returned non-JSON: ' + t.slice(0, 120)); }
+  if (!r.ok) throw new Error(d.error || 'Load failed');
+  return d.resultsData;
 }
-
-async function apiCommit(resultsData, photos, commitMessage) {
+async function loadEventsPublic() {
+  const r = await fetch('/events-data.json?v=' + Date.now());
+  if (!r.ok) throw new Error('Could not load events list');
+  return r.json();
+}
+async function apiCommit(rd, photos, msg) {
   const r = await fetch('/api/results/commit', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${state.token}`
-    },
-    body: JSON.stringify({ resultsData, photos, commitMessage })
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.token}` },
+    body: JSON.stringify({ resultsData: rd, photos, commitMessage: msg })
   });
-  const data = await r.json();
-  if (!r.ok) throw new Error(data.error || 'Commit failed');
-  return data;
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error || 'Commit failed');
+  return d;
 }
 
-/* ─── Login screen logic ─── */
-function showLoginError(msg) {
-  $('#loginStatus').innerHTML = `<div class="status error">${msg}</div>`;
-}
-function clearLoginStatus() {
-  $('#loginStatus').innerHTML = '';
-}
+function showLoginError(m) { $('#loginStatus').innerHTML = `<div class="status error">${escapeHtml(m)}</div>`; }
 
 async function doLogin() {
-  clearLoginStatus();
-  const u = $('#username').value.trim();
-  const p = $('#password').value;
-  if (!u || !p) { showLoginError('Please enter both your name and password'); return; }
+  $('#loginStatus').innerHTML = '';
+  const u = $('#username').value.trim(), p = $('#password').value;
+  if (!u || !p) { showLoginError('Please enter both name and password'); return; }
   const btn = $('#loginBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Signing in…';
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Signing in…';
   try {
     const s = await apiLogin(u, p);
-    state.token = s.token;
-    state.username = s.username;
-    state.expiresAt = s.expiresAt;
+    state.token = s.token; state.username = s.username; state.expiresAt = s.expiresAt;
     saveSession(s);
     enterApp();
   } catch (e) {
     showLoginError(e.message);
-    btn.disabled = false;
-    btn.innerHTML = 'Sign in';
+    btn.disabled = false; btn.innerHTML = 'Sign in';
   }
 }
+function logout() { clearSession(); location.reload(); }
 
-function logout() {
-  clearSession();
-  state.token = null;
-  state.username = null;
-  location.reload();
-}
-
-/* ─── Main app ─── */
 async function enterApp() {
   $('#loginScreen').classList.add('hidden');
   $('#appScreen').classList.remove('hidden');
-  $('#whoBar').innerHTML = `Signed in as <strong>${state.username}</strong> <button class="logout-btn" onclick="logout()">Sign out</button>`;
-
+  $('#whoBar').innerHTML = `Signed in as <strong>${escapeHtml(state.username)}</strong> <button class="logout-btn" onclick="logout()">Sign out</button>`;
   try {
-    state.resultsData = await apiLoadResults();
-    renderTournamentList();
+    const [events, results] = await Promise.all([loadEventsPublic(), apiLoadResults()]);
+    state.eventsData = events; state.resultsData = results;
+    renderEventList();
   } catch (e) {
-    $('#tournamentList').innerHTML = `<div class="status error">Could not load tournaments: ${e.message}</div>`;
+    $('#eventList').innerHTML = `<div class="status error">Could not load: ${escapeHtml(e.message)}</div>`;
   }
 }
 
-function renderTournamentList() {
-  const list = $('#tournamentList');
-  const tournaments = (state.resultsData.tournaments || []).slice().reverse(); // newest first
-  if (tournaments.length === 0) {
-    list.innerHTML = '<div class="status info">No tournaments in the system yet.</div>';
-    return;
-  }
-  list.innerHTML = tournaments.map(t => `
-    <div class="tournament-card" data-id="${escapeAttr(t.id)}">
-      <div class="t-year">${escapeHtml((t.date || '').split(',').pop().trim().slice(-4) || '—')}</div>
-      <div class="t-title">${escapeHtml(t.name)}<br><small style="color:var(--mute);font-weight:400">${escapeHtml(t.date || '')}</small></div>
-      <div class="t-chev">›</div>
-    </div>
-  `).join('');
-  $$('.tournament-card').forEach(card => {
+function parseEventDate(ds) {
+  if (!ds) return new Date(2099, 0, 1);
+  const first = ds.split(/[–-]/)[0].trim();
+  const d = new Date(first);
+  return isNaN(d) ? new Date(2099, 0, 1) : d;
+}
+
+function deriveResultsId(ev) {
+  return ev.id.replace(/-20\d\d$/, '');
+}
+
+function renderEventList() {
+  const events = (state.eventsData.events || []).slice();
+  events.sort((a, b) => parseEventDate(b.date) - parseEventDate(a.date));
+  const existingIds = new Set((state.resultsData.tournaments || []).map(t => t.id));
+
+  $('#eventList').innerHTML = events.map(e => {
+    const d = parseEventDate(e.date);
+    const m = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+    const day = d.getDate();
+    const hasResults = existingIds.has(deriveResultsId(e));
+    return `
+      <div class="event-card" data-id="${escapeAttr(e.id)}">
+        <div class="e-date">${m}<strong>${day}</strong></div>
+        <div class="e-title">${escapeHtml(e.title)}${hasResults ? ' <span class="e-badge">results exist</span>' : ''}</div>
+        <div class="e-chev">›</div>
+      </div>`;
+  }).join('');
+  $$('.event-card').forEach(card => {
     card.addEventListener('click', () => {
-      $$('.tournament-card').forEach(c => c.classList.remove('active'));
+      $$('.event-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      selectTournament(card.dataset.id);
+      selectEvent(card.dataset.id);
     });
   });
 }
 
-function selectTournament(id) {
-  state.tournamentId = id;
+function selectEvent(eventId) {
+  const event = state.eventsData.events.find(e => e.id === eventId);
+  if (!event) return;
+  state.selectedEvent = event;
   state.pendingPhotos = {};
-  const t = state.resultsData.tournaments.find(x => x.id === id);
-  if (!t) return;
-  $('#resultsStep').classList.remove('hidden');
+
+  const rid = deriveResultsId(event);
+  const existing = (state.resultsData.tournaments || []).find(t => t.id === rid);
+
+  if (existing) {
+    state.newTournament = JSON.parse(JSON.stringify(existing));
+    $('#existsWarning').innerHTML = `<div class="exists-warning">Results for this event already exist — you're editing them.</div>`;
+  } else {
+    const shortDate = (event.date || '').replace(/,\s*20\d\d/, '').replace(/^\w+,\s*/, '');
+    const club = event.club ? event.club.name : '';
+    state.newTournament = {
+      id: rid,
+      title: event.title,
+      meta: [shortDate, club].filter(Boolean).join(' · '),
+      navLabel: event.title.replace(/^20\d\d\s+/, '').replace(/^SWD\s+/, '').trim(),
+      eventUrl: `https://www.swlawnbowls.org/2026-tournaments-events/${event.id}`,
+      divisions: [{
+        label: null, columns: 2,
+        places: [
+          { rank: 1, names: '', photo: '' },
+          { rank: 2, names: '', photo: '' },
+          { rank: 3, names: '', photo: '' },
+          { rank: 4, names: '', photo: '' }
+        ]
+      }]
+    };
+    $('#existsWarning').innerHTML = '';
+  }
+  $('#setupStep').classList.remove('hidden');
   $('#commitStep').classList.remove('hidden');
   $('#commitBar').classList.remove('hidden');
-  $('#resultsStepTitle').textContent = t.name;
+  $('#setupTitle').textContent = event.title;
+  renderDivisions();
+  setTimeout(() => $('#setupStep').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
 
-  // Render divisions
-  const divisions = (t.divisions || []);
-  if (divisions.length === 0) {
-    // Tournament has no divisions structure - shouldn't happen, but handle gracefully
-    $('#divisionTabs').innerHTML = '<div class="status error">This tournament has no divisions defined. Edit it on a computer first.</div>';
-    $('#placesContainer').innerHTML = '';
-    return;
-  }
-  $('#divisionTabs').innerHTML = divisions.map((d, i) => `
-    <div class="division-tab ${i===0?'active':''}" data-div="${escapeAttr(d.name)}">${escapeHtml(d.name)}</div>
+function renderDivisions() {
+  const html = state.newTournament.divisions.map((div, dIdx) => `
+    <div class="division-block">
+      <div class="division-header">
+        <input class="division-label-input" data-div="${dIdx}"
+               value="${escapeAttr(div.label || '')}"
+               placeholder="${state.newTournament.divisions.length > 1 ? 'Division name (e.g. A Green)' : '(optional label)'}"/>
+        ${state.newTournament.divisions.length > 1 ? `<button class="icon-btn danger" data-action="remove-div" data-div="${dIdx}">✕</button>` : ''}
+      </div>
+      ${div.places.map((p, pIdx) => renderPlace(dIdx, pIdx, p)).join('')}
+      <button class="add-btn" data-action="add-place" data-div="${dIdx}">＋ Add place</button>
+    </div>
   `).join('');
-  $$('.division-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      $$('.division-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      selectDivision(tab.dataset.div);
+  $('#divisionsContainer').innerHTML = html;
+  wireEvents();
+}
+
+function renderPlace(dIdx, pIdx, place) {
+  const rank = place.rank;
+  const rankNum = typeof rank === 'number' ? rank : (parseInt(rank) || pIdx + 1);
+  const medalClass = rankNum === 1 ? 'gold' : rankNum === 2 ? 'silver' : rankNum === 3 ? 'bronze' : 'other';
+  const rankLabel = typeof rank === 'string' ? rank : (rankNum === 1 ? '1st' : rankNum === 2 ? '2nd' : rankNum === 3 ? '3rd' : `${rankNum}th`);
+  const key = `${dIdx}/${pIdx}`;
+  const pending = state.pendingPhotos[key];
+  const hasPhoto = place.photo || pending;
+  return `
+    <div class="place-row">
+      <div class="place-label">
+        <div class="place-medal ${medalClass}">${rankNum}</div>
+        <span>${escapeHtml(rankLabel)} Place</span>
+        <button class="icon-btn danger" style="margin-left:auto" data-action="remove-place" data-div="${dIdx}" data-place="${pIdx}">✕</button>
+      </div>
+      <textarea class="players-input" data-div="${dIdx}" data-place="${pIdx}"
+                placeholder="Player names (e.g. John Smith / Jane Doe)" rows="2">${escapeHtml(place.names || '')}</textarea>
+      <div class="photo-zone ${hasPhoto?'has-photo':''}" data-div="${dIdx}" data-place="${pIdx}">
+        <input type="file" accept="image/*" capture="environment" data-div="${dIdx}" data-place="${pIdx}" />
+        ${pending ? `<img src="${pending.preview}" class="photo-preview"><div class="photo-filename">📸 ${escapeHtml(pending.filename)} (new)</div>`
+                  : (place.photo ? `<img src="${escapeAttr(place.photo)}" class="photo-preview" onerror="this.style.display='none'"><div class="upload-hint">Saved. <strong>Tap to replace</strong></div>`
+                                 : `<div class="upload-hint">📸 <strong>Tap to add photo</strong></div>`)}
+      </div>
+    </div>`;
+}
+
+function wireEvents() {
+  $$('.division-label-input').forEach(input => {
+    input.addEventListener('input', e => {
+      const d = parseInt(e.target.dataset.div);
+      state.newTournament.divisions[d].label = e.target.value.trim() || null;
     });
   });
-  selectDivision(divisions[0].name);
-
-  // Scroll to step 2
-  setTimeout(() => $('#resultsStep').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-}
-
-function selectDivision(divName) {
-  state.division = divName;
-  const t = state.resultsData.tournaments.find(x => x.id === state.tournamentId);
-  const d = t.divisions.find(x => x.name === divName);
-  if (!d) return;
-  renderPlaces(d);
-}
-
-function renderPlaces(div) {
-  const places = div.places || [];
-  const html = places.map(p => {
-    const rank = p.rank || 0;
-    const medalClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : 'other';
-    const rankLabel = rank === 1 ? '1st' : rank === 2 ? '2nd' : rank === 3 ? '3rd' : `${rank}th`;
-    const playerValue = escapeHtml((p.players || []).join(', '));
-    const photoKey = `${state.tournamentId}/${state.division}/${rank}`;
-    const pending = state.pendingPhotos[photoKey];
-    const hasPhoto = p.photo || pending;
-    return `
-      <div class="place-row" data-rank="${rank}">
-        <div class="place-label">
-          <div class="place-medal ${medalClass}">${rank}</div>
-          <span>${rankLabel} Place</span>
-        </div>
-        <textarea class="players-input" data-rank="${rank}" placeholder="Player names, separated by commas" rows="2">${playerValue}</textarea>
-        <div class="photo-zone ${hasPhoto?'has-photo':''}" data-rank="${rank}">
-          <input type="file" accept="image/*" data-rank="${rank}" />
-          ${pending ? `
-            <img src="${pending.preview}" class="photo-preview" alt="preview">
-            <div class="photo-filename">📸 ${escapeHtml(pending.filename)} (new, not yet saved)</div>
-          ` : (p.photo ? `
-            <img src="/${escapeAttr(p.photo)}" class="photo-preview" alt="existing photo" onerror="this.style.display='none'">
-            <div class="upload-hint">Photo already saved. <strong>Tap to replace</strong></div>
-          ` : `
-            <div class="upload-hint">📸 <strong>Tap to add photo</strong><br><small>or drag & drop here</small></div>
-          `)}
-        </div>
-      </div>
-    `;
-  }).join('');
-  $('#placesContainer').innerHTML = html;
-
-  // Wire up input events
   $$('.players-input').forEach(input => {
-    input.addEventListener('input', (e) => {
-      const rank = parseInt(e.target.dataset.rank);
-      const t = state.resultsData.tournaments.find(x => x.id === state.tournamentId);
-      const d = t.divisions.find(x => x.name === state.division);
-      const place = d.places.find(p => p.rank === rank);
-      if (place) {
-        place.players = e.target.value.split(',').map(s => s.trim()).filter(s => s);
+    input.addEventListener('input', e => {
+      const d = parseInt(e.target.dataset.div);
+      const p = parseInt(e.target.dataset.place);
+      state.newTournament.divisions[d].places[p].names = e.target.value;
+    });
+  });
+  $$('[data-action]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const a = btn.dataset.action;
+      const d = parseInt(btn.dataset.div);
+      const p = btn.dataset.place !== undefined ? parseInt(btn.dataset.place) : null;
+      if (a === 'add-place') addPlace(d);
+      else if (a === 'remove-place') removePlace(d, p);
+      else if (a === 'remove-div') removeDivision(d);
+    });
+  });
+  $$('.photo-zone').forEach(zone => {
+    const fi = zone.querySelector('input[type=file]');
+    zone.addEventListener('click', e => { if (e.target.tagName !== 'INPUT') fi.click(); });
+    fi.addEventListener('change', async e => {
+      if (e.target.files[0]) {
+        await handlePhoto(parseInt(e.target.dataset.div), parseInt(e.target.dataset.place), e.target.files[0]);
+      }
+    });
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.style.borderColor = 'var(--red)'; });
+    zone.addEventListener('dragleave', () => { zone.style.borderColor = ''; });
+    zone.addEventListener('drop', async e => {
+      e.preventDefault(); zone.style.borderColor = '';
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        await handlePhoto(parseInt(zone.dataset.div), parseInt(zone.dataset.place), file);
       }
     });
   });
-
-  // Wire up photo zones
-  $$('.photo-zone').forEach(zone => {
-    const rank = parseInt(zone.dataset.rank);
-    const fileInput = zone.querySelector('input[type=file]');
-    zone.addEventListener('click', (e) => {
-      if (e.target.tagName !== 'INPUT') fileInput.click();
-    });
-    fileInput.addEventListener('change', async (e) => {
-      if (e.target.files[0]) await handlePhoto(rank, e.target.files[0]);
-    });
-    // Drag & drop
-    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.style.borderColor = 'var(--red)'; });
-    zone.addEventListener('dragleave', () => { zone.style.borderColor = ''; });
-    zone.addEventListener('drop', async (e) => {
-      e.preventDefault();
-      zone.style.borderColor = '';
-      const file = e.dataTransfer.files[0];
-      if (file && file.type.startsWith('image/')) await handlePhoto(rank, file);
-    });
-  });
 }
 
-async function handlePhoto(rank, file) {
-  const t = state.resultsData.tournaments.find(x => x.id === state.tournamentId);
-  const d = t.divisions.find(x => x.name === state.division);
-  const place = d.places.find(p => p.rank === rank);
-  if (!place) return;
+function addPlace(d) {
+  const places = state.newTournament.divisions[d].places;
+  places.push({ rank: places.length + 1, names: '', photo: '' });
+  renderDivisions();
+}
+function removePlace(d, p) {
+  const places = state.newTournament.divisions[d].places;
+  places.splice(p, 1);
+  places.forEach((pl, i) => { if (typeof pl.rank === 'number') pl.rank = i + 1; });
+  state.pendingPhotos = Object.fromEntries(Object.entries(state.pendingPhotos).filter(([k]) => !k.startsWith(`${d}/`)));
+  renderDivisions();
+}
+$('#addDivisionBtn').addEventListener('click', () => {
+  state.newTournament.divisions.push({
+    label: 'New Division', columns: 2,
+    places: [
+      { rank: 1, names: '', photo: '' },
+      { rank: 2, names: '', photo: '' },
+      { rank: 3, names: '', photo: '' }
+    ]
+  });
+  renderDivisions();
+});
+function removeDivision(d) {
+  if (!confirm('Remove this division?')) return;
+  state.newTournament.divisions.splice(d, 1);
+  state.pendingPhotos = {};
+  renderDivisions();
+}
 
+async function handlePhoto(d, p, file) {
   try {
-    // Resize to reasonable size (max 1400px) and convert to JPEG
-    const { blob, dataUrl } = await resizeImage(file, 1400, 0.85);
+    const { dataUrl } = await resizeImage(file, 1400, 0.85);
     const b64 = dataUrl.split(',')[1];
-
-    // Build filename from rank + players
-    const playersSlug = (place.players || []).join('-')
-      .toLowerCase()
-      .replace(/[^a-z0-9-]+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '') || 'photo';
-    const filename = `${rank}-${playersSlug}.jpg`;
-    const path = `photos/${state.tournamentId}/${filename}`;
-
-    const key = `${state.tournamentId}/${state.division}/${rank}`;
-    state.pendingPhotos[key] = {
-      path,
-      base64: b64,
-      filename,
-      preview: dataUrl,
-      rank
-    };
-
-    // Update the place.photo field to point to the NEW path (will be written on commit)
-    place.photo = path;
-
-    // Re-render
-    renderPlaces(d);
+    const place = state.newTournament.divisions[d].places[p];
+    const namesSlug = (place.names || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'photo';
+    const rank = place.rank;
+    const rankStr = typeof rank === 'number' ? `${rank}` : String(rank).replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+    const filename = `${rankStr}-${namesSlug}.jpg`.slice(0, 80);
+    const path = `photos/${state.newTournament.id}/${filename}`;
+    state.pendingPhotos[`${d}/${p}`] = { path, base64: b64, filename, preview: dataUrl };
+    place.photo = `/${path}`;
+    renderDivisions();
   } catch (e) {
-    alert('Could not process photo: ' + e.message);
+    alert('Photo error: ' + e.message);
   }
 }
 
-function resizeImage(file, maxSize, quality) {
+function resizeImage(file, max, q) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const img = new Image();
       img.onload = () => {
         let { width, height } = img;
-        if (width > maxSize || height > maxSize) {
-          if (width > height) {
-            height = Math.round(height * (maxSize / width));
-            width = maxSize;
-          } else {
-            width = Math.round(width * (maxSize / height));
-            height = maxSize;
-          }
+        if (width > max || height > max) {
+          if (width > height) { height = Math.round(height * (max / width)); width = max; }
+          else { width = Math.round(width * (max / height)); height = max; }
         }
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        const dataUrl = canvas.toDataURL('image/jpeg', quality);
-        canvas.toBlob(blob => resolve({ blob, dataUrl }), 'image/jpeg', quality);
+        const c = document.createElement('canvas');
+        c.width = width; c.height = height;
+        c.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve({ dataUrl: c.toDataURL('image/jpeg', q) });
       };
-      img.onerror = reject;
-      img.src = e.target.result;
+      img.onerror = reject; img.src = e.target.result;
     };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+    reader.onerror = reject; reader.readAsDataURL(file);
   });
 }
 
-/* ─── Commit flow ─── */
 async function publish() {
   const btn = $('#publishBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Publishing…';
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Publishing…';
   $('#commitStatus').innerHTML = '';
-
   try {
-    const photos = Object.values(state.pendingPhotos).map(p => ({
-      path: p.path,
-      base64: p.base64
-    }));
+    const results = state.resultsData;
+    const idx = results.tournaments.findIndex(t => t.id === state.newTournament.id);
+    if (idx >= 0) results.tournaments[idx] = state.newTournament;
+    else results.tournaments.unshift(state.newTournament);
 
-    const t = state.resultsData.tournaments.find(x => x.id === state.tournamentId);
-    const msg = `Update results: ${t ? t.name : state.tournamentId}`;
-
-    const result = await apiCommit(state.resultsData, photos, msg);
-
-    $('#commitStatus').innerHTML = `
-      <div class="status success">
-        ✓ Published! ${result.filesCommitted} file${result.filesCommitted===1?'':'s'} committed.<br>
-        <small>Changes will appear on swlawnbowls.org in about 60 seconds.</small>
-      </div>
-    `;
+    const photos = Object.values(state.pendingPhotos).map(p => ({ path: p.path, base64: p.base64 }));
+    const r = await apiCommit(results, photos, `Publish results: ${state.newTournament.title}`);
+    $('#commitStatus').innerHTML = `<div class="status success">✓ Published! ${r.filesCommitted} file${r.filesCommitted===1?'':'s'} committed.<br><small>Live on swlawnbowls.org in ~60 seconds.</small></div>`;
     state.pendingPhotos = {};
-    btn.innerHTML = 'Publish another';
+    btn.innerHTML = 'Publish another event';
     btn.disabled = false;
+    btn.addEventListener('click', () => location.reload(), { once: true });
   } catch (e) {
-    $('#commitStatus').innerHTML = `
-      <div class="status error">
-        Could not publish: ${e.message}<br>
-        <small>Try again, or contact GG if this keeps happening.</small>
-      </div>
-    `;
-    btn.innerHTML = 'Try again';
-    btn.disabled = false;
+    $('#commitStatus').innerHTML = `<div class="status error">Could not publish: ${escapeHtml(e.message)}<br><small>Try again or contact GG.</small></div>`;
+    btn.innerHTML = 'Try again'; btn.disabled = false;
   }
 }
 
-/* ─── Utilities ─── */
-function escapeHtml(s) {
-  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
-}
+function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function escapeAttr(s) { return escapeHtml(s); }
 
-/* ─── Init ─── */
 $('#loginBtn').addEventListener('click', doLogin);
 $('#password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 $('#username').addEventListener('keydown', e => { if (e.key === 'Enter') $('#password').focus(); });
 $('#publishBtn').addEventListener('click', publish);
 
-// Resume session on load
 (() => {
   const s = loadSession();
-  if (s) {
-    state.token = s.token;
-    state.username = s.username;
-    state.expiresAt = s.expiresAt;
-    enterApp();
-  }
+  if (s) { state.token = s.token; state.username = s.username; state.expiresAt = s.expiresAt; enterApp(); }
 })();
 </script>
 </body>
