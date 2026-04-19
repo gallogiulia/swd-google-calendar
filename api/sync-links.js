@@ -121,14 +121,19 @@ async function scrapeSquarespaceLinksAllowedOnly() {
 
   const candidateUrls = [...new Set(hrefs.map(normalizeSquarespaceUrl).filter(Boolean))];
 
+  const filtered = candidateUrls.filter((url) => {
+    if (HARD_BLOCK.has(url)) return false;
+    return slugFromUrl(url).startsWith(REQUIRED_SLUG_PREFIX);
+  });
+
   const allowedLiveUrls = [];
-  for (const url of candidateUrls) {
-    if (HARD_BLOCK.has(url)) continue;
-
-    const slug = slugFromUrl(url);
-    if (!slug.startsWith(REQUIRED_SLUG_PREFIX)) continue;
-
-    if (await isLiveUrl(url)) allowedLiveUrls.push(url);
+  const LIVENESS_CONCURRENCY = 10;
+  for (let i = 0; i < filtered.length; i += LIVENESS_CONCURRENCY) {
+    const chunk = filtered.slice(i, i + LIVENESS_CONCURRENCY);
+    const results = await Promise.all(
+      chunk.map(async (url) => ({ url, live: await isLiveUrl(url) }))
+    );
+    for (const { url, live } of results) if (live) allowedLiveUrls.push(url);
   }
 
   return allowedLiveUrls
@@ -176,6 +181,8 @@ function pickStrictMatch(eventSummary, allowedLinks, logs) {
 // ------------------------
 // Vercel handler
 // ------------------------
+export const config = { maxDuration: 60 };
+
 export default async function handler(req, res) {
   const providedSecret = req.query.key || req.headers.authorization?.split(" ")[1];
   if (!process.env.CRON_SECRET || providedSecret !== process.env.CRON_SECRET) {
@@ -210,8 +217,9 @@ export default async function handler(req, res) {
     let eventsPatched = 0;
     let removedUrlCount = 0;
     let addedUrlCount = 0;
+    const calendarErrors = [];
 
-    for (const calendarId of CALENDAR_IDS) {
+    await Promise.all(CALENDAR_IDS.map(async (calendarId) => {
       try {
         const events = await calendar.events.list({
           calendarId,
@@ -222,54 +230,54 @@ export default async function handler(req, res) {
           orderBy: "startTime",
         });
 
-        for (const event of events.data.items || []) {
+        const items = events.data.items || [];
+        const updates = [];
+        for (const event of items) {
           const originalDesc = event.description || "";
-
-          // 2) Remove ALL disallowed tournament URLs (anything not 2026-)
           const { cleaned, removed } = removeDisallowedTournamentUrls(originalDesc);
-
-          // 3) Strictly decide if we can add ONE correct link (or skip)
           const match = pickStrictMatch(event.summary, allowedLinks, logs);
 
           let newDesc = cleaned;
-
-          // Add if we found exactly one unambiguous match and it isn't already there
           if (match && !newDesc.includes(match.url)) {
             newDesc = `${newDesc}\n\nRegistration: ${match.url}`.trim();
           }
-
-          const changed = newDesc.trim() !== originalDesc.trim();
-          if (!changed) continue;
-
-          // record change (small)
-          changes.push({
-            calendarId,
-            summary: event.summary,
-            removed: removed,
-            added: match ? match.url : null,
-          });
-
-          if (!dryRun) {
-            await calendar.events.patch({
-              calendarId,
-              eventId: event.id,
-              requestBody: { description: newDesc },
-            });
-          }
-
-          eventsPatched++;
-          removedUrlCount += removed.length;
-          if (match && !originalDesc.includes(match.url)) addedUrlCount++;
+          if (newDesc.trim() === originalDesc.trim()) continue;
+          updates.push({ event, newDesc, removed, match, originalDesc });
         }
 
-        logs.push(`${calendarId}: OK (events=${(events.data.items || []).length})`);
+        const PATCH_CONCURRENCY = 5;
+        for (let i = 0; i < updates.length; i += PATCH_CONCURRENCY) {
+          const chunk = updates.slice(i, i + PATCH_CONCURRENCY);
+          await Promise.all(chunk.map(async ({ event, newDesc, removed, match, originalDesc }) => {
+            changes.push({
+              calendarId,
+              summary: event.summary,
+              removed,
+              added: match ? match.url : null,
+            });
+            if (!dryRun) {
+              await calendar.events.patch({
+                calendarId,
+                eventId: event.id,
+                requestBody: { description: newDesc },
+              });
+            }
+            eventsPatched++;
+            removedUrlCount += removed.length;
+            if (match && !originalDesc.includes(match.url)) addedUrlCount++;
+          }));
+        }
+
+        logs.push(`${calendarId}: OK (events=${items.length}, patched=${updates.length})`);
       } catch (calendarError) {
+        calendarErrors.push({ calendarId, message: calendarError.message });
         logs.push(`${calendarId}: FAILED - ${calendarError.message}`);
       }
-    }
+    }));
 
-    return res.status(200).json({
-      success: true,
+    const status = calendarErrors.length ? 500 : 200;
+    return res.status(status).json({
+      success: calendarErrors.length === 0,
       dryRun,
       requiredSlugPrefix: REQUIRED_SLUG_PREFIX,
       hardBlock: Array.from(HARD_BLOCK),
@@ -277,6 +285,7 @@ export default async function handler(req, res) {
       eventsPatched,
       removedUrlCount,
       addedUrlCount,
+      calendarErrors,
       // keep this short; if it’s big, use dryRun and filter by event on client
       changes,
       diagnostics: logs,
