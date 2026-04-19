@@ -1,6 +1,3 @@
-import { createRequire } from "module";
-const _require = createRequire(import.meta.url);
-
 let CACHE = { t: 0, d: null, key: "" };
 const TTL = (Number(process.env.GCAL_CACHE_MINUTES || 2)) * 60000;
 const IDS = [
@@ -28,18 +25,27 @@ function extractUrl(text) {
   return match ? match[0] : null;
 }
 
-// Embed events-data.json at build time via require() — Vercel includes it
-// in the function bundle automatically because of the static require path.
-let DATA_ENTRIES = null;
-function loadDataEntries() {
-  if (DATA_ENTRIES) return DATA_ENTRIES;
+// Fetch events-data.json over HTTP so each GCal event can be enriched with a
+// matching tournament's deadline + fee. Cached per TTL.
+let DATA_CACHE = { t: 0, data: null, diag: "" };
+async function loadDataEntries() {
+  const now = Date.now();
+  if (DATA_CACHE.data && now - DATA_CACHE.t < TTL) return DATA_CACHE;
+  const url = "https://swd-google-calendar.vercel.app/events-data.json";
   try {
-    const data = _require("../events-data.json");
-    DATA_ENTRIES = (data.events || []).filter((e) => e && e.title);
-  } catch {
-    DATA_ENTRIES = [];
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) {
+      DATA_CACHE = { t: now, data: [], diag: `status=${r.status}` };
+      return DATA_CACHE;
+    }
+    const j = await r.json();
+    const list = (j.events || []).filter((e) => e && e.title);
+    DATA_CACHE = { t: now, data: list, diag: `loaded=${list.length}` };
+    return DATA_CACHE;
+  } catch (err) {
+    DATA_CACHE = { t: now, data: [], diag: `error=${err.message || "unknown"}` };
+    return DATA_CACHE;
   }
-  return DATA_ENTRIES;
 }
 
 function normTitle(s) {
@@ -104,7 +110,8 @@ export default async function (req, res) {
     max = new Date(Date.now() + days * 86400000).toISOString();
   }
 
-  const dataEntries = loadDataEntries();
+  const dataBundle = await loadDataEntries();
+  const dataEntries = dataBundle.data || [];
 
   let ev = [];
   for (const id of IDS) {
@@ -148,6 +155,7 @@ export default async function (req, res) {
     });
   }
   ev.sort((a, b) => new Date(a.start) - new Date(b.start));
-  CACHE = { t: now, d: { events: ev }, key: cacheKey };
-  res.json(CACHE.d);
+  const payload = { events: ev, _dataDiag: dataBundle.diag || "" };
+  CACHE = { t: now, d: payload, key: cacheKey };
+  res.json(payload);
 }
