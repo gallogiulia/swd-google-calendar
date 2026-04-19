@@ -1,113 +1,804 @@
 <!doctype html>
-<!--
-SWD 2026 Agenda Calendar
----------------------------------------
-• Loads events dynamically from hub API
-• Displays tournaments in list view (year)
-• Shows a "View" button ONLY if a Squarespace URL exists
-• No capacity logic
-• No placeholders ("Link Coming Soon" removed)
-• Fully iframe-safe for Squarespace embedding
----------------------------------------
--->
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SWD Events – 2026 Agenda</title>
+  <title>SWD Season Agenda</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
   <style>
-    body { font-family: system-ui, sans-serif; background: #fafafa; margin: 0; padding: 16px; }
-    .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    .fc-header-toolbar { display: none !important; }
-    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 8px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px 12px 0 0; background: #fafafa; font-size: 0.85rem; }
-    .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
-    .info-bar { margin-bottom: 20px; padding: 12px 16px; border: 1px solid #fde68a; border-top: none; border-radius: 0 0 12px 12px; background: #fffbeb; font-size: 0.85rem; color: #92400e; line-height: 1.4; }
-    .refresh-btn { background: #2b6cb0; border: none; color: white; padding: 8px 16px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-    .fc-list-day-cushion { background: #f1f1f1 !important; padding: 12px !important; }
+    :root {
+      --brand: #1a365d;
+      --brand-2: #2b6cb0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e5e7eb;
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --radius: 14px;
+      --shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    /* ---------- Header ---------- */
+    header.page {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    header.page h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--brand);
+      letter-spacing: -0.01em;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .select, .btn {
+      font: inherit;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .select:focus, .btn:focus { outline: 2px solid var(--brand-2); outline-offset: 1px; }
+
+    .btn-link {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--brand-2);
+      font-weight: 600;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .view-toggle button {
+      font: inherit;
+      height: 38px;
+      padding: 0 14px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .view-toggle button.active {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    /* ---------- Filters / legend ---------- */
+    .filters {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .filters label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 4px 2px;
+      user-select: none;
+    }
+    .filters input[type="checkbox"] { accent-color: var(--brand); width: 15px; height: 15px; }
+    .swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    .info-bar {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+    }
+
+    /* ---------- Agenda view ---------- */
+    .month-group { margin-top: 18px; }
+    .month-header {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      padding: 8px 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    .event {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: border-color 0.15s ease;
+    }
+    .event:hover { border-color: #cbd5e1; }
+    .event.expanded { border-color: var(--brand-2); }
+
+    .event-row {
+      display: grid;
+      grid-template-columns: 74px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 12px 14px;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      width: 100%;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+    }
+    .event-row:hover { background: #f8fafc; }
+
+    .date-col {
+      text-align: center;
+      border-right: 1px solid var(--border);
+      padding-right: 12px;
+    }
+    .date-col .day {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--brand);
+      line-height: 1.1;
+    }
+    .date-col .dow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .date-col .range {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .event-main { min-width: 0; }
+    .event-title {
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.25;
+      margin: 0 0 4px;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .event-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      align-items: center;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .source-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .chev {
+      display: inline-block;
+      color: var(--muted);
+      transition: transform 0.2s ease;
+    }
+    .event.expanded .chev { transform: rotate(180deg); color: var(--brand-2); }
+
+    .event-panel {
+      display: none;
+      padding: 0 16px 16px 16px;
+      border-top: 1px solid var(--border);
+      background: #fbfdff;
+    }
+    .event.expanded .event-panel { display: block; }
+    .event-panel .desc {
+      white-space: pre-wrap;
+      font-size: 0.92rem;
+      color: #334155;
+      margin: 12px 0 14px;
+      word-break: break-word;
+    }
+    .event-panel .desc a { color: var(--brand-2); }
+    .event-panel .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .action-btn {
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .action-btn:hover { border-color: var(--brand-2); color: var(--brand-2); }
+    .action-btn.primary {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand);
+    }
+    .action-btn.primary:hover { background: var(--brand-2); border-color: var(--brand-2); color: #fff; }
+
+    /* ---------- Month view (FullCalendar) ---------- */
+    #month-view {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px;
+      box-shadow: var(--shadow);
+    }
+    .fc .fc-toolbar-title { font-size: 1.1rem; color: var(--brand); }
+    .fc .fc-button-primary { background: var(--brand); border-color: var(--brand); }
+    .fc .fc-button-primary:hover { background: var(--brand-2); border-color: var(--brand-2); }
+    .fc .fc-daygrid-event { border-radius: 6px; padding: 2px 6px; font-size: 0.82rem; }
+
+    /* ---------- States ---------- */
+    .state {
+      padding: 40px 16px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+    }
+
+    .hidden { display: none !important; }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 560px) {
+      header.page h1 { font-size: 1.2rem; }
+      .controls { width: 100%; justify-content: space-between; }
+      .event-row { grid-template-columns: 64px 1fr auto; gap: 10px; padding: 10px 12px; }
+      .date-col .day { font-size: 1.2rem; }
+      .event-title { font-size: 0.98rem; }
+      .event-panel .actions { flex-direction: column; align-items: stretch; }
+      .action-btn { justify-content: center; }
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="wrap">
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-      <h1 style="margin:0;">2026 Season Agenda</h1>
-      <button class="refresh-btn" onclick="initPage()">↻ REFRESH</button>
-    </div>
-    
-    <div class="legend">
-      <span><span class="swatch" style="background:#059669"></span> Women’s</span>
-      <span><span class="swatch" style="background:#dc2626"></span> Men’s</span>
-      <span><span class="swatch" style="background:#2563eb"></span> Club Sponsored</span>
-      <span><span class="swatch" style="background:#7c3aed"></span> Other Tournaments</span>
-      <span><span class="swatch" style="background:#f59e0b"></span> PBA</span>
-    </div>
+    <header class="page">
+      <h1 id="page-title">Season Agenda</h1>
+      <div class="controls">
+        <select id="year-select" class="select" aria-label="Year"></select>
+        <div class="view-toggle" role="tablist" aria-label="View">
+          <button type="button" id="view-agenda" class="active" role="tab" aria-selected="true">Agenda</button>
+          <button type="button" id="view-month" role="tab" aria-selected="false">Month</button>
+        </div>
+        <a id="pdf-link" class="btn-link" href="#" target="_blank" rel="noopener">Download PDF</a>
+      </div>
+    </header>
+
+    <div class="filters" id="filters" aria-label="Filter by source"></div>
 
     <div class="info-bar">
-      <strong>Tournament Notice:</strong> Forms and details are typically posted <strong>5–6 weeks</strong> prior to the event.
-      <br><em>Click "View" to open the official tournament page.</em>
+      <strong>Tournament notice:</strong> forms and details are typically posted <strong>5–6 weeks</strong> prior to the event.
+      Click any tournament to see the details, export to your calendar, or open the official page.
     </div>
 
-    <div id="agenda"></div>
+    <section id="agenda-view"></section>
+    <section id="month-view" class="hidden"><div id="calendar"></div></section>
+
+    <div id="state-loading" class="state">Loading…</div>
+    <div id="state-empty" class="state hidden">No tournaments match the current filters.</div>
+    <div id="state-error" class="state hidden">Couldn't load events. Please refresh.</div>
 
   </div>
 
 <script>
-  function initPage() {
-    fetch(`https://hub.swlawnbowls.org/api/events?year=2026`)
-      .then(r => r.json())
-      .then(eventData => renderCalendar(eventData.events || []))
-      .catch(err => console.error("Load failed", err));
+  "use strict";
+
+  const SOURCES = [
+    { key: "Women's",        color: "#059669" },
+    { key: "Men's",          color: "#dc2626" },
+    { key: "Club Sponsored", color: "#2563eb" },
+    { key: "Other",          color: "#7c3aed" },
+    { key: "PBA USA",        color: "#f59e0b" }
+  ];
+
+  const PREFS_KEY = "swd-agenda-prefs-v1";
+  const DEFAULT_YEAR = 2026;
+
+  const state = {
+    year: DEFAULT_YEAR,
+    view: "agenda",           // "agenda" | "month"
+    sources: {},              // { sourceKey: boolean }
+    events: [],
+    expandedId: null,
+    fcInstance: null,
+  };
+
+  // ---------- Prefs ----------
+  function loadPrefs() {
+    try {
+      const raw = localStorage.getItem(PREFS_KEY);
+      if (!raw) return {};
+      return JSON.parse(raw) || {};
+    } catch { return {}; }
+  }
+  function savePrefs() {
+    try {
+      localStorage.setItem(PREFS_KEY, JSON.stringify({
+        view: state.view,
+        year: state.year,
+        sources: state.sources,
+      }));
+    } catch {}
   }
 
-  function renderCalendar(events) {
-    const calendarEl = document.getElementById("agenda");
-    calendarEl.innerHTML = '';
-
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: "listYear",
-      initialDate: "2026-02-01",
-      headerToolbar: false,
-      events: events,
-
-      eventContent: function(arg) {
-        const title = arg.event.title;
-
-        // Safely retrieve event URL from API
-        const eventUrl =
-          arg.event.extendedProps?.eventUrl ||
-          arg.event._def?.extendedProps?.eventUrl ||
-          arg.event.url ||
-          '';
-
-        const buttonHtml = eventUrl
-          ? `<a href="${eventUrl}" target="_blank"
-               style="background:#2b6cb0; color:white; padding:6px 12px; border-radius:8px;
-                      font-weight:700; text-decoration:none; display:inline-block;">
-               View
-             </a>`
-          : ``;
-
-        return {
-          html: `
-            <div style="padding:10px 0;">
-              <div style="font-weight:800; font-size:1.3rem;">${title}</div>
-              ${buttonHtml ? `<div style="margin-top:10px;">${buttonHtml}</div>` : ``}
-            </div>`
-        };
-      }
+  // ---------- Init controls ----------
+  function initYearSelect() {
+    const sel = document.getElementById("year-select");
+    const base = new Date().getUTCFullYear();
+    const years = Array.from(new Set([base - 1, base, base + 1, DEFAULT_YEAR])).sort();
+    sel.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join("");
+    sel.value = String(state.year);
+    sel.addEventListener("change", () => {
+      state.year = Number(sel.value) || DEFAULT_YEAR;
+      state.expandedId = null;
+      savePrefs();
+      updatePdfLink();
+      loadAndRender();
     });
-
-    calendar.render();
   }
 
-  initPage();
-</script>
+  function initViewToggle() {
+    const a = document.getElementById("view-agenda");
+    const m = document.getElementById("view-month");
+    function setView(v) {
+      state.view = v;
+      state.expandedId = null;
+      a.classList.toggle("active", v === "agenda");
+      m.classList.toggle("active", v === "month");
+      a.setAttribute("aria-selected", String(v === "agenda"));
+      m.setAttribute("aria-selected", String(v === "month"));
+      document.getElementById("agenda-view").classList.toggle("hidden", v !== "agenda");
+      document.getElementById("month-view").classList.toggle("hidden", v !== "month");
+      savePrefs();
+      render();
+    }
+    a.addEventListener("click", () => setView("agenda"));
+    m.addEventListener("click", () => setView("month"));
+  }
 
+  function initFilters() {
+    const box = document.getElementById("filters");
+    box.innerHTML = SOURCES.map(s => `
+      <label>
+        <input type="checkbox" data-source="${s.key}" ${state.sources[s.key] === false ? "" : "checked"}>
+        <span class="swatch" style="background:${s.color}"></span>
+        <span>${s.key}</span>
+      </label>
+    `).join("");
+    box.querySelectorAll("input[type=checkbox]").forEach(cb => {
+      cb.addEventListener("change", () => {
+        state.sources[cb.dataset.source] = cb.checked;
+        savePrefs();
+        render();
+      });
+    });
+  }
+
+  function updatePdfLink() {
+    const a = document.getElementById("pdf-link");
+    a.href = `/api/agenda.pdf?year=${state.year}&mode=year`;
+  }
+
+  function updateTitle() {
+    document.getElementById("page-title").textContent = `${state.year} Season Agenda`;
+  }
+
+  // ---------- Data ----------
+  async function loadAndRender() {
+    showLoading();
+    try {
+      const r = await fetch(`/api/events?year=${state.year}`, { cache: "no-store" });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const j = await r.json();
+      state.events = (j.events || []).map(e => ({
+        ...e,
+        source: e.source || "Other",
+      }));
+      render();
+    } catch (err) {
+      console.error("load failed", err);
+      showError();
+    }
+  }
+
+  // ---------- Render ----------
+  function showLoading() {
+    document.getElementById("state-loading").classList.remove("hidden");
+    document.getElementById("state-empty").classList.add("hidden");
+    document.getElementById("state-error").classList.add("hidden");
+    document.getElementById("agenda-view").classList.add("hidden");
+    document.getElementById("month-view").classList.add("hidden");
+  }
+  function showError() {
+    document.getElementById("state-loading").classList.add("hidden");
+    document.getElementById("state-empty").classList.add("hidden");
+    document.getElementById("state-error").classList.remove("hidden");
+  }
+
+  function visibleEvents() {
+    return state.events.filter(e => state.sources[e.source] !== false);
+  }
+
+  function render() {
+    document.getElementById("state-loading").classList.add("hidden");
+    document.getElementById("state-error").classList.add("hidden");
+
+    const vis = visibleEvents();
+    const empty = vis.length === 0;
+    document.getElementById("state-empty").classList.toggle("hidden", !empty);
+
+    if (state.view === "agenda") {
+      document.getElementById("agenda-view").classList.toggle("hidden", empty);
+      document.getElementById("month-view").classList.add("hidden");
+      if (!empty) renderAgenda(vis);
+    } else {
+      document.getElementById("month-view").classList.toggle("hidden", empty);
+      document.getElementById("agenda-view").classList.add("hidden");
+      if (!empty) renderMonth(vis);
+    }
+    postHeightToParent();
+  }
+
+  // ---------- Agenda view ----------
+  const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+  function parseISODate(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(Date.UTC(y, m - 1, d));
+  }
+
+  function daysBetween(startISO, endISO) {
+    const a = parseISODate(startISO);
+    const b = parseISODate(endISO);
+    return Math.max(0, Math.round((b - a) / 86400000));
+  }
+
+  function sourceColor(src) {
+    return (SOURCES.find(s => s.key === src) || {}).color || "#64748b";
+  }
+
+  function escapeHtml(s) {
+    return String(s ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+    }[c]));
+  }
+
+  // Turn raw URLs in a text blob into anchor tags
+  function linkifyText(s) {
+    const esc = escapeHtml(s);
+    return esc.replace(/(https?:\/\/[^\s<]+)/g, url =>
+      `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
+  }
+
+  function renderAgenda(events) {
+    const container = document.getElementById("agenda-view");
+    const groups = {};
+    events.forEach(e => {
+      const d = parseISODate(e.start);
+      const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+      (groups[key] ||= []).push(e);
+    });
+    const orderedKeys = Object.keys(groups).sort();
+
+    const html = orderedKeys.map(k => {
+      const [y, m] = k.split("-").map(Number);
+      const monthLabel = `${MONTHS[m - 1]} ${y}`;
+      const rows = groups[k].map(e => renderEventRow(e)).join("");
+      return `
+        <div class="month-group">
+          <div class="month-header">${monthLabel}</div>
+          ${rows}
+        </div>`;
+    }).join("");
+    container.innerHTML = html;
+
+    // Attach click handlers
+    container.querySelectorAll(".event-row").forEach(btn => {
+      btn.addEventListener("click", () => toggleExpand(btn.dataset.eventId));
+    });
+    container.querySelectorAll(".action-btn[data-action]").forEach(btn => {
+      btn.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        const id = btn.closest(".event").dataset.eventId;
+        if (btn.dataset.action === "ics") downloadIcs(id);
+      });
+    });
+  }
+
+  function renderEventRow(e) {
+    const start = parseISODate(e.start);
+    const span = daysBetween(e.start, e.end);
+    const multiDay = span > 1;
+    const day = start.getUTCDate();
+    const dow = DOW[start.getUTCDay()];
+
+    let rangeLine = "";
+    if (multiDay) {
+      const endDate = parseISODate(e.end);
+      endDate.setUTCDate(endDate.getUTCDate() - 1);
+      rangeLine = `<div class="range">to ${MONTHS[endDate.getUTCMonth()].slice(0,3)} ${endDate.getUTCDate()}</div>`;
+    }
+
+    const loc = e.location ? escapeHtml(String(e.location).split(",")[0].trim()) : "";
+    const pillColor = sourceColor(e.source);
+    const expanded = state.expandedId === e.id ? " expanded" : "";
+
+    const hasExternal = !!e.eventUrl;
+    const actions = [
+      `<button type="button" class="action-btn" data-action="ics">📥 Download .ics</button>`,
+      `<a class="action-btn" href="${gcalUrl(e)}" target="_blank" rel="noopener">📅 Add to Google Calendar</a>`,
+      hasExternal
+        ? `<a class="action-btn primary" href="${escapeHtml(e.eventUrl)}" target="_blank" rel="noopener">Open tournament page →</a>`
+        : ""
+    ].filter(Boolean).join("");
+
+    const descBlock = e.description
+      ? `<div class="desc">${linkifyText(e.description)}</div>`
+      : `<div class="desc" style="color:var(--muted); font-style: italic;">No additional details yet.</div>`;
+
+    return `
+      <div class="event${expanded}" data-event-id="${escapeHtml(e.id)}">
+        <button type="button" class="event-row" data-event-id="${escapeHtml(e.id)}" aria-expanded="${expanded ? "true" : "false"}">
+          <div class="date-col">
+            <div class="day">${day}</div>
+            <div class="dow">${dow}</div>
+            ${rangeLine}
+          </div>
+          <div class="event-main">
+            <div class="event-title">${escapeHtml(e.title || "Untitled")}</div>
+            <div class="event-meta">
+              <span class="source-pill" style="background:${pillColor}">${escapeHtml(e.source)}</span>
+              ${loc ? `<span>📍 ${loc}</span>` : ""}
+              ${multiDay ? `<span>${span} days</span>` : ""}
+            </div>
+          </div>
+          <span class="chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="event-panel">
+          ${descBlock}
+          <div class="actions">${actions}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function toggleExpand(id) {
+    state.expandedId = (state.expandedId === id) ? null : id;
+    render();
+  }
+
+  // ---------- ICS / Google Calendar ----------
+  function ymdCompact(iso) { return iso.replace(/-/g, ""); }
+
+  function icsEscape(s) {
+    return String(s || "")
+      .replace(/\\/g, "\\\\")
+      .replace(/\n/g, "\\n")
+      .replace(/,/g, "\\,")
+      .replace(/;/g, "\\;");
+  }
+
+  function buildIcs(e) {
+    const now = new Date();
+    const stamp = now.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+    const lines = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//SWD Lawn Bowls//Agenda//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+      "BEGIN:VEVENT",
+      `UID:${e.id}@swlawnbowls.org`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${ymdCompact(e.start)}`,
+      `DTEND;VALUE=DATE:${ymdCompact(e.end)}`,
+      `SUMMARY:${icsEscape(e.title)}`,
+      e.location ? `LOCATION:${icsEscape(e.location)}` : null,
+      e.description ? `DESCRIPTION:${icsEscape(e.description)}` : null,
+      e.eventUrl ? `URL:${icsEscape(e.eventUrl)}` : null,
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].filter(Boolean);
+    return lines.join("\r\n");
+  }
+
+  function downloadIcs(eventId) {
+    const e = state.events.find(x => x.id === eventId);
+    if (!e) return;
+    const ics = buildIcs(e);
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const safeTitle = (e.title || "event").replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").toLowerCase() || "event";
+    a.href = url;
+    a.download = `${safeTitle}.ics`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function gcalUrl(e) {
+    const p = new URLSearchParams({
+      action: "TEMPLATE",
+      text: e.title || "",
+      dates: `${ymdCompact(e.start)}/${ymdCompact(e.end)}`,
+      location: e.location || "",
+      details: [(e.description || ""), e.eventUrl ? `\n${e.eventUrl}` : ""].join(""),
+    });
+    return `https://www.google.com/calendar/render?${p.toString()}`;
+  }
+
+  // ---------- Month view ----------
+  function renderMonth(events) {
+    const el = document.getElementById("calendar");
+    if (state.fcInstance) {
+      state.fcInstance.destroy();
+      state.fcInstance = null;
+    }
+    el.innerHTML = "";
+    const fcEvents = events.map(e => ({
+      id: e.id,
+      title: e.title,
+      start: e.start,
+      end: e.end,
+      allDay: true,
+      backgroundColor: sourceColor(e.source),
+      borderColor: sourceColor(e.source),
+      extendedProps: { eventUrl: e.eventUrl, source: e.source, description: e.description, location: e.location },
+    }));
+
+    state.fcInstance = new FullCalendar.Calendar(el, {
+      initialView: "dayGridMonth",
+      initialDate: `${state.year}-01-01`,
+      validRange: { start: `${state.year}-01-01`, end: `${state.year + 1}-01-01` },
+      height: "auto",
+      headerToolbar: { left: "prev,next today", center: "title", right: "" },
+      events: fcEvents,
+      eventClick(info) {
+        info.jsEvent.preventDefault();
+        document.getElementById("view-agenda").click();
+        state.expandedId = info.event.id;
+        render();
+        setTimeout(() => {
+          const target = document.querySelector(`.event[data-event-id="${CSS.escape(info.event.id)}"]`);
+          if (target && target.scrollIntoView) target.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 50);
+      },
+      datesSet: postHeightToParent,
+    });
+    state.fcInstance.render();
+  }
+
+  // ---------- Iframe height helper ----------
+  function postHeightToParent() {
+    if (window.parent === window) return;
+    try {
+      const h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
+      window.parent.postMessage({ type: "swd-agenda-height", height: h }, "*");
+    } catch {}
+  }
+
+  // ---------- Boot ----------
+  function boot() {
+    const prefs = loadPrefs();
+    if (prefs.view === "month" || prefs.view === "agenda") state.view = prefs.view;
+    if (typeof prefs.year === "number" && prefs.year >= 2020 && prefs.year <= 2100) state.year = prefs.year;
+    if (prefs.sources && typeof prefs.sources === "object") state.sources = prefs.sources;
+    SOURCES.forEach(s => { if (state.sources[s.key] === undefined) state.sources[s.key] = true; });
+
+    initYearSelect();
+    initViewToggle();
+    initFilters();
+    updatePdfLink();
+    updateTitle();
+
+    // Set initial view visibility
+    document.getElementById("agenda-view").classList.toggle("hidden", state.view !== "agenda");
+    document.getElementById("month-view").classList.toggle("hidden", state.view !== "month");
+    document.getElementById("view-agenda").classList.toggle("active", state.view === "agenda");
+    document.getElementById("view-month").classList.toggle("active", state.view === "month");
+
+    loadAndRender();
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(postHeightToParent).observe(document.body);
+    }
+    window.addEventListener("load", postHeightToParent);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+</script>
 </body>
 </html>
