@@ -1,5 +1,5 @@
 let CACHE = { t: 0, d: null, key: "" };
-const TTL = (Number(process.env.GCAL_CACHE_MINUTES || 10)) * 60000;
+const TTL = (Number(process.env.GCAL_CACHE_MINUTES || 2)) * 60000;
 const IDS = [
   "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com",
   "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com",
@@ -43,7 +43,8 @@ export default async function (req, res) {
   const days = Number(req.query.days || 180);
   const cacheKey = year ? `year:${year}` : `days:${days}`;
 
-  if (CACHE.d && CACHE.key === cacheKey && now - CACHE.t < TTL) return res.json(CACHE.d);
+  const bypass = req.query.refresh === "1" || req.query.refresh === "true";
+  if (!bypass && CACHE.d && CACHE.key === cacheKey && now - CACHE.t < TTL) return res.json(CACHE.d);
   if (!process.env.GCAL_API_KEY) return res.status(500).json({ error: "Missing key" });
 
   let min, max;
