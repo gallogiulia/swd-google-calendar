@@ -10,11 +10,9 @@ const CALENDAR_IDS = [
 
 const BASE_SITE = "https://www.swlawnbowls.org";
 const LISTING_URL = `${BASE_SITE}/2026-tournaments-events`;
+const CURRENT_YEAR = "2026";
 
-// Only allow item pages whose slug starts with "2026-"
-const REQUIRED_SLUG_PREFIX = "2026-";
-
-// Hard block these known-bad URLs too (belt + suspenders)
+// Hard block these known-bad URLs (belt + suspenders)
 const HARD_BLOCK = new Set([
   `${BASE_SITE}/2026-tournaments-events/2025-cambria-pairs`,
   `${BASE_SITE}/2026-tournaments-events/2025newport911`,
@@ -30,9 +28,34 @@ function normalizeText(s) {
   return (s || "")
     .toLowerCase()
     .replace(/['"]/g, "")
+    .replace(/\b(20\d{2})\b/g, "")        // strip 4-digit years like "2026"
     .replace(/[^a-z0-9 ]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+// Slugs that clearly point at a past-year tournament page
+function isStaleSlug(slug) {
+  return /^(2024|2025|24|25)(-|[a-z0-9])/.test(slug || "");
+}
+
+// Titles whose text mentions an older year and not the current one
+function isStaleTitle(title) {
+  const t = (title || "").toLowerCase();
+  return /\b202[0-5]\b/.test(t) && !new RegExp(`\\b${CURRENT_YEAR}\\b`).test(t);
+}
+
+// Decode a small set of common HTML entities
+function decodeEntities(s) {
+  return (s || "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&mdash;/g, "—")
+    .replace(/&ndash;/g, "–")
+    .replace(/&nbsp;/g, " ");
 }
 
 function slugFromUrl(url) {
@@ -65,15 +88,27 @@ async function isLiveUrl(url) {
   }
 }
 
-function nameFromSlug(slug) {
-  if (!slug) return null;
-
-  // Strip ONLY the required prefix from the display name
-  const cleaned = slug.startsWith(REQUIRED_SLUG_PREFIX) ? slug.slice(REQUIRED_SLUG_PREFIX.length) : slug;
-
-  const name = cleaned.replace(/-/g, " ").trim();
-  if (!name || name.length < 4) return null;
-  return name;
+// Parse the Squarespace event-list HTML for (url, title) pairs.
+// The listing renders each tournament as
+//   <a class="eventlist-title-link" href="/2026-tournaments-events/...">TITLE</a>
+// which is a much more reliable match name than the URL slug (many slugs are
+// opaque auto-generated ids or missing the "2026-" prefix entirely).
+function parseEventListEntries(html) {
+  const entries = [];
+  const re = /<a\s+[^>]*class="eventlist-title-link"[^>]*>([\s\S]*?)<\/a>/gi;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const hrefMatch = m[0].match(/href="([^"]+)"/);
+    if (!hrefMatch) continue;
+    const url = normalizeSquarespaceUrl(hrefMatch[1]);
+    if (!url) continue;
+    const text = decodeEntities(m[1].replace(/<[^>]+>/g, " "))
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!text || text.length < 4) continue;
+    entries.push({ url, title: text });
+  }
+  return entries;
 }
 
 // Extract ONLY SWLawnBowls collection URLs from text.
@@ -84,8 +119,8 @@ function extractTournamentUrls(text) {
   return [...new Set(s.match(re) || [])].map((u) => u.split("#")[0].split("?")[0]);
 }
 
-// Remove any disallowed URLs from description.
-// Disallowed = HARD_BLOCK OR slug does not start with "2026-"
+// Remove disallowed URLs from description.
+// Disallowed = HARD_BLOCK OR slug looks like a past-year tournament.
 function removeDisallowedTournamentUrls(description) {
   const urls = extractTournamentUrls(description);
   if (!urls.length) return { cleaned: description || "", removed: [] };
@@ -95,8 +130,7 @@ function removeDisallowedTournamentUrls(description) {
 
   for (const url of urls) {
     const slug = slugFromUrl(url);
-    const disallowed =
-      HARD_BLOCK.has(url) || !slug.startsWith(REQUIRED_SLUG_PREFIX);
+    const disallowed = HARD_BLOCK.has(url) || isStaleSlug(slug);
 
     if (disallowed) {
       const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -109,41 +143,39 @@ function removeDisallowedTournamentUrls(description) {
   return { cleaned, removed };
 }
 
-// Scrape Squarespace listing -> ONLY return live links whose slug starts with "2026-"
+// Scrape Squarespace listing -> return live 2026 tournament entries.
+// Uses the listing's own <a class="eventlist-title-link"> anchors so the match
+// name is the human-readable title ("2026 Joe Siegman Pairs") rather than an
+// opaque slug ("fpplunwh37kg2txohzdqaljob3f8yw-68nys").
 async function scrapeSquarespaceLinksAllowedOnly() {
   const response = await fetch(LISTING_URL, { redirect: "follow", cache: "no-store" });
   const html = await response.text();
 
-  const hrefRegex = /href="([^"]+)"/g;
-  const hrefs = [];
-  let m;
-  while ((m = hrefRegex.exec(html)) !== null) hrefs.push(m[1]);
+  const rawEntries = parseEventListEntries(html);
 
-  const candidateUrls = [...new Set(hrefs.map(normalizeSquarespaceUrl).filter(Boolean))];
+  // De-dupe by URL (keep first occurrence)
+  const byUrl = new Map();
+  for (const e of rawEntries) if (!byUrl.has(e.url)) byUrl.set(e.url, e);
 
-  const filtered = candidateUrls.filter((url) => {
-    if (HARD_BLOCK.has(url)) return false;
-    return slugFromUrl(url).startsWith(REQUIRED_SLUG_PREFIX);
+  const candidates = [...byUrl.values()].filter((e) => {
+    if (HARD_BLOCK.has(e.url)) return false;
+    if (isStaleSlug(slugFromUrl(e.url))) return false;
+    if (isStaleTitle(e.title)) return false;
+    return true;
   });
 
-  const allowedLiveUrls = [];
+  const allowedLinks = [];
   const LIVENESS_CONCURRENCY = 10;
-  for (let i = 0; i < filtered.length; i += LIVENESS_CONCURRENCY) {
-    const chunk = filtered.slice(i, i + LIVENESS_CONCURRENCY);
+  for (let i = 0; i < candidates.length; i += LIVENESS_CONCURRENCY) {
+    const chunk = candidates.slice(i, i + LIVENESS_CONCURRENCY);
     const results = await Promise.all(
-      chunk.map(async (url) => ({ url, live: await isLiveUrl(url) }))
+      chunk.map(async (e) => ({ ...e, live: await isLiveUrl(e.url) }))
     );
-    for (const { url, live } of results) if (live) allowedLiveUrls.push(url);
+    for (const r of results) {
+      if (r.live) allowedLinks.push({ name: r.title, url: r.url, slug: slugFromUrl(r.url) });
+    }
   }
-
-  return allowedLiveUrls
-    .map((url) => {
-      const slug = slugFromUrl(url);
-      const name = nameFromSlug(slug);
-      if (!name) return null;
-      return { name, url, slug };
-    })
-    .filter(Boolean);
+  return allowedLinks;
 }
 
 // Generic tournament vocabulary that is NOT on its own a useful signal for matching.
@@ -311,7 +343,6 @@ export default async function handler(req, res) {
     return res.status(status).json({
       success: calendarErrors.length === 0,
       dryRun,
-      requiredSlugPrefix: REQUIRED_SLUG_PREFIX,
       hardBlock: Array.from(HARD_BLOCK),
       allowedLinksUsed: allowedLinks.length,
       eventsPatched,
