@@ -303,9 +303,10 @@
           // Event must be strictly in the future — an event happening today
           // is no longer "open for registration".
           if (parseISODate(e.start) <= today) return false;
-          // If we can parse a deadline from the description and it's already
-          // past, registration is closed — hide it.
-          const deadline = parseDeadlineDate(extractDeadline(e.description));
+          // Prefer the structured deadline from events-data.json (attached
+          // by /api/events) over best-effort description parsing.
+          const deadlineText = e.deadline || extractDeadline(e.description);
+          const deadline = parseDeadlineDate(deadlineText);
           if (deadline && deadline < today) return false;
           return true;
         })
@@ -340,7 +341,9 @@
     const loc = esc(shortLocation(e.location));
     const source = e.source || "Other";
     const color = SOURCE_COLOR[source] || "#64748b";
-    const deadline = extractDeadline(e.description);
+    // Structured deadline (from events-data.json via /api/events) wins over
+    // best-effort description parsing.
+    const deadline = e.deadline || extractDeadline(e.description);
 
     return `
       <div class="card">

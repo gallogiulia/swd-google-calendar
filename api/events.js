@@ -25,6 +25,58 @@ function extractUrl(text) {
   return match ? match[0] : null;
 }
 
+// Lazy-load events-data.json so each GCal event can be enriched with a
+// matching tournament's deadline + fee. File lives in the repo root and
+// ships with the serverless function bundle.
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+let DATA_CACHE = null;
+function loadDataEntries() {
+  if (DATA_CACHE) return DATA_CACHE;
+  try {
+    const p = path.join(__dirname, "..", "events-data.json");
+    const raw = fs.readFileSync(p, "utf8");
+    DATA_CACHE = (JSON.parse(raw).events || []).filter((e) => e && e.title);
+    return DATA_CACHE;
+  } catch {
+    DATA_CACHE = [];
+    return DATA_CACHE;
+  }
+}
+
+function normTitle(s) {
+  return (s || "")
+    .toLowerCase()
+    .replace(/[\u2018\u2019]/g, "")
+    .replace(/[^a-z0-9 ]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Return the events-data.json entry that best matches this GCal event title.
+// Uses >=4-char word overlap + bonus for shared "sw open" phrase (so SW Open
+// events, whose titles are otherwise all generic words, still line up).
+function matchDataEntry(eventTitle, dataEntries) {
+  const ev = normTitle(eventTitle);
+  if (!ev) return null;
+  const evWords = new Set(ev.split(" ").filter((w) => w.length >= 4));
+  const evHasSwOpen = /\bsw\s+open\b/.test(ev);
+
+  let best = null;
+  let bestScore = 0;
+  for (const entry of dataEntries) {
+    const en = normTitle(entry.title);
+    let score = 0;
+    for (const w of en.split(" ")) if (w.length >= 4 && evWords.has(w)) score++;
+    if (evHasSwOpen && /\bsw\s+open\b/.test(en)) score += 2;
+    if (score > bestScore) { bestScore = score; best = entry; }
+  }
+  return bestScore >= 2 ? best : null;
+}
+
 function yearWindow(year) {
   const start = new Date(Date.UTC(year, 0, 1, 0, 0, 0));
   const end = new Date(Date.UTC(year + 1, 0, 1, 0, 0, 0));
@@ -57,6 +109,8 @@ export default async function (req, res) {
     max = new Date(Date.now() + days * 86400000).toISOString();
   }
 
+  const dataEntries = loadDataEntries();
+
   let ev = [];
   for (const id of IDS) {
     const u = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(id)}/events?key=${process.env.GCAL_API_KEY}&timeMin=${min}&timeMax=${max}&singleEvents=true&orderBy=startTime`;
@@ -81,6 +135,7 @@ export default async function (req, res) {
       const finalEventUrl = extractUrl(e.description) || extractUrl(e.location) || null;
 
       const meta = CALENDAR_META[id] || { color: "#2563eb", source: "Other" };
+      const dataMatch = matchDataEntry(e.summary || "", dataEntries);
       ev.push({
         id: e.id,
         title: e.summary || "",
@@ -91,7 +146,9 @@ export default async function (req, res) {
         description: e.description || "",
         eventUrl: finalEventUrl,
         color: meta.color,
-        source: meta.source
+        source: meta.source,
+        deadline: dataMatch ? (dataMatch.deadline || null) : null,
+        fee: dataMatch ? (dataMatch.fee || null) : null,
       });
     });
   }
