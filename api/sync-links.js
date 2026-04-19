@@ -139,6 +139,40 @@ function hasManualNonCollectionUrl(text) {
   return all.some((u) => !u.includes("/2026-tournaments-events/"));
 }
 
+// Load events-data.json from the deployed site so the cron can inject
+// per-tournament deadlines into GCal event descriptions. GG maintains
+// this file via the Event Publisher; every published entry has a
+// `deadline` field (e.g. "Entry deadline: Friday, April 11, 2026").
+async function fetchEventsData() {
+  const base = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://swd-google-calendar.vercel.app";
+  try {
+    const r = await fetch(`${base}/events-data.json`, { cache: "no-store" });
+    if (!r.ok) return [];
+    const j = await r.json();
+    return (j.events || [])
+      .filter((e) => e && e.title && e.deadline)
+      .map((e) => ({ name: e.title, deadline: e.deadline }));
+  } catch {
+    return [];
+  }
+}
+
+// Strip cron-managed "Deadline: ..." and "Registration: ..." lines so a
+// fresh pair can be re-emitted. User-authored description content is
+// otherwise left alone.
+function stripManagedLines(desc) {
+  if (!desc) return "";
+  return desc
+    .split(/\r?\n/)
+    .filter((line) => !/^\s*(?:entry\s*)?deadline\s*[:\-]/i.test(line))
+    .filter((line) => !/^\s*registration\s*[:\-]\s*https?:\/\//i.test(line))
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 // Remove ALL /2026-tournaments-events/ URLs so a fresh, correct URL can
 // be attached. Used when the matcher has a confident replacement.
 function stripAllTournamentUrls(description) {
@@ -344,13 +378,19 @@ export default async function handler(req, res) {
 
     const calendar = google.calendar({ version: "v3", auth });
 
-    // 1) Only allowed 2026 links
-    const allowedLinks = await scrapeSquarespaceLinksAllowedOnly();
+    // 1) Fetch Squarespace tournament list + events-data.json (for deadlines)
+    //    in parallel.
+    const [allowedLinks, dataEntries] = await Promise.all([
+      scrapeSquarespaceLinksAllowedOnly(),
+      fetchEventsData(),
+    ]);
     logs.push(`Allowed 2026 links found: ${allowedLinks.length}`);
+    logs.push(`events-data.json entries with deadlines: ${dataEntries.length}`);
 
     let eventsPatched = 0;
     let removedUrlCount = 0;
     let addedUrlCount = 0;
+    let deadlinesApplied = 0;
     const calendarErrors = [];
 
     await Promise.all(CALENDAR_IDS.map(async (calendarId) => {
@@ -374,36 +414,57 @@ export default async function handler(req, res) {
             ? null
             : pickStrictMatch(event.summary, allowedLinks, logs, calendarId);
 
-          let newDesc;
-          let removed;
+          // Deadline is matched independently from events-data.json, even for
+          // events whose URL lives on a manual mini-site.
+          const deadlineEntry = pickStrictMatch(event.summary, dataEntries, logs, calendarId);
+
+          // Strip existing tournament URLs (aggressively if we have a new
+          // match, otherwise only known-bad ones).
+          let cleaned;
+          let removedUrls;
           if (match) {
-            // Self-heal: strip any existing collection URLs (possibly wrong
-            // from a prior matcher run) and re-attach the correct one.
             const s = stripAllTournamentUrls(originalDesc);
-            removed = s.removed.filter((u) => u !== match.url);
-            newDesc = s.cleaned.includes(match.url)
-              ? s.cleaned
-              : `${s.cleaned}\n\nRegistration: ${match.url}`.trim();
+            cleaned = s.cleaned;
+            removedUrls = s.removed.filter((u) => u !== match.url);
           } else {
-            // No match (or user has a manual non-collection URL we should
-            // preserve). Only clean out known-bad URLs.
             const s = stripDisallowedTournamentUrls(originalDesc);
-            newDesc = s.cleaned;
-            removed = s.removed;
+            cleaned = s.cleaned;
+            removedUrls = s.removed;
           }
+
+          // Strip cron-managed lines (Deadline: / Registration:) so we can
+          // re-emit them cleanly.
+          cleaned = stripManagedLines(cleaned);
+
+          const managed = [];
+          if (deadlineEntry) {
+            const txt = String(deadlineEntry.deadline)
+              .replace(/^\s*(?:entry\s*)?deadline\s*[:\-]\s*/i, "")
+              .trim();
+            if (txt) managed.push(`Deadline: ${txt}`);
+          }
+          if (match) managed.push(`Registration: ${match.url}`);
+
+          let newDesc = cleaned;
+          if (managed.length) {
+            newDesc = (cleaned ? `${cleaned}\n\n` : "") + managed.join("\n");
+          }
+          newDesc = newDesc.trim();
+
           if (newDesc.trim() === originalDesc.trim()) continue;
-          updates.push({ event, newDesc, removed, match, originalDesc });
+          updates.push({ event, newDesc, removed: removedUrls, match, deadlineEntry, originalDesc });
         }
 
         const PATCH_CONCURRENCY = 5;
         for (let i = 0; i < updates.length; i += PATCH_CONCURRENCY) {
           const chunk = updates.slice(i, i + PATCH_CONCURRENCY);
-          await Promise.all(chunk.map(async ({ event, newDesc, removed, match, originalDesc }) => {
+          await Promise.all(chunk.map(async ({ event, newDesc, removed, match, deadlineEntry, originalDesc }) => {
             changes.push({
               calendarId,
               summary: event.summary,
               removed,
               added: match ? match.url : null,
+              deadline: deadlineEntry ? deadlineEntry.deadline : null,
             });
             if (!dryRun) {
               await calendar.events.patch({
@@ -415,6 +476,7 @@ export default async function handler(req, res) {
             eventsPatched++;
             removedUrlCount += removed.length;
             if (match && !originalDesc.includes(match.url)) addedUrlCount++;
+            if (deadlineEntry) deadlinesApplied++;
           }));
         }
 
@@ -434,6 +496,7 @@ export default async function handler(req, res) {
       eventsPatched,
       removedUrlCount,
       addedUrlCount,
+      deadlinesApplied,
       calendarErrors,
       // keep this short; if it’s big, use dryRun and filter by event on client
       changes,
