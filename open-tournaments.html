@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SWD Tournaments — Open for Registration</title>
+  <style>
+    :root {
+      --brand: #1a365d;
+      --brand-2: #2b6cb0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --radius: 14px;
+      --shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    header.widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    header.widget-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--brand);
+      letter-spacing: -0.01em;
+    }
+    header.widget-header a.more {
+      font-size: 0.88rem;
+      color: var(--brand-2);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    header.widget-header a.more:hover { text-decoration: underline; }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card {
+      display: grid;
+      grid-template-columns: 70px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .card:hover { border-color: var(--brand-2); transform: translateY(-1px); }
+
+    .date {
+      text-align: center;
+      border-right: 1px solid var(--border);
+      padding-right: 12px;
+    }
+    .date .mon {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .date .day {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--brand);
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+    .date .range {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .info { min-width: 0; }
+    .info .title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0 0 4px;
+      color: var(--text);
+      line-height: 1.25;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .info .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 10px;
+      align-items: center;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .source-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .deadline {
+      font-weight: 600;
+      color: #b45309;
+    }
+
+    a.cta {
+      text-decoration: none;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 9px 16px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+    a.cta:hover { background: var(--brand-2); }
+
+    .state {
+      padding: 30px 12px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+    }
+
+    @media (max-width: 520px) {
+      .card { grid-template-columns: 56px 1fr; gap: 10px; padding: 10px 12px; }
+      .date { padding-right: 10px; }
+      .date .day { font-size: 1.2rem; }
+      a.cta {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 10px;
+        margin-top: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="widget-header">
+      <h2>Open for Registration</h2>
+      <a class="more" href="/agenda" target="_top">See full schedule →</a>
+    </header>
+    <div id="state" class="state">Loading…</div>
+    <div id="list" class="list" hidden></div>
+  </div>
+
+<script>
+  "use strict";
+
+  const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const DOW_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+  const SOURCE_COLOR = {
+    "Women's":        "#059669",
+    "Men's":          "#dc2626",
+    "Club Sponsored": "#2563eb",
+    "Other":          "#7c3aed",
+    "PBA USA":        "#f59e0b",
+  };
+
+  function parseISODate(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(Date.UTC(y, m - 1, d));
+  }
+  function daysBetween(a, b) {
+    return Math.max(0, Math.round((b - a) / 86400000));
+  }
+  function todayUTC() {
+    const n = new Date();
+    return new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()));
+  }
+
+  // Strip Google Calendar HTML (hidden <a> wrappers, <br>, etc.) down to text
+  function descPlain(raw) {
+    if (!raw) return "";
+    try {
+      const doc = new DOMParser().parseFromString(raw, "text/html");
+      doc.querySelectorAll("br").forEach((b) => b.replaceWith("\n"));
+      doc.querySelectorAll("p, div, li").forEach((el) => {
+        el.replaceWith(document.createTextNode(el.textContent + "\n"));
+      });
+      return (doc.body.textContent || "").replace(/\n{3,}/g, "\n\n").trim();
+    } catch {
+      return raw.replace(/<[^>]+>/g, "").trim();
+    }
+  }
+
+  // Return the trimmed text AFTER a deadline marker in the description, if any.
+  // Examples matched:
+  //   "Deadline: April 24"
+  //   "Entries close Mon 4/24"
+  //   "Entries due by Friday, April 24"
+  //   "No entries accepted after 4/25"
+  function extractDeadline(desc) {
+    const t = descPlain(desc);
+    if (!t) return null;
+    const patterns = [
+      /(?:entries?\s*(?:must\s*be\s*)?(?:close[sd]?|due|deadline|received))[:\s-]*(?:by\s+)?([^\n.;]+)/i,
+      /deadline[:\s-]*([^\n.;]+)/i,
+      /no\s*entries?\s*(?:accepted\s*)?after[:\s-]*([^\n.;]+)/i,
+    ];
+    for (const re of patterns) {
+      const m = t.match(re);
+      if (m && m[1] && m[1].trim()) return m[1].trim().replace(/\s+/g, " ");
+    }
+    return null;
+  }
+
+  function fmtDateCol(startISO, endISO) {
+    const start = parseISODate(startISO);
+    const span = daysBetween(parseISODate(startISO), parseISODate(endISO));
+    const multi = span > 1;
+    const mon = MONTHS_SHORT[start.getUTCMonth()];
+    const day = start.getUTCDate();
+    const dow = DOW_SHORT[start.getUTCDay()];
+    let range = dow;
+    if (multi) {
+      const endDate = parseISODate(endISO);
+      endDate.setUTCDate(endDate.getUTCDate() - 1);
+      range = `to ${MONTHS_SHORT[endDate.getUTCMonth()]} ${endDate.getUTCDate()}`;
+    }
+    return { mon, day, range };
+  }
+
+  function esc(s) {
+    return String(s ?? "").replace(/[&<>"']/g, (c) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;",
+    }[c]));
+  }
+
+  function shortLocation(loc) {
+    return loc ? String(loc).split(",")[0].trim() : "";
+  }
+
+  async function load() {
+    try {
+      const r = await fetch(`/api/events?year=${new Date().getUTCFullYear()}&refresh=1`, { cache: "no-store" });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const j = await r.json();
+      const all = j.events || [];
+
+      const today = todayUTC();
+
+      const upcoming = all
+        .filter((e) => e.eventUrl && parseISODate(e.start) >= today)
+        .sort((a, b) => parseISODate(a.start) - parseISODate(b.start))
+        .slice(0, 6);
+
+      render(upcoming);
+    } catch (err) {
+      console.error("load failed", err);
+      const s = document.getElementById("state");
+      s.textContent = "Couldn't load tournaments. Please refresh.";
+    }
+  }
+
+  function render(events) {
+    const list = document.getElementById("list");
+    const state = document.getElementById("state");
+
+    if (!events.length) {
+      state.textContent = "No tournaments currently open for registration.";
+      return;
+    }
+
+    list.innerHTML = events.map(render1).join("");
+    state.hidden = true;
+    list.hidden = false;
+    postHeightToParent();
+  }
+
+  function render1(e) {
+    const d = fmtDateCol(e.start, e.end);
+    const loc = esc(shortLocation(e.location));
+    const source = e.source || "Other";
+    const color = SOURCE_COLOR[source] || "#64748b";
+    const deadline = extractDeadline(e.description);
+
+    return `
+      <div class="card">
+        <div class="date">
+          <div class="mon">${d.mon}</div>
+          <div class="day">${d.day}</div>
+          <div class="range">${esc(d.range)}</div>
+        </div>
+        <div class="info">
+          <div class="title">${esc(e.title || "Untitled")}</div>
+          <div class="meta">
+            <span class="source-pill" style="background:${color}">${esc(source)}</span>
+            ${loc ? `<span>📍 ${loc}</span>` : ""}
+            ${deadline ? `<span class="deadline">⏳ Entries close ${esc(deadline)}</span>` : ""}
+          </div>
+        </div>
+        <a class="cta" href="${esc(e.eventUrl)}" target="_top" rel="noopener">Register →</a>
+      </div>
+    `;
+  }
+
+  function postHeightToParent() {
+    if (window.parent === window) return;
+    try {
+      const h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
+      window.parent.postMessage({ type: "swd-widget-height", height: h }, "*");
+    } catch {}
+  }
+
+  if (window.ResizeObserver) {
+    new ResizeObserver(postHeightToParent).observe(document.body);
+  }
+  window.addEventListener("load", postHeightToParent);
+
+  load();
+</script>
+</body>
+</html>
