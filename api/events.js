@@ -1,3 +1,9 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 let CACHE = { t: 0, d: null, key: "" };
 const TTL = (Number(process.env.GCAL_CACHE_MINUTES || 2)) * 60000;
 const IDS = [
@@ -28,11 +34,6 @@ function extractUrl(text) {
 // Lazy-load events-data.json so each GCal event can be enriched with a
 // matching tournament's deadline + fee. File lives in the repo root and
 // ships with the serverless function bundle.
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 let DATA_CACHE = null;
 function loadDataEntries() {
   if (DATA_CACHE) return DATA_CACHE;
