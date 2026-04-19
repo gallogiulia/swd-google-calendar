@@ -5,7 +5,8 @@ const IDS = [
   "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com",
   "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com",
   "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com",
-  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com"
+  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com",
+  "ca41076c272796ab2b2f7ad02fa945b8f5dab96b69cfc583be81f0c4fa768574@group.calendar.google.com"
 ];
 
 const CALENDAR_META = {
@@ -13,7 +14,8 @@ const CALENDAR_META = {
   "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com": { color: "#7c3aed", source: "Other" },
   "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com": { color: "#dc2626", source: "Men's" },
   "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com": { color: "#059669", source: "Women's" },
-  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": { color: "#f59e0b", source: "PBA USA" }
+  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": { color: "#f59e0b", source: "PBA USA" },
+  "ca41076c272796ab2b2f7ad02fa945b8f5dab96b69cfc583be81f0c4fa768574@group.calendar.google.com": { color: "#0891b2", source: "SW Open" }
 };
 
 // IMPROVED: Strips out Google's hidden HTML tags so the link stays clean
