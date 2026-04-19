@@ -300,6 +300,9 @@
       const upcoming = all
         .filter((e) => {
           if (!e.eventUrl) return false;
+          // Club-run tournaments are the hosting club's responsibility, not
+          // SWD's — keep them off the division homepage widget.
+          if (e.source === "Club Sponsored") return false;
           // Event must be strictly in the future — an event happening today
           // is no longer "open for registration".
           if (parseISODate(e.start) <= today) return false;

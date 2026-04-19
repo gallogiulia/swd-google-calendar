@@ -1,9 +1,3 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 let CACHE = { t: 0, d: null, key: "" };
 const TTL = (Number(process.env.GCAL_CACHE_MINUTES || 2)) * 60000;
 const IDS = [
@@ -31,20 +25,24 @@ function extractUrl(text) {
   return match ? match[0] : null;
 }
 
-// Lazy-load events-data.json so each GCal event can be enriched with a
-// matching tournament's deadline + fee. File lives in the repo root and
-// ships with the serverless function bundle.
-let DATA_CACHE = null;
-function loadDataEntries() {
-  if (DATA_CACHE) return DATA_CACHE;
+// Fetch events-data.json from the deployed site so each GCal event can be
+// enriched with a matching tournament's deadline + fee. Cache across calls.
+let DATA_CACHE = { t: 0, data: null };
+async function loadDataEntries() {
+  const now = Date.now();
+  if (DATA_CACHE.data && now - DATA_CACHE.t < TTL) return DATA_CACHE.data;
+  const base = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://swd-google-calendar.vercel.app";
   try {
-    const p = path.join(__dirname, "..", "events-data.json");
-    const raw = fs.readFileSync(p, "utf8");
-    DATA_CACHE = (JSON.parse(raw).events || []).filter((e) => e && e.title);
-    return DATA_CACHE;
+    const r = await fetch(`${base}/events-data.json`, { cache: "no-store" });
+    if (!r.ok) return DATA_CACHE.data || [];
+    const j = await r.json();
+    const list = (j.events || []).filter((e) => e && e.title);
+    DATA_CACHE = { t: now, data: list };
+    return list;
   } catch {
-    DATA_CACHE = [];
-    return DATA_CACHE;
+    return DATA_CACHE.data || [];
   }
 }
 
@@ -110,7 +108,7 @@ export default async function (req, res) {
     max = new Date(Date.now() + days * 86400000).toISOString();
   }
 
-  const dataEntries = loadDataEntries();
+  const dataEntries = await loadDataEntries();
 
   let ev = [];
   for (const id of IDS) {
