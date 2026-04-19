@@ -130,9 +130,35 @@ function extractTournamentUrls(text) {
   return [...new Set(s.match(re) || [])].map((u) => u.split("#")[0].split("?")[0]);
 }
 
-// Remove disallowed URLs from description.
-// Disallowed = HARD_BLOCK OR slug looks like a past-year tournament.
-function removeDisallowedTournamentUrls(description) {
+// Is there a URL in the description that is NOT part of the
+// /2026-tournaments-events/ collection? (e.g. a mini-site like /2026swo.)
+// If so, the user has manually linked somewhere else and we should leave
+// the description alone rather than overwrite their intent.
+function hasManualNonCollectionUrl(text) {
+  const all = (text || "").match(/https?:\/\/[^\s<>"')\]]+/g) || [];
+  return all.some((u) => !u.includes("/2026-tournaments-events/"));
+}
+
+// Remove ALL /2026-tournaments-events/ URLs so a fresh, correct URL can
+// be attached. Used when the matcher has a confident replacement.
+function stripAllTournamentUrls(description) {
+  const urls = extractTournamentUrls(description);
+  if (!urls.length) return { cleaned: description || "", removed: [] };
+
+  let cleaned = description || "";
+  for (const url of urls) {
+    const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    cleaned = cleaned.replace(new RegExp(`\\s*${escaped}\\s*\\n?`, "g"), "\n");
+  }
+  cleaned = cleaned.replace(/^\s*Registration:\s*$/gm, "");
+  cleaned = cleaned.replace(/\n{3,}/g, "\n\n").trim();
+  return { cleaned, removed: urls };
+}
+
+// Remove ONLY URLs that are disallowed (HARD_BLOCK or stale-year slug).
+// Used when the matcher has nothing to replace with — we still want to
+// clean out known-bad URLs but preserve anything legitimate.
+function stripDisallowedTournamentUrls(description) {
   const urls = extractTournamentUrls(description);
   if (!urls.length) return { cleaned: description || "", removed: [] };
 
@@ -220,8 +246,16 @@ function requiredWordsOf(name) {
 
 function detectGender(text) {
   const t = normalizeText(text);
+  // Strongest signals first: explicit gender words beat organisation abbreviations.
   if (hasWord(t, "men") || hasWord(t, "mens")) return "men";
   if (hasWord(t, "women") || hasWord(t, "womens") || hasWord(t, "ladies")) return "women";
+  // GG's old naming convention for GCal events:
+  //   SWLBA = Southwest Lawn Bowls Association (men's)
+  //   SWD   = Southwest Division (women's)
+  // Applied last so pages like "SWD Men's So Cal Rinks" still resolve to "men"
+  // via the explicit "Men's" token above.
+  if (hasWord(t, "swlba")) return "men";
+  if (hasWord(t, "swd")) return "women";
   return null;
 }
 
@@ -334,12 +368,28 @@ export default async function handler(req, res) {
         const updates = [];
         for (const event of items) {
           const originalDesc = event.description || "";
-          const { cleaned, removed } = removeDisallowedTournamentUrls(originalDesc);
-          const match = pickStrictMatch(event.summary, allowedLinks, logs, calendarId);
+          const hasManual = hasManualNonCollectionUrl(originalDesc);
 
-          let newDesc = cleaned;
-          if (match && !newDesc.includes(match.url)) {
-            newDesc = `${newDesc}\n\nRegistration: ${match.url}`.trim();
+          const match = hasManual
+            ? null
+            : pickStrictMatch(event.summary, allowedLinks, logs, calendarId);
+
+          let newDesc;
+          let removed;
+          if (match) {
+            // Self-heal: strip any existing collection URLs (possibly wrong
+            // from a prior matcher run) and re-attach the correct one.
+            const s = stripAllTournamentUrls(originalDesc);
+            removed = s.removed.filter((u) => u !== match.url);
+            newDesc = s.cleaned.includes(match.url)
+              ? s.cleaned
+              : `${s.cleaned}\n\nRegistration: ${match.url}`.trim();
+          } else {
+            // No match (or user has a manual non-collection URL we should
+            // preserve). Only clean out known-bad URLs.
+            const s = stripDisallowedTournamentUrls(originalDesc);
+            newDesc = s.cleaned;
+            removed = s.removed;
           }
           if (newDesc.trim() === originalDesc.trim()) continue;
           updates.push({ event, newDesc, removed, match, originalDesc });
