@@ -1,3 +1,6 @@
+import { createRequire } from "module";
+const _require = createRequire(import.meta.url);
+
 let CACHE = { t: 0, d: null, key: "" };
 const TTL = (Number(process.env.GCAL_CACHE_MINUTES || 2)) * 60000;
 const IDS = [
@@ -25,25 +28,18 @@ function extractUrl(text) {
   return match ? match[0] : null;
 }
 
-// Fetch events-data.json from the deployed site so each GCal event can be
-// enriched with a matching tournament's deadline + fee. Cache across calls.
-let DATA_CACHE = { t: 0, data: null };
-async function loadDataEntries() {
-  const now = Date.now();
-  if (DATA_CACHE.data && now - DATA_CACHE.t < TTL) return DATA_CACHE.data;
-  const base = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "https://swd-google-calendar.vercel.app";
+// Embed events-data.json at build time via require() — Vercel includes it
+// in the function bundle automatically because of the static require path.
+let DATA_ENTRIES = null;
+function loadDataEntries() {
+  if (DATA_ENTRIES) return DATA_ENTRIES;
   try {
-    const r = await fetch(`${base}/events-data.json`, { cache: "no-store" });
-    if (!r.ok) return DATA_CACHE.data || [];
-    const j = await r.json();
-    const list = (j.events || []).filter((e) => e && e.title);
-    DATA_CACHE = { t: now, data: list };
-    return list;
+    const data = _require("../events-data.json");
+    DATA_ENTRIES = (data.events || []).filter((e) => e && e.title);
   } catch {
-    return DATA_CACHE.data || [];
+    DATA_ENTRIES = [];
   }
+  return DATA_ENTRIES;
 }
 
 function normTitle(s) {
@@ -108,7 +104,7 @@ export default async function (req, res) {
     max = new Date(Date.now() + days * 86400000).toISOString();
   }
 
-  const dataEntries = await loadDataEntries();
+  const dataEntries = loadDataEntries();
 
   let ev = [];
   for (const id of IDS) {
