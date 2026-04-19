@@ -554,6 +554,25 @@
       `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
   }
 
+  // Google Calendar stores descriptions with hidden <a> wrappers and other HTML.
+  // Parse it into plain text, preserve line breaks, then re-linkify bare URLs.
+  function sanitizeDescription(raw) {
+    if (!raw) return "";
+    try {
+      const doc = new DOMParser().parseFromString(raw, "text/html");
+      doc.querySelectorAll("br").forEach(b => b.replaceWith("\n"));
+      doc.querySelectorAll("p, div, li").forEach(el => {
+        const t = document.createTextNode(el.textContent + "\n");
+        el.replaceWith(t);
+      });
+      return (doc.body.textContent || "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+    } catch {
+      return raw.replace(/<[^>]+>/g, "").replace(/\n{3,}/g, "\n\n").trim();
+    }
+  }
+
   function renderAgenda(events) {
     const container = document.getElementById("agenda-view");
     const groups = {};
@@ -616,8 +635,9 @@
         : ""
     ].filter(Boolean).join("");
 
-    const descBlock = e.description
-      ? `<div class="desc">${linkifyText(e.description)}</div>`
+    const cleanDesc = sanitizeDescription(e.description);
+    const descBlock = cleanDesc
+      ? `<div class="desc">${linkifyText(cleanDesc)}</div>`
       : `<div class="desc" style="color:var(--muted); font-style: italic;">No additional details yet.</div>`;
 
     return `
