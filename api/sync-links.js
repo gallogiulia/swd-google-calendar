@@ -8,6 +8,16 @@ const CALENDAR_IDS = [
   "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com",
 ];
 
+// Implicit gender signal from the source calendar — GCal event titles often
+// omit "Men's"/"Women's" because the calendar itself conveys it.
+const CALENDAR_GENDER = {
+  "a5a0d0467e9d3b32e9047a8101536f36657592785ecff078549b00979d84a590@group.calendar.google.com": null,    // Club Sponsored
+  "1a6d4aa92fc88d6f6ef0692f3b45900cce0297b61e76a46b9c61401b20398d65@group.calendar.google.com": null,    // Other
+  "2ba828746bb0f6ca0047de3bc085a2ae29632212ac9c4f48fe8deb1d46a732df@group.calendar.google.com": "men",   // Men's
+  "08e2468010fab3540a7b7c53f50a176ee3824cb700b3afbee8f706949e043783@group.calendar.google.com": "women", // Women's
+  "0c84e06c3ecc1555848911155ee9d05e9234b47baf4aa87779c015934deb6c94@group.calendar.google.com": null,    // PBA
+};
+
 const BASE_SITE = "https://www.swlawnbowls.org";
 const LISTING_URL = `${BASE_SITE}/2026-tournaments-events`;
 const CURRENT_YEAR = "2026";
@@ -29,6 +39,7 @@ function normalizeText(s) {
     .toLowerCase()
     .replace(/['"]/g, "")
     .replace(/\b(20\d{2})\b/g, "")        // strip 4-digit years like "2026"
+    .replace(/\b\d+(st|nd|rd|th)\b/g, "") // strip ordinals like "22nd", "24th"
     .replace(/[^a-z0-9 ]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -182,14 +193,18 @@ async function scrapeSquarespaceLinksAllowedOnly() {
 // A link whose name contains *only* these words will never be attached — it is too
 // ambiguous. A valid match must share at least one distinctive word (length >= 4)
 // with the event summary.
+// Words that are tournament vocabulary but not distinguishing on their own.
+// "Required" word matching excludes these — otherwise the matcher would
+// demand the event title repeat words like "mens" or "triples" that GCal
+// titles typically omit.
 const GENERIC_WORDS = new Set([
-  "tournament","tournaments","classic","cup","trophy","challenge","memorial",
+  "tournament","tournaments","classic","cup","trophy","challenge","memorial","annual",
   "open","invitational","championship","championships","event","events",
   "swd","pba","usa","bowls","lawn","club","clubs",
   "men","mens","women","womens","ladies","mixed","coed",
   "singles","pairs","triples","fours","five","all","star",
-  "draw","draws","novice","vet","vets","master","masters",
-  "day","days","season","the","and","for","match"
+  "draw","draws","master","masters",
+  "day","days","season","the","and","for"
 ]);
 
 // word-boundary test: "pairs" should not match "pairings"
@@ -197,48 +212,69 @@ function hasWord(haystack, word) {
   return new RegExp(`(^|\\s)${word}(?=$|\\s)`).test(haystack);
 }
 
-function distinctiveWordsOf(name) {
+function requiredWordsOf(name) {
   return normalizeText(name)
     .split(" ")
-    .filter((w) => w.length >= 4 && !GENERIC_WORDS.has(w));
+    .filter((w) => w.length >= 3 && !GENERIC_WORDS.has(w));
+}
+
+function detectGender(text) {
+  const t = normalizeText(text);
+  if (hasWord(t, "men") || hasWord(t, "mens")) return "men";
+  if (hasWord(t, "women") || hasWord(t, "womens") || hasWord(t, "ladies")) return "women";
+  return null;
 }
 
 // Strict matching:
-// - ALL link-name words (length >= 3) must appear as whole words in the event summary
-// - AND at least one "distinctive" word (length >= 4, not in GENERIC_WORDS) must appear,
-//   so slugs like "2026-singles" can never attach themselves to every singles event
-// - If 0 candidates => no match
-// - If 2+ candidates => ambiguous => no match (do NOT add any URL)
-function pickStrictMatch(eventSummary, allowedLinks, logs) {
+// - All "required" words in the link title (length>=3, non-generic) must appear
+//   as substrings in the event summary. Substring rather than word-boundary
+//   handles abbreviations like "Cal" ↔ "California".
+// - If the link title specifies a gender, the event's gender (from its title
+//   or its source calendar) must match — otherwise reject.
+// - Tiebreaker when multiple links qualify: pick the most specific (longest
+//   required-word list). If still tied, skip as ambiguous.
+function pickStrictMatch(eventSummary, allowedLinks, logs, calendarId) {
   const eventName = normalizeText(eventSummary);
   if (!eventName) return null;
 
-  const candidates = allowedLinks.filter(({ name }) => {
-    const linkName = normalizeText(name);
-    if (linkName.length < 6) return false;
+  const eventGender = detectGender(eventSummary) || CALENDAR_GENDER[calendarId] || null;
 
-    const words = linkName.split(" ").filter((w) => w.length >= 3);
-    if (!words.length) return false;
-    if (!words.every((w) => hasWord(eventName, w))) return false;
+  const scored = [];
+  for (const link of allowedLinks) {
+    const linkName = normalizeText(link.name);
+    if (linkName.length < 6) continue;
 
-    const distinctive = distinctiveWordsOf(name);
-    if (!distinctive.length) return false;
-    if (!distinctive.some((w) => hasWord(eventName, w))) return false;
+    const required = requiredWordsOf(link.name);
+    if (!required.length) continue;
+    if (!required.every((w) => eventName.includes(w))) continue;
 
-    return true;
-  });
+    const linkGender = detectGender(link.name);
+    if (linkGender) {
+      if (!eventGender) continue;
+      if (linkGender !== eventGender) continue;
+    }
 
-  if (candidates.length === 1) return candidates[0];
-
-  if (candidates.length > 1) {
-    logs.push(
-      `SKIP ambiguous: "${eventSummary}" -> ${candidates
-        .slice(0, 5)
-        .map((c) => c.url)
-        .join(" | ")}${candidates.length > 5 ? " | ..." : ""}`
-    );
+    scored.push({ link, specificity: required.length });
   }
 
+  if (scored.length === 0) return null;
+  if (scored.length === 1) return scored[0].link;
+
+  // Prefer the most specific candidate; break further ties by gender match.
+  scored.sort((a, b) => b.specificity - a.specificity);
+  const topSpec = scored[0].specificity;
+  const top = scored.filter((s) => s.specificity === topSpec);
+  if (top.length === 1) return top[0].link;
+
+  const genderExact = top.filter((s) => detectGender(s.link.name) === eventGender && eventGender);
+  if (genderExact.length === 1) return genderExact[0].link;
+
+  logs.push(
+    `SKIP ambiguous: "${eventSummary}" -> ${top
+      .slice(0, 5)
+      .map((s) => s.link.url)
+      .join(" | ")}${top.length > 5 ? " | ..." : ""}`
+  );
   return null;
 }
 
@@ -299,7 +335,7 @@ export default async function handler(req, res) {
         for (const event of items) {
           const originalDesc = event.description || "";
           const { cleaned, removed } = removeDisallowedTournamentUrls(originalDesc);
-          const match = pickStrictMatch(event.summary, allowedLinks, logs);
+          const match = pickStrictMatch(event.summary, allowedLinks, logs, calendarId);
 
           let newDesc = cleaned;
           if (match && !newDesc.includes(match.url)) {
