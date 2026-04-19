@@ -5,11 +5,5 @@
       "source": "/",
       "destination": "/tournament_hub"
     }
-  ],
-  "crons": [
-    {
-      "path": "/api/sync-links",
-      "schedule": "0 0 * * *"
-    }
   ]
 }

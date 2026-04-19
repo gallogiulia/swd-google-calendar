@@ -146,10 +146,37 @@ async function scrapeSquarespaceLinksAllowedOnly() {
     .filter(Boolean);
 }
 
+// Generic tournament vocabulary that is NOT on its own a useful signal for matching.
+// A link whose name contains *only* these words will never be attached — it is too
+// ambiguous. A valid match must share at least one distinctive word (length >= 4)
+// with the event summary.
+const GENERIC_WORDS = new Set([
+  "tournament","tournaments","classic","cup","trophy","challenge","memorial",
+  "open","invitational","championship","championships","event","events",
+  "swd","pba","usa","bowls","lawn","club","clubs",
+  "men","mens","women","womens","ladies","mixed","coed",
+  "singles","pairs","triples","fours","five","all","star",
+  "draw","draws","novice","vet","vets","master","masters",
+  "day","days","season","the","and","for","match"
+]);
+
+// word-boundary test: "pairs" should not match "pairings"
+function hasWord(haystack, word) {
+  return new RegExp(`(^|\\s)${word}(?=$|\\s)`).test(haystack);
+}
+
+function distinctiveWordsOf(name) {
+  return normalizeText(name)
+    .split(" ")
+    .filter((w) => w.length >= 4 && !GENERIC_WORDS.has(w));
+}
+
 // Strict matching:
-// - find all candidates where ALL meaningful words from linkName appear in event summary
-// - if 0 candidates => no match
-// - if 2+ candidates => ambiguous => no match (do NOT add any URL)
+// - ALL link-name words (length >= 3) must appear as whole words in the event summary
+// - AND at least one "distinctive" word (length >= 4, not in GENERIC_WORDS) must appear,
+//   so slugs like "2026-singles" can never attach themselves to every singles event
+// - If 0 candidates => no match
+// - If 2+ candidates => ambiguous => no match (do NOT add any URL)
 function pickStrictMatch(eventSummary, allowedLinks, logs) {
   const eventName = normalizeText(eventSummary);
   if (!eventName) return null;
@@ -160,8 +187,13 @@ function pickStrictMatch(eventSummary, allowedLinks, logs) {
 
     const words = linkName.split(" ").filter((w) => w.length >= 3);
     if (!words.length) return false;
+    if (!words.every((w) => hasWord(eventName, w))) return false;
 
-    return words.every((w) => eventName.includes(w));
+    const distinctive = distinctiveWordsOf(name);
+    if (!distinctive.length) return false;
+    if (!distinctive.some((w) => hasWord(eventName, w))) return false;
+
+    return true;
   });
 
   if (candidates.length === 1) return candidates[0];
