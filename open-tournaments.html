@@ -297,15 +297,25 @@
 
       const today = todayUTC();
 
+      // SWD practice (per the "forms posted 5–6 weeks prior" notice):
+      // registration opens ~6 weeks before an event. Events further out
+      // than that aren't yet accepting entries — keep them off the widget.
+      const REG_WINDOW_DAYS = 42;
+
       const upcoming = all
         .filter((e) => {
           if (!e.eventUrl) return false;
           // Club-run tournaments are the hosting club's responsibility, not
           // SWD's — keep them off the division homepage widget.
           if (e.source === "Club Sponsored") return false;
+          const startDate = parseISODate(e.start);
           // Event must be strictly in the future — an event happening today
           // is no longer "open for registration".
-          if (parseISODate(e.start) <= today) return false;
+          if (startDate <= today) return false;
+          // Event must be inside the ~6-week registration window; anything
+          // further out isn't being registered for yet.
+          const daysAhead = (startDate - today) / 86400000;
+          if (daysAhead > REG_WINDOW_DAYS) return false;
           // Prefer the structured deadline from events-data.json (attached
           // by /api/events) over best-effort description parsing.
           const deadlineText = e.deadline || extractDeadline(e.description);
