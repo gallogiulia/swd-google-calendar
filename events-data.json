@@ -1759,12 +1759,8 @@
       "liveScoring": {
         "pubUrl": "",
         "height": 1800,
-        "width": "100%"
-      }
-    }
-  ]
-},
-,
+        "width": "100%"}   
+      },
     {
       "id": "coronado-crown-city-cup-2026",
       "title": "2026 Coronado Crown City Cup",
@@ -1829,3 +1825,5 @@
         "width": "100%"
       }
     }
+  ]
+}
