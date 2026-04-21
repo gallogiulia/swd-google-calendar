@@ -1763,4 +1763,69 @@
       }
     }
   ]
-}
+},
+,
+    {
+      "id": "coronado-crown-city-cup-2026",
+      "title": "2026 Coronado Crown City Cup",
+      "subtitle": "Inaugural · Club Invitational · Mixed Triples",
+      "date": "Saturday, June 6 – Sunday, June 7, 2026",
+      "time": "8:30 AM – 5:00 PM",
+      "schedule": [
+        "8:25 AM — Roll-ups end",
+        "8:30 AM — Announcements",
+        "8:45 AM — Trial ends",
+        "9:00 AM Sharp — Official start, first game of each day"
+      ],
+      "format": "triples",
+      "formatDetails": "Three-bowl Mixed Triples · 10-end games (7 min / 8 max) · Divisional Round Robin, 16 teams",
+      "club": {
+        "name": "Coronado Lawn Bowling Club",
+        "address": "1019 7th Street, Coronado, CA 92118",
+        "phone": "619-319-5509",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1019+7th+Street+Coronado+CA+92118"
+      },
+      "fee": "$450 per team ($150 per player)",
+      "deadline": "Registration opens Thursday, April 23, 2026 · Capped at 16 teams",
+      "rules": [
+        "Three-bowl Mixed Triples · 10 ends per game · 7 games minimum, 8 maximum",
+        "Day 1 — 4 divisional games · Day 2 — 3 divisional games + finals",
+        "Scoring: 3 points for a win, 1 point for a tie · Max plus/minus 10 per game",
+        "Divisions established by blind draw Saturday morning",
+        "Divisional Winners play for Champion / 2nd · Runners-up play for 3rd / 4th",
+        "Late arrival: 1 point + 1 end per 10 min late · 30+ min = forfeit",
+        "No T-shirts · Matching team outfits encouraged",
+        "No cell phone use by players on the rink of play",
+        "No smoking or vaping anywhere at the facility",
+        "Lunch, snacks, water provided both days · Tended bar Sunday"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Russ Kindorf",
+        "phone": "",
+        "email": "kindorfr@gmail.com",
+        "mailTo": "Ken Hunt, 141 Orange Ave, Unit 301, Coronado, CA 92118 (checks payable to Coronado Lawn Bowling Club)"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/coronado-crown-city-cup-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": "/pdfs/coronado-crown-city-cup-2026/cops.pdf"
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    }
