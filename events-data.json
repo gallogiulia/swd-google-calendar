@@ -1816,9 +1816,9 @@
         "system": "none"
       },
       "entries": {
-        "pubUrl": "",
-        "height": 350
-      },
+  "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTHWfBsC5WYtb08WWuCvIfQ-0skUu90volgDalR4qe5ce2Bj6xusA4n0tSJYXYPmzJqPdE7ew-jHfAb/pubhtml?widget=true&headers=false",
+  "height": 350
+},
       "liveScoring": {
         "pubUrl": "",
         "height": 1800,
