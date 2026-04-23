@@ -1860,10 +1860,10 @@
         "mailTo": "Jack Bucey, 117 Via Pasito, Ventura, CA 93003 (checks payable to Oxnard LBC)"
       },
       "flyer": {
-        "externalUrl": "",
-        "localPath": "",
-        "type": ""
-      },
+  "externalUrl": "",
+  "localPath": "/pdfs/martinez-triples-2026/flyer.png",
+  "type": "image"
+},
       "cops": {
         "externalUrl": "",
         "localPath": ""
