@@ -1824,6 +1824,62 @@
         "height": 1800,
         "width": "100%"
       }
+    },
+    {
+      "id": "martinez-triples-2026",
+      "title": "2026 Amador Martinez Triples",
+      "subtitle": "Oxnard LBC Club Invitational",
+      "date": "Sunday, June 14, 2026",
+      "time": "9:00 AM – 5:00 PM",
+      "schedule": [
+        "9:00 AM — Announcements",
+        "9:15 AM — Tournament begins"
+      ],
+      "format": "triples",
+      "formatDetails": "Three 12-end games · Teams may be mixed or matched",
+      "club": {
+        "name": "Oxnard Lawn Bowls Club",
+        "address": "350 N \"C\" St, Oxnard, CA 93030",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=350+N+C+St+Oxnard+CA+93030"
+      },
+      "fee": "$120 per team",
+      "deadline": "Team sign-up deadline: Thursday, June 11, 2026 · Enter early to ensure your place — first come, first served",
+      "rules": [
+        "Three 12-end games",
+        "Teams may be mixed or matched",
+        "100% payout",
+        "Morning refreshments, lunch salad and dessert provided (or BYO)"
+      ],
+      "registrationInstructions": "Mail your application (Skip, Vice, Lead names) and check payable to Oxnard LBC to: Jack Bucey, 117 Via Pasito, Ventura, CA 93003. Additional info: 805-630-6485 or jaybee.bucey@gmail.com.",
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "Jack Bucey",
+        "phone": "805-630-6485",
+        "email": "jaybee.bucey@gmail.com",
+        "mailTo": "Jack Bucey, 117 Via Pasito, Ventura, CA 93003 (checks payable to Oxnard LBC)"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": ""
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTzIbJZXYJSsuIM6PCvPttuyuigpLtl3mItOxNLQoT5IqOwi5GNec4W8vRJqw7rzWwEkm8fIUE5AV3r/pubhtml?widget=true&headers=false",
+        "height": 350
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
     }
   ]
 }
