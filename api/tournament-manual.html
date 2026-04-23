@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Tournament Manual | Southwest Bowls Division</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://cdn.prod.website-files.com/697cd928676b102cf89c1b2e/css/giulias-awesome-site-7dfad8.webflow.shared.aa5bde90a.css" rel="stylesheet" type="text/css"/>
+<style>
+  :root {
+    --navy: #1a365d;
+    --navy-mid: #2c5282;
+    --red: #c53030;
+    --red-dark: #9b2c2c;
+    --red-soft: #fef3f2;
+    --line: #e2e8f0;
+    --line-soft: #edf2f7;
+    --muted: #64748b;
+    --muted-light: #94a3b8;
+    --text: #1a202c;
+    --bg: #f7fafc;
+  }
+  body { margin: 0; background: var(--bg); color: var(--text); }
+  * { box-sizing: border-box; }
+
+  /* Header */
+  .page-header {
+    background: linear-gradient(135deg, rgba(26,54,93,0.92) 0%, rgba(44,82,130,0.88) 100%),
+      url('https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/a8c80353-a169-4966-86c1-3ed904e1a94c/SoCalPhotos.png');
+    background-size: cover; background-position: center;
+    color: white; padding: 60px 20px 70px;
+    position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: ""; position: absolute; top: -40%; right: -8%;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(197,48,48,0.28), transparent 70%);
+    pointer-events: none;
+  }
+  .page-header-inner { max-width: 1200px; margin: 0 auto; position: relative; text-align: center; }
+  .breadcrumb {
+    display: inline-flex; gap: 10px; align-items: center;
+    font-size: 0.72rem; font-weight: 900; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 18px;
+    color: rgba(255,255,255,0.8);
+  }
+  .breadcrumb a { color: white; text-decoration: none; }
+  .breadcrumb a:hover { color: #fbd38d; }
+  .breadcrumb .sep { opacity: 0.4; }
+  .page-header .eyebrow {
+    display: inline-block;
+    background: var(--red); color: white;
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 0.72rem; font-weight: 900;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .page-header h1 {
+    font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 900; text-transform: uppercase;
+    letter-spacing: -2px; line-height: 1; margin: 0 0 16px;
+  }
+  .page-header .subtitle {
+    font-size: 1.1rem; max-width: 640px; margin: 0 auto;
+    color: rgba(255,255,255,0.88); line-height: 1.6;
+  }
+
+  /* Jump-link grid (top of page) */
+  .jump-section {
+    max-width: 1200px; margin: -40px auto 0; padding: 0 20px; position: relative; z-index: 2;
+  }
+  .jump-card {
+    background: white; border-radius: 16px; padding: 28px 24px;
+    box-shadow: 0 15px 30px rgba(15,23,42,0.08);
+    border: 1px solid var(--line-soft);
+    margin-bottom: 40px;
+  }
+  .jump-title {
+    color: var(--red); font-weight: 900; font-size: 0.8rem;
+    letter-spacing: 2px; text-transform: uppercase; margin: 0 0 14px;
+    text-align: center;
+  }
+  .jump-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .jump-link {
+    background: var(--navy); color: white; padding: 14px 16px;
+    border-radius: 10px; text-align: center; text-decoration: none;
+    font-weight: 900; font-size: 0.78rem; letter-spacing: 0.5px;
+    text-transform: uppercase; transition: 0.2s;
+  }
+  .jump-link:hover { background: var(--red); transform: translateY(-2px); }
+  .jump-link.alt { background: var(--red); }
+  .jump-link.alt:hover { background: var(--red-dark); }
+
+  /* Main content */
+  .content {
+    max-width: 1000px; margin: 0 auto; padding: 0 20px 60px;
+  }
+
+  .content h2 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 900;
+    text-transform: uppercase; letter-spacing: -0.5px; line-height: 1.1;
+    color: var(--navy); margin: 0 0 18px;
+    scroll-margin-top: 20px;
+  }
+  .content h3 {
+    font-size: 1.1rem; font-weight: 900; color: var(--navy);
+    margin: 22px 0 10px;
+  }
+  .content h4 {
+    font-family: inherit; font-weight: 900; font-size: 0.75rem;
+    color: var(--red); letter-spacing: 2px; text-transform: uppercase;
+    margin: 22px 0 10px;
+  }
+  .content p { font-size: 0.98rem; line-height: 1.72; margin: 0 0 14px; }
+  .content ul, .content ol { margin: 0 0 16px 20px; padding: 0; }
+  .content li { margin-bottom: 6px; line-height: 1.65; }
+
+  .block {
+    background: white; border-radius: 16px;
+    padding: 34px; margin-bottom: 22px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.05);
+    border: 1px solid var(--line-soft);
+    border-left: 4px solid var(--red);
+  }
+  .block.group-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    color: white; border-left: none;
+    padding: 32px 34px; margin-top: 40px;
+    position: relative; overflow: hidden; text-align: center;
+  }
+  .block.group-header::before {
+    content: ""; position: absolute; top: -40%; right: -5%;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(197,48,48,0.25), transparent 70%);
+  }
+  .block.group-header > * { position: relative; }
+  .block.group-header h2 { color: white; margin: 0 0 6px; }
+  .block.group-header p { color: rgba(255,255,255,0.85); margin: 0; font-size: 0.95rem; }
+
+  .event-meta {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px; margin: 18px 0 22px;
+    padding: 16px; border-radius: 10px;
+    background: var(--red-soft);
+    border: 1px solid rgba(197,48,48,0.15);
+  }
+  .event-meta-item { display: flex; flex-direction: column; gap: 3px; }
+  .event-meta-item .label-sm {
+    font-size: 0.65rem; font-weight: 900; color: var(--red);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  .event-meta-item .value { font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+
+  .table-wrap {
+    overflow-x: auto; margin: 16px 0 22px;
+    border-radius: 10px; border: 1px solid var(--line);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: white; }
+  table th {
+    background: var(--navy); color: white; text-align: left; padding: 11px 14px;
+    font-weight: 900; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase;
+  }
+  table td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); }
+  table tr:last-child td { border-bottom: none; }
+  table tr:nth-child(even) td { background: #fafbfd; }
+
+  .callout {
+    padding: 14px 18px; border-radius: 10px;
+    background: var(--red-soft); border-left: 3px solid var(--red);
+    font-size: 0.92rem; margin: 14px 0;
+  }
+  .callout strong { color: var(--navy); }
+
+  .back-to-top-bar {
+    text-align: center; margin: 30px 0 10px;
+  }
+  .back-to-top-bar a {
+    display: inline-block; background: var(--navy); color: white;
+    padding: 12px 24px; border-radius: 10px;
+    font-weight: 900; font-size: 0.8rem; letter-spacing: 1px;
+    text-transform: uppercase; text-decoration: none;
+    transition: 0.2s;
+  }
+  .back-to-top-bar a:hover { background: var(--red); }
+
+  .footer-note {
+    text-align: center; color: var(--muted-light);
+    font-size: 0.85rem; letter-spacing: 1px; margin: 40px 0 0;
+  }
+
+  @media (max-width: 700px) {
+    .block { padding: 22px 20px; }
+    .jump-card { padding: 20px 16px; }
+    .nav-right-mobile-hide { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav style="padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; background: white; position: sticky; top: 0; z-index: 10000; box-shadow: 0 2px 15px rgba(0,0,0,0.1);">
+  <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1600389385202-YJUSL5TACAASKTTDS34L/SWBlogoRED+(002).png" height="60" alt="SWB">
+  <div style="display:flex; gap:20px;" class="nav-right-mobile-hide">
+    <a href="/policies" style="text-decoration:none; color:#1a365d; font-weight:900; font-size:0.8rem; letter-spacing:1px;">POLICIES</a>
+    <a href="https://www.swlawnbowls.org/2026-schedule" style="text-decoration:none; color:#1a365d; font-weight:900; font-size:0.8rem; letter-spacing:1px;">2026 SCHEDULE</a>
+    <a href="https://www.swlawnbowls.org/youtube-live" style="text-decoration:none; color:#c53030; font-weight:900; font-size:0.8rem; letter-spacing:1px;">LIVE-STREAM</a>
+  </div>
+</nav>
+
+<header class="page-header" id="top">
+  <div class="page-header-inner">
+    <div class="breadcrumb"><a href="/policies">Policies</a> <span class="sep">/</span> <span>Tournament Manual</span></div>
+    <div class="eyebrow">Revised Jan 26, 2025</div>
+    <h1>Tournament Manual</h1>
+    <p class="subtitle">The complete reference for SWD-sponsored tournaments — definitions, general instructions, event formats, scoring, and awards.</p>
+    <div style="margin-top: 24px;">
+      <a href="/pdfs/SWD_Tournament_Book_01_26_25_02_06.pdf" target="_blank" style="display:inline-block; background:white; color:#1a365d; padding:12px 22px; border-radius:10px; font-weight:900; font-size:0.82rem; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; box-shadow:0 10px 25px rgba(0,0,0,0.2);">↓ Download PDF</a>
+    </div>
+  </div>
+</header>
+
+<!-- JUMP LINKS -->
+<div class="jump-section">
+  <div class="jump-card">
+    <p class="jump-title">Jump to a Section</p>
+    <div class="jump-grid">
+      <a href="#introduction" class="jump-link">Introduction</a>
+      <a href="#definitions" class="jump-link">Definitions</a>
+      <a href="#general-instructions" class="jump-link">General Instructions</a>
+      <a href="#tournament-financials" class="jump-link">Financials</a>
+      <a href="#dress-code" class="jump-link">Dress Code</a>
+      <a href="#mens-tournaments" class="jump-link alt">Men's Tournaments</a>
+      <a href="#womens-tournaments" class="jump-link alt">Women's Tournaments</a>
+      <a href="#team-southwest-men" class="jump-link">Team SW Points</a>
+    </div>
+  </div>
+</div>
+
+<main class="content">
+
+<!-- INTRODUCTION -->
+<section class="block" id="introduction">
+  <h2>Introduction</h2>
+  <p>This is a manual specifying requirements and general instructions for conducting Southwest Division (SWD) sponsored bowls tournaments.</p>
+  <p>Its purpose is to describe all sanctioned SWD-sponsored bowls tournaments, and to specify game and award formulae for these events. Thus, it serves as a manual and a ready reference for all tournament directors.</p>
+  <p>Upon request, the Tournament Chair and the Tournament Committee members are available to the clubs for assistance with the design and organization of any club-level tournament. However, they, or the SWD Delegate Assembly, cannot otherwise direct or interfere with a club invitational tournament.</p>
+  <p>All SWD-sponsored tournaments and their play/award specifications described herein are approved by the SWD Delegate Assembly. The SWD Tournament Committee shall conduct each sponsored tournament in accordance with the formats set forth in this manual.</p>
+  <p>The SWD Tournament Committee Chair may, from time to time, propose one or more additional events or revisions to existing tournament specifications to be instituted on a trial basis for one tournament season with the approval of the Tournament Committee. Should the trial revision(s) prove successful and appropriate, the revisions must be formally proposed to the Delegate Assembly for approval and permanent revision to this manual.</p>
+  <p>The Tournament Committee Chair will attempt to schedule SWD-sponsored tournaments for the ensuing year in coordination with club invitational events and include these club tournaments in our printed SWD annual schedule.</p>
+  <p>The Tournament Committee Chair will present the proposed consolidated annual tournament schedule for approval at the SWD Annual General Meeting (AGM). This is an opportunity for resolving any remaining conflicts and making any required changes. After approval, the SWD will distribute the consolidated schedule to the clubs. It will also be published in the annual SWD Yearbook and Directory of Clubs.</p>
+  <p>The current (outgoing) Tournament Committee Chair is to assume responsibility for sending out all announcements (entry forms) for tournaments to be held within five (5) weeks of the AGM.</p>
+</section>
+
+<!-- DEFINITIONS -->
+<section class="block" id="definitions">
+  <h2>Definitions</h2>
+
+  <h4>Australian Scoring</h4>
+  <p>Also referred to as Quinnell scoring. This system places a premium on ends won. It was developed for short games (e.g., 8 ends), but has also been used for standard-length games. Its specific instructions are:</p>
+  <ol>
+    <li>Keep score on a standard scorecard as usual</li>
+    <li>Award 3 points for a game win. Plus points are not counted.</li>
+    <li>Award 1-½ points for a game tie.</li>
+    <li>Award 1 point for each end won.</li>
+    <li>Total all points, highest total wins.</li>
+  </ol>
+  <p>Total points per game must be equal to the number of ends +3. (An 8-end game has 11 points to be divided between the two teams.) With this system, it is entirely possible for a team to lose a game but win on points (ends won).</p>
+
+  <h4>Blind Draw</h4>
+  <p>On the opening day of a competition the players draw a scorecard to find out who their opponents are.</p>
+
+  <h4>Bowls USA</h4>
+  <p>National organization (formerly USLBA; new name adopted 2012).</p>
+
+  <h4>Breaking Ties</h4>
+  <p>In all SWD-sponsored events ties will be broken as follows:</p>
+  <ol>
+    <li>Head-to-head result, if any</li>
+    <li>Fewest opponents' points allowed</li>
+    <li>Most ends won</li>
+    <li>One end roll-off</li>
+  </ol>
+
+  <h4>Bye</h4>
+  <p>A game not played that is considered a win when the number of tournament entrants is uneven or in the event of a no-show. A team receives a bye by blind draw. If plus points are scored, the team receiving the bye shall be awarded the average number of plus points scored in all of the games played during that round, rounded to the nearest tenth of a point.</p>
+
+  <h4>Cash Award Pool</h4>
+  <p>The total entry fees less expenses for a given tournament. See Tournament Financials for the formula.</p>
+
+  <h4>Closed Tournament</h4>
+  <p>A tournament that is open to SWD bowlers only; e.g., the National Championships Playdowns.</p>
+
+  <h4>Double Elimination</h4>
+  <p>A format wherein each contestant must be beaten twice to be eliminated from the competition.</p>
+
+  <h4>Final</h4>
+  <p>The last match or round that determines the winner of any event. It is customary to allow for a longer game in the final, i.e., a tournament of 12 ends or 15 points with a final of 15 ends or 18 points.</p>
+
+  <h4>Flight System</h4>
+  <p>A tournament format where all teams start in the championship flight. With each loss, the team falls into a different flight or is eliminated.</p>
+
+  <h4>Home Club</h4>
+  <p>The club identified as the SWD home club upon the payment of SWD dues. Only one club may be designated, and the member must be a full member of that club.</p>
+
+  <h4>Knockout</h4>
+  <p>See Single Elimination.</p>
+
+  <h4>Mixed Team</h4>
+  <p>A team consisting of at least one man and at least one woman.</p>
+
+  <h4>Mixed Tournament</h4>
+  <p>A tournament wherein all entering teams must have at least one man and at least one woman.</p>
+
+  <h4>Novice Player</h4>
+  <p>A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event.</p>
+  <div class="callout"><strong>Note:</strong> If age prohibits a bowler from joining a club, novice status will be determined by the Tournament Committee on a case-by-case basis. The winner of the Novice Singles is not eligible to play in the following year's Novice Singles tournament.</div>
+
+  <h4>Pennant System</h4>
+  <p>A tournament format wherein all entries are divided into pennants (groups or sections), and the teams in the pennant play a round robin to determine the winner of their pennant. This may involve seeding.</p>
+
+  <h4>Perpetual Trophy</h4>
+  <p>Trophy awarded to the winning team of an event; to be returned to the Tournament Chair prior to the same event the following year.</p>
+
+  <h4>Playdown</h4>
+  <p>Preliminary games in an event to reduce the competition to a manageable field that would compete in that event's finals or a subsequent event.</p>
+
+  <h4>Playoff</h4>
+  <p>A match or matches between or among the teams that qualified in the playdown. See Final.</p>
+
+  <h4>Plus Points</h4>
+  <p>The number of points the winner of a game scores over the loser. Normally, the limit set on the point difference score is ±10 points, but this will vary given the length of each individual match. This limitation is used to prevent a runaway game or a weak team from influencing the outcome of the tournament. Note that if plus points are limited to 10, minus points are also limited to 10.</p>
+
+  <h4>Points Tournaments</h4>
+  <p>Selected annual tournaments provide points used for determination of Team Southwest. All participants in these points tournaments must be a member in good standing of Bowls USA.</p>
+
+  <h4>Recognized Club</h4>
+  <p>Any club affiliated with World Bowls, Bowls USA, and/or the Southwest Division.</p>
+
+  <h4>Round Robin</h4>
+  <p>A format whereby each team plays every other team in an event to determine the winner. The number of games required for a round robin is one less than the number of entries when that number is even. With an uneven number of entries, the number of games is the same but each team will have a bye.</p>
+
+  <h4>Seeding by Ability</h4>
+  <p>Seeding by ability attempts to match better bowlers against those of lesser ability in an attempt to avoid top bowlers from meeting each other in the early round(s) of an event. Seeding shall be performed by the Tournament Committee.</p>
+
+  <h4>Seeding Geographically</h4>
+  <p>Geographic seeding assures that members of the same club, or geographical area, do not meet each other in the early round(s) of an event. For example, teams from the same club are assigned odd team numbers and would draw rink assignments separately against teams assigned even numbers.</p>
+
+  <h4>Shot Percentage</h4>
+  <p>A team's points scored are divided by the total points scored for and against the team throughout the tournament. The highest percentage wins.</p>
+
+  <h4>Side</h4>
+  <p>Any agreed number of teams or singles players (or a combination of teams and singles players) whose combined scores decide the result of a competition.</p>
+
+  <h4>Single Elimination</h4>
+  <p>A tournament flight system (bracket) format wherein each team is eliminated from the competition after their first loss.</p>
+
+  <h4>Team</h4>
+  <p>One entry, whether singles, pairs, triples, or fours.</p>
+
+  <h4>Team Southwest</h4>
+  <p>An honorary annual recognition of the top ten men and top ten women players who accumulate the most points in the specified points tournaments.</p>
+
+  <h4>Two-Flight Elimination</h4>
+  <p>First game determines flight. Winner plays in Championship Flight and loser plays in Second Flight. Knockout system applies after the first game.</p>
+
+  <h4>USLBA</h4>
+  <p>United States Lawn Bowling Association, now known as Bowls USA (name adopted in 2012).</p>
+
+  <h4>WTPP (Win, Tie, Plus Points)</h4>
+  <p>A scoring method for tournaments not formatted in the winner vs. winner concept. Win = 3 points, Tie = 1 point, Loss = 0 points, and the Plus Point differential.</p>
+</section>
+
+<!-- GENERAL INSTRUCTIONS -->
+<section class="block" id="general-instructions">
+  <h2>General Instructions</h2>
+  <p>The SWD Tournament Chair shall assign responsibility for direction of SWD-sponsored tournaments to the SWD Men's and Women's Tournament Chairs, respectively, who shall assign Tournament Directors for each tournament. The Tournament Director shall plan, direct and/or oversee the tournament, including:</p>
+  <ul>
+    <li>Posting event flyers on the SWD website</li>
+    <li>Tournament entries shall close one (1) week prior to the event. No refunds are given after this date for withdrawals</li>
+    <li>Implementing the plan prescribed for the assigned tournament</li>
+    <li>Assuring club logistics support; notifying host club of tournament requirements, including number of rinks and entrant count</li>
+    <li>Making readily and centrally available all umpire accessories and advising the players where they are located</li>
+    <li>Maintaining a score chart and/or playdown bracket chart</li>
+    <li>Presenting awards, taking pictures of the winning team, and reporting place winners to the Tournament Chair and to the SWD Tournament Chair</li>
+  </ul>
+
+  <h4>Odd Number of Entries</h4>
+  <ul>
+    <li><strong>Men's events:</strong> there will be a bye</li>
+    <li><strong>Women's events:</strong> will seek additional teams to create even teams</li>
+  </ul>
+
+  <p>If the Tournament Director chooses to compete in a tournament, arrangements may be made for a qualified assistant to maintain the charts during play.</p>
+  <p>A Tournament Director is the final authority regarding any decision on tournament format and special rules during the event. Any change in specified tournament rules (e.g., number of ends or time limitations) due to local conditions or other considerations must be announced prior to the start of the event/day of play. Any challenge to the Tournament Director's decision may be appealed to the SWD Executive Board in writing.</p>
+
+  <h4>Pre-Game Assembly</h4>
+  <p>Approximately 15 minutes prior to the start of play, the Tournament Director shall assemble all of the competitors for the purpose of:</p>
+  <ul>
+    <li>Conducting the flag salute</li>
+    <li>Introducing any dignitaries</li>
+    <li>Acknowledging the prior year's winner(s)</li>
+    <li>Thanking support staff (hospitality, greens manager, other volunteers)</li>
+    <li>Announcing specific game instructions and the Conditions of Play</li>
+    <li>Identifying the presiding National Umpire and all other National Umpires</li>
+    <li>Specifying any local club ground rules (e.g., smoking area)</li>
+  </ul>
+
+  <p>Practice time may be allowed (prior to the start of play and the pre-game assembly) on any rink running at right angles to the designated game rinks. Each event will indicate if practice is available. Competitors should be courteous and prudent in their selection of a practice rink, taking care to avoid a busy rink and to make a request for joining in.</p>
+  <p>The dress code for all division and national tournaments shall be as specified in the Laws of the Sport of Bowls or as otherwise dictated by the SWD Delegate Assembly.</p>
+  <p>The Tournament Director must contact the president of the club designated as the venue for a tournament sufficiently in advance of the tournament date to determine if the green(s) will be playable for the event. Should the green(s) be considered not playable, the SWD Tournament Committee will vote to determine whether to make arrangements for an alternate venue or reschedule the tournament.</p>
+  <p>The current edition of the Laws of the Sport of Bowls shall govern ALL tournament play. Any local club ground rules affecting play should be announced at the opening of the event or published in advance.</p>
+  <p>All competitors should be reminded that game etiquette is to be observed. Tournament entry qualification as stated in the tournament specification can, if questioned, be verified by the Tournament Director prior to acceptance into the tournament.</p>
+
+  <div class="callout">
+    <strong>Late arrivals</strong> will be penalized one (1) point for each ten (10) minutes from the end of the trial ends, or fraction thereof, and will count as an end played. Thirty (30) minutes delay constitutes a forfeiture of the game. Such penalties may be waived by the Tournament Director due to extenuating circumstances.
+  </div>
+
+  <p>Any player who withdraws from play prior to completion of an event without due cause will be disciplined by suspension from entry in the next two SWD-sponsored tournaments and the same tournament in the following year. Such penalty may be waived by the Tournament Director due to extenuating circumstances. The SWD Ethics Committee shall rule on all infractions, penalties or complaints.</p>
+  <p>In the event that a complete team winning an elimination or playdown event cannot continue as a team, Bowls USA substitution laws will apply. If a team is unable to continue due to substitution laws the next complete team in order of finish shall continue.</p>
+  <p>Game results shall be as recorded on a scorecard turned in to the Official Recorder with the signatures of both skips or singles players.</p>
+  <p>The Tournament Director shall retain the right to, mid-tournament, change the time rules that affect all or any match in order to speed up a game or the tournament.</p>
+</section>
+
+<!-- TOURNAMENT UMPIRE -->
+<section class="block" id="tournament-umpire">
+  <h2>Tournament Umpire</h2>
+  <p>Each SWD-sponsored tournament should designate a certified umpire to oversee conduct of the event and respond to any request for a law interpretation or application made by a competitor in the event. In the event a certified umpire is not available, the Tournament Director must enlist a senior SWD member who, in the Tournament Director's judgment, has sufficient tournament experience, laws knowledge, and objectivity to act as the event umpire. The Tournament Director must identify the event umpire in the opening announcements. The event umpire may or may not participate in the event.</p>
+  <p>A current list of certified umpires is available from the SWD Head Division Umpire who is listed in the SWD Yearbook and Directory of Clubs.</p>
+</section>
+
+<!-- FINANCIALS -->
+<section class="block" id="tournament-financials">
+  <h2>Tournament Financials</h2>
+  <p>It is the responsibility of the Tournament Committee Chair to collect and account for all tournament entry fees, specify the Cash Award Pool for each tournament, and prepare Tournament Financial reports. This responsibility may be delegated to a Tournament Committee member as appropriate.</p>
+
+  <h4>Cash Award Pool Formula</h4>
+  <p>The Cash Award Pool for each tournament is derived by deducting cost elements from the total entry fees collected:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Deduction</th><th>Amount</th></tr></thead>
+      <tbody>
+        <tr><td>Hospitality fee paid to host club*</td><td>$3.50 per entrant per day</td></tr>
+        <tr><td>Host club greens fee</td><td>$50 per day per green, or $2.00 per person per day (whichever is greater)</td></tr>
+        <tr><td>Estimated tournament expense**</td><td>7% of total</td></tr>
+        <tr><td>Costs associated with online entries</td><td>As incurred</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><em>*Hospitality includes beverage service, breakfast rolls, salads, and chips.</em></p>
+  <p><em>**Tournament Expense is estimated because actual expenses are accounted for later and may include: Bowls advertising, flyer preparation/printing, postage, gamemaster fees (including lodging if required), telephone charges, and miscellaneous expenses.</em></p>
+  <p>At the end of the year a final accounting shall be prepared. It is anticipated that the Tournament treasury shall have between $2,000 and $2,500. If the retained sums are in excess of $3,500, then the excess shall be divided amongst multiple tournaments to be determined by the Tournament Committee. That amount shall be added to the following year's Cash Award Pool for those tournaments.</p>
+</section>
+
+<!-- DRESS CODE -->
+<section class="block" id="dress-code">
+  <h2>Dress Code</h2>
+
+  <h4>For Singles Players</h4>
+  <ul>
+    <li>Collared shirts with sleeves (polo shirts or button-down style)</li>
+    <li>No T-shirts</li>
+    <li>No cutoffs</li>
+    <li>Shoes must not damage the green; club policy rules</li>
+  </ul>
+
+  <h4>For Team Players</h4>
+  <ul>
+    <li>Collared shirts with sleeves (polo shirts or button-down style)</li>
+    <li>No T-shirts</li>
+    <li>Players may wear different lengths of bottoms of the same color</li>
+    <li>No cutoffs</li>
+    <li>Shoes must not damage the green; club policy rules</li>
+  </ul>
+
+  <p>Players, umpires and markers must wear flat-soled (heel-less) footwear when they play on the greens or act as umpires or markers.</p>
+
+  <div class="callout">
+    If the Tournament Director determines that a player and/or team is in violation of the Dress Code, the player and/or team will be notified, advised of the specific issue, and requested to abide by the Dress Code as written at future division-sanctioned tournaments. Any such warning shall be reported to the SWD Tournament Committee and <strong>may result in disqualification from a future day/tournament</strong>.
+  </div>
+</section>
+
+<!-- ===== MEN'S TOURNAMENTS ===== -->
+<section class="block group-header" id="mens-tournaments">
+  <h2>Men's Tournaments</h2>
+  <p>Competition formats, scoring systems, and awards for all SWD-sponsored men's events.</p>
+</section>
+
+<section class="block" id="socal-triples-rinks">
+  <h2>Southern California Triples &amp; Rinks</h2>
+  <p><strong>Summary:</strong> Two two-day events to identify a champion triples team and a champion rinks team.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Two consecutive days</span></div>
+    <div class="event-meta-item"><span class="label-sm">Eligibility</span><span class="value">Male members — SWD, Bowls USA, or World Bowls</span></div>
+    <div class="event-meta-item"><span class="label-sm">Max Entries</span><span class="value">Unlimited</span></div>
+  </div>
+  <h4>Format — Day 1</h4>
+  <ul>
+    <li>Blind draw</li>
+    <li>Eight best teams ranked by WTPP return on day 2</li>
+    <li><strong>Triples:</strong> Four 14-end games, 2 bowls</li>
+    <li><strong>Fours:</strong> Three 14-end games</li>
+  </ul>
+  <h4>Format — Day 2</h4>
+  <ul>
+    <li>Seed teams by results of first day: 1v8, 4v5, 2v7, 3v6</li>
+    <li>Triples finals: 18 ends. Fours finals: 16 ends (1st/2nd), 14 ends elsewhere</li>
+  </ul>
+  <p><strong>Scoring:</strong> Total WTPP, 10-point plus-points limit. Ties broken per Definitions.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>% of Pool</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>50%</td></tr>
+        <tr><td>2nd</td><td>30%</td></tr>
+        <tr><td>3rd</td><td>20%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="cary-macdonald">
+  <h2>Cary-MacDonald Pairs</h2>
+  <p><strong>Summary:</strong> Named in recognition of its original donors, Drs. Raymond Cary and William MacDonald. Dr. Cary was president of the Southern California Lawn Bowling Association in 1945. A unique two-day event forming entrants into pennants, separating teams into Cary and MacDonald flights after the first day, and determining the winners on the second day.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Two consecutive days</span></div>
+    <div class="event-meta-item"><span class="label-sm">Max Entries</span><span class="value">32 teams (divisible by 4)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Seeding</span><span class="value">By Committee — Excellent, Very Good, Good, Average</span></div>
+  </div>
+  <h4>Format — Day 1</h4>
+  <ul>
+    <li>Blind draw, three-bowl pairs, all games 18 ends</li>
+    <li>Pennant system — 8 pennants of 4 teams (or fewer if &lt;32 entries)</li>
+    <li>Round robin within each pennant</li>
+    <li>All pennant winners → Cary flight; second-place → MacDonald flight</li>
+  </ul>
+  <h4>Format — Day 2</h4>
+  <ul>
+    <li>Seeding in both flights: 1v8, 4v5, 2v7, 3v6 (WTPP-based, no pennant-winner preference)</li>
+    <li>Playoff for 1st, 2nd, and 3rd in both flights</li>
+  </ul>
+  <p><strong>Scoring:</strong> WTPP in day 1 qualifying, ±10 plus-points max. Day 2 ties → one-end playoff.</p>
+  <p><strong>Award Split:</strong> Cary flight 60%, MacDonald 40%.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>% of Flight Pool</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>50%</td></tr>
+        <tr><td>2nd</td><td>30%</td></tr>
+        <tr><td>3rd</td><td>20%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="swd-mixed-pairs">
+  <h2>SWD Mixed Pairs</h2>
+  <p><strong>Summary:</strong> A one-day mixed pairs event at Laguna Woods. Requires a man and a woman on each team.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Location</span><span class="value">Laguna Woods</span></div>
+    <div class="event-meta-item"><span class="label-sm">Max Entries</span><span class="value">32 teams (first to enter)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">A and B flight; Four 14-end games, 3-bowl pairs</span></div>
+  </div>
+  <p>Any team may enter the A flight. At the Tournament Director's discretion, established tournament players may not enter the B flight. Substitutions allowed on B green. Total WTPP over all games, ±10 plus-points max.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>16 teams/green</th><th>12 teams/green</th><th>20 teams/green</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>40%</td><td>50%</td><td>30%</td></tr>
+        <tr><td>2nd</td><td>30%</td><td>30%</td><td>25%</td></tr>
+        <tr><td>3rd</td><td>20%</td><td>20%</td><td>20%</td></tr>
+        <tr><td>4th</td><td>10%</td><td>—</td><td>15%</td></tr>
+        <tr><td>5th</td><td>—</td><td>—</td><td>10%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="murray-allison">
+  <h2>Murray-Allison Singles</h2>
+  <p><strong>Summary:</strong> A two-day singles event named in recognition of Frank D. Murray (SWLBA President 1957) and William Allison (SWLBA President 1967). The outcome of the first game places entrants into either the Murray (championship) or Allison (consolation) flight.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Two consecutive days</span></div>
+    <div class="event-meta-item"><span class="label-sm">Max Entries</span><span class="value">Unlimited</span></div>
+  </div>
+  <p>Three-flight single elimination. Winner stays in Murray, loser goes to Allison. Games to 18 points; finals to 21 points. 18-point playoff for 3rd place in Murray and Allison.</p>
+  <p><strong>Award Split:</strong> Murray 60%, Allison 40%.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>% of Flight Pool</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>50%</td></tr>
+        <tr><td>2nd</td><td>30%</td></tr>
+        <tr><td>3rd</td><td>20%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="novice-pairs">
+  <h2>Novice Pairs</h2>
+  <p><strong>Summary:</strong> A one-day pairs event for SWD male bowlers with less than two years' experience from date of joining.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">One day</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Blind draw, three 12-end games</span></div>
+    <div class="event-meta-item"><span class="label-sm">Scoring</span><span class="value">Total WTPP, ±7 plus-points max</span></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>10+ Teams</th><th>&lt;10 Teams</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>40%</td><td>50%</td></tr>
+        <tr><td>2nd</td><td>30%</td><td>30%</td></tr>
+        <tr><td>3rd</td><td>20%</td><td>20%</td></tr>
+        <tr><td>4th</td><td>10% (min entry fee)</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="novice-singles">
+  <h2>Novice Singles</h2>
+  <p><strong>Summary:</strong> A one-day event for SWD male bowlers with less than two years of experience.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">One day</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Three 15-point games, blind draw</span></div>
+    <div class="event-meta-item"><span class="label-sm">Scoring</span><span class="value">Total WTPP, 10-point max plus-points</span></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>16+ Entrants</th><th>&lt;16 Entrants</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>40%</td><td>50%</td></tr>
+        <tr><td>2nd</td><td>30%</td><td>30%</td></tr>
+        <tr><td>3rd</td><td>20%</td><td>20%</td></tr>
+        <tr><td>4th</td><td>10% (min entry fee)</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="swd-open">
+  <h2>SWD Open — Overview</h2>
+  <p>The SWD Open is three separate two-day tournaments — Fours, Pairs, Singles — played over six consecutive days. Open to male members in good standing of a SWD member club or members of clubs affiliated with Bowls USA or World Bowls.</p>
+  <p>Flight format determined by the number of entries. Tournament Committee has final decision. At the Committee's discretion, either a <strong>Traditional</strong> or <strong>First Day Qualifier</strong> format will be used.</p>
+
+  <h4>Traditional Format</h4>
+  <ul>
+    <li>Blind draw for first round</li>
+    <li>Multi-flight bracket playdown: 4-place championship flight + four subordinate flights</li>
+    <li>Championship final: 16 ends. All other flight finals: 14 ends</li>
+  </ul>
+
+  <h4>First Day Qualifier Format</h4>
+  <p><strong>Day 1:</strong> Blind draw — Singles: four 14-point games; Pairs: four 14-end, 3-bowl games; Rinks: three 14-end games.</p>
+  <p><strong>Day 2:</strong> Teams placed into 8-team flights by overall WTPP standings (ties stand). If more than 8 undefeated teams, first flight determined by playoff.</p>
+
+  <h4>Undefeated Teams Tiebreaker</h4>
+  <p>If needed, bottom teams based on WTPP go into a tiebreaker starting 10 minutes after Tournament Director's determination. Any team not present on time forfeits. Each round played until one team wins 2 ends (points don't matter). Losers eliminated until requisite number remains; eliminated teams drop to third flight.</p>
+</section>
+
+<section class="block" id="swd-open-fours">
+  <h2>SWD Open — Fours</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Two consecutive days</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Traditional or First Day Qualifier</span></div>
+    <div class="event-meta-item"><span class="label-sm">Scoring</span><span class="value">Game win/loss only (no plus points)</span></div>
+  </div>
+  <h4>Flight Allocation</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Flight</th><th>5 Flights</th><th>4 Flights</th></tr></thead>
+      <tbody>
+        <tr><td>Championship</td><td>50%</td><td>52%</td></tr>
+        <tr><td>Second</td><td>15.5%</td><td>20%</td></tr>
+        <tr><td>Third</td><td>12.5%</td><td>16%</td></tr>
+        <tr><td>Fourth</td><td>11.5%</td><td>12%</td></tr>
+        <tr><td>Fifth</td><td>10.5%</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Within Each Flight</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Championship</th><th>2nd–5th Flights</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>40%</td><td>60%</td></tr>
+        <tr><td>2nd</td><td>25%</td><td>40%</td></tr>
+        <tr><td>3rd</td><td>20%</td><td>—</td></tr>
+        <tr><td>4th</td><td>15%</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="swd-open-pairs">
+  <h2>SWD Open — Pairs</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Two consecutive days</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Traditional or First Day Qualifier</span></div>
+    <div class="event-meta-item"><span class="label-sm">Scoring</span><span class="value">Game win/loss only</span></div>
+  </div>
+  <p>Same flight allocation and within-flight percentages as Open Fours. Non-cash awards to top three teams of Championship flight.</p>
+</section>
+
+<section class="block" id="swd-open-singles">
+  <h2>SWD Open — Singles</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Two consecutive days</span></div>
+    <div class="event-meta-item"><span class="label-sm">Max Entries</span><span class="value">64</span></div>
+    <div class="event-meta-item"><span class="label-sm">Entry Fee</span><span class="value">$30.00 per player</span></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Championship</th><th>2nd–6th Flights</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>40%</td><td>60%</td></tr>
+        <tr><td>2nd</td><td>25%</td><td>40%</td></tr>
+        <tr><td>3rd</td><td>20%</td><td>—</td></tr>
+        <tr><td>4th</td><td>15%</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">The winner's name will be added to the <strong>Arnold White Memorial Trophy</strong>.</div>
+</section>
+
+<section class="block" id="bowler-of-tournament">
+  <h2>Bowler of the Tournament</h2>
+  <p>Based on points earned according to the following tables. No points awarded if you have three or more losses.</p>
+
+  <h4>Championship Flight</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Singles</th><th>Pairs</th><th>Triples</th><th>Rinks</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>80</td><td>72</td><td>64</td><td>64</td></tr>
+        <tr><td>2nd</td><td>64</td><td>54</td><td>48</td><td>48</td></tr>
+        <tr><td>3rd</td><td>48</td><td>43</td><td>38</td><td>38</td></tr>
+        <tr><td>4th</td><td>32</td><td>29</td><td>25</td><td>25</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Second Flight</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Singles</th><th>Pairs</th><th>Triples</th><th>Rinks</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>36</td><td>32</td><td>28</td><td>28</td></tr>
+        <tr><td>2nd</td><td>28</td><td>24</td><td>21</td><td>21</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Third Flight</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Singles</th><th>Pairs</th><th>Triples</th><th>Rinks</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>29</td><td>26</td><td>23</td><td>23</td></tr>
+        <tr><td>2nd</td><td>21</td><td>19</td><td>17</td><td>17</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Fourth Flight</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Singles</th><th>Pairs</th><th>Triples</th><th>Rinks</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>22</td><td>20</td><td>18</td><td>18</td></tr>
+        <tr><td>2nd</td><td>16</td><td>14</td><td>12</td><td>12</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Fifth Flight</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Singles</th><th>Pairs</th><th>Triples</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>16</td><td>20</td><td>12</td></tr>
+        <tr><td>2nd</td><td>11</td><td>10</td><td>8</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Sixth Flight</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Singles</th><th>Pairs</th><th>Triples</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>16</td><td>14</td><td>12</td></tr>
+        <tr><td>2nd</td><td>11</td><td>10</td><td>8</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="nationals-overview">
+  <h2>National Championships — Playdowns Overview</h2>
+  <p>The National Championships is a yearly tournament wherein all seven divisions of Bowls USA compete in singles and pairs. The SWD is allowed to send two teams each of singles and pairs. Players must guarantee to represent the SWD on that team in the National Championships wherever in the U.S. they are held.</p>
+  <p><strong>Players must be a U.S. Citizen</strong> and must not have already qualified for the National Championships for that year. The second-place team goes only if the first-place team drops out.</p>
+  <div class="callout">A winning team withdrawing from the National Championships, or any game thereof, without good cause, will be subject to being prohibited from entering the SWD Singles or Pairs Playdowns the following year.</div>
+  <p>The field is split between the Stars and Stripes on the first day after seeding and a blind draw. If the SWD provides attire, it shall be worn unaltered during opening ceremonies and play. Seeding is done by the Tournament Committee: no fewer than 4 teams, no more than 25% of the field.</p>
+  <p>The SWD Playdowns, Singles and Pairs, use a <strong>double-elimination format</strong> (see Appendix A in the source PDF for sample chart).</p>
+</section>
+
+<section class="block" id="nationals-pairs">
+  <h2>Nationals — Pairs Playdowns</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Determined by entries; possibly 5 days over 3 weekends</span></div>
+    <div class="event-meta-item"><span class="label-sm">Eligibility</span><span class="value">Male SWD/Bowls USA members, U.S. Citizens</span></div>
+  </div>
+  <ul>
+    <li>Seeding, blind draw, double elimination</li>
+    <li>Two 18-end games each day (three if both teams and Committee agree)</li>
+    <li>Tied games: one-end roll-off</li>
+  </ul>
+  <p><strong>Awards:</strong> 1st — 60%, 2nd — 40% of CAP.</p>
+</section>
+
+<section class="block" id="nationals-singles">
+  <h2>Nationals — Singles Playdowns</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">~3 days over one weekend plus Monday</span></div>
+    <div class="event-meta-item"><span class="label-sm">Eligibility</span><span class="value">Male SWD/Bowls USA members, U.S. Citizens</span></div>
+  </div>
+  <ul>
+    <li>Seeding, blind draw, double elimination</li>
+    <li>Three 21-point games each day on first weekend</li>
+  </ul>
+  <p><strong>Awards:</strong> 1st — 60%, 2nd — 40% of CAP.</p>
+</section>
+
+<section class="block" id="vet-novice-pairs-men">
+  <h2>Veteran-Novice Pairs</h2>
+  <p><strong>Summary:</strong> Teams a veteran bowler (&gt;2 years) with a novice (&lt;2 years). Open to both SWD men and women. Simultaneous regional play at up to four venues.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Venues (Nominal)</span><span class="value">MacKenzie Park, Laguna Beach, Sun City</span></div>
+    <div class="event-meta-item"><span class="label-sm">Minimum</span><span class="value">8 teams per venue</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Four 10-end games, ±7 plus-points max</span></div>
+  </div>
+  <p>Teams must have at least one male bowler. Novice may lead or skip.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>12+ Teams</th><th>&lt;12 Teams</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>35%</td><td>50%</td></tr>
+        <tr><td>2nd</td><td>28%</td><td>30%</td></tr>
+        <tr><td>3rd</td><td>22%</td><td>20%</td></tr>
+        <tr><td>4th</td><td>15%</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="waterbury">
+  <h2>Waterbury All-League Championship</h2>
+  <p><strong>Summary:</strong> Launched in 1983 by Carl Waterbury. A season-ending competition among the winners of each of the five SWD leagues to determine the SWD League Champion.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">One day (after league season)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Eligibility</span><span class="value">Two triples teams from each league-winning club</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Round robin, four 10-end games, 1.5h time limit</span></div>
+  </div>
+  <p>Players must be regular members of the same SWD member club and cannot switch teams during the event. Two winning club teams from each league split into A and B groups by blind draw.</p>
+  <h4>Round Robin Pairings</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Game 1</th><th>Game 2</th><th>Game 3</th><th>Game 4</th></tr></thead>
+      <tbody>
+        <tr><td>A1 v B2</td><td>A1 v B3</td><td>A1 v B4</td><td>A1 v B5</td></tr>
+        <tr><td>A2 v B3</td><td>A2 v B4</td><td>A2 v B5</td><td>A2 v B1</td></tr>
+        <tr><td>A3 v B4</td><td>A3 v B5</td><td>A3 v B1</td><td>A3 v B2</td></tr>
+        <tr><td>A4 v B5</td><td>A4 v B1</td><td>A4 v B2</td><td>A4 v B3</td></tr>
+        <tr><td>A5 v B1</td><td>A5 v B2</td><td>A5 v B3</td><td>A5 v B4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Scoring:</strong> Total WTPP for each two-team combination, plus points limited to ±7.</p>
+  <p><strong>Awards:</strong> 100% of CAP (after greens fees/hospitality) awarded to winning club. Perpetual trophy (Waterbury) engraved and retained at winning league's clubhouse.</p>
+</section>
+
+<section class="block" id="five-man-all-star">
+  <h2>5-Man All Star</h2>
+  <p><strong>Summary:</strong> Five-man teams from each SWD club compete in Triples (2), Pairs (4), Singles and Rinks. Six-game scores combined to determine the winner. Carroll F. Chase (SWLBA President 1975) donor of the perpetual trophy plaque.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">One day</span></div>
+    <div class="event-meta-item"><span class="label-sm">Max Entries</span><span class="value">16 teams (one per club)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">5 members + 1 alternate, same SWD club, 90-day membership</span></div>
+  </div>
+  <div class="callout">Joining a new club for the sole purpose of playing in this event is prohibited.</div>
+  <h4>Format</h4>
+  <ul>
+    <li>Blind draw (no team plays another from same club more than once)</li>
+    <li>14-end games; singles to 18 points</li>
+    <li><strong>A.M.:</strong> One pairs and one triples played concurrently</li>
+    <li><strong>P.M. Game 1:</strong> One triples and one pairs concurrently (A.M. pairs players may not repeat)</li>
+    <li><strong>P.M. Game 2:</strong> One singles and one rinks concurrently</li>
+  </ul>
+  <p><strong>Scoring:</strong> Total WTPP, ±10 plus-points max. Ties broken by singles roll-off.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>% of CAP</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>45%</td></tr>
+        <tr><td>2nd</td><td>35%</td></tr>
+        <tr><td>3rd</td><td>20%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="team-southwest-men">
+  <h2>Team Southwest — Point Criteria (Men)</h2>
+  <p>A candidate must be a member of a club in the SWD.</p>
+
+  <h4>Cary-MacDonald and Murray-Allison</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Cary</th><th>MacDonald</th><th>Murray</th><th>Allison</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>10</td><td>5</td><td>10</td><td>5</td></tr>
+        <tr><td>2nd</td><td>7</td><td>4</td><td>7</td><td>4</td></tr>
+        <tr><td>3rd</td><td>4</td><td>2</td><td>4</td><td>2</td></tr>
+        <tr><td>4th</td><td>2</td><td>1</td><td>2</td><td>1</td></tr>
+        <tr><td>5th–8th</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>SoCal Triples &amp; Rinks Championships</h4>
+  <p>1st — 10; 2nd — 7; 3rd — 4; 4th — 2; 5th–8th — 1</p>
+
+  <h4>SWD Singles and Pairs Playdowns</h4>
+  <p>1st — 10; 2nd — 7; 3rd — 4; 4th — 1</p>
+
+  <h4>US Open &amp; SW Open</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>Championship</th><th>2nd Flight</th><th>3rd Flight</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>15</td><td>7</td><td>5</td></tr>
+        <tr><td>2nd</td><td>11</td><td>5</td><td>3</td></tr>
+        <tr><td>3rd</td><td>7</td><td>3</td><td>—</td></tr>
+        <tr><td>4th</td><td>5</td><td>1</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>SWD Payout Rules</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Place</th><th>&gt;12 Teams</th><th>&lt;12 Teams</th></tr></thead>
+      <tbody>
+        <tr><td>1st</td><td>40%</td><td>45%</td></tr>
+        <tr><td>2nd</td><td>30%</td><td>35%</td></tr>
+        <tr><td>3rd</td><td>20%</td><td>20%</td></tr>
+        <tr><td>4th</td><td>10%</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== WOMEN'S TOURNAMENTS ===== -->
+<section class="block group-header" id="womens-tournaments">
+  <h2>Women's Tournaments</h2>
+  <p>Competition formats, scoring systems, and awards for all SWD-sponsored women's events.</p>
+</section>
+
+<section class="block" id="mumma-mixed-pairs">
+  <h2>Mumma Mixed Pairs (Ladies Skip)</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Location</span><span class="value">Riverside LBC</span></div>
+    <div class="event-meta-item"><span class="label-sm">Trophy</span><span class="value">Mumma Mixed Pairs Plaque</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">One woman + one man (any club)</span></div>
+  </div>
+  <p>Ladies skip. One-day event, three 12-end games, A and B greens, open blind draw. Entrants must designate preferred green. Winners determined by games won and plus points. Plaque stays at Riverside LBC. Money prizes per full green, amounts by entry count.</p>
+</section>
+
+<section class="block" id="heidi-rittner">
+  <h2>Heidi Rittner Australian Pairs</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Trophy</span><span class="value">Perpetual (introduced 2019)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">Two women (any club)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">2-4-2 system; three 14-end games; ±10 plus-points max</span></div>
+  </div>
+  <p>One-day event, open blind draw. Erin Fernandes (Heidi's daughter) contributes $500/year toward prize money.</p>
+</section>
+
+<section class="block" id="swd-vet-novice-triples">
+  <h2>SWD Veteran-Novice Triples</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Trophy</span><span class="value">Crystal Star to each winning team member</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">Three women, at least one novice</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Four 12-end games, 2-bowl triples; ±10 plus-points max</span></div>
+  </div>
+  <p>Money prizes awarded to each full green — 1st, 2nd, 3rd place.</p>
+</section>
+
+<section class="block" id="vet-novice-mixed-triples">
+  <h2>Veteran-Novice Mixed or Matched Triples</h2>
+  <p><em>(Usually played in March)</em></p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Location</span><span class="value">Santa Anita LBC</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">Mixed or matched 3-person team, at least one novice</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Four 12-end games, 2-bowl triples; ±10 plus-points max</span></div>
+  </div>
+  <p>If enough entries for more than one green, played as individual tournaments per green. Money prizes awarded overall.</p>
+</section>
+
+<section class="block" id="swd-open-women">
+  <h2>SWD Open — Women <small style="font-weight:600; color: var(--muted); font-size:0.75em;">(Team Southwest Point Criteria Event)</small></h2>
+  <p>Open to all members of Bowls USA or World Bowls. Order of events at Committee's discretion.</p>
+
+  <h4>Day 1</h4>
+  <ul>
+    <li><strong>Fours:</strong> Four 10-end games, ±7 plus-points max</li>
+    <li><strong>Pairs:</strong> Four 12-end games of 3-bowl pairs, ±7 plus-points max</li>
+    <li><strong>Singles:</strong> Four 14-point games, ±7 plus-points max</li>
+  </ul>
+  <p>Blind draw. Ranking: 3 points win, 1 point tie.</p>
+
+  <h4>Day 2</h4>
+  <p>Placed into flights by day-1 results. One game guaranteed (two in Championship flight).</p>
+  <ul>
+    <li>Fours day 2: 14 ends; Championship final 16 ends</li>
+    <li>Pairs day 2: 16 ends; Championship final 18 ends</li>
+    <li>Singles day 2: 18 points</li>
+  </ul>
+  <div class="callout">This method of play may be changed only by majority vote of the SWD Delegates.</div>
+  <p>Bowler of the Tournament receives a commemorative plaque.</p>
+</section>
+
+<section class="block" id="katy-stone-singles">
+  <h2>Southwest Women's Singles <small style="font-weight:600; color: var(--muted); font-size:0.75em;">(Team SW Points)</small></h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Location</span><span class="value">Long Beach LBC</span></div>
+    <div class="event-meta-item"><span class="label-sm">Trophy</span><span class="value">Katy Stone Singles — perpetual</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Set play — four games of two 7-end sets + 3-end tiebreaker</span></div>
+  </div>
+  <p>Open to all female Bowls USA / WB members. Winner of first set starts second set. If tiebreaker needed, flip a coin. 3-end tiebreaker is total points, not ends.</p>
+  <h4>Scoring</h4>
+  <p>3 points win, 0 loss. Set points: 1 for a won set, ½ for a tied set. No max plus points. Tiebreakers don't count for set points or plus points.</p>
+  <h4>Tiebreakers (in order)</h4>
+  <ol>
+    <li>Plus points</li>
+    <li>Head-to-head results</li>
+    <li>Number of sets won</li>
+    <li>Fewest opponent's points allowed</li>
+    <li>One-end roll-off</li>
+  </ol>
+</section>
+
+<section class="block" id="swd-novice-singles-women">
+  <h2>SWD Novice Singles (Women)</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Trophy</span><span class="value">Izzie Forbes Trophy — perpetual</span></div>
+    <div class="event-meta-item"><span class="label-sm">Eligibility</span><span class="value">Female novice (see Definitions)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Three 15-point games, 10 plus-points max</span></div>
+  </div>
+  <div class="callout">Winner of the Novice Singles is not eligible to play Novice Singles again.</div>
+  <p>Format adjusts to entry count (round robin if 4 or fewer). Money prize to Champion and Runner-up.</p>
+</section>
+
+<section class="block" id="cal-fives">
+  <h2>Cal 5's <small style="font-weight:600; color: var(--muted); font-size:0.75em;">(Team SW Points)</small></h2>
+  <p><strong>Team:</strong> Five women</p>
+  <ul>
+    <li><strong>Game 1:</strong> Rinks (14 ends) and Singles (18 points)</li>
+    <li><strong>Game 2:</strong> 2-bowl Triples and 3-bowl Pairs (14 ends)</li>
+    <li><strong>Game 3:</strong> 2-bowl Triples and 3-bowl Pairs (14 ends)</li>
+    <li>Teams arranged so no team plays the same opponent if possible</li>
+    <li>Skips cannot skip both pairs games or both triples games</li>
+  </ul>
+  <p>Winner by total wins; ties broken by plus points.</p>
+</section>
+
+<section class="block" id="fossati">
+  <h2>Fossati &amp; Friends Triples</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Location</span><span class="value">Orange County; preferably Newport Harbor LBC</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">Three women</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Three 14-end games; 10 plus-points max</span></div>
+  </div>
+  <p>$500 prize money in addition to entry fees, provided by sponsor. Plaque with winners' names retained at Newport Harbor LBC.</p>
+  <ul>
+    <li>12 Teams — 1st through 3rd place</li>
+    <li>16 Teams — 1st through 4th place</li>
+    <li>20 Teams — 1st through 5th place</li>
+  </ul>
+</section>
+
+<section class="block" id="pairs-singles-playdowns-women">
+  <h2>Pairs &amp; Singles Playdowns (Women) <small style="font-weight:600; color: var(--muted); font-size:0.75em;">(Team SW Points)</small></h2>
+  <p>SWD sends two teams per event to Nationals, determined by two separate playdowns.</p>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Duration</span><span class="value">Two-weekend event based on entries</span></div>
+    <div class="event-meta-item"><span class="label-sm">Eligibility</span><span class="value">U.S. citizens, SWD + Bowls USA members</span></div>
+  </div>
+  <h4>Pairs</h4>
+  <ul>
+    <li>18 ends each. 16 teams or fewer → round robin. More → double elimination.</li>
+  </ul>
+  <h4>Singles</h4>
+  <ul>
+    <li>To 21 points. 16 or fewer → round robin. 17–24 → round robin (16-point games). 24+ → double elimination (21-point).</li>
+  </ul>
+  <p>Previous year's Stars/Stripes winners pre-assigned; two others seeded by past performance; rest drawn for Stars or Stripes.</p>
+</section>
+
+<section class="block" id="division-rinks-women">
+  <h2>Division Rinks <small style="font-weight:600; color: var(--muted); font-size:0.75em;">(Team SW Points)</small></h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">Four women</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Four 10-end games, open blind draw</span></div>
+  </div>
+  <p>Winner by total wins; ties by plus points. Money prizes to each full green — 1st, 2nd, 3rd place.</p>
+</section>
+
+<section class="block" id="vet-novice-pairs-women">
+  <h2>Vet-Novice Pairs (Women) <small style="font-weight:600; color: var(--muted); font-size:0.75em;">(Team SW Points)</small></h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Novice</span><span class="value">Member/bowler ≤ 24 months</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Four 12-end games, 3-bowl pairs, 7 plus-points max</span></div>
+    <div class="event-meta-item"><span class="label-sm">Greens</span><span class="value">A and B</span></div>
+  </div>
+  <p>Money prizes to each full green — 1st, 2nd, 3rd place.</p>
+</section>
+
+<section class="block" id="california-bears">
+  <h2>California Bears <small style="font-weight:600; color: var(--muted); font-size:0.75em;">(Team SW Points)</small></h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Trophy</span><span class="value">Four small Bear Design trophies (one per winning team member)</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">Four SWD women</span></div>
+  </div>
+  <ul>
+    <li><strong>Game 1:</strong> 2-bowl Triples and Singles</li>
+    <li><strong>Game 2:</strong> Fours</li>
+    <li><strong>Game 3:</strong> 3-bowl Pairs and 3-bowl Pairs</li>
+    <li>Pairs &amp; triples: 16 ends. Fours: 14 ends. Singles: 18 points.</li>
+    <li>If possible, teams arranged so no team plays the same opponent twice</li>
+  </ul>
+  <p>Winners by games won + plus points (10-point max).</p>
+</section>
+
+<section class="block" id="izzie-forbes-mixed-triples">
+  <h2>Izzie Forbes Vet-Novice Mixed Triples</h2>
+  <div class="event-meta">
+    <div class="event-meta-item"><span class="label-sm">Location</span><span class="value">Long Beach LBC</span></div>
+    <div class="event-meta-item"><span class="label-sm">Trophy</span><span class="value">Perpetual</span></div>
+    <div class="event-meta-item"><span class="label-sm">Team</span><span class="value">3-person mix/match — must have one woman and one novice</span></div>
+    <div class="event-meta-item"><span class="label-sm">Format</span><span class="value">Three 12-end games, 10 plus-points max</span></div>
+  </div>
+  <p>Money prizes awarded overall; amounts determined by entries.</p>
+</section>
+
+<section class="block" id="team-southwest-women">
+  <h2>Women's Point Criteria — Team Southwest</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Event</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Vet/Novice Triples</td><td>10</td><td>7</td><td>4</td><td>—</td></tr>
+        <tr><td>CA Bears</td><td>10</td><td>7</td><td>4</td><td>2</td></tr>
+        <tr><td>SW Women's Rinks</td><td>10</td><td>7</td><td>4</td><td>—</td></tr>
+        <tr><td>Katy Stone Singles</td><td>10</td><td>7</td><td>4</td><td>2</td></tr>
+        <tr><td>Vet/Novice Pairs A Green</td><td>10</td><td>7</td><td>4</td><td>—</td></tr>
+        <tr><td>Cal 5's</td><td>10</td><td>7</td><td>4</td><td>—</td></tr>
+        <tr><td>Vet/Novice B Green</td><td>5</td><td>3</td><td>—</td><td>—</td></tr>
+        <tr><td>SWD Singles &amp; Pairs Playdowns**</td><td>15</td><td>6</td><td>4</td><td>—</td></tr>
+        <tr><td>SW/US Open 1st Flight*</td><td>15</td><td>11</td><td>5</td><td>3</td></tr>
+        <tr><td>SW/US Open 2nd Flight*</td><td>5</td><td>2</td><td>—</td><td>—</td></tr>
+        <tr><td>SW/US Open 3rd Flight*</td><td>3</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><em>*US Open and SW Open — any lower-flight winner with only one loss receives 2 points.</em></p>
+  <p><em>**Players in both Singles and Pairs Playdowns can earn no more than 15 points combined. Points for equal 3rd → no 4th.</em></p>
+
+  <h4>A Point System Will Assist To:</h4>
+  <ul>
+    <li>Encourage competition, increasing tournament participation</li>
+    <li>Encourage skill development, elevating level of play</li>
+    <li>Encourage devotion to the sport and continuation of the game</li>
+    <li>Encourage bowlers to seek recognition as Team Southwest Women</li>
+  </ul>
+  <p>Set goals, enter recognized events, and enjoy this wonderful sport.</p>
+</section>
+
+<div class="back-to-top-bar">
+  <a href="#top">↑ Back to Top</a>
+</div>
+
+<div class="footer-note">Appendix A (Sample Double-Elimination Chart) is available in the <a href="/pdfs/SWD_Tournament_Book_01_26_25_02_06.pdf" target="_blank" style="color: var(--red); font-weight: 900;">printable PDF version</a>.</div>
+
+</main>
+
+</body>
+</html>
