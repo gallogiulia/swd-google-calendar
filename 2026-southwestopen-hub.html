@@ -1,0 +1,287 @@
+<!-- ============================================================
+     2026 SW OPEN HUB PAGE
+     Paste into Squarespace Code Block on /2026-southwest-open
+     Photos served from Vercel: photos/swd-2026-hub/*
+     ============================================================ -->
+<style>
+  .swo-hub {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 1100px;
+    margin: 2rem auto;
+    color: #2a1f3d;
+  }
+
+  /* === BANNER === */
+  .swo-hub .swo-banner {
+    background: linear-gradient(135deg, #1e1b4b 0%, #5b21b6 30%, #db2777 65%, #f59e0b 100%);
+    color: #fff;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 8px 24px rgba(91, 33, 182, 0.25);
+  }
+  .swo-hub .swo-banner h1 {
+    margin: 0;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #fff;
+  }
+  .swo-hub .swo-banner .swo-banner-dates {
+    margin: 0.6rem 0 0.3rem;
+    font-size: 1.15rem;
+    opacity: 0.95;
+    color: #fff;
+    font-weight: 500;
+  }
+  .swo-hub .swo-banner .swo-banner-tagline {
+    margin: 0.3rem 0 0;
+    font-size: 1rem;
+    opacity: 0.85;
+    color: #fff;
+  }
+
+  /* === SECTION TITLES === */
+  .swo-hub .swo-section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 3rem 0 1.5rem;
+    padding: 0.6rem 1rem;
+    border-left: 5px solid #db2777;
+    background: linear-gradient(90deg, rgba(219,39,119,0.08) 0%, rgba(245,158,11,0.04) 100%);
+    color: #5b21b6;
+  }
+  .swo-hub .swo-section-title:first-of-type { margin-top: 0; }
+
+  /* === BOTT SPOTLIGHTS === */
+  .swo-hub .swo-bott-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .swo-hub .swo-bott-card {
+    background: #fff;
+    border: 1px solid #ede9fe;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(91, 33, 182, 0.08);
+    display: flex;
+    flex-direction: column;
+  }
+  .swo-hub .swo-bott-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+  }
+  .swo-hub .swo-bott-body {
+    padding: 1.4rem 1.5rem;
+    text-align: center;
+  }
+  .swo-hub .swo-bott-badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    background: linear-gradient(135deg, #fde68a, #f59e0b);
+    color: #78350f;
+  }
+  .swo-hub .swo-bott-card h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2a1f3d;
+  }
+  .swo-hub .swo-bott-subtitle {
+    margin: 0;
+    color: #7c3aed;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  /* === CHAMPIONS STRIP === */
+  .swo-hub .swo-champs {
+    background: #fff;
+    border: 1px solid #ede9fe;
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    box-shadow: 0 4px 12px rgba(91, 33, 182, 0.08);
+  }
+  .swo-hub .swo-champs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.5rem;
+  }
+  .swo-hub .swo-champs-list li {
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed #ede9fe;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .swo-hub .swo-champs-list .swo-champ-event {
+    color: #7c3aed;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .swo-hub .swo-champs-list .swo-champ-name {
+    color: #2a1f3d;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  /* === EVENT BUTTONS === */
+  .swo-hub .swo-events {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .swo-hub .swo-event-btn {
+    display: block;
+    background: linear-gradient(135deg, #5b21b6 0%, #db2777 100%);
+    color: #fff !important;
+    text-decoration: none !important;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(91, 33, 182, 0.18);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-align: left;
+    border: none;
+  }
+  .swo-hub .swo-event-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(91, 33, 182, 0.28);
+    color: #fff !important;
+  }
+  .swo-hub .swo-event-btn .swo-event-arrow {
+    float: right;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+  .swo-hub .swo-event-btn.swo-event-getaway {
+    background: linear-gradient(135deg, #f59e0b 0%, #db2777 100%);
+    grid-column: span 2;
+  }
+
+  @media (max-width: 700px) {
+    .swo-hub .swo-banner h1 { font-size: 1.6rem; }
+    .swo-hub .swo-banner .swo-banner-dates { font-size: 1rem; }
+    .swo-hub .swo-section-title { font-size: 1.2rem; }
+    .swo-hub .swo-bott-grid { grid-template-columns: 1fr; }
+    .swo-hub .swo-champs-list { grid-template-columns: 1fr; }
+    .swo-hub .swo-events { grid-template-columns: 1fr; }
+    .swo-hub .swo-event-btn.swo-event-getaway { grid-column: span 1; }
+  }
+</style>
+
+<div class="swo-hub">
+
+  <!-- ============ BANNER ============ -->
+  <div class="swo-banner">
+    <h1>2026 Southwest Open</h1>
+    <p class="swo-banner-dates">April 23–29, 2026</p>
+    <p class="swo-banner-tagline">Southwest Lawn Bowls Division Championships</p>
+  </div>
+
+  <!-- ============ BOWLERS OF THE TOURNAMENT ============ -->
+  <h2 class="swo-section-title">⭐ Bowlers of the Tournament</h2>
+  <div class="swo-bott-grid">
+
+    <div class="swo-bott-card">
+      <img class="swo-bott-photo" src="https://swd-google-calendar.vercel.app/photos/swd-2026-hub/bott-women-gallo.jpg" alt="Bowler of the Tournament - Women - Giulia Gallo" loading="lazy">
+      <div class="swo-bott-body">
+        <span class="swo-bott-badge">Women's BOTT</span>
+        <h3>Giulia Gallo</h3>
+        <p class="swo-bott-subtitle">Bowler of the Tournament</p>
+      </div>
+    </div>
+
+    <div class="swo-bott-card">
+      <img class="swo-bott-photo" src="https://swd-google-calendar.vercel.app/photos/swd-2026-hub/bott-men-herbert.jpg" alt="Bowler of the Tournament - Men - Charlie Herbert" loading="lazy">
+      <div class="swo-bott-body">
+        <span class="swo-bott-badge">Men's BOTT</span>
+        <h3>Charlie Herbert</h3>
+        <p class="swo-bott-subtitle">Bowler of the Tournament</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ CHAMPIONS STRIP ============ -->
+  <h2 class="swo-section-title">🏆 Champions</h2>
+  <div class="swo-champs">
+    <ul class="swo-champs-list">
+      <li>
+        <span class="swo-champ-event">Women's Rinks</span>
+        <span class="swo-champ-name">Spease / Ang / Soto / Quan</span>
+      </li>
+      <li>
+        <span class="swo-champ-event">Men's Rinks</span>
+        <span class="swo-champ-name">Herbert / Jazayeri / Wysopal / Tang</span>
+      </li>
+      <li>
+        <span class="swo-champ-event">Women's Pairs</span>
+        <span class="swo-champ-name">Gallo / Marcuson</span>
+      </li>
+      <li>
+        <span class="swo-champ-event">Men's Pairs</span>
+        <span class="swo-champ-name">Herbert / Jazayeri</span>
+      </li>
+      <li>
+        <span class="swo-champ-event">Women's Singles</span>
+        <span class="swo-champ-name">Anne Nunes</span>
+      </li>
+      <li>
+        <span class="swo-champ-event">Men's Singles</span>
+        <span class="swo-champ-name">Russ Kindorf</span>
+      </li>
+      <li style="grid-column: span 2;">
+        <span class="swo-champ-event">2+2 Getaway Rinks</span>
+        <span class="swo-champ-name">Gallo / Ho / Lee / Gorelick</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============ EVENT RESULTS BUTTONS ============ -->
+  <h2 class="swo-section-title">📋 Full Results</h2>
+  <div class="swo-events">
+
+    <a class="swo-event-btn" href="/swd-mens-rinks26">
+      Men's Rinks <span class="swo-event-arrow">→</span>
+    </a>
+    <a class="swo-event-btn" href="/swd-womens-rinks26">
+      Women's Rinks <span class="swo-event-arrow">→</span>
+    </a>
+    <a class="swo-event-btn" href="/swd-mens-pairs26">
+      Men's Pairs <span class="swo-event-arrow">→</span>
+    </a>
+    <a class="swo-event-btn" href="/swd-womens-pairs26">
+      Women's Pairs <span class="swo-event-arrow">→</span>
+    </a>
+    <a class="swo-event-btn" href="/swd-mens-singles26">
+      Men's Singles <span class="swo-event-arrow">→</span>
+    </a>
+    <a class="swo-event-btn" href="/swd-womens-singles26">
+      Women's Singles <span class="swo-event-arrow">→</span>
+    </a>
+    <a class="swo-event-btn swo-event-getaway" href="/swd-2plus2-getaway26">
+      2+2 Getaway Rinks <span class="swo-event-arrow">→</span>
+    </a>
+
+  </div>
+
+</div>
