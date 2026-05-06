@@ -1880,6 +1880,70 @@
         "height": 400,
         "width": "100%"
       }
-    }
+    },
+    {
+  "id": "pat-gonzales-mixed-aussie-pairs-2026",
+  "title": "24th Annual Pat Gonzales Mixed Aussie Pairs",
+  "subtitle": "Long Beach Sponsored",
+  "date": "Saturday, June 13, 2026",
+  "time": "8:00 AM – 5:00 PM",
+  "schedule": [
+    "8:00 AM — Check-in (practice allowed 8:00–8:30 AM)",
+    "8:30 AM — Announcements (mandatory attendance)",
+    "9:00 AM — Bowling begins"
+  ],
+  "format": "pairs",
+  "formatDetails": "Three (3) 12-end games · 4-Bowl Australian Pairs (2-4-2) · Quinnell Scoring",
+  "club": {
+    "name": "Long Beach Lawn Bowling Club",
+    "address": "1109 Federation Dr, Long Beach, CA 90804",
+    "phone": "562-433-9063",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
+  },
+  "fee": "$60/team",
+  "deadline": "Entry deadline: Saturday, June 10, 2026",
+  "rules": [
+    "Open to all members of clubs affiliated with SWD, Bowls USA, World Bowls",
+    "Entries limited to 32 teams",
+    "Players may designate A or B green",
+    "Quinnell scoring: 1 pt per end won · 1.5 pts for game tie · 3 pts for game win (plus points not counted)",
+    "Total points per game = ends + 3 (12 ends = 15 points to divide between teams)",
+    "Two trial bowls in each direction per player per game",
+    "Burnt end: jack re-spotted on 2-meter mark on centerline",
+    "Shirts must have a collar; below-the-waist any color (must match teammate); whites preferred",
+    "Flat-soled shoes with heel strap; no T-shirts or cutoffs",
+    "Bring your own lunch and refillable water bottle; LBLB will provide hospitality",
+    "Late penalty: 1 point + 1 end forfeited per 10 minutes late; 30+ min late = game forfeited"
+  ],
+  "noviceDefinition": "",
+  "livestreamNotice": "",
+  "contact": {
+    "name": "Doreen Hall",
+    "phone": "562-756-0559",
+    "email": "dorhall@hotmail.com",
+    "mailTo": "Make checks payable to Doreen Hall. Text 562-756-0559 to reserve your spot and arrange check delivery."
+  },
+  "flyer": {
+    "externalUrl": "https://swd-google-calendar.vercel.app/photos/swd-pgpairs26/2026-PG_MAP-flyer-QR.pdf",
+    "localPath": "",
+    "type": "pdf"
+  },
+  "cops": {
+    "externalUrl": "https://swd-google-calendar.vercel.app/photos/swd-pgpairs26/2026-PG_MAP-COP.pdf",
+    "localPath": ""
+  },
+  "paypal": {
+    "system": "none"
+  },
+  "entries": {
+    "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwRuPRZqSiljxIG-UFKl2Ibl0PY_vUE25rYSvTzytyUbBkWXYiePv-tmpmr_AjjQd1BZbUHJgcGOqs/pubhtml?widget=true&headers=false",
+    "height": 400
+  },
+  "liveScoring": {
+    "pubUrl": "",
+    "height": 1800,
+    "width": "100%"
+  }
+}
   ]
 }
