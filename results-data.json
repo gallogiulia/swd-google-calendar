@@ -1,6 +1,24 @@
 {
   "tournaments": [
     {
+  "id": "joe-siegman",
+  "title": "2026 Joe Siegman Pairs",
+  "meta": "May 3 · Beverly Hills LBC",
+  "navLabel": "Joe Siegman Pairs",
+  "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/fpplunwh37kg2txohzdqaljob3f8yw-68nys",
+  "divisions": [
+    {
+      "label": null,
+      "columns": 2,
+      "places": [
+        { "rank": 1, "names": "Bill Brault / Victor Green", "photo": "/photos/joe-siegman/1th-bill-brault-victor-green.jpg" },
+        { "rank": 2, "names": "Charlie Herbert / Matt Bauchiero", "photo": "/photos/joe-siegman/2th-charlie-herbert-matt-bauchiero.jpg" },
+        { "rank": 3, "names": "Angel Lopez / Steve Goodmanson", "photo": "/photos/joe-siegman/3th-angel-lopez-steve-goodmanson.jpg" }
+      ]
+    }
+  ]
+},
+    {
       "id": "vet-novice-mix-match-triples",
       "title": "2026 SWD Vet/Novice Mix/Match Triples",
       "meta": "April 18 · Santa Anita Bowling Green Club",
