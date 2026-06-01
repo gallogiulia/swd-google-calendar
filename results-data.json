@@ -20,6 +20,24 @@
       ]
     },
     {
+      "id": "disney-pairs",
+      "title": "2026 BHLBC Disney Pairs",
+      "meta": "May 23–25 · Beverly Hills LBC",
+      "navLabel": "Disney Pairs",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/bhlbc-disney-pairs-tournament-56srr",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Rooz Ehdaie / Mike Koizumi", "photo": "/photos/disney-pairs/1th-rooz-ehdaie-mike-koizumi.jpg" },
+            { "rank": 2, "names": "Russ Kindorf / Peter Ritchie", "photo": "/photos/disney-pairs/2th-russ-kindorf-peter-ritchie.jpg" },
+            { "rank": 3, "names": "Dean Warmington / Terry Mar", "photo": "/photos/disney-pairs/3th-dean-warmington-terry-mar.jpg" }
+          ]
+        }
+      ]
+    },
+    {
   "id": "joe-siegman",
   "title": "2026 Joe Siegman Pairs",
   "meta": "May 3 · Beverly Hills LBC",
