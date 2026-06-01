@@ -72,7 +72,8 @@
 
   tr.month-row td {
     background: var(--band); color: var(--head); font-weight: 800;
-    text-transform: uppercase; letter-spacing: .05em; font-size: .82rem;
+    text-transform: uppercase; letter-spacing: .06em; font-size: 1.15rem;
+    text-align: center; padding: 12px 10px;
     border-bottom: 1px solid #c9d4e6;
   }
   tr.holiday td {
@@ -266,7 +267,7 @@
 
         var info = open
           ? '<a class="openlink" href="' + esc(e.eventUrl) + '" target="_blank" rel="noopener">Open</a>'
-          : '<span class="notyet">not open yet</span>';
+          : '';
 
         html +=
           '<tr class="ev" style="--cat:' + color + '">' +
