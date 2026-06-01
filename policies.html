@@ -122,7 +122,7 @@
   <a href="https://swd-google-calendar.vercel.app/pdfs/Introduction-to-Bowls.pdf" target="_blank" class="hub-btn">
     <div class="emoji">🎯</div>
     <h3>Intro to Lawn Bowls</h3>
-    <p>Introductory reference for newer players and visitors.</p>
+    <p>Introductory reference for newer players and visitors. Courtesy of Bowls Australia.</p>
     <span class="date-pill">PDF Guide</span>
   </a>
 </div>
@@ -172,7 +172,9 @@
 <div class="section-label" id="score-sheets">Tournament Tools</div>
 <h2 class="section-title">Tournament Score Sheets</h2>
 <p style="max-width:1200px;margin:6px auto 0;padding:0 20px;color:#64748b;font-size:0.95rem;">
-  Excel score sheets, draw templates, and scorecards for running events. Shared courtesy of Bowls Arizona.
+  Excel score sheets, draw templates, and scorecards for running events. With grateful thanks to
+  <a href="https://www.bowlsaz.com/tournament-spreadsheets" target="_blank" rel="noopener" style="color:#c53030;font-weight:700;">Bowls Arizona</a>,
+  who created and share these files, and to their original author, Len Hitchcock.
 </p>
 
 <div class="hub-grid">
@@ -232,7 +234,29 @@
   </a>
 </div>
 
-<div class="footer-note">Part of the SWD Tournament Hub</div>
+<div class="footer-note">
+  Part of the SWD Tournament Hub<br>
+  Resource credits &mdash; Tournament score sheets:
+  <a href="https://www.bowlsaz.com/tournament-spreadsheets" target="_blank" rel="noopener" style="color:#94a3b8;text-decoration:underline;">Bowls Arizona</a> (author Len Hitchcock) &middot;
+  Intro to Lawn Bowls:
+  <a href="https://bowls.com.au" target="_blank" rel="noopener" style="color:#94a3b8;text-decoration:underline;">Bowls Australia</a> &middot;
+  Hand Signals: Bowls USA
+</div>
+
+<!-- Broadcast height to the embedding parent (Squarespace) so the iframe can auto-resize -->
+<script>
+(function () {
+  function postHeightToParent() {
+    if (window.parent === window) return;
+    try {
+      var h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      window.parent.postMessage({ type: "swd-policies-height", height: h }, "*");
+    } catch (e) {}
+  }
+  if (window.ResizeObserver) { new ResizeObserver(postHeightToParent).observe(document.body); }
+  window.addEventListener("load", postHeightToParent);
+})();
+</script>
 
 </body>
 </html>
