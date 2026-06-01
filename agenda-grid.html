@@ -51,7 +51,7 @@
   table.cal tbody tr.ev:hover td { background: #fffbe9; }
 
   .col-date { white-space: nowrap; width: 132px; font-weight: 700; color: #25324a; }
-  .col-deadline { white-space: nowrap; width: 130px; color: #475467; }
+  .col-deadline { width: 132px; color: #475467; }
   .col-fee { white-space: nowrap; width: 96px; color: #475467; }
   .col-link { white-space: nowrap; width: 78px; text-align: center; }
   td a.openlink {
@@ -108,13 +108,11 @@
             <th class="col-date">Date</th>
             <th>Event</th>
             <th>Location</th>
-            <th class="col-deadline">Entry Deadline</th>
-            <th class="col-fee">Fee</th>
             <th class="col-link">Info</th>
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="6" class="status">Loading calendar…</td></tr>
+          <tr><td colspan="4" class="status">Loading calendar…</td></tr>
         </tbody>
       </table>
     </div>
@@ -248,13 +246,13 @@
         var monthKey = dt ? (dt.getFullYear() + "-" + dt.getMonth()) : "";
         if (monthKey && monthKey !== lastMonthKey) {
           lastMonthKey = monthKey;
-          html += '<tr class="month-row"><td colspan="6">' + MONTHS[dt.getMonth()] + " " + dt.getFullYear() + '</td></tr>';
+          html += '<tr class="month-row"><td colspan="4">' + MONTHS[dt.getMonth()] + " " + dt.getFullYear() + '</td></tr>';
         }
 
         if (it.type === "holiday") {
           html += '<tr class="holiday">' +
             '<td class="col-date">' + esc(fmtDate(dt)) + '</td>' +
-            '<td colspan="5">🗓️ ' + esc(it.n) + '</td>' +
+            '<td colspan="3">🗓️ ' + esc(it.n) + '</td>' +
           '</tr>';
           return;
         }
@@ -266,8 +264,6 @@
         var color = catColor(src);
         var open = !!e.eventUrl; // GG curates links: a link means it's live/open
 
-        var deadline = open ? fmtDeadline(e.deadline) : "";
-        var fee = open ? esc(e.fee || "") : "";
         var info = open
           ? '<a class="openlink" href="' + esc(e.eventUrl) + '" target="_blank" rel="noopener">Open</a>'
           : '<span class="notyet">not open yet</span>';
@@ -277,14 +273,12 @@
             '<td class="col-date">' + esc(fmtDate(e.start, e.end)) + '</td>' +
             '<td><span class="pill">' + esc(src) + '</span><span class="ev-title">' + esc(e.title) + '</span></td>' +
             '<td>' + shortLoc(e.location) + '</td>' +
-            '<td class="col-deadline">' + deadline + '</td>' +
-            '<td class="col-fee">' + fee + '</td>' +
             '<td class="col-link">' + info + '</td>' +
           '</tr>';
       });
 
       rowsEl.innerHTML = html ||
-        '<tr><td colspan="6" class="status">No events listed for ' + YEAR + ' yet.</td></tr>';
+        '<tr><td colspan="4" class="status">No events listed for ' + YEAR + ' yet.</td></tr>';
       countSub.textContent = evCount + " events";
       buildLegend(usedSources);
       postHeight();
@@ -294,7 +288,7 @@
       .then(function (r) { return r.json(); })
       .then(function (j) { render(Array.isArray(j) ? j : (j.events || j.data || [])); })
       .catch(function () {
-        rowsEl.innerHTML = '<tr><td colspan="6" class="status">Could not load the calendar. Please refresh.</td></tr>';
+        rowsEl.innerHTML = '<tr><td colspan="4" class="status">Could not load the calendar. Please refresh.</td></tr>';
         postHeight();
       });
 
