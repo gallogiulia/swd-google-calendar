@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     SWD SEASON AGENDA — plain spreadsheet-style grid
+     Pulls live data from /api/events?year=YYYY (same source as the
+     calendar agenda) and renders it as a simple table.
+     Broadcasts height as "swd-agenda-height" so the existing
+     Squarespace iframe listener auto-resizes it (no Squarespace change).
+     ============================================================ -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWD Season Agenda</title>
+<style>
+  html, body { margin: 0; background: #ffffff; }
+  body {
+    font-family: Arial, Helvetica, "Segoe UI", sans-serif;
+    color: #1a1a1a;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 18px 14px 36px; }
+
+  .cal-head {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    gap: 10px 16px; margin-bottom: 12px;
+  }
+  .cal-title {
+    font-size: 1.5rem; font-weight: 800; color: #0f2e5e; margin: 0;
+  }
+  .cal-sub { color: #555; font-size: .9rem; }
+  .year-tabs { margin-left: auto; display: flex; gap: 6px; }
+  .year-tab {
+    border: 1px solid #c4ccd6; background: #f1f3f6; color: #25324a;
+    font: inherit; font-size: .85rem; font-weight: 700;
+    padding: 5px 12px; border-radius: 4px; cursor: pointer;
+  }
+  .year-tab.active { background: #0f2e5e; color: #fff; border-color: #0f2e5e; }
+
+  table.cal {
+    width: 100%; border-collapse: collapse; font-size: .9rem;
+    background: #fff;
+  }
+  table.cal th, table.cal td {
+    border: 1px solid #b9c0ca; padding: 6px 9px; vertical-align: top;
+    text-align: left;
+  }
+  table.cal thead th {
+    background: #0f2e5e; color: #fff; font-weight: 700;
+    position: sticky; top: 0; white-space: nowrap;
+    border-color: #0f2e5e;
+  }
+  table.cal tbody tr:nth-child(even) td { background: #f4f6f9; }
+  table.cal tbody tr:hover td { background: #fff7da; }
+
+  .col-date { white-space: nowrap; width: 130px; font-weight: 700; color: #25324a; }
+  .col-fee, .col-deadline { white-space: nowrap; width: 110px; }
+  .col-link { white-space: nowrap; width: 70px; text-align: center; }
+  td a { color: #b03a2e; font-weight: 700; }
+
+  .month-row td {
+    background: #dde4ee !important; color: #0f2e5e;
+    font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+    font-size: .82rem;
+  }
+  .swd td.col-event { font-weight: 700; }
+  .other td.col-event { color: #444; }
+  .tag {
+    display: inline-block; font-size: .68rem; font-weight: 800;
+    padding: 1px 6px; border-radius: 3px; margin-left: 6px;
+    vertical-align: middle; border: 1px solid transparent;
+  }
+  .tag.other { background: #efe7fb; color: #5b2bb0; border-color: #d8c7f2; }
+
+  .status { padding: 20px 4px; color: #666; }
+  .legend { margin-top: 12px; font-size: .8rem; color: #666; }
+
+  @media (max-width: 640px) {
+    table.cal { font-size: .82rem; }
+    table.cal th, table.cal td { padding: 5px 6px; }
+    .col-date { width: auto; }
+    .col-deadline, .col-fee { width: auto; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="cal-head">
+      <h1 class="cal-title">SWD <span id="yearLabel">2026</span> Tournament Calendar</h1>
+      <span class="cal-sub" id="countSub"></span>
+      <div class="year-tabs" id="yearTabs"></div>
+    </div>
+
+    <table class="cal">
+      <thead>
+        <tr>
+          <th class="col-date">Date</th>
+          <th class="col-event">Event</th>
+          <th>Location</th>
+          <th class="col-deadline">Entry Deadline</th>
+          <th class="col-fee">Fee</th>
+          <th class="col-link">Info</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="6" class="status">Loading calendar…</td></tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <span class="tag other">OTHER</span> = event hosted by another division or organization.
+      Source: live SWD calendar.
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var MONTHS = ["January","February","March","April","May","June","July",
+                  "August","September","October","November","December"];
+    var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    var rowsEl = document.getElementById("rows");
+    var yearLabel = document.getElementById("yearLabel");
+    var countSub = document.getElementById("countSub");
+
+    function getYear() {
+      var m = String(location.search).match(/[?&]year=(\d{4})/);
+      return m ? parseInt(m[1], 10) : 2026;
+    }
+    var YEAR = getYear();
+    yearLabel.textContent = YEAR;
+
+    // Build a couple of year tabs (prev / current / next) that reload with ?year=
+    (function buildTabs() {
+      var tabs = document.getElementById("yearTabs");
+      [YEAR - 1, YEAR, YEAR + 1].forEach(function (y) {
+        var b = document.createElement("button");
+        b.className = "year-tab" + (y === YEAR ? " active" : "");
+        b.type = "button";
+        b.textContent = y;
+        b.addEventListener("click", function () {
+          location.search = "?year=" + y;
+        });
+        tabs.appendChild(b);
+      });
+    })();
+
+    function parseISO(d) {
+      // d = "YYYY-MM-DD" -> local Date (avoid TZ shift)
+      if (!d) return null;
+      var p = d.split("-");
+      if (p.length < 3) return null;
+      return new Date(+p[0], +p[1] - 1, +p[2]);
+    }
+
+    function fmtDate(startStr, endStr) {
+      var s = parseISO(startStr);
+      if (!s) return startStr || "";
+      var label = DOW[s.getDay()] + ", " + MONTHS[s.getMonth()].slice(0, 3) + " " + s.getDate();
+      var e = parseISO(endStr);
+      if (e) {
+        // all-day end dates are typically exclusive (next day); subtract 1 day
+        var eAdj = new Date(e.getTime() - 86400000);
+        if (eAdj > s) {
+          var sameMonth = eAdj.getMonth() === s.getMonth();
+          label += " – " + (sameMonth ? "" : MONTHS[eAdj.getMonth()].slice(0, 3) + " ") + eAdj.getDate();
+        }
+      }
+      return label;
+    }
+
+    function esc(t) {
+      return String(t == null ? "" : t)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    function shortLoc(loc) {
+      if (!loc) return "";
+      return esc(loc.split(",")[0]); // club / venue name before the address
+    }
+
+    function postHeight() {
+      if (window.parent === window) return;
+      try {
+        var h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        window.parent.postMessage({ type: "swd-agenda-height", height: h }, "*");
+      } catch (e) {}
+    }
+
+    function render(events) {
+      events.sort(function (a, b) {
+        return String(a.start).localeCompare(String(b.start));
+      });
+
+      var html = "", lastMonthKey = "";
+      events.forEach(function (e) {
+        var s = parseISO(e.start);
+        var monthKey = s ? (s.getFullYear() + "-" + s.getMonth()) : "";
+        if (monthKey && monthKey !== lastMonthKey) {
+          lastMonthKey = monthKey;
+          html += '<tr class="month-row"><td colspan="6">' +
+                  MONTHS[s.getMonth()] + " " + s.getFullYear() + "</td></tr>";
+        }
+        var isOther = (e.source && e.source !== "SWD");
+        var tag = isOther ? ' <span class="tag other">OTHER</span>' : "";
+        var link = e.eventUrl
+          ? '<a href="' + esc(e.eventUrl) + '" target="_blank" rel="noopener">Open</a>'
+          : "";
+        html +=
+          '<tr class="' + (isOther ? "other" : "swd") + '">' +
+            '<td class="col-date">' + esc(fmtDate(e.start, e.end)) + '</td>' +
+            '<td class="col-event">' + esc(e.title) + tag + '</td>' +
+            '<td>' + shortLoc(e.location) + '</td>' +
+            '<td class="col-deadline">' + esc(e.deadline || "") + '</td>' +
+            '<td class="col-fee">' + esc(e.fee || "") + '</td>' +
+            '<td class="col-link">' + link + '</td>' +
+          '</tr>';
+      });
+
+      rowsEl.innerHTML = html ||
+        '<tr><td colspan="6" class="status">No events listed for ' + YEAR + ' yet.</td></tr>';
+      countSub.textContent = events.length + " events";
+      postHeight();
+    }
+
+    fetch("/api/events?year=" + YEAR, { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var events = Array.isArray(j) ? j : (j.events || j.data || []);
+        render(events);
+      })
+      .catch(function () {
+        rowsEl.innerHTML =
+          '<tr><td colspan="6" class="status">Could not load the calendar. Please refresh.</td></tr>';
+        postHeight();
+      });
+
+    if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.body);
+    window.addEventListener("load", postHeight);
+  })();
+  </script>
+</body>
+</html>
