@@ -106,10 +106,6 @@
       </tbody>
     </table>
 
-    <div class="legend">
-      <span class="tag other">OTHER</span> = event hosted by another division or organization.
-      Source: live SWD calendar.
-    </div>
   </div>
 
   <script>
@@ -175,6 +171,10 @@
       if (!loc) return "";
       return esc(loc.split(",")[0]); // club / venue name before the address
     }
+    function fmtDeadline(d) {
+      if (!d) return "";
+      return esc(String(d).replace(/^\s*entry\s*deadline:?\s*/i, ""));
+    }
 
     function postHeight() {
       if (window.parent === window) return;
@@ -198,17 +198,15 @@
           html += '<tr class="month-row"><td colspan="6">' +
                   MONTHS[s.getMonth()] + " " + s.getFullYear() + "</td></tr>";
         }
-        var isOther = (e.source && e.source !== "SWD");
-        var tag = isOther ? ' <span class="tag other">OTHER</span>' : "";
         var link = e.eventUrl
           ? '<a href="' + esc(e.eventUrl) + '" target="_blank" rel="noopener">Open</a>'
           : "";
         html +=
-          '<tr class="' + (isOther ? "other" : "swd") + '">' +
+          '<tr>' +
             '<td class="col-date">' + esc(fmtDate(e.start, e.end)) + '</td>' +
-            '<td class="col-event">' + esc(e.title) + tag + '</td>' +
+            '<td class="col-event">' + esc(e.title) + '</td>' +
             '<td>' + shortLoc(e.location) + '</td>' +
-            '<td class="col-deadline">' + esc(e.deadline || "") + '</td>' +
+            '<td class="col-deadline">' + fmtDeadline(e.deadline) + '</td>' +
             '<td class="col-fee">' + esc(e.fee || "") + '</td>' +
             '<td class="col-link">' + link + '</td>' +
           '</tr>';
