@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     SWD CLUB INFO — standalone page served from Vercel
+     Public URL: https://swd-google-calendar.vercel.app/club-info
+     Link to this from the Squarespace /club-info page.
+     Club websites verified June 2026.
+     ============================================================ -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Info — Southwest Lawn Bowls</title>
+
+<!-- Leaflet (interactive map, free, no API key) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+  html, body { margin: 0; padding: 0; background: #f5f7fa; }
+
+  #swd-clubs-premium {
+    --bg: #f5f7fa;
+    --card: rgba(255,255,255,0.97);
+    --card-solid: #ffffff;
+    --text: #172033;
+    --muted: #667085;
+    --line: rgba(15, 23, 42, 0.08);
+    --line-strong: rgba(15, 23, 42, 0.14);
+    --dark: #0f172a;
+    --dark-2: #162132;
+    --accent: #d4af37;
+    --accent-dark: #b98d1e;
+    --accent-soft: rgba(212,175,55,0.12);
+    --shadow-sm: 0 8px 24px rgba(15,23,42,0.06);
+    --shadow-md: 0 16px 42px rgba(15,23,42,0.10);
+    --shadow-lg: 0 24px 60px rgba(15,23,42,0.16);
+    --radius: 20px;
+    --radius-lg: 28px;
+    color: var(--text);
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  #swd-clubs-premium * { box-sizing: border-box; }
+  #swd-clubs-premium a { text-decoration: none; }
+  #swd-clubs-premium .swd-wrap {
+    width: min(1240px, 92%);
+    margin: 0 auto;
+  }
+  #swd-clubs-premium .swd-section { padding: 38px 0; scroll-margin-top: 20px; }
+
+  #swd-clubs-premium .swd-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    padding: 64px 34px;
+    background:
+      linear-gradient(135deg, rgba(10, 40, 31, 0.84), rgba(15, 23, 42, 0.78)),
+      url("https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1752165456736-5IY40KLXJDX64W615WK8/IMG_3223+Large.jpeg?format=1000w") center center / cover no-repeat;
+    box-shadow: var(--shadow-lg);
+    isolation: isolate;
+    color: #fff;
+  }
+
+  #swd-clubs-premium .swd-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at top right, rgba(212,175,55,.14), transparent 26%),
+      radial-gradient(circle at bottom left, rgba(255,255,255,.08), transparent 22%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #swd-clubs-premium .swd-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+  }
+
+  #swd-clubs-premium .swd-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  #swd-clubs-premium h1,
+  #swd-clubs-premium h2,
+  #swd-clubs-premium h3,
+  #swd-clubs-premium h4 {
+    margin: 0 0 12px;
+    letter-spacing: -.025em;
+    line-height: 1.08;
+  }
+
+  #swd-clubs-premium h1 {
+    font-size: clamp(2.35rem, 5vw, 4.35rem);
+    color: #fff !important;
+    text-shadow: 0 2px 14px rgba(0,0,0,.20);
+  }
+
+  #swd-clubs-premium h2 {
+    font-size: clamp(1.55rem, 3vw, 2.45rem);
+    color: var(--dark);
+  }
+
+  #swd-clubs-premium h3 {
+    font-size: 1.18rem;
+    color: var(--dark);
+  }
+
+  #swd-clubs-premium h4 {
+    font-size: .98rem;
+    color: var(--dark);
+  }
+
+  #swd-clubs-premium p {
+    margin: 0;
+    line-height: 1.68;
+  }
+
+  #swd-clubs-premium .swd-hero p {
+    max-width: 760px;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,.92) !important;
+    text-shadow: 0 1px 7px rgba(0,0,0,.15);
+  }
+
+  #swd-clubs-premium .swd-actions,
+  #swd-clubs-premium .swd-subnav,
+  #swd-clubs-premium .swd-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  #swd-clubs-premium .swd-actions { margin-top: 24px; }
+
+  #swd-clubs-premium .swd-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: .96rem;
+    border: 1px solid transparent;
+    transition: .22s ease;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  #swd-clubs-premium .swd-btn:hover { transform: translateY(-1px); }
+
+  #swd-clubs-premium .swd-btn-primary {
+    background: var(--accent);
+    color: #111 !important;
+    box-shadow: 0 10px 26px rgba(212,175,55,.24);
+  }
+
+  #swd-clubs-premium .swd-btn-primary:hover {
+    background: var(--accent-dark);
+  }
+
+  #swd-clubs-premium .swd-btn-secondary {
+    background: rgba(255,255,255,.12);
+    color: #fff !important;
+    border-color: rgba(255,255,255,.16);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  #swd-clubs-premium .swd-btn-secondary:hover {
+    background: rgba(255,255,255,.18);
+  }
+
+  #swd-clubs-premium .swd-subnav-wrap {
+    margin-top: 22px;
+  }
+
+  #swd-clubs-premium .swd-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--text);
+    border: 1px solid var(--line);
+    font-size: .94rem;
+    font-weight: 800;
+    box-shadow: var(--shadow-sm);
+    transition: .2s ease;
+  }
+
+  #swd-clubs-premium .swd-chip:hover,
+  #swd-clubs-premium .swd-chip.active {
+    background: var(--dark);
+    color: #fff;
+    border-color: var(--dark);
+  }
+
+  #swd-clubs-premium .swd-heading {
+    margin-bottom: 20px;
+    max-width: 900px;
+  }
+
+  #swd-clubs-premium .swd-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: var(--accent-dark);
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  #swd-clubs-premium .swd-heading p {
+    color: var(--muted);
+  }
+
+  #swd-clubs-premium .swd-panel {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94));
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+    padding: 26px;
+  }
+
+  #swd-clubs-premium .swd-panel::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,175,55,.28), transparent);
+    pointer-events: none;
+  }
+
+  #swd-clubs-premium .swd-map-panel { padding: 14px; }
+
+  #swd-clubs-premium #swdMap {
+    width: 100%;
+    height: 520px;
+    border-radius: 16px;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  #swd-clubs-premium .swd-map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 12px 8px 4px;
+    color: var(--muted);
+    font-size: .9rem;
+    font-weight: 700;
+  }
+
+  #swd-clubs-premium .swd-legend-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    margin-right: 7px;
+    vertical-align: middle;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(15,23,42,.18);
+  }
+  #swd-clubs-premium .swd-legend-dot.open { background: #0a5b3a; }
+  #swd-clubs-premium .swd-legend-dot.private { background: #713f12; }
+
+  #swd-clubs-premium .leaflet-popup-content { font-size: .95rem; line-height: 1.5; }
+  #swd-clubs-premium .leaflet-popup-content strong { display:block; font-size: 1.02rem; color: var(--dark); margin-bottom: 2px; }
+  #swd-clubs-premium .leaflet-popup-content a { color: var(--accent-dark); font-weight: 800; }
+
+  #swd-clubs-premium .swd-filter-panel {
+    display: grid;
+    gap: 14px;
+  }
+
+  #swd-clubs-premium .swd-search {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 16px;
+    border: 1px solid var(--line-strong);
+    padding: 0 16px;
+    font: inherit;
+    color: var(--text);
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    outline: none;
+  }
+
+  #swd-clubs-premium .swd-search:focus {
+    border-color: rgba(212,175,55,.55);
+    box-shadow: 0 0 0 4px rgba(212,175,55,.14);
+  }
+
+  #swd-clubs-premium .swd-filter-btn {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--text);
+    min-height: 42px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s ease;
+    box-shadow: var(--shadow-sm);
+  }
+
+  #swd-clubs-premium .swd-filter-btn.active {
+    background: var(--dark);
+    color: #fff;
+    border-color: var(--dark);
+  }
+
+  #swd-clubs-premium .swd-club-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  #swd-clubs-premium .swd-club-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(255,255,255,.95));
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+    transition: .24s ease;
+    height: 100%;
+  }
+
+  #swd-clubs-premium .swd-club-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 48px rgba(15,23,42,.14);
+  }
+
+  #swd-clubs-premium .swd-club-photo-wrap {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background:
+      radial-gradient(circle at top right, rgba(212,175,55,.10), transparent 26%),
+      linear-gradient(135deg, #f7f8fa, #eef2f7);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #swd-clubs-premium .swd-club-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.02);
+  }
+
+  #swd-clubs-premium .swd-badge-row {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    z-index: 2;
+  }
+
+  #swd-clubs-premium .swd-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-size: .76rem;
+    font-weight: 900;
+    letter-spacing: .04em;
+    background: rgba(15,23,42,.72);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  #swd-clubs-premium .swd-badge.open { background: rgba(10, 91, 58, .78); }
+  #swd-clubs-premium .swd-badge.private { background: rgba(113, 63, 18, .80); }
+
+  #swd-clubs-premium .swd-club-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    padding: 22px;
+  }
+
+  #swd-clubs-premium .swd-club-name {
+    font-size: 1.22rem;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1.2;
+  }
+
+  #swd-clubs-premium .swd-club-meta {
+    color: var(--accent-dark);
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  #swd-clubs-premium .swd-divider {
+    width: 54px;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), rgba(212,175,55,.22));
+    margin: 2px 0 4px;
+  }
+
+  #swd-clubs-premium .swd-club-summary {
+    color: var(--muted);
+    font-size: .96rem;
+    line-height: 1.65;
+  }
+
+  #swd-clubs-premium .swd-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 6px;
+  }
+
+  #swd-clubs-premium .swd-link-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: .88rem;
+    font-weight: 800;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--dark);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+  }
+
+  #swd-clubs-premium .swd-link-pill.primary {
+    background: var(--dark);
+    border-color: var(--dark);
+    color: #fff;
+  }
+
+  #swd-clubs-premium .swd-link-pill:hover {
+    transform: translateY(-1px);
+  }
+
+  #swd-clubs-premium .swd-details {
+    display: none;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .95rem;
+    line-height: 1.68;
+  }
+
+  #swd-clubs-premium .swd-club-card.expanded .swd-details {
+    display: block;
+  }
+
+  #swd-clubs-premium .swd-empty {
+    display: none;
+    padding: 20px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  #swd-clubs-premium .swd-footer-cta {
+    text-align: center;
+    padding: 8px 0 2px;
+  }
+
+  @media (max-width: 1100px) {
+    #swd-clubs-premium .swd-club-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    #swd-clubs-premium .swd-club-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #swd-clubs-premium .swd-hero {
+      padding: 40px 20px;
+      border-radius: 22px;
+    }
+
+    #swd-clubs-premium .swd-panel,
+    #swd-clubs-premium .swd-club-body {
+      padding: 20px;
+    }
+
+    #swd-clubs-premium #swdMap { height: 400px; }
+  }
+</style>
+</head>
+<body>
+<div id="swd-clubs-premium">
+  <div class="swd-wrap">
+    <section class="swd-section">
+      <div class="swd-hero">
+        <div class="swd-hero-inner">
+          <div class="swd-eyebrow">Southwest Bowls Division</div>
+          <h1>Club Info</h1>
+          <p>
+            Explore Southwest Lawn Bowls clubs across the region. Find where to play,
+            visit club websites, and get contact details &mdash; all in one place.
+          </p>
+
+          <div class="swd-actions">
+            <a class="swd-btn swd-btn-primary" href="#club-directory">Browse Clubs</a>
+            <a class="swd-btn swd-btn-secondary" href="#club-map">View Club Map</a>
+            <a class="swd-btn swd-btn-secondary" href="https://www.swlawnbowls.org/contact-us">Contact SWD</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="swd-subnav-wrap">
+        <div class="swd-subnav">
+          <a class="swd-chip" href="#club-map">Club Map</a>
+          <a class="swd-chip" href="#club-directory">Club Directory</a>
+          <a class="swd-chip" href="#club-help">Visiting &amp; Joining</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="swd-section" id="club-map">
+      <div class="swd-heading">
+        <div class="swd-label">Across the Division</div>
+        <h2>Find a club near you</h2>
+        <p>
+          Every Southwest club is pinned on the map below. Click a pin for the club name,
+          location, and a link to its website.
+        </p>
+      </div>
+
+      <div class="swd-panel swd-map-panel">
+        <div id="swdMap"></div>
+        <div class="swd-map-legend">
+          <span><span class="swd-legend-dot open"></span>Public / Open club</span>
+          <span><span class="swd-legend-dot private"></span>Private club</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="swd-section" id="club-directory">
+      <div class="swd-heading">
+        <div class="swd-label">Club Directory</div>
+        <h2>Find a Southwest club</h2>
+        <p>
+          Search, filter, and expand each card for more information.
+        </p>
+      </div>
+
+      <div class="swd-panel" style="margin-bottom:24px;">
+        <div class="swd-filter-panel">
+          <input id="swdClubSearch" class="swd-search" type="text" placeholder="Search by club name, city, website, notes, or email...">
+          <div class="swd-toolbar">
+            <button class="swd-filter-btn active" data-filter="all" type="button">All Clubs</button>
+            <button class="swd-filter-btn" data-filter="open" type="button">Public / Open</button>
+            <button class="swd-filter-btn" data-filter="private" type="button">Private</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="swdClubGrid" class="swd-club-grid"></div>
+      <div id="swdClubEmpty" class="swd-empty">No clubs match that search right now.</div>
+    </section>
+
+    <section class="swd-section" id="club-help">
+      <div class="swd-heading">
+        <div class="swd-label">Visiting &amp; Joining</div>
+        <h2>Helpful next steps for visitors</h2>
+      </div>
+
+      <div class="swd-club-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+        <div class="swd-panel">
+          <div class="swd-label">New to bowls?</div>
+          <h3>Start with an open club</h3>
+          <p>
+            Use the Public / Open filter first. Those clubs are the easiest starting point for new visitors and prospective members.
+          </p>
+        </div>
+
+        <div class="swd-panel">
+          <div class="swd-label">Need more detail?</div>
+          <h3>Expand each club card</h3>
+          <p>
+            Each card includes a short summary up front and a fuller description when expanded, so the page stays easy to browse.
+          </p>
+        </div>
+
+        <div class="swd-panel">
+          <div class="swd-label">Want help?</div>
+          <h3>Contact the division</h3>
+          <p>
+            If a club&rsquo;s website or contact information is incomplete, you can still reach out through the SWD contact page.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="swd-section">
+      <div class="swd-footer-cta">
+        <div class="swd-actions" style="justify-content:center;">
+          <a class="swd-btn swd-btn-primary" href="#swd-clubs-premium">Back to top</a>
+          <a class="swd-btn swd-btn-secondary" style="background:#fff;color:#172033 !important;border:1px solid rgba(15,23,42,.10);" href="https://www.swlawnbowls.org/contact-us">Contact SWD</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      // Club websites verified June 2026. lat/lng are location-level (club green / park).
+      const clubs = [
+        {
+          name: "Beverly Hills",
+          city: "Beverly Hills",
+          status: "open",
+          website: "https://bhlbc.com",
+          email: "Info@BHLBC.com",
+          phone: "323-405-1147",
+          lat: 34.0606, lng: -118.4044,
+          summary: "Fun, challenging club at Roxbury Park with regular weekend and Wednesday bowls.",
+          details: "Located at Roxbury Park, 401 S. Roxbury Dr., Beverly Hills. The club presents an exceptional sport that is fun and challenging, with excellent facilities and play at all skill levels. Beverly Hills bowls regularly on Saturday and Sunday mornings at 10:00 AM and Wednesdays at noon.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608404694567-8T4JRUSPGSFPB35GT3J4/0F43AE3B-3E91-4B0E-AEFC-0D0C44BC6629_1_201_a.jpg"
+        },
+        {
+          name: "Cambria",
+          city: "Cambria",
+          status: "open",
+          website: "https://www.facebook.com/CambriaLawnBowlsClub",
+          email: "cambrialbc@gmail.com",
+          lat: 35.5641, lng: -121.0807,
+          summary: "Central Coast club with an artificial turf green and a welcoming visitor culture.",
+          details: "Cambria Lawn Bowls Green is located on California&rsquo;s Central Coast, established in 1968. The green was refurbished in 2019, and the club bowls several times a week while welcoming visitors and people interested in learning about bowls.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665301829-J9O1E7V0VFKXZ2JXW0F9/Cambria_1A.jpg"
+        },
+        {
+          name: "Casta del Sol",
+          city: "Mission Viejo",
+          status: "private",
+          website: "",
+          email: "",
+          lat: 33.6178, lng: -117.6470,
+          summary: "Private community club that sponsors tournament play during the year.",
+          details: "Casta del Sol Lawn Bowling Club is a private club open to residents of the community. The club sponsors tournament play during the year.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1606943010486-LTWOOZDHPEO6HF3SNTDB/Casa_del_Sol.jpg"
+        },
+        {
+          name: "Coronado",
+          city: "Coronado",
+          status: "open",
+          website: "https://coronadolawnbowling.com",
+          email: "",
+          lat: 32.6895, lng: -117.1820,
+          summary: "Historic club with a world-class artificial green next to the library and high school.",
+          details: "The Coronado Lawn Bowling Club started in 1935. The original grass green was replaced with a new artificial green dedicated in 2010 at 1019 Seventh St. (7th and D Ave). The club holds a permit to use the green, which is also open to the public.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608404273219-97A0JDZJLWLSF0LU5UAO/26RM8820.jpg"
+        },
+        {
+          name: "Friendly Valley",
+          city: "Santa Clarita",
+          status: "private",
+          website: "",
+          email: "",
+          lat: 34.4430, lng: -118.4690,
+          summary: "Resident-only club formed in 1966.",
+          details: "Formed in 1966 by residents of the Friendly Valley community in Santa Clarita. It is a private club open to residents only.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665279480-19LBIV6XUZB0KK2J2E0P/image4.jpg"
+        },
+        {
+          name: "Hemet-Joslyn",
+          city: "Hemet",
+          status: "open",
+          website: "",
+          email: "hemetlawnbowlsclub@gmail.com",
+          phone: "951-652-0981",
+          lat: 33.7308, lng: -116.9560,
+          summary: "Longstanding park-based club with a snowbird and year-round player community.",
+          details: "The first president was elected in 1976, the greens were dedicated in 1977, the clubhouse was completed in 1989, and the greens were amended in 1992 for tournament length. Located at Gibbel Park in Hemet. Open Monday, Wednesday, and Friday.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608246644560-9GTQ0TXIFM7NIK8XKI8Y/Hemet.jpg"
+        },
+        {
+          name: "Hermosa Beach",
+          city: "Hermosa Beach",
+          status: "open",
+          website: "https://hblbc.org",
+          email: "",
+          lat: 33.8650, lng: -118.3960,
+          summary: "Longtime South Bay club, founded in 1936 and welcoming to new bowlers.",
+          details: "The Hermosa Beach Lawn Bowling Club was founded in 1936 and is a member of the Southwest Bowls Division. The club welcomes visitors and new players.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1609269053395-EKA8JFNHNECCOWSPZTEQ/Hormosa_Beach.JPG"
+        },
+        {
+          name: "Holmby Park",
+          city: "Los Angeles",
+          status: "open",
+          website: "https://www.losangeleslawnbowling.com",
+          email: "",
+          lat: 34.0680, lng: -118.4290,
+          summary: "Diverse Los Angeles club in a beautiful park setting with easy parking.",
+          details: "Holmby Park Lawn Bowling Club, founded in 1927, is situated in one of the most beautiful parks in Los Angeles at 646 Comstock Avenue. It is open to all who can pass a simple lawn bowling test and highlights a diverse membership across ages and backgrounds.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1609268221090-8P9361ISD09063YUVFRG/Holmby_Park.jpg"
+        },
+        {
+          name: "Laguna Beach",
+          city: "Laguna Beach",
+          status: "open",
+          website: "https://lagunabeachlawnbowlingclub.com",
+          email: "",
+          lat: 33.5460, lng: -117.7940,
+          summary: "Iconic ocean-view club in Heisler Park and one of the largest in the USA.",
+          details: "Established in 1931 and situated in Heisler Park overlooking the Pacific. Members enjoy both social and tournament bowls, plus complimentary lessons in basics, strategy, etiquette, and team games.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665254983-YY6VY2INHDK8IA46LTWX/LBLBC_%2521.jpg"
+        },
+        {
+          name: "Laguna Woods",
+          city: "Laguna Woods",
+          status: "private",
+          website: "https://www.lwlbc.org",
+          email: "",
+          lat: 33.6103, lng: -117.7256,
+          summary: "Private community club known for hosting divisional and national tournaments.",
+          details: "Laguna Woods is a private club in the Laguna Woods Village community, established in 1966. The club often hosts divisional and national tournaments, including major events. The greens are synthetic.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608404174012-ZXPZEDK7D44QM6O73SE8/LWoods_2A.jpg"
+        },
+        {
+          name: "Long Beach",
+          city: "Long Beach",
+          status: "open",
+          website: "https://longbeachlbc.com",
+          email: "hkayhudnall@gmail.com",
+          lat: 33.7880, lng: -118.1290,
+          summary: "Large, development-focused club with strong social and competitive support.",
+          details: "Located at 1109 Federation Drive in Recreation Park, Long Beach emphasizes introducing new players to the game while also supporting members who want social play or higher-level competition. The club counts past national champions and international competitors among its membership.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665224294-NMF5P0LF38YT9XBAN0PT/LongBeachLBC.jpg"
+        },
+        {
+          name: "MacKenzie Park",
+          city: "Santa Barbara",
+          status: "open",
+          website: "https://mplbc.com",
+          email: "",
+          lat: 34.4399, lng: -119.7388,
+          summary: "Santa Barbara club with two greens, clubhouse facilities, and free introductory lessons.",
+          details: "Located in upper MacKenzie Park in Santa Barbara. The club is open year-round and offers free, no-obligation lessons, visitor access, and a full facility including clubhouse, kitchen, and lockers.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608404222254-O00LSW59D9R41OFGFC1U/MacKenziePark_2.jpg"
+        },
+        {
+          name: "Newport Harbor",
+          city: "Corona del Mar",
+          status: "open",
+          website: "https://www.newportharborlbc.com",
+          email: "",
+          lat: 33.6010, lng: -117.8740,
+          summary: "Beautiful, major club with strong social and competitive bowling opportunities.",
+          details: "Nestled at 1550 Crown Drive North in Corona del Mar, Newport Harbor is one of the largest and most beautiful lawn bowling clubs in the United States. Members enjoy organized social and competitive bowling throughout the week.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665174411-JV9MCPUP7V1O1TXJE1II/NPH_2A.jpg"
+        },
+        {
+          name: "Oaks North",
+          city: "San Diego",
+          status: "private",
+          website: "https://www.oaksnorthcommunity.org/lawn-bowling/",
+          email: "",
+          lat: 33.0190, lng: -117.0760,
+          summary: "Community-center club in Rancho Bernardo that often hosts local and divisional tournaments.",
+          details: "Oaks North is a club based at the Oaks North Community Center in Rancho Bernardo (San Diego), established in 1974. It often hosts local and divisional tournaments. The greens are synthetic.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665195554-BOVP2AZVZF2MII4DHQ16/OaksNorth.jpg"
+        },
+        {
+          name: "Oxnard-Joslyn",
+          city: "Oxnard",
+          status: "open",
+          website: "https://www.oxnardlbc.com",
+          email: "",
+          lat: 34.1970, lng: -119.1790,
+          summary: "Senior-center-based club in Wilson Park with a central Oxnard location.",
+          details: "The club is part of the Oxnard Senior Center in Wilson Park, located downtown at 350 North &ldquo;C&rdquo; Street. It was founded through the efforts of Marcellus L. Joslyn.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1609268984814-IESAB0DVKISY47PN6T6A/Oxnard_Joslyn.jpg"
+        },
+        {
+          name: "Pasadena",
+          city: "Pasadena",
+          status: "open",
+          website: "https://www.plbcc.org",
+          email: "",
+          lat: 34.1410, lng: -118.1510,
+          summary: "Oldest club in Southern California and a foundational club in California bowls history.",
+          details: "Established in 1921 at 275 S. Raymond Ave. in Central Park, Pasadena is described as the birthplace of California lawn bowling. The Pasadena Lawn Bowling & Croquet Club hosts the Rose Lawn Bowl each New Year&rsquo;s Eve.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608847252244-BULN6ZD22HS10X2Y9F46/Pasadena.jpg"
+        },
+        {
+          name: "Pomona",
+          city: "Pomona",
+          status: "open",
+          website: "https://pomonalawnbowlingclub.com",
+          email: "",
+          lat: 34.0860, lng: -117.7430,
+          summary: "Active inland club with regular bowls, coaching, and social play.",
+          details: "Located at 451 East Arrow Highway in Pomona, the club offers regular bowling, coaching for new players, and social events throughout the year.",
+          image: "https://images.squarespace-cdn.com/content/v1/5ec321c2af33de48734cc929/1589847897715-EWKVJ35VXQ5P9CDGSYVT/image-asset.jpeg"
+        },
+        {
+          name: "Redlands",
+          city: "Redlands",
+          status: "open",
+          website: "https://www.redlandslawnbowlingclub.com",
+          email: "",
+          lat: 34.0640, lng: -117.1850,
+          summary: "Historic inland club with active membership and regular bowls, including Rock and Bowl.",
+          details: "The club was formed in 1921 and moved to its current Sylvan Park location (411 N University St) in 1923. It offers robust membership, regular bowls, coaching, and Saturday evening Rock and Bowl.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1609293182404-U6KBN9LSL9WRH5T4DHCL/Redlands2.jpg"
+        },
+        {
+          name: "Riverside",
+          city: "Riverside",
+          status: "open",
+          website: "https://riversidelawnbowlingclub.godaddysites.com",
+          email: "",
+          lat: 33.9990, lng: -117.3820,
+          summary: "Fairmount Park club welcoming visitors and new members.",
+          details: "Located in Fairmount Park at 4020 Bowling Green Drive, Riverside, the club is a member of the Southwest Division and welcomes visitors and new bowlers.",
+          image: "https://images.squarespace-cdn.com/content/v1/5ec321c2af33de48734cc929/1589847898345-D40VLF9LAM9L2XYZ5A1B/image-asset.jpeg"
+        },
+        {
+          name: "San Diego",
+          city: "San Diego",
+          status: "open",
+          website: "https://sandiegolawnbowling.org",
+          email: "",
+          lat: 32.7320, lng: -117.1500,
+          summary: "Historic Balboa Park club with strong national and international competitive pedigree.",
+          details: "An iconic member of Balboa Park at 2125 Park Blvd, the San Diego Lawn Bowling Club was established in 1932 and features the only natural grass rink in San Diego. The club has produced numerous national and international champions.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1609442460686-HQZRO0LAJAR9D43O669G/SanDiego.jpg"
+        },
+        {
+          name: "Santa Ana",
+          city: "Santa Ana",
+          status: "open",
+          website: "https://www.santaanalawnbowling.com",
+          email: "",
+          lat: 33.7680, lng: -117.8540,
+          summary: "Long-running Santiago Park club with public bowling hours and free lessons.",
+          details: "Santa Ana Lawn Bowling Club has been open continuously since 1938 at 510 E Memory Lane in Santiago Park. The club offers a membership program, free introductory lessons, and posted bowling schedules.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1609790641798-E588E5ZYUIYKKUE4ZRF8/SantaAna_LBC1.jpg"
+        },
+        {
+          name: "Santa Anita",
+          city: "Arcadia",
+          status: "open",
+          website: "https://santaanitalawnbowling.com",
+          email: "",
+          lat: 34.1330, lng: -118.0330,
+          summary: "One of only two clubs in the United States with four greens, including lights for night bowling.",
+          details: "Santa Anita welcomes new members and notes that after only one or two lessons, players are ready for social bowling. The four greens are located at 405 S. Santa Anita Ave. in Arcadia County Park, and the club hosts the annual Southwest Open.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1606945090584-KA7W5H49Z7XW8QT9YVKQ/Santa_Anita.jpg"
+        },
+        {
+          name: "Santa Barbara",
+          city: "Santa Barbara",
+          status: "open",
+          website: "https://www.santabarbaralbc.org",
+          email: "sblawnbowlsclub@gmail.com",
+          lat: 34.4250, lng: -119.7080,
+          summary: "Non-profit club with free introductory lessons, year-round use, and a strong community culture.",
+          details: "Santa Barbara Lawn Bowls Club, at 1216 De La Vina St., is a non-profit co-sponsored by the City of Santa Barbara Parks and Recreation. Visitors are welcome, introductory lessons are free, and facilities are available year-round.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665115418-ODLFUQGJYTHA5S8PMU0J/SB%2BLawn%2BBowls%2BClub_2.jpg"
+        },
+        {
+          name: "Santa Monica",
+          city: "Santa Monica",
+          status: "open",
+          website: "https://www.smbowls.org",
+          email: "smbclubinfo@gmail.com",
+          lat: 34.0330, lng: -118.4840,
+          summary: "Friendly club playing at Douglas Park, welcoming visitors and new bowlers.",
+          details: "The Santa Monica Lawn Bowls Club plays at Douglas Park in Santa Monica. The club offers social bowls and membership, and welcomes visitors and people who want to learn the game.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665134205-LJ7VN8I0DZ4DTK2HK6PR/SantaMonica.jpg"
+        },
+        {
+          name: "Sun City",
+          city: "Menifee",
+          status: "private",
+          website: "https://www.suncitylawnbowls.com",
+          email: "suncitylawnbowls22@gmail.com",
+          lat: 33.7090, lng: -117.1980,
+          summary: "Long-established community club with varied bowling schedules and summer night bowling.",
+          details: "Organized in 1963 in the Del Webb retirement community of Sun City (Menifee), at 26850 Sun City Blvd. Members bowl several days a week, with night bowling in summer.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/901ce48d-1c26-4726-854a-dfbc0fd201b3/sun%2Bcity%2Bclub.JPG"
+        },
+        {
+          name: "The Groves",
+          city: "Irvine",
+          status: "private",
+          website: "",
+          email: "woodyjoya@gmail.com",
+          lat: 33.7050, lng: -117.7560,
+          summary: "Private community club that often hosts divisional tournaments.",
+          details: "The Groves is a private club located in the gated Groves community at 5200 Irvine Blvd, Irvine. It often hosts divisional tournaments.",
+          image: "https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665086501-W2WOX6MRDXYY97T680WJ/The_Groves.jpg"
+        }
+      ];
+
+      const grid = document.getElementById("swdClubGrid");
+      const empty = document.getElementById("swdClubEmpty");
+      const search = document.getElementById("swdClubSearch");
+      const filterButtons = document.querySelectorAll("#swd-clubs-premium .swd-filter-btn");
+      const chips = document.querySelectorAll("#swd-clubs-premium .swd-chip");
+
+      let currentFilter = "all";
+
+      function makeLink(url) {
+        if (!url) return "";
+        return url.startsWith("http") ? url : "https://" + url;
+      }
+
+      function escapeAttr(s) {
+        return String(s).replace(/"/g, "&quot;");
+      }
+
+      function renderClubs() {
+        const term = (search.value || "").trim().toLowerCase();
+
+        const filtered = clubs.filter(club => {
+          const matchesFilter = currentFilter === "all" ? true : club.status === currentFilter;
+          const blob = [
+            club.name,
+            club.city,
+            club.summary,
+            club.details,
+            club.website,
+            club.email,
+            club.phone || "",
+            club.status
+          ].join(" ").toLowerCase();
+
+          return matchesFilter && blob.includes(term);
+        });
+
+        grid.innerHTML = filtered.map(club => {
+          const website = club.website ? `<a class="swd-link-pill primary" href="${makeLink(club.website)}" target="_blank" rel="noopener">Visit Website</a>` : "";
+          const email = club.email ? `<a class="swd-link-pill" href="mailto:${club.email}">Email</a>` : "";
+          const phone = club.phone ? `<a class="swd-link-pill" href="tel:${club.phone.replace(/[^0-9]/g, "")}">Call</a>` : "";
+          const statusLabel = club.status === "open" ? "Public / Open" : "Private Club";
+
+          return `
+            <article class="swd-club-card" data-status="${club.status}">
+              <div class="swd-club-photo-wrap">
+                <div class="swd-badge-row">
+                  <span class="swd-badge ${club.status}">${statusLabel}</span>
+                  <span class="swd-badge">${club.city}</span>
+                </div>
+                <img class="swd-club-photo" src="${club.image}" alt="${escapeAttr(club.name)} club image" loading="lazy">
+              </div>
+
+              <div class="swd-club-body">
+                <div class="swd-club-meta">Southwest Club</div>
+                <div class="swd-club-name">${club.name}</div>
+                <div class="swd-divider"></div>
+
+                <p class="swd-club-summary">${club.summary}</p>
+
+                <div class="swd-links">
+                  <button class="swd-link-pill" type="button" data-expand="true">More Info</button>
+                  ${website}
+                  ${email}
+                  ${phone}
+                </div>
+
+                <div class="swd-details">
+                  <p>${club.details}</p>
+                  ${club.email ? `<p style="margin-top:10px;"><strong>Email:</strong> ${club.email}</p>` : ""}
+                  ${club.phone ? `<p style="margin-top:8px;"><strong>Phone:</strong> ${club.phone}</p>` : ""}
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        empty.style.display = filtered.length ? "none" : "block";
+
+        grid.querySelectorAll('[data-expand="true"]').forEach(btn => {
+          btn.addEventListener("click", function () {
+            const card = this.closest(".swd-club-card");
+            card.classList.toggle("expanded");
+            this.textContent = card.classList.contains("expanded") ? "Hide Info" : "More Info";
+          });
+        });
+      }
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+          currentFilter = this.getAttribute("data-filter");
+          filterButtons.forEach(b => b.classList.remove("active"));
+          this.classList.add("active");
+          renderClubs();
+        });
+      });
+
+      search.addEventListener("input", renderClubs);
+      renderClubs();
+
+      // ---- Interactive map (Leaflet + OpenStreetMap) ----
+      function initMap() {
+        if (typeof L === "undefined") return;
+        const map = L.map("swdMap", { scrollWheelZoom: false });
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 18,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const markers = [];
+        clubs.forEach(club => {
+          if (typeof club.lat !== "number" || typeof club.lng !== "number") return;
+          const color = club.status === "private" ? "#713f12" : "#0a5b3a";
+          const marker = L.circleMarker([club.lat, club.lng], {
+            radius: 9,
+            color: "#ffffff",
+            weight: 2,
+            fillColor: color,
+            fillOpacity: 0.95
+          }).addTo(map);
+
+          const link = club.website
+            ? `<br><a href="${makeLink(club.website)}" target="_blank" rel="noopener">Visit Website &rarr;</a>`
+            : "";
+          marker.bindPopup(`<strong>${club.name}</strong>${club.city}${link}`);
+          markers.push(marker);
+        });
+
+        if (markers.length) {
+          const group = L.featureGroup(markers);
+          map.fitBounds(group.getBounds().pad(0.15));
+        } else {
+          map.setView([33.9, -117.9], 8);
+        }
+      }
+
+      if (document.readyState === "loading") {
+        window.addEventListener("DOMContentLoaded", initMap);
+      } else {
+        initMap();
+      }
+
+      // Scroll-spy: highlight the active subnav chip
+      const sections = Array.from(chips)
+        .map(chip => document.querySelector(chip.getAttribute('href')))
+        .filter(Boolean);
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const id = '#' + entry.target.id;
+            chips.forEach(chip => {
+              chip.classList.toggle('active', chip.getAttribute('href') === id);
+            });
+          });
+        }, { rootMargin: '-35% 0px -50% 0px', threshold: 0.01 });
+
+        sections.forEach(section => observer.observe(section));
+      }
+    })();
+  </script>
+
+  <!-- Broadcast height to an embedding parent (Squarespace) in case this is ever
+       used inside an iframe. Harmless on the standalone page (no parent). -->
+  <script>
+    (function () {
+      function postHeightToParent() {
+        if (window.parent === window) return;
+        var h = document.body.scrollHeight;
+        window.parent.postMessage({ type: "swd-clubinfo-height", height: h }, "*");
+      }
+      if (window.ResizeObserver) {
+        new ResizeObserver(postHeightToParent).observe(document.body);
+      }
+      window.addEventListener("load", postHeightToParent);
+    })();
+  </script>
+</div>
+</body>
+</html>
