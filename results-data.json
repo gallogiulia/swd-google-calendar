@@ -1,6 +1,25 @@
 {
   "tournaments": [
     {
+      "id": "john-clark",
+      "title": "2026 John Clark 2-Bowl Mixed Triples",
+      "meta": "May 31 · Hermosa Beach LBC",
+      "navLabel": "John Clark Triples",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/john-clark-2-bowls-triples-n7xwx",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Richie Estrella, Derek Rosales, Heather Lewis", "photo": "/photos/john-clark/1th-richie-estrella-derek-rosales-heather-lewis.jpg" },
+            { "rank": 2, "names": "Vaughn Feather, Trish Soto, Bruce Sew Hoy", "photo": "/photos/john-clark/2th-vaughn-feather-trish-soto-bruce-sew-hoy.jpg" },
+            { "rank": 3, "names": "Inger Benson, Elliott Kuhn, Jeff Notte", "photo": "/photos/john-clark/3th-inger-benson-elliott-kuhn-jeff-notte.jpg" },
+            { "rank": 4, "names": "Pat Minnehan, Joan Narmontas, Mark Coutee", "photo": "/photos/john-clark/4th-pat-minnehan-joan-narmontas-mark-coutee.jpg" }
+          ]
+        }
+      ]
+    },
+    {
   "id": "joe-siegman",
   "title": "2026 Joe Siegman Pairs",
   "meta": "May 3 · Beverly Hills LBC",
