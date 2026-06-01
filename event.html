@@ -355,5 +355,25 @@ function initTournamentButton(config) {
   }
 })();
 </script>
+
+<!-- Broadcast height to the embedding parent (Squarespace) so the iframe can auto-resize -->
+<script>
+(function () {
+  function postHeightToParent() {
+    if (window.parent === window) return;
+    try {
+      var h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
+      window.parent.postMessage({ type: "swd-event-height", height: h }, "*");
+    } catch (e) {}
+  }
+  if (window.ResizeObserver) {
+    new ResizeObserver(postHeightToParent).observe(document.body);
+  }
+  window.addEventListener("load", postHeightToParent);
+})();
+</script>
 </body>
 </html>
