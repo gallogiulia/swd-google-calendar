@@ -16,15 +16,38 @@
   }
 
   /* ── ANCHOR NAV ── */
-  .swlb-nav {
-    display: flex; gap: 0; overflow-x: auto;
+  .swlb-nav-wrap {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff;
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 40px;
+  }
+  .swlb-nav {
+    display: flex; gap: 0; overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    position: sticky; top: 0; background: #fff; z-index: 10;
+    scroll-behavior: smooth;
   }
   .swlb-nav::-webkit-scrollbar { display: none; }
+  /* Scroll affordance: fading edge + chevron, shown only when more nav scrolls that way */
+  .swlb-nav-arrow {
+    position: absolute; top: 0; bottom: 1px; width: 52px;
+    border: none; padding: 0; margin: 0; cursor: pointer;
+    display: none; align-items: center; z-index: 2; color: #111;
+  }
+  .swlb-nav-arrow.show { display: flex; }
+  .swlb-nav-arrow.left {
+    left: 0; justify-content: flex-start;
+    background: linear-gradient(to right, #fff 50%, rgba(255,255,255,0));
+  }
+  .swlb-nav-arrow.right {
+    right: 0; justify-content: flex-end;
+    background: linear-gradient(to left, #fff 50%, rgba(255,255,255,0));
+  }
+  .swlb-nav-arrow svg { width: 20px; height: 20px; }
+  .swlb-nav-arrow.left svg  { margin-left: 4px; }
+  .swlb-nav-arrow.right svg { margin-right: 4px; }
+  .swlb-nav-arrow:hover { color: #1a5fa8; }
   .swlb-nav a {
     font-size: 13px; color: #555;
     padding: 10px 16px; white-space: nowrap;
@@ -111,7 +134,15 @@
 <body>
 
 <div class="swlb-results">
-  <nav class="swlb-nav" id="swlb-nav"></nav>
+  <div class="swlb-nav-wrap">
+    <button class="swlb-nav-arrow left" id="swlb-nav-left" type="button" aria-label="Scroll to earlier tournaments">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <nav class="swlb-nav" id="swlb-nav"></nav>
+    <button class="swlb-nav-arrow right" id="swlb-nav-right" type="button" aria-label="Scroll to more tournaments">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
   <div id="swlb-sections"><div class="swlb-loading">Loading tournament results…</div></div>
 </div>
 
@@ -151,6 +182,22 @@
   navEl.innerHTML = data.tournaments
     .map(t => `<a href="#${esc(t.id)}">${esc(t.navLabel || t.title)}</a>`)
     .join('');
+
+  // ── Horizontal-scroll affordance for the nav ──
+  const leftBtn  = document.getElementById('swlb-nav-left');
+  const rightBtn = document.getElementById('swlb-nav-right');
+  function updateNavArrows() {
+    const max = navEl.scrollWidth - navEl.clientWidth;
+    const x = navEl.scrollLeft;
+    leftBtn.classList.toggle('show', x > 4);
+    rightBtn.classList.toggle('show', x < max - 4);
+  }
+  leftBtn.addEventListener('click',  () => navEl.scrollBy({ left: -240, behavior: 'smooth' }));
+  rightBtn.addEventListener('click', () => navEl.scrollBy({ left:  240, behavior: 'smooth' }));
+  navEl.addEventListener('scroll', updateNavArrows, { passive: true });
+  window.addEventListener('resize', updateNavArrows);
+  updateNavArrows();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateNavArrows);
 
   sectionsEl.innerHTML = data.tournaments.map(t => {
     const divisionsHtml = t.divisions.map(div => {
