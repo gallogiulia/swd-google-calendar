@@ -1945,6 +1945,58 @@
         "height": 1800,
         "width": "100%"
       }
+    },
+    {
+      "id": "cambria-open-pairs-2026",
+      "title": "6th Annual Cambria Open Pairs",
+      "subtitle": "Cambria LBC Club Invitational",
+      "date": "Saturday–Sunday, July 18–19, 2026",
+      "time": "",
+      "schedule": [
+        "Friday, July 17 — Practice day, 9:00 AM – 4:30 PM (green open)",
+        "Saturday, July 18 — Day 1: Sectional round robin, four 14-end games",
+        "Sunday, July 19 — Day 2: Sectional round robin, three 14-end games, then finals"
+      ],
+      "format": "pairs",
+      "formatDetails": "Sectional 3-bowl pairs · Seven 14-end games + finals · 16 teams, two sections of 8 with seeding",
+      "club": {
+        "name": "Cambria Lawn Bowls Club",
+        "address": "Joslyn Center, 950 Main Street, Cambria, CA 93428",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=950+Main+Street+Cambria+CA+93428"
+      },
+      "fee": "$280 per team",
+      "deadline": "Limited to 16 teams — enter early to reserve your place.",
+      "rules": [
+        "Open to all members of clubs affiliated with Bowls USA or World Bowls",
+        "Field limited to 16 teams — two sections of 8 with seeding",
+        "Seven 14-end games total (four on Day 1, three on Day 2), plus 14-end finals",
+        "Finals: top two teams in each section play for 1st/2nd; next two play for 3rd/4th",
+        "Scoring: 3 points for a win, 1 for a tie; maximum 10 plus/minus points per game",
+        "A bye counts as a win, scored as the average winning score for that round",
+        "Trial ends: two bowls in each direction per player, first game of each day only",
+        "Player movement — Leads: no visits to the head; Skips: after their second bowl",
+        "Burnt end: jack re-spotted on the 2-meter mark on the centerline",
+        "No time limit; once the second-to-last team finishes, the last team throws no more jacks",
+        "Substitutes must be approved by the Tournament Director before play; no substitute may play skip",
+        "Dress code: club shirts or matching team shirts (no t-shirts)",
+        "Late penalty: 1 point + 1 end per 10 minutes late; 30+ minutes late forfeits the game",
+        "No smoking or vaping anywhere at the facility",
+        "After you submit the entry form you'll get an automatic “submitted successfully” email — this does NOT confirm entry. A confirmation email with payment details follows within 48 hours.",
+        "Prizes: payout to the top 5 finishers; 1st place $1,200 (based on 16-team entries)"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": { "name": "", "phone": "", "email": "", "mailTo": "" },
+      "flyer": { "externalUrl": "", "localPath": "/pdfs/cambria-open-pairs-2026/flyer.jpg", "type": "image" },
+      "cops": { "externalUrl": "", "localPath": "/pdfs/cambria-open-pairs-2026/cops.pdf" },
+      "registrationUrl": "https://forms.gle/b1LeJUtCnjPCq5ZK9",
+      "registrationLabel": "Register — Entry Form",
+      "paypal": { "system": "none" },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQHUVnPIYLTu-W4_pzvLT-JHu0TygFpT--dA5mtAeUPN0lgUbd37A2jt1PPfbDhB2CRp-J9IurjHce0/pubhtml?widget=true&headers=false",
+        "height": 400
+      },
+      "liveScoring": { "pubUrl": "", "height": 400, "width": "100%" }
     }
   ]
 }

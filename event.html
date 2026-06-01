@@ -191,6 +191,7 @@ function initTournamentButton(config) {
   const flyerBtnUrl = event.flyer?.localPath || event.flyer?.externalUrl || '';
   const copsBtnUrl  = event.cops?.localPath || event.cops?.externalUrl || '';
   const buttons = [];
+  if (event.registrationUrl) buttons.push(`<a class="evt-btn" href="${esc(event.registrationUrl)}" target="_blank" rel="noopener">${esc(event.registrationLabel || 'Register')}</a>`);
   if (flyerBtnUrl) buttons.push(`<a class="evt-btn" href="${esc(flyerBtnUrl)}" target="_blank">Download Flyer</a>`);
   if (copsBtnUrl)  buttons.push(`<a class="evt-btn secondary" href="${esc(copsBtnUrl)}" target="_blank">Conditions of Play</a>`);
 
