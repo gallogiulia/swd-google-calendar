@@ -20,6 +20,24 @@
       ]
     },
     {
+      "id": "womens-singles",
+      "title": "2026 SWD Women's Singles",
+      "meta": "May 30 · Long Beach LBC",
+      "navLabel": "Women's Singles",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/2025-swd-womens-singles-4lsgy",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            { "rank": 1, "names": "Joan Robbins", "photo": "/photos/womens-singles/1th-joan-robbins.jpg" },
+            { "rank": 2, "names": "Eva Lee", "photo": "/photos/womens-singles/2th-eva-lee.jpg" },
+            { "rank": 3, "names": "Giulia Gallo", "photo": "/photos/womens-singles/3th-giulia-gallo.jpg" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "disney-pairs",
       "title": "2026 BHLBC Disney Pairs",
       "meta": "May 23–25 · Beverly Hills LBC",
