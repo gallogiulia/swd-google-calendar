@@ -19,18 +19,18 @@
 <style>
   :root {
     --ink: #1a2233; --muted: #667085; --grid: #cfd6e0;
-    --red: #b3162b; --red-band: #f7e1e4;
+    --head: #1e40af; --head-band: #e6ecfb;
   }
   html, body { margin: 0; background: #ffffff; }
   body { font-family: Arial, Helvetica, "Segoe UI", sans-serif; color: var(--ink); -webkit-text-size-adjust: 100%; }
   .wrap { max-width: 1140px; margin: 0 auto; padding: 16px 12px 36px; }
 
   .cal-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
-  .cal-title { font-size: 1.55rem; font-weight: 800; color: var(--red); margin: 0; text-transform: uppercase; letter-spacing: -.01em; }
+  .cal-title { font-size: 1.55rem; font-weight: 800; color: var(--head); margin: 0; text-transform: uppercase; letter-spacing: -.01em; }
   .cal-sub { color: var(--muted); font-size: .9rem; }
   .year-tabs { margin-left: auto; display: flex; gap: 6px; }
-  .year-tab { border: 1px solid #d6b3ba; background: #f7eef0; color: var(--red); font: inherit; font-size: .85rem; font-weight: 700; padding: 5px 12px; border-radius: 6px; cursor: pointer; }
-  .year-tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+  .year-tab { border: 1px solid #b9c6ee; background: #eef2fc; color: var(--head); font: inherit; font-size: .85rem; font-weight: 700; padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+  .year-tab.active { background: var(--head); color: #fff; border-color: var(--head); }
 
   .legend { display: flex; flex-wrap: wrap; gap: 7px 13px; margin: 11px 0 12px; }
   .legend .item { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; color: #344054; font-weight: 700; }
@@ -40,15 +40,17 @@
   table.cal { width: 100%; border-collapse: collapse; font-size: .85rem; background: #fff; }
   table.cal th, table.cal td { border: 1px solid var(--grid); padding: 5px 8px; vertical-align: top; text-align: left; }
   table.cal thead th {
-    background: var(--red); color: #fff; font-weight: 700; white-space: nowrap;
+    background: var(--head); color: #fff; font-weight: 700; white-space: nowrap;
     text-transform: uppercase; letter-spacing: .03em; font-size: .8rem;
-    position: sticky; top: 0; z-index: 2; border-color: #8e1022;
+    position: sticky; top: 0; z-index: 2; border-color: #15307e;
   }
-  table.cal tbody tr.ev:hover td { background: #fff7e9; }
+  /* tint each event row by its category (legend) color */
+  table.cal tbody tr.ev td { background: #ffffff; background: color-mix(in srgb, var(--cat, #94a3b8) 12%, #ffffff); }
+  table.cal tbody tr.ev:hover td { background: color-mix(in srgb, var(--cat, #94a3b8) 22%, #ffffff); }
 
   .col-date { white-space: nowrap; width: 116px; font-weight: 700; color: #25324a; }
   .col-loc { width: 210px; color: #475467; }
-  .ev-link { color: var(--red); font-weight: 700; text-decoration: none; }
+  .ev-link { color: var(--head); font-weight: 700; text-decoration: none; }
   .ev-link:hover { text-decoration: underline; }
   .ev-title { font-weight: 700; color: #1a2233; }
 
@@ -56,9 +58,9 @@
   tr.ev td.col-date { border-left: 5px solid var(--cat, #94a3b8); }
 
   tr.month-row td {
-    background: var(--red-band); color: var(--red); font-weight: 800;
+    background: var(--head-band); color: var(--head); font-weight: 800;
     text-transform: uppercase; letter-spacing: .06em; font-size: 1.15rem;
-    text-align: center; padding: 11px 10px; border-color: #e6c4ca;
+    text-align: center; padding: 11px 10px; border-color: #c9d6f5;
   }
   tr.holiday td { background: #fff7e6; color: #92580a; font-weight: 700; font-size: .84rem; }
   tr.holiday td.col-date { border-left: 5px solid #f0b429; white-space: nowrap; }
