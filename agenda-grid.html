@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <!-- ============================================================
-     SWD SEASON AGENDA — plain spreadsheet-style grid
-     Pulls live data from /api/events?year=YYYY (same source as the
-     calendar agenda) and renders it as a simple table.
-     Broadcasts height as "swd-agenda-height" so the existing
-     Squarespace iframe listener auto-resizes it (no Squarespace change).
+     SWD SEASON AGENDA — colored spreadsheet-style grid
+     Live data from /api/events?year=YYYY (same source as the calendar).
+     - Rows colored by category (Women's/Men's/Club Sponsored/Other/PBA).
+     - US public holidays added as reference rows for the displayed year.
+     - "Open" = event still has a link in the calendar (GG curates these).
+       For not-yet-live events we hide the link AND the deadline/fee, so no
+       stale last-year data (pulled by title matching) is shown.
+     - Broadcasts "swd-agenda-height" so an embedding iframe can auto-resize.
      ============================================================ -->
 <html lang="en">
 <head>
@@ -12,73 +15,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SWD Season Agenda</title>
 <style>
+  :root {
+    --ink: #1a2233; --muted: #667085; --line: #c9d1dc;
+    --head: #0f2e5e; --band: #e7ecf4;
+  }
   html, body { margin: 0; background: #ffffff; }
   body {
     font-family: Arial, Helvetica, "Segoe UI", sans-serif;
-    color: #1a1a1a;
-    -webkit-text-size-adjust: 100%;
+    color: var(--ink); -webkit-text-size-adjust: 100%;
   }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 18px 14px 36px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 18px 14px 40px; }
 
-  .cal-head {
-    display: flex; flex-wrap: wrap; align-items: baseline;
-    gap: 10px 16px; margin-bottom: 12px;
-  }
-  .cal-title {
-    font-size: 1.5rem; font-weight: 800; color: #0f2e5e; margin: 0;
-  }
-  .cal-sub { color: #555; font-size: .9rem; }
+  .cal-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+  .cal-title { font-size: 1.55rem; font-weight: 800; color: var(--head); margin: 0; }
+  .cal-sub { color: var(--muted); font-size: .9rem; }
   .year-tabs { margin-left: auto; display: flex; gap: 6px; }
   .year-tab {
     border: 1px solid #c4ccd6; background: #f1f3f6; color: #25324a;
     font: inherit; font-size: .85rem; font-weight: 700;
-    padding: 5px 12px; border-radius: 4px; cursor: pointer;
+    padding: 5px 12px; border-radius: 6px; cursor: pointer;
   }
-  .year-tab.active { background: #0f2e5e; color: #fff; border-color: #0f2e5e; }
+  .year-tab.active { background: var(--head); color: #fff; border-color: var(--head); }
 
-  table.cal {
-    width: 100%; border-collapse: collapse; font-size: .9rem;
-    background: #fff;
-  }
-  table.cal th, table.cal td {
-    border: 1px solid #b9c0ca; padding: 6px 9px; vertical-align: top;
-    text-align: left;
-  }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 12px 0 14px; }
+  .legend .item { display: inline-flex; align-items: center; gap: 7px; font-size: .82rem; color: #344054; font-weight: 700; }
+  .legend .dot { width: 13px; height: 13px; border-radius: 3px; display: inline-block; border: 1px solid rgba(0,0,0,.12); }
+
+  .tbl-shell { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: 0 6px 22px rgba(15,23,42,.06); }
+  table.cal { width: 100%; border-collapse: collapse; font-size: .9rem; background: #fff; }
+  table.cal th, table.cal td { border-bottom: 1px solid #e4e8ee; padding: 8px 10px; vertical-align: top; text-align: left; }
   table.cal thead th {
-    background: #0f2e5e; color: #fff; font-weight: 700;
-    position: sticky; top: 0; white-space: nowrap;
-    border-color: #0f2e5e;
+    background: var(--head); color: #fff; font-weight: 700; white-space: nowrap;
+    border-bottom: none; position: sticky; top: 0; z-index: 2;
   }
-  table.cal tbody tr:nth-child(even) td { background: #f4f6f9; }
-  table.cal tbody tr:hover td { background: #fff7da; }
+  table.cal tbody tr.ev:hover td { background: #fffbe9; }
 
-  .col-date { white-space: nowrap; width: 130px; font-weight: 700; color: #25324a; }
-  .col-fee, .col-deadline { white-space: nowrap; width: 110px; }
-  .col-link { white-space: nowrap; width: 70px; text-align: center; }
-  td a { color: #b03a2e; font-weight: 700; }
-
-  .month-row td {
-    background: #dde4ee !important; color: #0f2e5e;
-    font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
-    font-size: .82rem;
+  .col-date { white-space: nowrap; width: 132px; font-weight: 700; color: #25324a; }
+  .col-deadline { white-space: nowrap; width: 130px; color: #475467; }
+  .col-fee { white-space: nowrap; width: 96px; color: #475467; }
+  .col-link { white-space: nowrap; width: 78px; text-align: center; }
+  td a.openlink {
+    display: inline-block; color: #fff; background: var(--head);
+    padding: 3px 11px; border-radius: 999px; font-weight: 700; font-size: .8rem;
   }
-  .swd td.col-event { font-weight: 700; }
-  .other td.col-event { color: #444; }
-  .tag {
-    display: inline-block; font-size: .68rem; font-weight: 800;
-    padding: 1px 6px; border-radius: 3px; margin-left: 6px;
-    vertical-align: middle; border: 1px solid transparent;
-  }
-  .tag.other { background: #efe7fb; color: #5b2bb0; border-color: #d8c7f2; }
+  td a.openlink:hover { background: #16407e; }
+  .notyet { color: #9aa3b2; font-size: .78rem; font-style: italic; }
 
-  .status { padding: 20px 4px; color: #666; }
-  .legend { margin-top: 12px; font-size: .8rem; color: #666; }
+  /* category color = thick left bar on the date cell + a pill on the event */
+  tr.ev td.col-date { border-left: 5px solid var(--cat, #94a3b8); }
+  .pill {
+    display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: .02em;
+    padding: 1px 8px; border-radius: 999px; color: #fff; vertical-align: middle;
+    margin-right: 7px; background: var(--cat, #94a3b8); white-space: nowrap;
+  }
+  .ev-title { font-weight: 700; }
+
+  tr.month-row td {
+    background: var(--band); color: var(--head); font-weight: 800;
+    text-transform: uppercase; letter-spacing: .05em; font-size: .82rem;
+    border-bottom: 1px solid #c9d4e6;
+  }
+  tr.holiday td {
+    background: #fff7e6; color: #92580a; font-weight: 700; font-size: .86rem;
+    border-bottom: 1px dashed #e7cf9b;
+  }
+  tr.holiday td.col-date { border-left: 5px solid #f0b429; white-space: nowrap; }
+
+  .status { padding: 22px 6px; color: var(--muted); }
 
   @media (max-width: 640px) {
     table.cal { font-size: .82rem; }
-    table.cal th, table.cal td { padding: 5px 6px; }
-    .col-date { width: auto; }
-    .col-deadline, .col-fee { width: auto; }
+    table.cal th, table.cal td { padding: 6px 7px; }
+    .col-date, .col-deadline, .col-fee { width: auto; }
+    .col-deadline, .col-fee { white-space: normal; }
   }
 </style>
 </head>
@@ -90,22 +99,25 @@
       <div class="year-tabs" id="yearTabs"></div>
     </div>
 
-    <table class="cal">
-      <thead>
-        <tr>
-          <th class="col-date">Date</th>
-          <th class="col-event">Event</th>
-          <th>Location</th>
-          <th class="col-deadline">Entry Deadline</th>
-          <th class="col-fee">Fee</th>
-          <th class="col-link">Info</th>
-        </tr>
-      </thead>
-      <tbody id="rows">
-        <tr><td colspan="6" class="status">Loading calendar…</td></tr>
-      </tbody>
-    </table>
+    <div class="legend" id="legend"></div>
 
+    <div class="tbl-shell">
+      <table class="cal">
+        <thead>
+          <tr>
+            <th class="col-date">Date</th>
+            <th>Event</th>
+            <th>Location</th>
+            <th class="col-deadline">Entry Deadline</th>
+            <th class="col-fee">Fee</th>
+            <th class="col-link">Info</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td colspan="6" class="status">Loading calendar…</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <script>
@@ -113,6 +125,17 @@
     var MONTHS = ["January","February","March","April","May","June","July",
                   "August","September","October","November","December"];
     var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    // Category -> color (matches the calendar/API mapping)
+    var CAT = {
+      "Women's":        "#059669",
+      "Men's":          "#dc2626",
+      "Club Sponsored": "#2563eb",
+      "Other":          "#7c3aed",
+      "PBA USA":        "#f59e0b"
+    };
+    function catColor(s) { return CAT[s] || "#64748b"; }
+
     var rowsEl = document.getElementById("rows");
     var yearLabel = document.getElementById("yearLabel");
     var countSub = document.getElementById("countSub");
@@ -124,37 +147,57 @@
     var YEAR = getYear();
     yearLabel.textContent = YEAR;
 
-    // Build a couple of year tabs (prev / current / next) that reload with ?year=
     (function buildTabs() {
       var tabs = document.getElementById("yearTabs");
       [YEAR - 1, YEAR, YEAR + 1].forEach(function (y) {
         var b = document.createElement("button");
         b.className = "year-tab" + (y === YEAR ? " active" : "");
-        b.type = "button";
-        b.textContent = y;
-        b.addEventListener("click", function () {
-          location.search = "?year=" + y;
-        });
+        b.type = "button"; b.textContent = y;
+        b.addEventListener("click", function () { location.search = "?year=" + y; });
         tabs.appendChild(b);
       });
     })();
 
+    // ---------- US public holidays for the displayed year ----------
+    function nthWeekday(year, month, weekday, n) { // month 0-based, weekday 0=Sun
+      var d = new Date(year, month, 1);
+      var offset = (weekday - d.getDay() + 7) % 7;
+      return new Date(year, month, 1 + offset + (n - 1) * 7);
+    }
+    function lastWeekday(year, month, weekday) {
+      var d = new Date(year, month + 1, 0); // last day of month
+      var offset = (d.getDay() - weekday + 7) % 7;
+      return new Date(year, month, d.getDate() - offset);
+    }
+    function holidays(year) {
+      return [
+        { d: new Date(year, 0, 1),                 n: "New Year's Day" },
+        { d: nthWeekday(year, 0, 1, 3),            n: "Martin Luther King Jr. Day" },
+        { d: nthWeekday(year, 1, 1, 3),            n: "Presidents' Day" },
+        { d: lastWeekday(year, 4, 1),              n: "Memorial Day" },
+        { d: new Date(year, 5, 19),                n: "Juneteenth" },
+        { d: new Date(year, 6, 4),                 n: "Independence Day" },
+        { d: nthWeekday(year, 8, 1, 1),            n: "Labor Day" },
+        { d: nthWeekday(year, 9, 1, 2),            n: "Columbus Day" },
+        { d: new Date(year, 10, 11),               n: "Veterans Day" },
+        { d: nthWeekday(year, 10, 4, 4),           n: "Thanksgiving Day" },
+        { d: new Date(year, 11, 25),               n: "Christmas Day" }
+      ];
+    }
+
     function parseISO(d) {
-      // d = "YYYY-MM-DD" -> local Date (avoid TZ shift)
       if (!d) return null;
-      var p = d.split("-");
+      var p = String(d).split("-");
       if (p.length < 3) return null;
       return new Date(+p[0], +p[1] - 1, +p[2]);
     }
-
-    function fmtDate(startStr, endStr) {
-      var s = parseISO(startStr);
-      if (!s) return startStr || "";
+    function fmtDate(start, end) {
+      var s = start instanceof Date ? start : parseISO(start);
+      if (!s) return "";
       var label = DOW[s.getDay()] + ", " + MONTHS[s.getMonth()].slice(0, 3) + " " + s.getDate();
-      var e = parseISO(endStr);
+      var e = end ? (end instanceof Date ? end : parseISO(end)) : null;
       if (e) {
-        // all-day end dates are typically exclusive (next day); subtract 1 day
-        var eAdj = new Date(e.getTime() - 86400000);
+        var eAdj = new Date(e.getTime() - 86400000); // all-day end is exclusive
         if (eAdj > s) {
           var sameMonth = eAdj.getMonth() === s.getMonth();
           label += " – " + (sameMonth ? "" : MONTHS[eAdj.getMonth()].slice(0, 3) + " ") + eAdj.getDate();
@@ -162,19 +205,11 @@
       }
       return label;
     }
-
     function esc(t) {
-      return String(t == null ? "" : t)
-        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return String(t == null ? "" : t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
-    function shortLoc(loc) {
-      if (!loc) return "";
-      return esc(loc.split(",")[0]); // club / venue name before the address
-    }
-    function fmtDeadline(d) {
-      if (!d) return "";
-      return esc(String(d).replace(/^\s*entry\s*deadline:?\s*/i, ""));
-    }
+    function shortLoc(loc) { return loc ? esc(loc.split(",")[0]) : ""; }
+    function fmtDeadline(d) { return d ? esc(String(d).replace(/^\s*entry\s*deadline:?\s*/i, "")) : ""; }
 
     function postHeight() {
       if (window.parent === window) return;
@@ -184,49 +219,82 @@
       } catch (e) {}
     }
 
+    function buildLegend(usedSources) {
+      var order = ["Women's", "Men's", "Club Sponsored", "Other", "PBA USA"];
+      var html = order.filter(function (s) { return usedSources[s]; }).map(function (s) {
+        return '<span class="item"><span class="dot" style="background:' + CAT[s] + '"></span>' + esc(s) + '</span>';
+      }).join("");
+      html += '<span class="item"><span class="dot" style="background:#f0b429"></span>Holiday</span>';
+      document.getElementById("legend").innerHTML = html;
+    }
+
     function render(events) {
-      events.sort(function (a, b) {
-        return String(a.start).localeCompare(String(b.start));
+      // keep only events with a real date; sort by start
+      events = events.filter(function (e) { return e && e.start; });
+      events.sort(function (a, b) { return String(a.start).localeCompare(String(b.start)); });
+
+      // merge holidays in by date
+      var items = events.map(function (e) { return { type: "event", date: parseISO(e.start), e: e }; });
+      holidays(YEAR).forEach(function (h) { items.push({ type: "holiday", date: h.d, n: h.n }); });
+      items.sort(function (a, b) {
+        var t = a.date - b.date;
+        if (t !== 0) return t;
+        return a.type === "holiday" ? -1 : 1; // holiday first within a day
       });
 
-      var html = "", lastMonthKey = "";
-      events.forEach(function (e) {
-        var s = parseISO(e.start);
-        var monthKey = s ? (s.getFullYear() + "-" + s.getMonth()) : "";
+      var html = "", lastMonthKey = "", usedSources = {}, evCount = 0;
+      items.forEach(function (it) {
+        var dt = it.date;
+        var monthKey = dt ? (dt.getFullYear() + "-" + dt.getMonth()) : "";
         if (monthKey && monthKey !== lastMonthKey) {
           lastMonthKey = monthKey;
-          html += '<tr class="month-row"><td colspan="6">' +
-                  MONTHS[s.getMonth()] + " " + s.getFullYear() + "</td></tr>";
+          html += '<tr class="month-row"><td colspan="6">' + MONTHS[dt.getMonth()] + " " + dt.getFullYear() + '</td></tr>';
         }
-        var link = e.eventUrl
-          ? '<a href="' + esc(e.eventUrl) + '" target="_blank" rel="noopener">Open</a>'
-          : "";
+
+        if (it.type === "holiday") {
+          html += '<tr class="holiday">' +
+            '<td class="col-date">' + esc(fmtDate(dt)) + '</td>' +
+            '<td colspan="5">🗓️ ' + esc(it.n) + '</td>' +
+          '</tr>';
+          return;
+        }
+
+        var e = it.e;
+        evCount++;
+        var src = e.source || "Other";
+        usedSources[src] = true;
+        var color = catColor(src);
+        var open = !!e.eventUrl; // GG curates links: a link means it's live/open
+
+        var deadline = open ? fmtDeadline(e.deadline) : "";
+        var fee = open ? esc(e.fee || "") : "";
+        var info = open
+          ? '<a class="openlink" href="' + esc(e.eventUrl) + '" target="_blank" rel="noopener">Open</a>'
+          : '<span class="notyet">not open yet</span>';
+
         html +=
-          '<tr>' +
+          '<tr class="ev" style="--cat:' + color + '">' +
             '<td class="col-date">' + esc(fmtDate(e.start, e.end)) + '</td>' +
-            '<td class="col-event">' + esc(e.title) + '</td>' +
+            '<td><span class="pill">' + esc(src) + '</span><span class="ev-title">' + esc(e.title) + '</span></td>' +
             '<td>' + shortLoc(e.location) + '</td>' +
-            '<td class="col-deadline">' + fmtDeadline(e.deadline) + '</td>' +
-            '<td class="col-fee">' + esc(e.fee || "") + '</td>' +
-            '<td class="col-link">' + link + '</td>' +
+            '<td class="col-deadline">' + deadline + '</td>' +
+            '<td class="col-fee">' + fee + '</td>' +
+            '<td class="col-link">' + info + '</td>' +
           '</tr>';
       });
 
       rowsEl.innerHTML = html ||
         '<tr><td colspan="6" class="status">No events listed for ' + YEAR + ' yet.</td></tr>';
-      countSub.textContent = events.length + " events";
+      countSub.textContent = evCount + " events";
+      buildLegend(usedSources);
       postHeight();
     }
 
     fetch("/api/events?year=" + YEAR, { cache: "no-store" })
       .then(function (r) { return r.json(); })
-      .then(function (j) {
-        var events = Array.isArray(j) ? j : (j.events || j.data || []);
-        render(events);
-      })
+      .then(function (j) { render(Array.isArray(j) ? j : (j.events || j.data || [])); })
       .catch(function () {
-        rowsEl.innerHTML =
-          '<tr><td colspan="6" class="status">Could not load the calendar. Please refresh.</td></tr>';
+        rowsEl.innerHTML = '<tr><td colspan="6" class="status">Could not load the calendar. Please refresh.</td></tr>';
         postHeight();
       });
 
