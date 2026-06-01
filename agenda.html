@@ -1,824 +1,238 @@
-<!doctype html>
+<!DOCTYPE html>
+<!-- ============================================================
+     SWD SEASON AGENDA — plain spreadsheet-style grid
+     Pulls live data from /api/events?year=YYYY (same source as the
+     calendar agenda) and renders it as a simple table.
+     Broadcasts height as "swd-agenda-height" so the existing
+     Squarespace iframe listener auto-resizes it (no Squarespace change).
+     ============================================================ -->
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SWD Season Agenda</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWD Season Agenda</title>
+<style>
+  html, body { margin: 0; background: #ffffff; }
+  body {
+    font-family: Arial, Helvetica, "Segoe UI", sans-serif;
+    color: #1a1a1a;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 18px 14px 36px; }
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  .cal-head {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    gap: 10px 16px; margin-bottom: 12px;
+  }
+  .cal-title {
+    font-size: 1.5rem; font-weight: 800; color: #0f2e5e; margin: 0;
+  }
+  .cal-sub { color: #555; font-size: .9rem; }
+  .year-tabs { margin-left: auto; display: flex; gap: 6px; }
+  .year-tab {
+    border: 1px solid #c4ccd6; background: #f1f3f6; color: #25324a;
+    font: inherit; font-size: .85rem; font-weight: 700;
+    padding: 5px 12px; border-radius: 4px; cursor: pointer;
+  }
+  .year-tab.active { background: #0f2e5e; color: #fff; border-color: #0f2e5e; }
 
-  <style>
-    :root {
-      --brand: #1a365d;
-      --brand-2: #2b6cb0;
-      --text: #0f172a;
-      --muted: #64748b;
-      --border: #e5e7eb;
-      --bg: #fafafa;
-      --surface: #ffffff;
-      --radius: 14px;
-      --shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
-    }
+  table.cal {
+    width: 100%; border-collapse: collapse; font-size: .9rem;
+    background: #fff;
+  }
+  table.cal th, table.cal td {
+    border: 1px solid #b9c0ca; padding: 6px 9px; vertical-align: top;
+    text-align: left;
+  }
+  table.cal thead th {
+    background: #0f2e5e; color: #fff; font-weight: 700;
+    position: sticky; top: 0; white-space: nowrap;
+    border-color: #0f2e5e;
+  }
+  table.cal tbody tr:nth-child(even) td { background: #f4f6f9; }
+  table.cal tbody tr:hover td { background: #fff7da; }
 
-    * { box-sizing: border-box; }
+  .col-date { white-space: nowrap; width: 130px; font-weight: 700; color: #25324a; }
+  .col-fee, .col-deadline { white-space: nowrap; width: 110px; }
+  .col-link { white-space: nowrap; width: 70px; text-align: center; }
+  td a { color: #b03a2e; font-weight: 700; }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
-      font-size: 15px;
-      line-height: 1.45;
-    }
+  .month-row td {
+    background: #dde4ee !important; color: #0f2e5e;
+    font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+    font-size: .82rem;
+  }
+  .swd td.col-event { font-weight: 700; }
+  .other td.col-event { color: #444; }
+  .tag {
+    display: inline-block; font-size: .68rem; font-weight: 800;
+    padding: 1px 6px; border-radius: 3px; margin-left: 6px;
+    vertical-align: middle; border: 1px solid transparent;
+  }
+  .tag.other { background: #efe7fb; color: #5b2bb0; border-color: #d8c7f2; }
 
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 20px 16px 40px;
-    }
+  .status { padding: 20px 4px; color: #666; }
+  .legend { margin-top: 12px; font-size: .8rem; color: #666; }
 
-    /* ---------- Header ---------- */
-    header.page {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    header.page h1 {
-      font-size: 1.5rem;
-      margin: 0;
-      color: var(--brand);
-      letter-spacing: -0.01em;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .select, .btn {
-      font: inherit;
-      height: 38px;
-      padding: 0 12px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-    }
-
-    .select:focus, .btn:focus { outline: 2px solid var(--brand-2); outline-offset: 1px; }
-
-    .btn-link {
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--brand-2);
-      font-weight: 600;
-    }
-
-    .view-toggle {
-      display: inline-flex;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--surface);
-    }
-    .view-toggle button {
-      font: inherit;
-      height: 38px;
-      padding: 0 14px;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .view-toggle button.active {
-      background: var(--brand);
-      color: #fff;
-    }
-
-    /* ---------- Filters / legend ---------- */
-    .filters {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 10px 12px;
-      margin-bottom: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 12px;
-      align-items: center;
-      box-shadow: var(--shadow);
-    }
-    .filters label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      padding: 4px 2px;
-      user-select: none;
-    }
-    .filters input[type="checkbox"] { accent-color: var(--brand); width: 15px; height: 15px; }
-    .swatch {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 2px;
-    }
-
-    .info-bar {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      color: #92400e;
-      border-radius: var(--radius);
-      padding: 10px 14px;
-      font-size: 0.88rem;
-      margin-bottom: 16px;
-    }
-
-    /* ---------- Agenda view ---------- */
-    .month-group { margin-top: 18px; }
-    .month-header {
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      text-transform: uppercase;
-      padding: 8px 4px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 8px;
-    }
-
-    .event {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      margin-bottom: 8px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: border-color 0.15s ease;
-    }
-    .event:hover { border-color: #cbd5e1; }
-    .event.expanded { border-color: var(--brand-2); }
-
-    .event-row {
-      display: grid;
-      grid-template-columns: 74px 1fr auto;
-      gap: 14px;
-      align-items: center;
-      padding: 12px 14px;
-      cursor: pointer;
-      background: transparent;
-      border: 0;
-      width: 100%;
-      text-align: left;
-      color: inherit;
-      font: inherit;
-    }
-    .event-row:hover { background: #f8fafc; }
-
-    .date-col {
-      text-align: center;
-      border-right: 1px solid var(--border);
-      padding-right: 12px;
-    }
-    .date-col .day {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--brand);
-      line-height: 1.1;
-    }
-    .date-col .dow {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-    .date-col .range {
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .event-main { min-width: 0; }
-    .event-title {
-      font-weight: 700;
-      font-size: 1.02rem;
-      line-height: 1.25;
-      margin: 0 0 4px;
-      color: var(--text);
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .event-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 10px;
-      align-items: center;
-      font-size: 0.86rem;
-      color: var(--muted);
-    }
-    .source-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #fff;
-      padding: 2px 8px;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .chev {
-      display: inline-block;
-      color: var(--muted);
-      transition: transform 0.2s ease;
-    }
-    .event.expanded .chev { transform: rotate(180deg); color: var(--brand-2); }
-
-    .event-panel {
-      display: none;
-      padding: 0 16px 16px 16px;
-      border-top: 1px solid var(--border);
-      background: #fbfdff;
-    }
-    .event.expanded .event-panel { display: block; }
-    .event-panel .desc {
-      white-space: pre-wrap;
-      font-size: 0.92rem;
-      color: #334155;
-      margin: 12px 0 14px;
-      word-break: break-word;
-    }
-    .event-panel .desc a { color: var(--brand-2); }
-    .event-panel .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .action-btn {
-      font: inherit;
-      font-size: 0.88rem;
-      font-weight: 600;
-      padding: 9px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .action-btn:hover { border-color: var(--brand-2); color: var(--brand-2); }
-    .action-btn.primary {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-    .action-btn.primary:hover { background: var(--brand-2); border-color: var(--brand-2); color: #fff; }
-
-    /* ---------- Month view (FullCalendar) ---------- */
-    #month-view {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 10px;
-      box-shadow: var(--shadow);
-    }
-    .fc .fc-toolbar-title { font-size: 1.1rem; color: var(--brand); }
-    .fc .fc-button-primary { background: var(--brand); border-color: var(--brand); }
-    .fc .fc-button-primary:hover { background: var(--brand-2); border-color: var(--brand-2); }
-    .fc .fc-daygrid-event { border-radius: 6px; padding: 2px 6px; font-size: 0.82rem; }
-
-    /* ---------- States ---------- */
-    .state {
-      padding: 40px 16px;
-      text-align: center;
-      color: var(--muted);
-      background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-    }
-
-    .hidden { display: none !important; }
-
-    /* ---------- Mobile ---------- */
-    @media (max-width: 560px) {
-      header.page h1 { font-size: 1.2rem; }
-      .controls { width: 100%; justify-content: space-between; }
-      .event-row { grid-template-columns: 64px 1fr auto; gap: 10px; padding: 10px 12px; }
-      .date-col .day { font-size: 1.2rem; }
-      .event-title { font-size: 0.98rem; }
-      .event-panel .actions { flex-direction: column; align-items: stretch; }
-      .action-btn { justify-content: center; }
-    }
-  </style>
+  @media (max-width: 640px) {
+    table.cal { font-size: .82rem; }
+    table.cal th, table.cal td { padding: 5px 6px; }
+    .col-date { width: auto; }
+    .col-deadline, .col-fee { width: auto; }
+  }
+</style>
 </head>
-
 <body>
   <div class="wrap">
-
-    <header class="page">
-      <h1 id="page-title">Season Agenda</h1>
-      <div class="controls">
-        <select id="year-select" class="select" aria-label="Year"></select>
-        <div class="view-toggle" role="tablist" aria-label="View">
-          <button type="button" id="view-agenda" class="active" role="tab" aria-selected="true">Agenda</button>
-          <button type="button" id="view-month" role="tab" aria-selected="false">Month</button>
-        </div>
-        <a id="pdf-link" class="btn-link" href="#" target="_blank" rel="noopener">Download PDF</a>
-      </div>
-    </header>
-
-    <div class="filters" id="filters" aria-label="Filter by source"></div>
-
-    <div class="info-bar">
-      <strong>Tournament notice:</strong> forms and details are typically posted <strong>5–6 weeks</strong> prior to the event.
-      Click any tournament to see the details, export to your calendar, or open the official page.
+    <div class="cal-head">
+      <h1 class="cal-title">SWD <span id="yearLabel">2026</span> Tournament Calendar</h1>
+      <span class="cal-sub" id="countSub"></span>
+      <div class="year-tabs" id="yearTabs"></div>
     </div>
 
-    <section id="agenda-view"></section>
-    <section id="month-view" class="hidden"><div id="calendar"></div></section>
-
-    <div id="state-loading" class="state">Loading…</div>
-    <div id="state-empty" class="state hidden">No tournaments match the current filters.</div>
-    <div id="state-error" class="state hidden">Couldn't load events. Please refresh.</div>
+    <table class="cal">
+      <thead>
+        <tr>
+          <th class="col-date">Date</th>
+          <th class="col-event">Event</th>
+          <th>Location</th>
+          <th class="col-deadline">Entry Deadline</th>
+          <th class="col-fee">Fee</th>
+          <th class="col-link">Info</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="6" class="status">Loading calendar…</td></tr>
+      </tbody>
+    </table>
 
   </div>
 
-<script>
-  "use strict";
+  <script>
+  (function () {
+    var MONTHS = ["January","February","March","April","May","June","July",
+                  "August","September","October","November","December"];
+    var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    var rowsEl = document.getElementById("rows");
+    var yearLabel = document.getElementById("yearLabel");
+    var countSub = document.getElementById("countSub");
 
-  const SOURCES = [
-    { key: "Women's",        color: "#059669" },
-    { key: "Men's",          color: "#dc2626" },
-    { key: "Club Sponsored", color: "#2563eb" },
-    { key: "Other",          color: "#7c3aed" },
-    { key: "PBA USA",        color: "#f59e0b" }
-  ];
-
-  const PREFS_KEY = "swd-agenda-prefs-v1";
-  const DEFAULT_YEAR = 2026;
-
-  const state = {
-    year: DEFAULT_YEAR,
-    view: "agenda",           // "agenda" | "month"
-    sources: {},              // { sourceKey: boolean }
-    events: [],
-    expandedId: null,
-    fcInstance: null,
-  };
-
-  // ---------- Prefs ----------
-  function loadPrefs() {
-    try {
-      const raw = localStorage.getItem(PREFS_KEY);
-      if (!raw) return {};
-      return JSON.parse(raw) || {};
-    } catch { return {}; }
-  }
-  function savePrefs() {
-    try {
-      localStorage.setItem(PREFS_KEY, JSON.stringify({
-        view: state.view,
-        year: state.year,
-        sources: state.sources,
-      }));
-    } catch {}
-  }
-
-  // ---------- Init controls ----------
-  function initYearSelect() {
-    const sel = document.getElementById("year-select");
-    const base = new Date().getUTCFullYear();
-    const years = Array.from(new Set([base - 1, base, base + 1, DEFAULT_YEAR])).sort();
-    sel.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join("");
-    sel.value = String(state.year);
-    sel.addEventListener("change", () => {
-      state.year = Number(sel.value) || DEFAULT_YEAR;
-      state.expandedId = null;
-      savePrefs();
-      updatePdfLink();
-      loadAndRender();
-    });
-  }
-
-  function initViewToggle() {
-    const a = document.getElementById("view-agenda");
-    const m = document.getElementById("view-month");
-    function setView(v) {
-      state.view = v;
-      state.expandedId = null;
-      a.classList.toggle("active", v === "agenda");
-      m.classList.toggle("active", v === "month");
-      a.setAttribute("aria-selected", String(v === "agenda"));
-      m.setAttribute("aria-selected", String(v === "month"));
-      document.getElementById("agenda-view").classList.toggle("hidden", v !== "agenda");
-      document.getElementById("month-view").classList.toggle("hidden", v !== "month");
-      savePrefs();
-      render();
+    function getYear() {
+      var m = String(location.search).match(/[?&]year=(\d{4})/);
+      return m ? parseInt(m[1], 10) : 2026;
     }
-    a.addEventListener("click", () => setView("agenda"));
-    m.addEventListener("click", () => setView("month"));
-  }
+    var YEAR = getYear();
+    yearLabel.textContent = YEAR;
 
-  function initFilters() {
-    const box = document.getElementById("filters");
-    box.innerHTML = SOURCES.map(s => `
-      <label>
-        <input type="checkbox" data-source="${s.key}" ${state.sources[s.key] === false ? "" : "checked"}>
-        <span class="swatch" style="background:${s.color}"></span>
-        <span>${s.key}</span>
-      </label>
-    `).join("");
-    box.querySelectorAll("input[type=checkbox]").forEach(cb => {
-      cb.addEventListener("change", () => {
-        state.sources[cb.dataset.source] = cb.checked;
-        savePrefs();
-        render();
+    // Build a couple of year tabs (prev / current / next) that reload with ?year=
+    (function buildTabs() {
+      var tabs = document.getElementById("yearTabs");
+      [YEAR - 1, YEAR, YEAR + 1].forEach(function (y) {
+        var b = document.createElement("button");
+        b.className = "year-tab" + (y === YEAR ? " active" : "");
+        b.type = "button";
+        b.textContent = y;
+        b.addEventListener("click", function () {
+          location.search = "?year=" + y;
+        });
+        tabs.appendChild(b);
       });
-    });
-  }
+    })();
 
-  function updatePdfLink() {
-    const a = document.getElementById("pdf-link");
-    a.href = `/api/agenda.pdf?year=${state.year}&mode=year`;
-  }
-
-  function updateTitle() {
-    document.getElementById("page-title").textContent = `${state.year} Season Agenda`;
-  }
-
-  // ---------- Data ----------
-  async function loadAndRender() {
-    showLoading();
-    try {
-      const r = await fetch(`/api/events?year=${state.year}`, { cache: "no-store" });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const j = await r.json();
-      state.events = (j.events || []).map(e => ({
-        ...e,
-        source: e.source || "Other",
-      }));
-      render();
-    } catch (err) {
-      console.error("load failed", err);
-      showError();
+    function parseISO(d) {
+      // d = "YYYY-MM-DD" -> local Date (avoid TZ shift)
+      if (!d) return null;
+      var p = d.split("-");
+      if (p.length < 3) return null;
+      return new Date(+p[0], +p[1] - 1, +p[2]);
     }
-  }
 
-  // ---------- Render ----------
-  function showLoading() {
-    document.getElementById("state-loading").classList.remove("hidden");
-    document.getElementById("state-empty").classList.add("hidden");
-    document.getElementById("state-error").classList.add("hidden");
-    document.getElementById("agenda-view").classList.add("hidden");
-    document.getElementById("month-view").classList.add("hidden");
-  }
-  function showError() {
-    document.getElementById("state-loading").classList.add("hidden");
-    document.getElementById("state-empty").classList.add("hidden");
-    document.getElementById("state-error").classList.remove("hidden");
-  }
-
-  function visibleEvents() {
-    return state.events.filter(e => state.sources[e.source] !== false);
-  }
-
-  function render() {
-    document.getElementById("state-loading").classList.add("hidden");
-    document.getElementById("state-error").classList.add("hidden");
-
-    const vis = visibleEvents();
-    const empty = vis.length === 0;
-    document.getElementById("state-empty").classList.toggle("hidden", !empty);
-
-    if (state.view === "agenda") {
-      document.getElementById("agenda-view").classList.toggle("hidden", empty);
-      document.getElementById("month-view").classList.add("hidden");
-      if (!empty) renderAgenda(vis);
-    } else {
-      document.getElementById("month-view").classList.toggle("hidden", empty);
-      document.getElementById("agenda-view").classList.add("hidden");
-      if (!empty) renderMonth(vis);
+    function fmtDate(startStr, endStr) {
+      var s = parseISO(startStr);
+      if (!s) return startStr || "";
+      var label = DOW[s.getDay()] + ", " + MONTHS[s.getMonth()].slice(0, 3) + " " + s.getDate();
+      var e = parseISO(endStr);
+      if (e) {
+        // all-day end dates are typically exclusive (next day); subtract 1 day
+        var eAdj = new Date(e.getTime() - 86400000);
+        if (eAdj > s) {
+          var sameMonth = eAdj.getMonth() === s.getMonth();
+          label += " – " + (sameMonth ? "" : MONTHS[eAdj.getMonth()].slice(0, 3) + " ") + eAdj.getDate();
+        }
+      }
+      return label;
     }
-    postHeightToParent();
-  }
 
-  // ---------- Agenda view ----------
-  const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    function esc(t) {
+      return String(t == null ? "" : t)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    function shortLoc(loc) {
+      if (!loc) return "";
+      return esc(loc.split(",")[0]); // club / venue name before the address
+    }
+    function fmtDeadline(d) {
+      if (!d) return "";
+      return esc(String(d).replace(/^\s*entry\s*deadline:?\s*/i, ""));
+    }
 
-  function parseISODate(iso) {
-    const [y, m, d] = iso.split("-").map(Number);
-    return new Date(Date.UTC(y, m - 1, d));
-  }
+    function postHeight() {
+      if (window.parent === window) return;
+      try {
+        var h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        window.parent.postMessage({ type: "swd-agenda-height", height: h }, "*");
+      } catch (e) {}
+    }
 
-  function daysBetween(startISO, endISO) {
-    const a = parseISODate(startISO);
-    const b = parseISODate(endISO);
-    return Math.max(0, Math.round((b - a) / 86400000));
-  }
-
-  function sourceColor(src) {
-    return (SOURCES.find(s => s.key === src) || {}).color || "#64748b";
-  }
-
-  function escapeHtml(s) {
-    return String(s ?? "").replace(/[&<>"']/g, c => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
-    }[c]));
-  }
-
-  // Turn raw URLs in a text blob into anchor tags
-  function linkifyText(s) {
-    const esc = escapeHtml(s);
-    return esc.replace(/(https?:\/\/[^\s<]+)/g, url =>
-      `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
-  }
-
-  // Google Calendar stores descriptions with hidden <a> wrappers and other HTML.
-  // Parse it into plain text, preserve line breaks, then re-linkify bare URLs.
-  function sanitizeDescription(raw) {
-    if (!raw) return "";
-    try {
-      const doc = new DOMParser().parseFromString(raw, "text/html");
-      doc.querySelectorAll("br").forEach(b => b.replaceWith("\n"));
-      doc.querySelectorAll("p, div, li").forEach(el => {
-        const t = document.createTextNode(el.textContent + "\n");
-        el.replaceWith(t);
+    function render(events) {
+      events.sort(function (a, b) {
+        return String(a.start).localeCompare(String(b.start));
       });
-      return (doc.body.textContent || "")
-        .replace(/\n{3,}/g, "\n\n")
-        .trim();
-    } catch {
-      return raw.replace(/<[^>]+>/g, "").replace(/\n{3,}/g, "\n\n").trim();
-    }
-  }
 
-  function renderAgenda(events) {
-    const container = document.getElementById("agenda-view");
-    const groups = {};
-    events.forEach(e => {
-      const d = parseISODate(e.start);
-      const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
-      (groups[key] ||= []).push(e);
-    });
-    const orderedKeys = Object.keys(groups).sort();
-
-    const html = orderedKeys.map(k => {
-      const [y, m] = k.split("-").map(Number);
-      const monthLabel = `${MONTHS[m - 1]} ${y}`;
-      const rows = groups[k].map(e => renderEventRow(e)).join("");
-      return `
-        <div class="month-group">
-          <div class="month-header">${monthLabel}</div>
-          ${rows}
-        </div>`;
-    }).join("");
-    container.innerHTML = html;
-
-    // Attach click handlers
-    container.querySelectorAll(".event-row").forEach(btn => {
-      btn.addEventListener("click", () => toggleExpand(btn.dataset.eventId));
-    });
-    container.querySelectorAll(".action-btn[data-action]").forEach(btn => {
-      btn.addEventListener("click", (ev) => {
-        ev.stopPropagation();
-        const id = btn.closest(".event").dataset.eventId;
-        if (btn.dataset.action === "ics") downloadIcs(id);
+      var html = "", lastMonthKey = "";
+      events.forEach(function (e) {
+        var s = parseISO(e.start);
+        var monthKey = s ? (s.getFullYear() + "-" + s.getMonth()) : "";
+        if (monthKey && monthKey !== lastMonthKey) {
+          lastMonthKey = monthKey;
+          html += '<tr class="month-row"><td colspan="6">' +
+                  MONTHS[s.getMonth()] + " " + s.getFullYear() + "</td></tr>";
+        }
+        var link = e.eventUrl
+          ? '<a href="' + esc(e.eventUrl) + '" target="_blank" rel="noopener">Open</a>'
+          : "";
+        html +=
+          '<tr>' +
+            '<td class="col-date">' + esc(fmtDate(e.start, e.end)) + '</td>' +
+            '<td class="col-event">' + esc(e.title) + '</td>' +
+            '<td>' + shortLoc(e.location) + '</td>' +
+            '<td class="col-deadline">' + fmtDeadline(e.deadline) + '</td>' +
+            '<td class="col-fee">' + esc(e.fee || "") + '</td>' +
+            '<td class="col-link">' + link + '</td>' +
+          '</tr>';
       });
-    });
-  }
 
-  function renderEventRow(e) {
-    const start = parseISODate(e.start);
-    const span = daysBetween(e.start, e.end);
-    const multiDay = span > 1;
-    const day = start.getUTCDate();
-    const dow = DOW[start.getUTCDay()];
-
-    let rangeLine = "";
-    if (multiDay) {
-      const endDate = parseISODate(e.end);
-      endDate.setUTCDate(endDate.getUTCDate() - 1);
-      rangeLine = `<div class="range">to ${MONTHS[endDate.getUTCMonth()].slice(0,3)} ${endDate.getUTCDate()}</div>`;
+      rowsEl.innerHTML = html ||
+        '<tr><td colspan="6" class="status">No events listed for ' + YEAR + ' yet.</td></tr>';
+      countSub.textContent = events.length + " events";
+      postHeight();
     }
 
-    const loc = e.location ? escapeHtml(String(e.location).split(",")[0].trim()) : "";
-    const pillColor = sourceColor(e.source);
-    const expanded = state.expandedId === e.id ? " expanded" : "";
+    fetch("/api/events?year=" + YEAR, { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var events = Array.isArray(j) ? j : (j.events || j.data || []);
+        render(events);
+      })
+      .catch(function () {
+        rowsEl.innerHTML =
+          '<tr><td colspan="6" class="status">Could not load the calendar. Please refresh.</td></tr>';
+        postHeight();
+      });
 
-    const hasExternal = !!e.eventUrl;
-    const actions = [
-      `<button type="button" class="action-btn" data-action="ics">📥 Download .ics</button>`,
-      `<a class="action-btn" href="${gcalUrl(e)}" target="_blank" rel="noopener">📅 Add to Google Calendar</a>`,
-      hasExternal
-        ? `<a class="action-btn primary" href="${escapeHtml(e.eventUrl)}" target="_blank" rel="noopener">Open tournament page →</a>`
-        : ""
-    ].filter(Boolean).join("");
-
-    const cleanDesc = sanitizeDescription(e.description);
-    const descBlock = cleanDesc
-      ? `<div class="desc">${linkifyText(cleanDesc)}</div>`
-      : `<div class="desc" style="color:var(--muted); font-style: italic;">No additional details yet.</div>`;
-
-    return `
-      <div class="event${expanded}" data-event-id="${escapeHtml(e.id)}">
-        <button type="button" class="event-row" data-event-id="${escapeHtml(e.id)}" aria-expanded="${expanded ? "true" : "false"}">
-          <div class="date-col">
-            <div class="day">${day}</div>
-            <div class="dow">${dow}</div>
-            ${rangeLine}
-          </div>
-          <div class="event-main">
-            <div class="event-title">${escapeHtml(e.title || "Untitled")}</div>
-            <div class="event-meta">
-              <span class="source-pill" style="background:${pillColor}">${escapeHtml(e.source)}</span>
-              ${loc ? `<span>📍 ${loc}</span>` : ""}
-              ${multiDay ? `<span>${span} days</span>` : ""}
-            </div>
-          </div>
-          <span class="chev" aria-hidden="true">▾</span>
-        </button>
-        <div class="event-panel">
-          ${descBlock}
-          <div class="actions">${actions}</div>
-        </div>
-      </div>
-    `;
-  }
-
-  function toggleExpand(id) {
-    state.expandedId = (state.expandedId === id) ? null : id;
-    render();
-  }
-
-  // ---------- ICS / Google Calendar ----------
-  function ymdCompact(iso) { return iso.replace(/-/g, ""); }
-
-  function icsEscape(s) {
-    return String(s || "")
-      .replace(/\\/g, "\\\\")
-      .replace(/\n/g, "\\n")
-      .replace(/,/g, "\\,")
-      .replace(/;/g, "\\;");
-  }
-
-  function buildIcs(e) {
-    const now = new Date();
-    const stamp = now.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
-    const lines = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//SWD Lawn Bowls//Agenda//EN",
-      "CALSCALE:GREGORIAN",
-      "METHOD:PUBLISH",
-      "BEGIN:VEVENT",
-      `UID:${e.id}@swlawnbowls.org`,
-      `DTSTAMP:${stamp}`,
-      `DTSTART;VALUE=DATE:${ymdCompact(e.start)}`,
-      `DTEND;VALUE=DATE:${ymdCompact(e.end)}`,
-      `SUMMARY:${icsEscape(e.title)}`,
-      e.location ? `LOCATION:${icsEscape(e.location)}` : null,
-      e.description ? `DESCRIPTION:${icsEscape(e.description)}` : null,
-      e.eventUrl ? `URL:${icsEscape(e.eventUrl)}` : null,
-      "END:VEVENT",
-      "END:VCALENDAR",
-    ].filter(Boolean);
-    return lines.join("\r\n");
-  }
-
-  function downloadIcs(eventId) {
-    const e = state.events.find(x => x.id === eventId);
-    if (!e) return;
-    const ics = buildIcs(e);
-    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    const safeTitle = (e.title || "event").replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").toLowerCase() || "event";
-    a.href = url;
-    a.download = `${safeTitle}.ics`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
-
-  function gcalUrl(e) {
-    const p = new URLSearchParams({
-      action: "TEMPLATE",
-      text: e.title || "",
-      dates: `${ymdCompact(e.start)}/${ymdCompact(e.end)}`,
-      location: e.location || "",
-      details: [(e.description || ""), e.eventUrl ? `\n${e.eventUrl}` : ""].join(""),
-    });
-    return `https://www.google.com/calendar/render?${p.toString()}`;
-  }
-
-  // ---------- Month view ----------
-  function renderMonth(events) {
-    const el = document.getElementById("calendar");
-    if (state.fcInstance) {
-      state.fcInstance.destroy();
-      state.fcInstance = null;
-    }
-    el.innerHTML = "";
-    const fcEvents = events.map(e => ({
-      id: e.id,
-      title: e.title,
-      start: e.start,
-      end: e.end,
-      allDay: true,
-      backgroundColor: sourceColor(e.source),
-      borderColor: sourceColor(e.source),
-      extendedProps: { eventUrl: e.eventUrl, source: e.source, description: e.description, location: e.location },
-    }));
-
-    state.fcInstance = new FullCalendar.Calendar(el, {
-      initialView: "dayGridMonth",
-      initialDate: `${state.year}-01-01`,
-      validRange: { start: `${state.year}-01-01`, end: `${state.year + 1}-01-01` },
-      height: "auto",
-      headerToolbar: { left: "prev,next today", center: "title", right: "" },
-      events: fcEvents,
-      eventClick(info) {
-        info.jsEvent.preventDefault();
-        document.getElementById("view-agenda").click();
-        state.expandedId = info.event.id;
-        render();
-        setTimeout(() => {
-          const target = document.querySelector(`.event[data-event-id="${CSS.escape(info.event.id)}"]`);
-          if (target && target.scrollIntoView) target.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 50);
-      },
-      datesSet: postHeightToParent,
-    });
-    state.fcInstance.render();
-  }
-
-  // ---------- Iframe height helper ----------
-  function postHeightToParent() {
-    if (window.parent === window) return;
-    try {
-      const h = Math.max(
-        document.documentElement.scrollHeight,
-        document.body.scrollHeight
-      );
-      window.parent.postMessage({ type: "swd-agenda-height", height: h }, "*");
-    } catch {}
-  }
-
-  // ---------- Boot ----------
-  function boot() {
-    const prefs = loadPrefs();
-    if (prefs.view === "month" || prefs.view === "agenda") state.view = prefs.view;
-    if (typeof prefs.year === "number" && prefs.year >= 2020 && prefs.year <= 2100) state.year = prefs.year;
-    if (prefs.sources && typeof prefs.sources === "object") state.sources = prefs.sources;
-    SOURCES.forEach(s => { if (state.sources[s.key] === undefined) state.sources[s.key] = true; });
-
-    initYearSelect();
-    initViewToggle();
-    initFilters();
-    updatePdfLink();
-    updateTitle();
-
-    // Set initial view visibility
-    document.getElementById("agenda-view").classList.toggle("hidden", state.view !== "agenda");
-    document.getElementById("month-view").classList.toggle("hidden", state.view !== "month");
-    document.getElementById("view-agenda").classList.toggle("active", state.view === "agenda");
-    document.getElementById("view-month").classList.toggle("active", state.view === "month");
-
-    loadAndRender();
-
-    if (window.ResizeObserver) {
-      new ResizeObserver(postHeightToParent).observe(document.body);
-    }
-    window.addEventListener("load", postHeightToParent);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
-  }
-</script>
+    if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.body);
+    window.addEventListener("load", postHeight);
+  })();
+  </script>
 </body>
 </html>
