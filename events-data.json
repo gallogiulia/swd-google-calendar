@@ -1775,7 +1775,7 @@
         "9:00 AM Sharp — Official start, first game of each day"
       ],
       "format": "triples",
-      "formatDetails": "Three-bowl Mixed Triples · 10-end games (7 min / 8 max) · Divisional Round Robin, 16 teams",
+      "formatDetails": "Three-bowl Mixed Triples · 10-end games (7 min / 8 max) · Two-division pool play · Up to 16 teams",
       "club": {
         "name": "Coronado Lawn Bowling Club",
         "address": "1019 7th Street, Coronado, CA 92118",
@@ -1786,15 +1786,17 @@
       "deadline": "Registration opens Thursday, April 23, 2026 · Capped at 16 teams",
       "rules": [
         "Three-bowl Mixed Triples · 10 ends per game · 7 games minimum, 8 maximum",
-        "Day 1 — 4 divisional games · Day 2 — 3 divisional games + finals",
-        "Scoring: 3 points for a win, 1 point for a tie · Max plus/minus 10 per game",
-        "Divisions established by blind draw Saturday morning",
-        "Divisional Winners play for Champion / 2nd · Runners-up play for 3rd / 4th",
-        "Late arrival: 1 point + 1 end per 10 min late · 30+ min = forfeit",
+        "Seven pool-play games across Saturday & Sunday, then divisional finals",
+        "16-team field: two 8-team divisions set by blind draw Saturday morning",
+        "14-team field: two 7-team divisions pre-set by the Tournament Committee, plus one cross-divisional game (same rink each day)",
+        "Scoring: 3 pts for a win, 1 pt for a tie · Max plus/minus 10 per game · Highest game points wins the division",
+        "Divisional winners play for Champion / 2nd · Runners-up play for 3rd / 4th",
+        "Prizes (16-team field): 1st $3,000 · 2nd $1,725 · 3rd $975 · 4th $600 per team · 14-team payouts TBD, announced before play Sunday",
+        "Late arrival: 1 pt + 1 end per 10 min late · 30+ min = forfeit (may be waived for extenuating circumstances)",
         "No T-shirts · Matching team outfits encouraged",
         "No cell phone use by players on the rink of play",
         "No smoking or vaping anywhere at the facility",
-        "Lunch, snacks, water provided both days · Tended bar Sunday"
+        "Lunch, snacks & water provided both days · Tended bar Sunday for the finals"
       ],
       "noviceDefinition": "",
       "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
