@@ -407,6 +407,92 @@
           ]
         }
       ]
+    },
+    {
+      "id": "coronado-crown-city-cup",
+      "title": "2026 Coronado Crown City Cup",
+      "meta": "June 6–7 · Coronado LBC",
+      "navLabel": "Crown City Cup",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/coronado-crown-city-cup-2026",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Dean Warmington, John Slater, Giulia Gallo",
+              "photo": "/photos/coronado-crown-city-cup/1th-warmington-slater-gallo.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Terry Mar, Russ Kindorf, Dee McSparran",
+              "photo": "/photos/coronado-crown-city-cup/2th-mar-kindorf-mcsparran.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Loren Dion, Ian Ho, Eva Lee",
+              "photo": "/photos/coronado-crown-city-cup/3th-dion-ho-lee.jpg"
+            },
+            {
+              "rank": 4,
+              "names": "Michael Siddall, Bill Brault, Manya Urane",
+              "photo": "/photos/coronado-crown-city-cup/4th-siddall-brault-urane.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pat-gonzales",
+      "title": "24th Annual Pat Gonzales Mixed Aussie Pairs",
+      "meta": "June 13 · Long Beach LBC",
+      "navLabel": "Pat Gonzales Pairs",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/pat-gonzales-mixed-aussie-pairs-2026",
+      "divisions": [
+        {
+          "label": "A Green",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Giulia Gallo & Michael Siddall",
+              "photo": "/photos/pat-gonzales/a-1th-gallo-siddall.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Mary Spease & Steve Marsh",
+              "photo": "/photos/pat-gonzales/a-2th-spease-marsh.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Suzie Houston & Terry Mar",
+              "photo": "/photos/pat-gonzales/a-3th-houston-mar.jpg"
+            }
+          ]
+        },
+        {
+          "label": "B Green",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Norma Goodhart & Bob Sturgill",
+              "photo": "/photos/pat-gonzales/b-1th-goodhart-sturgill.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Kevin Toy & Barbara Clark",
+              "photo": "/photos/pat-gonzales/b-2th-toy-clark.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Jon LaRose & Connie Delgado",
+              "photo": "/photos/pat-gonzales/b-3th-larose-delgado.jpg"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
