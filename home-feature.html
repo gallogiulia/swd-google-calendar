@@ -817,5 +817,257 @@
   }
 </style>
 
+<!-- Upcoming Livestreams + SW TV live/latest (moved from Squarespace footer injection) -->
+<script>
+(function () {
+
+  const API_KEY = "AIzaSyC2ROynkUrYmW2IgIyQ0SJ0XxA6hStX0I8";
+  const CHANNEL_ID = "UCWaKJ7fKIfneziSig6qminQ";
+
+  const STREAM_SCHEDULE = [
+    {
+      date: "2026-03-14",
+      label: "Livestream",
+      title: "Women’s Cal 5’s",
+      venue: "Laguna Beach",
+      venueKey: "laguna-beach",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-03-28",
+      label: "Livestream",
+      title: "SWD Mixed Pairs",
+      venue: "Laguna Woods",
+      venueKey: "laguna-woods",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-04-26",
+      label: "SW Open",
+      title: "SWD Open – Women’s Fours",
+      venue: "Laguna Beach · Second Day",
+      venueKey: "laguna-beach",
+      link: "https://www.swlawnbowls.org/2026swo"
+    },
+    {
+      date: "2026-04-28",
+      label: "SW Open",
+      title: "SWD Open – Women’s Pairs",
+      venue: "Newport Harbor · Second Day",
+      venueKey: "newport-harbor",
+      link: "https://www.swlawnbowls.org/2026swo"
+    },
+    {
+      date: "2026-04-30",
+      label: "SW Open",
+      title: "SWD Open – Women’s Singles",
+      venue: "Laguna Woods · Second Day",
+      venueKey: "laguna-woods",
+      link: "https://www.swlawnbowls.org/2026swo"
+    },
+    {
+      date: "2026-06-29",
+      label: "Playdowns",
+      title: "US National Playdowns – Men’s Singles",
+      venue: "Long Beach · Final Day",
+      venueKey: "long-beach",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-07-12",
+      label: "Playdowns",
+      title: "US National Playdowns – Women’s Pairs",
+      venue: "Laguna Beach · Final Day",
+      venueKey: "laguna-beach",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-08-02",
+      label: "Playdowns",
+      title: "US National Playdowns – Men’s Pairs",
+      venue: "Laguna Beach · Second Day",
+      venueKey: "laguna-beach",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-08-15",
+      label: "Featured",
+      title: "Laguna Beach Open Pairs",
+      venue: "Laguna Beach · Men/Women · Six cameras",
+      venueKey: "laguna-beach",
+      note: "Need announcer",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-09-15",
+      label: "Nationals",
+      title: "Bowls USA National Championships",
+      venue: "Laguna Beach · Six cameras",
+      venueKey: "laguna-beach",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-10-18",
+      label: "SWD",
+      title: "SWD California Bears",
+      venue: "Laguna Beach",
+      venueKey: "laguna-beach",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-10-25",
+      label: "SWD",
+      title: "SWD Waterbury",
+      venue: "Laguna Woods",
+      venueKey: "laguna-woods",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    },
+    {
+      date: "2026-11-22",
+      label: "All-Star",
+      title: "SWD Five Man All-Star",
+      venue: "Laguna Beach",
+      venueKey: "laguna-beach",
+      link: "https://www.youtube.com/@SouthwestLawnBowls"
+    }
+  ];
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr + "T12:00:00");
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric"
+    });
+  }
+
+  function renderUpcomingStreams() {
+    const container = document.getElementById("swd-upcoming-streams");
+    if (!container) return;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const upcoming = STREAM_SCHEDULE
+      .filter(item => {
+        const d = new Date(item.date + "T12:00:00");
+        return d >= today;
+      })
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+      .slice(0, 3);
+
+    if (!upcoming.length) {
+      container.innerHTML = '<div class="swd-stream-empty">No upcoming livestream dates are currently listed. Please check SW TV for the latest schedule.</div>';
+      return;
+    }
+
+    container.innerHTML = upcoming.map(item => `
+      <a class="swd-stream-card" data-venue="${item.venueKey}" href="${item.link}" ${item.link.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}>
+        <div class="swd-stream-meta">
+          <span class="swd-stream-date">${formatDate(item.date)}</span>
+          <span class="swd-stream-badge">${item.label}</span>
+        </div>
+        <h3>${item.title}</h3>
+        <p class="swd-stream-venue">${item.venue}</p>
+        ${item.note ? `<p class="swd-stream-note">${item.note}</p>` : ""}
+      </a>
+    `).join("");
+  }
+
+  function initSouthwestTV() {
+    const frame = document.getElementById("swd-youtube-frame");
+    const badge = document.getElementById("swd-live-badge");
+    const heading = document.getElementById("swd-tv-heading");
+    const subtext = document.getElementById("swd-tv-subtext");
+
+    if (!frame || !badge || !heading || !subtext || !API_KEY) return;
+
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error("YouTube API request failed: " + res.status);
+      }
+      return await res.json();
+    }
+
+    async function getLiveVideoId() {
+      const url =
+        "https://www.googleapis.com/youtube/v3/search" +
+        "?part=snippet" +
+        "&channelId=" + encodeURIComponent(CHANNEL_ID) +
+        "&eventType=live" +
+        "&type=video" +
+        "&maxResults=1" +
+        "&key=" + encodeURIComponent(API_KEY);
+
+      const data = await fetchJson(url);
+      return data.items && data.items.length ? data.items[0].id.videoId : null;
+    }
+
+    async function getLatestVideoId() {
+      const url =
+        "https://www.googleapis.com/youtube/v3/search" +
+        "?part=snippet" +
+        "&channelId=" + encodeURIComponent(CHANNEL_ID) +
+        "&order=date" +
+        "&type=video" +
+        "&maxResults=1" +
+        "&key=" + encodeURIComponent(API_KEY);
+
+      const data = await fetchJson(url);
+      return data.items && data.items.length ? data.items[0].id.videoId : null;
+    }
+
+    async function updateSouthwestTV() {
+      try {
+        const liveVideoId = await getLiveVideoId();
+
+        if (liveVideoId) {
+          frame.src = "https://www.youtube.com/embed/" + liveVideoId + "?rel=0";
+          frame.title = "Southwest Lawn Bowls Live Stream";
+          badge.style.display = "flex";
+          heading.textContent = "SW TV · Live Now";
+          subtext.textContent = "Southwest Lawn Bowls is live now.";
+          return;
+        }
+
+        const latestVideoId = await getLatestVideoId();
+
+        if (latestVideoId) {
+          frame.src = "https://www.youtube.com/embed/" + latestVideoId + "?rel=0";
+          frame.title = "Southwest Lawn Bowls Latest Video";
+          badge.style.display = "none";
+          heading.textContent = "SW TV · Latest Video";
+          subtext.textContent = "Watch the latest Southwest Lawn Bowls video, or tune in live when the channel is streaming.";
+          return;
+        }
+
+        badge.style.display = "none";
+      } catch (err) {
+        console.error("SW TV load failed:", err);
+        badge.style.display = "none";
+        heading.textContent = "SW TV · HOW! Lessons";
+        subtext.textContent = "Watch the HOW! Lessons series for bowls instruction, reading the head, and practical learning.";
+        frame.src = "https://www.youtube.com/embed/videoseries?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO";
+        frame.title = "Southwest Lawn Bowls HOW Lessons Playlist";
+      }
+    }
+
+    updateSouthwestTV();
+    setInterval(updateSouthwestTV, 300000);
+  }
+
+  function initAll() {
+    renderUpcomingStreams();
+    setTimeout(initSouthwestTV, 600);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAll);
+  } else {
+    initAll();
+  }
+})();
+</script>
+
 </body>
 </html>
