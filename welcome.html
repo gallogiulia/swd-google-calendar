@@ -38,9 +38,6 @@
     overflow-x: hidden;
   }
 
-  body.intro .site { display: none; }
-  body.intro { overflow: hidden; }
-
   .wrap { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
 
   /* grain texture overlay reused on dark bands */
@@ -581,19 +578,21 @@
 (function () {
   var body = document.body;
 
-  // ── Click-through splash ──
+  // ── Click-through splash (content is always in flow & scrollable) ──
   function enterSite(e) {
     if (e) e.preventDefault();
-    if (!body.classList.contains("intro")) return;
-    body.classList.remove("intro");
-    body.classList.add("entered");
-    setupReveals();
-    // after the splash collapse transition, drop it from flow & resize
-    setTimeout(function () {
-      var s = document.getElementById("splash");
-      if (s) s.style.display = "none";
-      postHeight();
-    }, 720);
+    if (!body.classList.contains("entered")) {
+      body.classList.remove("intro");
+      body.classList.add("entered");
+      // after the splash collapse transition, drop it from flow & resize
+      setTimeout(function () {
+        var s = document.getElementById("splash");
+        if (s) s.style.display = "none";
+        postHeight();
+      }, 720);
+    }
+    var t = document.getElementById("start");
+    if (t) setTimeout(function () { t.scrollIntoView({ behavior: "smooth" }); }, 60);
   }
   var enterBtn = document.getElementById("enter-btn");
   var enterClub = document.getElementById("enter-club");
@@ -652,7 +651,8 @@
   if (window.ResizeObserver) {
     new ResizeObserver(postHeight).observe(document.body);
   }
-  window.addEventListener("load", postHeight);
+  setupReveals();
+  window.addEventListener("load", function () { setupReveals(); postHeight(); });
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(postHeight); }
 })();
 </script>
