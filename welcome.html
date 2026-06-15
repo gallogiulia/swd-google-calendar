@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Lawn Bowls — Southwest Lawn Bowls</title>
+<style>
+  :root {
+    --green: #1f6b4f;
+    --green-dark: #16503b;
+    --green-soft: #eef4f0;
+    --gold: #c9961f;
+    --bg: #f5f5f3;
+    --ink: #20302a;
+    --muted: #5f6f68;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  section { scroll-margin-top: 20px; }
+
+  /* ── Shared headings ── */
+  .sec {
+    padding: 64px 0;
+  }
+
+  .sec-h {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 800;
+    color: var(--green-dark);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  .sec-sub {
+    margin-top: 8px;
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--gold);
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 24px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  .btn:hover { transform: translateY(-2px); }
+
+  .btn--gold {
+    background: var(--gold);
+    color: var(--green-dark);
+  }
+  .btn--gold:hover { background: #b9871a; }
+
+  .btn--green {
+    background: var(--green);
+    color: #ffffff;
+  }
+  .btn--green:hover { background: var(--green-dark); }
+
+  .btn--outline-white {
+    background: transparent;
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.55);
+  }
+  .btn--outline-white:hover { background: rgba(255,255,255,0.12); }
+
+  .btn--outline-green {
+    background: #ffffff;
+    color: var(--green-dark);
+    border-color: #cfdcd5;
+  }
+  .btn--outline-green:hover { background: var(--green-soft); }
+
+  /* ── SECTION 1 · Hero ── */
+  .hero {
+    position: relative;
+    background: var(--green-dark);
+    color: #ffffff;
+    text-align: center;
+    padding: 72px 20px 78px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold) 0%, #e3b450 50%, var(--gold) 100%);
+  }
+  .hero .eyebrow { color: var(--gold); }
+  .hero h1 {
+    margin: 14px auto 0;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 760px;
+  }
+  .hero .hero-sub {
+    margin: 16px auto 0;
+    font-style: italic;
+    font-size: clamp(16px, 2.4vw, 20px);
+    color: rgba(255,255,255,0.85);
+    max-width: 600px;
+  }
+  .hero-actions {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+
+  /* ── SECTION 2 · What is Lawn Bowls ── */
+  .what-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .what-text p {
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .stat {
+    background: var(--green-dark);
+    color: #ffffff;
+    padding: 26px 18px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: clamp(26px, 3.4vw, 34px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .stat-label {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* ── SECTION 3 · Six Reasons ── */
+  .sec--soft { background: var(--green-soft); }
+  .cards {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: #ffffff;
+    border-left: 4px solid var(--green);
+    border-radius: 14px;
+    padding: 24px 24px 26px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+  }
+  .card-num {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+  .card h3 {
+    margin: 6px 0 10px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--green-dark);
+    line-height: 1.2;
+  }
+  .card p {
+    font-size: 15.5px;
+    color: var(--muted);
+  }
+
+  /* ── SECTION 4 · Watch ── */
+  .video-frame {
+    margin-top: 28px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000000;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+  }
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .video-caption {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    font-style: italic;
+  }
+  .watch-actions {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+
+  /* ── SECTION 5 · Find a Club ── */
+  .club-intro {
+    margin-top: 14px;
+    max-width: 720px;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .club-grid {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .club {
+    background: #ffffff;
+    border-top: 4px solid var(--green);
+    border-radius: 12px;
+    padding: 18px 18px 20px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .club-name {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--green-dark);
+  }
+  .club-city {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .club-link {
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green);
+    text-decoration: none;
+  }
+  .club-link:hover { text-decoration: underline; }
+  .club-actions {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  /* ── SECTION 6 · FAQ ── */
+  .faq {
+    margin-top: 28px;
+    max-width: 820px;
+  }
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid #e4ebe7;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 0;
+    padding: 18px 52px 18px 20px;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--green-dark);
+    cursor: pointer;
+    position: relative;
+    font-family: inherit;
+  }
+  .faq-q::after {
+    content: "+";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+  .faq-item.open .faq-q::after {
+    content: "\2212";
+  }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .faq-a p {
+    padding: 0 20px 18px;
+    font-size: 15.5px;
+    color: var(--muted);
+  }
+  .faq-item.open .faq-a {
+    max-height: 460px;
+  }
+
+  /* ── SECTION 7 · Closing CTA ── */
+  .cta {
+    background: var(--green-dark);
+    color: #ffffff;
+    text-align: center;
+    padding: 64px 20px 70px;
+  }
+  .cta h2 {
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+  }
+  .cta p {
+    margin: 14px auto 0;
+    font-size: 18px;
+    color: rgba(255,255,255,0.85);
+    max-width: 560px;
+  }
+  .cta .btn { margin-top: 26px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .what-grid { grid-template-columns: 1fr; gap: 24px; }
+    .club-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .sec { padding: 48px 0; }
+    .cards { grid-template-columns: 1fr; }
+    .club-grid { grid-template-columns: 1fr; }
+    .hero-actions .btn,
+    .watch-actions .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════ SECTION 1 · HERO ════ -->
+<header class="hero">
+  <p class="eyebrow">Welcome to Southwest Lawn Bowls</p>
+  <h1>Lawn Bowls — A Sport for Life</h1>
+  <p class="hero-sub">Southern California's most welcoming outdoor sport. No experience needed.</p>
+  <div class="hero-actions">
+    <a class="btn btn--gold" href="#find-a-club">Find a Club Near You</a>
+    <a class="btn btn--outline-white" href="#watch">Watch the Game</a>
+  </div>
+</header>
+
+<!-- ════ SECTION 2 · WHAT IS LAWN BOWLS ════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2 class="sec-h">What is Lawn Bowls?</h2>
+    <div class="what-grid">
+      <div class="what-text">
+        <p>Lawn bowls is an outdoor precision sport played on a smooth grass or synthetic green. The goal is simple: roll your bowl as close as possible to a small white ball called the jack. Closest bowl scores. You can play alone, in pairs, triples, or fours. No running. No contact. Just skill, strategy, and good company.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">27 clubs</div>
+          <div class="stat-label">across Southern California</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1,400+ members</div>
+          <div class="stat-label">in the Southwest Division</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100+ years</div>
+          <div class="stat-label">of the sport in SoCal</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Free first lesson</div>
+          <div class="stat-label">at most clubs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECTION 3 · SIX REASONS ════ -->
+<section class="sec sec--soft">
+  <div class="wrap">
+    <h2 class="sec-h">Six Reasons to Enjoy Lawn Bowling in Southern California</h2>
+    <p class="sec-sub">From the Southwest Lawn Bowls coaching team</p>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-num">01</div>
+        <h3>The Rules Are Simple</h3>
+        <p>The rules are easy to learn. The game takes a lifetime to perfect. You can play singles or in teams of two, three, or four. A game starts by rolling the jack — a small white ball — down the green. Each team rolls their bowls towards the jack. The bowl nearest to the jack wins the end.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-num">02</div>
+        <h3>Singles or Team Play — Your Choice</h3>
+        <p>It's up to you to decide if you're more interested in singles or team play. Or perhaps both. Tournaments throughout the year offer the opportunity to test your mettle against the best in Southern California.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-num">03</div>
+        <h3>A Gentle Way to Stay Active</h3>
+        <p>"I don't think you realize how much walking you do until you actually play it. You can walk three miles in a single session — 40-yard stints, over and over." On top of walking, your arms get a workout as you perfect your technique, and your legs build strength with each delivery.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-num">04</div>
+        <h3>A Strong Social Side</h3>
+        <p>Many clubs put on regular social functions. "There is a lot of socializing — and you don't have to be competitive to play. If you just want to play with your friends on a Wednesday afternoon, there's nothing stopping you."</p>
+      </div>
+
+      <div class="card">
+        <div class="card-num">05</div>
+        <h3>The Perfect Sport for All</h3>
+        <p>"Bowls truly is the sport for all, regardless of age, sex, or physical ability. The gentle pace and lack of contact means you'll often find children playing alongside adults of different abilities and fitness levels on the same team." The national singles champion has been as young as 18 and as seasoned as his seventies.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-num">06</div>
+        <h3>A Club Near You — With a Free Lesson</h3>
+        <p>In Southern California, there are 27 lawn bowling clubs. Most offer free introductory lessons — no equipment needed, just show up. Find a club near you and book your first game. And once you're a member, your club card opens doors to lawn bowling clubs around the world, usually free or for a small daily fee.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECTION 4 · WATCH ════ -->
+<section class="sec" id="watch">
+  <div class="wrap">
+    <h2 class="sec-h">See What It Looks Like</h2>
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/videoseries?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO" title="Southwest Lawn Bowls — HOW! Instructional Series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p class="video-caption">The HOW! instructional series — written by Hall of Fame bowler Scott Roberts, produced by Gary Barnes.</p>
+    <div class="watch-actions">
+      <a class="btn btn--green" href="https://www.swlawnbowls.org/coronado90" target="_blank" rel="noopener">Watch the Coronado Documentary</a>
+      <a class="btn btn--outline-green" href="https://www.youtube.com/@SouthwestLawnBowls" target="_blank" rel="noopener">Visit the SW YouTube Channel</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECTION 5 · FIND A CLUB ════ -->
+<section class="sec sec--soft" id="find-a-club">
+  <div class="wrap">
+    <h2 class="sec-h">Find a Club Near You</h2>
+    <p class="club-intro">The Southwest Division has 27 affiliated clubs across Southern California. Most offer free introductory lessons — no equipment needed. Call or visit any club below to book your first game.</p>
+    <div class="club-grid">
+
+      <div class="club"><span class="club-name">Balboa Park</span><span class="club-city">San Diego</span></div>
+      <div class="club"><span class="club-name">Beverly Hills</span><span class="club-city">Beverly Hills</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info →</a></div>
+      <div class="club"><span class="club-name">Camarillo</span><span class="club-city">Camarillo</span></div>
+      <div class="club"><span class="club-name">Coronado</span><span class="club-city">Coronado</span><a class="club-link" href="https://www.coronadolawnbowling.com" target="_blank" rel="noopener">Visit website →</a></div>
+      <div class="club"><span class="club-name">Desert Cities</span><span class="club-city">Palm Desert</span></div>
+      <div class="club"><span class="club-name">El Dorado Park</span><span class="club-city">Long Beach</span></div>
+      <div class="club"><span class="club-name">Encino</span><span class="club-city">Encino</span></div>
+      <div class="club"><span class="club-name">Friendly Valley</span><span class="club-city">Newhall</span></div>
+      <div class="club"><span class="club-name">Hermosa Beach</span><span class="club-city">Hermosa Beach</span></div>
+      <div class="club"><span class="club-name">Irvine</span><span class="club-city">Irvine</span></div>
+      <div class="club"><span class="club-name">La Habra</span><span class="club-city">La Habra</span></div>
+      <div class="club"><span class="club-name">Laguna Beach</span><span class="club-city">Laguna Beach</span></div>
+      <div class="club"><span class="club-name">Laguna Woods</span><span class="club-city">Laguna Woods</span></div>
+      <div class="club"><span class="club-name">Long Beach</span><span class="club-city">Long Beach</span></div>
+      <div class="club"><span class="club-name">Los Alamitos</span><span class="club-city">Los Alamitos</span></div>
+      <div class="club"><span class="club-name">Maccabee</span><span class="club-city">Los Angeles</span></div>
+      <div class="club"><span class="club-name">Newport Harbor</span><span class="club-city">Newport Beach</span></div>
+      <div class="club"><span class="club-name">Oxnard</span><span class="club-city">Oxnard</span></div>
+      <div class="club"><span class="club-name">Palos Verdes</span><span class="club-city">Palos Verdes</span></div>
+      <div class="club"><span class="club-name">Pasadena</span><span class="club-city">Pasadena</span></div>
+      <div class="club"><span class="club-name">Redlands</span><span class="club-city">Redlands</span><a class="club-link" href="https://www.redlandslawnbowlingclub.com" target="_blank" rel="noopener">Visit website →</a></div>
+      <div class="club"><span class="club-name">San Clemente</span><span class="club-city">San Clemente</span></div>
+      <div class="club"><span class="club-name">San Diego</span><span class="club-city">San Diego</span></div>
+      <div class="club"><span class="club-name">Santa Monica</span><span class="club-city">Santa Monica</span></div>
+      <div class="club"><span class="club-name">Sun City</span><span class="club-city">Sun City</span><a class="club-link" href="https://www.suncitylawnbowls.com" target="_blank" rel="noopener">Visit website →</a></div>
+      <div class="club"><span class="club-name">Torrance</span><span class="club-city">Torrance</span></div>
+      <div class="club"><span class="club-name">Ventura</span><span class="club-city">Ventura</span></div>
+
+    </div>
+    <div class="club-actions">
+      <a class="btn btn--green" href="https://www.swlawnbowls.org/club-info">View Full Club Information</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECTION 6 · FAQ ════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2 class="sec-h">Common Questions</h2>
+    <div class="faq">
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">Do I need my own equipment?</button>
+        <div class="faq-a"><p>No. Clubs provide bowls for beginners. You just need flat-soled shoes (most clubs also have loaners). Once you decide you love it, you can buy your own set — but there's no rush.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">How fit do I need to be?</button>
+        <div class="faq-a"><p>Lawn bowls is genuinely low-impact. The game involves walking and a gentle rolling action. People of all fitness levels and ages play competitively — the sport is designed to be accessible for life.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">How much does it cost to join?</button>
+        <div class="faq-a"><p>Club membership fees vary but are generally modest — typically $50–$200 per year depending on the club. Most clubs offer free trial lessons before you commit to joining.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">Can I play if I've never played before?</button>
+        <div class="faq-a"><p>Absolutely. Every club in the Southwest Division welcomes complete beginners. Most have designated beginner sessions and coaches who will walk you through everything in your first visit.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">Is it competitive?</button>
+        <div class="faq-a"><p>As competitive as you want it to be. Many members play purely socially — Wednesday afternoon games with friends. Others compete in the full tournament season across Southern California. The sport accommodates both.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">What's the Southwest Division?</button>
+        <div class="faq-a"><p>The Southwest Division is the governing organization for lawn bowling clubs in Southern California. With 27 clubs and 1,400+ members, it's the largest of seven divisions under Bowls USA. It organizes the tournament season, represents the region at national events, and supports clubs in growing the sport.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECTION 7 · CLOSING CTA ════ -->
+<section class="cta">
+  <h2>Ready to Try It?</h2>
+  <p>Show up at any club with flat-soled shoes. The first game is on us.</p>
+  <a class="btn btn--gold" href="#find-a-club">Find Your Nearest Club</a>
+</section>
+
+<script>
+(function () {
+  // ── FAQ accordion (class toggle, no inline handlers) ──
+  var items = document.querySelectorAll(".faq-item");
+  items.forEach(function (item) {
+    var q = item.querySelector(".faq-q");
+    q.addEventListener("click", function () {
+      var isOpen = item.classList.contains("open");
+      items.forEach(function (other) { other.classList.remove("open"); });
+      if (!isOpen) { item.classList.add("open"); }
+      postHeightToParent();
+    });
+  });
+
+  // ── Broadcast height to embedding parent (Squarespace) ──
+  function postHeightToParent() {
+    if (window.parent === window) return;
+    try {
+      var h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
+      window.parent.postMessage({ type: "swd-event-height", height: h }, "*");
+    } catch (e) {}
+  }
+  if (window.ResizeObserver) {
+    new ResizeObserver(postHeightToParent).observe(document.body);
+  }
+  window.addEventListener("load", postHeightToParent);
+})();
+</script>
+
+</body>
+</html>
