@@ -15,624 +15,488 @@
     --navy-deep: #112641;
     --gold: #f0b429;
     --gold-deep: #cc9512;
-    --cream: #f7f3ea;
+    --cream: #f7f4ed;
     --paper: #ffffff;
-    --ink: #1b2330;
+    --ink: #1d2733;
     --muted: #5d6b7a;
-    --muted-on-dark: rgba(255,255,255,0.72);
+    --line: #e9e2d4;
     --serif: "Fraunces", Georgia, "Times New Roman", serif;
     --sans: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
+    --shadow: 0 24px 60px rgba(26, 54, 93, 0.12);
+    --shadow-soft: 0 14px 34px rgba(26, 54, 93, 0.08);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   body {
-    background: var(--cream);
+    background: var(--paper);
     color: var(--ink);
     font-family: var(--sans);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
-  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
-
-  /* grain texture overlay reused on dark bands */
-  .grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.5;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-  }
-
-  /* ─── Kicker / eyebrow ─── */
+  /* ── shared bits ── */
   .kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--gold-deep);
+    display: inline-flex; align-items: center; gap: 10px;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    font-size: 12px; font-weight: 700; color: var(--gold-deep);
   }
-  .kicker::before {
-    content: "";
-    width: 8px; height: 8px;
-    background: var(--gold);
-    transform: rotate(45deg);
-    flex: none;
-  }
-  .kicker--on-dark { color: var(--gold); }
+  .kicker::before { content: ""; width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); flex: none; }
+  .kicker--light { color: var(--gold); }
 
-  .sec-h {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: clamp(30px, 4.6vw, 52px);
-    line-height: 1.04;
-    letter-spacing: -0.015em;
-    color: var(--navy);
+  .h2 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(30px, 4.6vw, 52px); line-height: 1.05;
+    letter-spacing: -0.015em; color: var(--navy); margin-top: 14px;
   }
-  .sec-h em { font-style: italic; color: var(--red); }
-  .sec-sub { margin-top: 12px; font-size: 16px; color: var(--muted); font-weight: 500; max-width: 620px; }
+  .h2 em { font-style: italic; color: var(--red); }
+  .lead { margin-top: 16px; font-size: 18px; color: var(--muted); max-width: 640px; }
 
-  /* ─── Buttons ─── */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 54px;
-    padding: 0 30px;
-    border-radius: 2px;
-    text-decoration: none;
-    font-family: var(--sans);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border: 2px solid transparent;
-    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 0 30px; border-radius: 999px;
+    text-decoration: none; font-family: var(--sans); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; border: 2px solid transparent; cursor: pointer;
     transition: transform 0.18s var(--ease), background 0.18s var(--ease), color 0.18s var(--ease), box-shadow 0.18s var(--ease);
   }
   .btn:hover { transform: translateY(-3px); }
-  .btn--gold { background: var(--gold); color: var(--navy-deep); box-shadow: 0 10px 24px rgba(240,180,41,0.32); }
+  .btn--gold { background: var(--gold); color: var(--navy-deep); box-shadow: 0 12px 28px rgba(240,180,41,0.34); }
   .btn--gold:hover { background: #ffc545; }
-  .btn--red { background: var(--red); color: #fff; box-shadow: 0 10px 24px rgba(197,48,48,0.28); }
+  .btn--red { background: var(--red); color: #fff; box-shadow: 0 12px 28px rgba(197,48,48,0.26); }
   .btn--red:hover { background: var(--red-deep); }
-  .btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.45); }
-  .btn--ghost-light:hover { background: rgba(255,255,255,0.12); }
-  .btn--ghost-navy { background: #fff; color: var(--navy); border-color: #d4dae3; }
-  .btn--ghost-navy:hover { background: var(--cream); border-color: var(--navy); }
+  .btn--navy { background: var(--navy); color: #fff; }
+  .btn--navy:hover { background: var(--navy-deep); }
+  .btn--ghost-light { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.55); backdrop-filter: blur(4px); }
+  .btn--ghost-light:hover { background: rgba(255,255,255,0.18); }
+  .btn--ghost { background: #fff; color: var(--navy); border-color: var(--line); }
+  .btn--ghost:hover { background: var(--cream); border-color: var(--navy); }
 
-  /* ════════ SPLASH (click-through) ════════ */
-  .splash {
-    position: relative;
-    min-height: 660px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 80px 22px;
-    color: #fff;
-    overflow: hidden;
-    background: linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 38%, var(--red-deep) 100%);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), min-height 0.7s var(--ease), padding 0.7s var(--ease);
-  }
-  .splash::before {
-    content: "";
-    position: absolute;
-    inset: -30%;
-    background:
-      radial-gradient(40% 50% at 22% 28%, rgba(240,180,41,0.30), transparent 60%),
-      radial-gradient(45% 55% at 82% 72%, rgba(197,48,48,0.55), transparent 62%),
-      radial-gradient(40% 50% at 70% 18%, rgba(26,54,93,0.5), transparent 60%);
-    animation: drift 18s ease-in-out infinite alternate;
-  }
-  @keyframes drift {
-    0%   { transform: translate3d(0,0,0) scale(1); }
-    100% { transform: translate3d(2%, -3%, 0) scale(1.12); }
-  }
-  body.entered .splash {
-    opacity: 0;
-    transform: translateY(-30px);
-    min-height: 0;
-    max-height: 0;
-    padding: 0;
-    pointer-events: none;
-  }
-
-  .splash-inner { position: relative; z-index: 2; max-width: 760px; }
-  .splash-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(255,255,255,0.96);
-    border-radius: 999px;
-    padding: 8px 18px 8px 10px;
-    margin-bottom: 30px;
-    opacity: 0;
-    animation: rise 0.8s var(--ease) 0.05s forwards;
-  }
-  .splash-badge img { height: 38px; width: auto; display: block; border-radius: 4px; }
-  .splash-badge span {
-    font-size: 11px; font-weight: 800; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--navy);
-  }
-  .splash .eyebrow {
-    text-transform: uppercase; letter-spacing: 0.3em; font-size: 12px;
-    font-weight: 700; color: var(--gold);
-    opacity: 0; animation: rise 0.8s var(--ease) 0.18s forwards;
-  }
-  .splash h1 {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: clamp(46px, 10vw, 104px);
-    line-height: 0.96;
-    letter-spacing: -0.03em;
-    margin: 18px 0 0;
-    opacity: 0; animation: rise 0.9s var(--ease) 0.3s forwards;
-  }
-  .splash h1 em { font-style: italic; color: var(--gold); }
-  .splash-lede {
-    margin: 24px auto 0;
-    max-width: 540px;
-    font-size: clamp(16px, 2.3vw, 19px);
-    color: var(--muted-on-dark);
-    opacity: 0; animation: rise 0.9s var(--ease) 0.42s forwards;
-  }
-  .splash-lede b { color: #fff; font-weight: 600; }
-  .splash-actions {
-    margin-top: 38px;
-    display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
-    opacity: 0; animation: rise 0.9s var(--ease) 0.54s forwards;
-  }
-  .scroll-cue {
-    margin-top: 40px;
-    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-    opacity: 0; animation: rise 0.9s var(--ease) 0.66s forwards;
-  }
-  .scroll-cue span { display: block; margin-top: 8px; font-size: 18px; animation: bob 1.8s ease-in-out infinite; }
-  @keyframes rise { to { opacity: 1; transform: none; } }
-  .splash-badge, .splash .eyebrow, .splash h1, .splash-lede, .splash-actions, .scroll-cue { transform: translateY(22px); }
-  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-
-  /* ─── Reveal on scroll ─── */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
   .reveal.in { opacity: 1; transform: none; }
-  .reveal[data-d="1"] { transition-delay: 0.08s; }
-  .reveal[data-d="2"] { transition-delay: 0.16s; }
-  .reveal[data-d="3"] { transition-delay: 0.24s; }
+  .reveal[data-d="1"] { transition-delay: 0.09s; }
+  .reveal[data-d="2"] { transition-delay: 0.18s; }
+  .reveal[data-d="3"] { transition-delay: 0.27s; }
 
-  /* ════════ BAND: sections ════════ */
-  .band { position: relative; padding: clamp(64px, 9vw, 110px) 0; }
-  .band--paper { background: var(--paper); }
-  .band--cream { background: var(--cream); }
-  .band--navy { background: var(--navy-deep); color: #fff; overflow: hidden; }
-  .band--red { background: var(--red); color: #fff; overflow: hidden; }
-  .band--navy .sec-h, .band--red .sec-h { color: #fff; }
-  .band--navy .sec-h em, .band--red .sec-h em { color: var(--gold); }
-  .band-top-rule { height: 4px; background: linear-gradient(90deg, var(--gold), #e3b450 50%, var(--gold)); }
+  /* ════ HERO ════ */
+  .hero {
+    position: relative; min-height: 680px; display: flex; align-items: flex-end;
+    color: #fff; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: url("https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665086501-W2WOX6MRDXYY97T680WJ/The_Groves.jpg") center 40%/cover no-repeat;
+    transform: scale(1.06); animation: slowzoom 22s ease-in-out infinite alternate;
+  }
+  @keyframes slowzoom { to { transform: scale(1.16); } }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(17,38,65,0.55) 0%, rgba(17,38,65,0.12) 36%, rgba(17,38,65,0.55) 66%, rgba(13,22,38,0.92) 100%),
+      linear-gradient(90deg, rgba(155,33,33,0.30) 0%, transparent 55%);
+  }
+  .hero .wrap { position: relative; z-index: 2; padding-top: 92px; padding-bottom: 72px; width: 100%; }
+  .hero-chip {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.95); border-radius: 999px; padding: 8px 18px 8px 10px; margin-bottom: 26px;
+  }
+  .hero-chip img { height: 34px; width: auto; border-radius: 4px; }
+  .hero-chip span { font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy); }
+  .hero .eyebrow { text-transform: uppercase; letter-spacing: 0.3em; font-size: 12px; font-weight: 700; color: var(--gold); }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(44px, 8vw, 88px); line-height: 0.98; letter-spacing: -0.025em;
+    margin: 16px 0 0; max-width: 14ch; text-shadow: 0 2px 30px rgba(0,0,0,0.25);
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-lede { margin: 22px 0 0; max-width: 540px; font-size: clamp(16px, 2.2vw, 19px); color: rgba(255,255,255,0.88); }
+  .hero-lede b { color: #fff; font-weight: 600; }
+  .hero-actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px; }
 
-  /* WHAT IS — split */
-  .what {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: clamp(28px, 5vw, 64px);
-    align-items: center;
-  }
-  .what-lede {
-    font-family: var(--serif);
-    font-size: clamp(20px, 2.6vw, 27px);
-    line-height: 1.45;
-    font-weight: 400;
-    color: var(--ink);
-  }
-  .what-lede .drop {
-    float: left;
-    font-size: 4.2em;
-    line-height: 0.74;
-    padding: 8px 14px 0 0;
-    color: var(--red);
-    font-weight: 600;
-  }
-  .what-note { margin-top: 22px; font-family: var(--sans); font-size: 15px; color: var(--muted); }
-
-  .stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-  .stat {
-    position: relative;
-    background: linear-gradient(160deg, var(--navy), var(--navy-deep));
-    color: #fff;
-    border-radius: 14px;
-    padding: 30px 22px;
+  /* ════ STATS overlap card ════ */
+  .stats-shell { background: var(--cream); }
+  .stats-card {
+    position: relative; z-index: 4; margin: -64px auto 0; max-width: 1100px;
+    background: #fff; border-radius: 24px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: repeat(4, 1fr);
     overflow: hidden;
   }
-  .stat::before {
-    content: "";
-    position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-    background: var(--gold);
-  }
-  .stat-num { font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 3.2vw, 34px); line-height: 1; }
-  .stat-label { margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.02em; }
+  .stat { padding: 34px 26px; text-align: center; position: relative; }
+  .stat + .stat::before { content: ""; position: absolute; left: 0; top: 24px; bottom: 24px; width: 1px; background: var(--line); }
+  .stat-num { font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 3vw, 36px); line-height: 1; color: var(--red); }
+  .stat-label { margin-top: 10px; font-size: 13.5px; font-weight: 600; color: var(--navy); }
 
-  /* SIX REASONS — cards on navy */
-  .reasons { margin-top: 46px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .reason {
-    position: relative;
-    background: #fff;
-    color: var(--ink);
-    border-radius: 14px;
-    padding: 30px 26px 32px;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-    transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
-  }
-  .reason::before {
-    content: "";
-    position: absolute; left: 0; top: 22px; bottom: 22px; width: 4px;
-    background: var(--red);
-    border-radius: 0 4px 4px 0;
-    transition: top 0.22s var(--ease), bottom 0.22s var(--ease), background 0.22s var(--ease);
-  }
-  .reason:hover { transform: translateY(-6px); box-shadow: 0 26px 54px rgba(0,0,0,0.26); }
-  .reason:hover::before { top: 0; bottom: 0; background: var(--gold); }
-  .reason-num {
-    font-family: var(--serif); font-style: italic; font-weight: 500;
-    font-size: 34px; color: var(--gold-deep); line-height: 1;
-  }
-  .reason h3 { font-family: var(--serif); font-weight: 600; font-size: 22px; color: var(--navy); margin: 8px 0 12px; line-height: 1.15; }
-  .reason p { font-size: 15px; color: var(--muted); }
+  /* ════ section scaffold ════ */
+  .sec { padding: clamp(66px, 9vw, 116px) 0; }
+  .sec--cream { background: var(--cream); }
+  .sec--paper { background: var(--paper); }
 
-  /* WATCH */
+  /* ════ FEATURE ROW (image + text) ════ */
+  .feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(28px, 5vw, 70px); align-items: center; }
+  .feature--flip .feature-media { order: 2; }
+  .feature-media {
+    position: relative; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow);
+    aspect-ratio: 4 / 3;
+  }
+  .feature-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+  .feature-media:hover img { transform: scale(1.05); }
+  .feature-media .tag {
+    position: absolute; left: 18px; bottom: 18px; z-index: 2;
+    background: rgba(255,255,255,0.95); color: var(--navy); border-radius: 999px;
+    padding: 8px 16px; font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+  }
+  .feature-body .h2 { margin-top: 12px; }
+  .feature-lead {
+    font-family: var(--serif); font-size: clamp(19px, 2.4vw, 25px); line-height: 1.45; color: var(--ink); margin-top: 18px; font-weight: 400;
+  }
+  .feature-note { margin-top: 16px; font-size: 16px; color: var(--muted); }
+
+  /* ════ REASONS cards ════ */
+  .sec-head { max-width: 720px; }
+  .cards { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card {
+    position: relative; background: #fff; border: 1px solid var(--line); border-radius: 20px;
+    padding: 32px 28px 34px; box-shadow: var(--shadow-soft);
+    transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), border-color 0.22s var(--ease);
+    overflow: hidden;
+  }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; height: 4px; width: 100%; background: linear-gradient(90deg, var(--red), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease); }
+  .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
+  .card:hover::before { transform: scaleX(1); }
+  .card-num { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 36px; color: var(--gold-deep); line-height: 1; }
+  .card h3 { font-family: var(--serif); font-weight: 600; font-size: 22px; color: var(--navy); margin: 8px 0 12px; line-height: 1.15; }
+  .card p { font-size: 15px; color: var(--muted); }
+
+  /* ════ WATCH ════ */
   .video-frame {
-    margin-top: 36px; position: relative; width: 100%; aspect-ratio: 16 / 9;
-    background: #000; border-radius: 16px; overflow: hidden;
-    box-shadow: 0 24px 60px rgba(26,54,93,0.22); border: 1px solid #e7e0d3;
+    margin-top: 40px; position: relative; width: 100%; aspect-ratio: 16/9;
+    background: #000; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line);
   }
   .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .video-caption { margin-top: 16px; font-size: 14px; color: var(--muted); text-align: center; font-style: italic; font-family: var(--serif); }
-  .watch-actions { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .video-caption { margin-top: 18px; font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--muted); text-align: center; }
+  .watch-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 
-  /* FIND A CLUB */
-  .club-intro { margin-top: 16px; max-width: 720px; font-size: 17px; color: var(--ink); }
-  .club-grid { margin-top: 36px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .club {
-    position: relative; background: #fff; border-radius: 12px; padding: 22px 20px 20px;
-    box-shadow: 0 10px 26px rgba(26,54,93,0.08);
-    border-top: 3px solid var(--navy);
-    transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), border-color 0.18s var(--ease);
-    display: flex; flex-direction: column; gap: 3px;
+  /* ════ FIND A CLUB ════ */
+  .club-banner {
+    margin-top: 36px; border-radius: 24px; overflow: hidden; position: relative;
+    aspect-ratio: 32 / 9; box-shadow: var(--shadow); background: var(--navy);
   }
-  .club:hover { transform: translateY(-4px); border-top-color: var(--red); box-shadow: 0 18px 38px rgba(26,54,93,0.16); }
-  .club-name { font-family: var(--serif); font-weight: 600; font-size: 19px; color: var(--navy); line-height: 1.1; }
-  .club-city { font-size: 13.5px; color: var(--muted); }
-  .club-link { margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--red); text-decoration: none; }
+  .club-banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.92; }
+  .club-banner::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,38,65,0.78), rgba(17,38,65,0.15)); }
+  .club-banner .cap { position: absolute; left: 30px; bottom: 26px; z-index: 2; color: #fff; max-width: 70%; }
+  .club-banner .cap b { font-family: var(--serif); font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; display: block; }
+  .club-banner .cap span { font-size: 14px; color: rgba(255,255,255,0.85); }
+  .club-grid { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .club {
+    background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px 22px 20px;
+    box-shadow: var(--shadow-soft); display: flex; flex-direction: column; gap: 3px;
+    transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), border-color 0.18s var(--ease);
+  }
+  .club:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: var(--shadow); }
+  .club-name { font-family: var(--serif); font-weight: 600; font-size: 20px; color: var(--navy); line-height: 1.1; }
+  .club-city { font-size: 14px; color: var(--muted); }
+  .club-link { margin-top: 8px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--red); text-decoration: none; }
   .club-link:hover { color: var(--red-deep); text-decoration: underline; }
-  .club-actions { margin-top: 38px; text-align: center; }
+  .club-actions { margin-top: 40px; text-align: center; }
 
-  /* FAQ */
-  .faq { margin-top: 38px; max-width: 860px; }
-  .faq-item { background: #fff; border: 1px solid #e8e0d2; border-radius: 12px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease); }
-  .faq-item.open { border-color: var(--gold); box-shadow: 0 14px 30px rgba(26,54,93,0.10); }
+  /* ════ FAQ ════ */
+  .faq { margin-top: 40px; max-width: 880px; }
+  .faq-item { background: #fff; border: 1px solid var(--line); border-radius: 16px; margin-bottom: 14px; overflow: hidden; transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease); }
+  .faq-item.open { border-color: var(--gold); box-shadow: var(--shadow-soft); }
   .faq-q {
-    width: 100%; text-align: left; background: none; border: 0;
-    padding: 22px 58px 22px 24px; cursor: pointer; position: relative;
-    font-family: var(--serif); font-weight: 600; font-size: 19px; color: var(--navy);
+    width: 100%; text-align: left; background: none; border: 0; cursor: pointer; position: relative;
+    padding: 24px 62px 24px 26px; font-family: var(--serif); font-weight: 600; font-size: 20px; color: var(--navy);
   }
   .faq-q::after {
-    content: ""; position: absolute; right: 24px; top: 50%;
-    width: 14px; height: 14px; margin-top: -7px;
-    background:
-      linear-gradient(var(--gold-deep), var(--gold-deep)) center/14px 2px no-repeat,
-      linear-gradient(var(--gold-deep), var(--gold-deep)) center/2px 14px no-repeat;
+    content: ""; position: absolute; right: 26px; top: 50%; width: 15px; height: 15px; margin-top: -7px;
+    background: linear-gradient(var(--gold-deep),var(--gold-deep)) center/15px 2px no-repeat, linear-gradient(var(--gold-deep),var(--gold-deep)) center/2px 15px no-repeat;
     transition: transform 0.25s var(--ease);
   }
   .faq-item.open .faq-q::after { transform: rotate(135deg); }
   .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s var(--ease); }
-  .faq-a p { padding: 0 24px 22px; font-size: 15.5px; color: var(--muted); }
+  .faq-a p { padding: 0 26px 24px; font-size: 16px; color: var(--muted); }
   .faq-item.open .faq-a { max-height: 480px; }
 
-  /* CLOSING CTA */
-  .cta { text-align: center; }
+  /* ════ CTA ════ */
+  .cta { position: relative; overflow: hidden; color: #fff; text-align: center; padding: clamp(80px, 11vw, 140px) 24px; }
+  .cta-bg { position: absolute; inset: 0; z-index: 0; background: url("https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665224294-NMF5P0LF38YT9XBAN0PT/LongBeachLBC.jpg") center/cover no-repeat; transform: scale(1.05); }
+  .cta::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(13,22,38,0.82), rgba(155,33,33,0.78)); }
+  .cta .wrap { position: relative; z-index: 2; }
   .cta .kicker { justify-content: center; margin-bottom: 18px; }
-  .cta h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(34px, 6vw, 60px); line-height: 1.02; letter-spacing: -0.02em; }
+  .cta h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(36px, 6.4vw, 66px); line-height: 1.0; letter-spacing: -0.02em; }
   .cta h2 em { font-style: italic; color: var(--gold); }
-  .cta p { margin: 18px auto 0; font-size: 18px; color: rgba(255,255,255,0.85); max-width: 560px; }
-  .cta .btn { margin-top: 30px; }
+  .cta p { margin: 20px auto 0; font-size: 19px; color: rgba(255,255,255,0.9); max-width: 560px; }
+  .cta .btn { margin-top: 32px; }
 
-  /* ─── Responsive ─── */
-  @media (max-width: 880px) {
-    .what { grid-template-columns: 1fr; }
-    .reasons { grid-template-columns: 1fr 1fr; }
+  /* ════ responsive ════ */
+  @media (max-width: 900px) {
+    .stats-card { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(3)::before, .stat:nth-child(4)::before { display: none; }
+    .feature { grid-template-columns: 1fr; }
+    .feature--flip .feature-media { order: 0; }
+    .cards { grid-template-columns: 1fr 1fr; }
     .club-grid { grid-template-columns: 1fr 1fr; }
+    .club-banner { aspect-ratio: 16 / 9; }
   }
   @media (max-width: 560px) {
-    .splash { min-height: 600px; }
-    .reasons { grid-template-columns: 1fr; }
+    .hero { min-height: 600px; }
+    .stat + .stat::before { display: none; }
+    .cards { grid-template-columns: 1fr; }
     .club-grid { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: 1fr 1fr; }
-    .splash-actions .btn, .watch-actions .btn { width: 100%; }
+    .hero-actions .btn, .watch-actions .btn { width: 100%; }
   }
-
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
     .reveal { opacity: 1; transform: none; }
-    .splash-badge, .splash .eyebrow, .splash h1, .splash-lede, .splash-actions, .scroll-cue { opacity: 1; transform: none; }
   }
 </style>
 </head>
-<body class="intro">
+<body>
 
-<!-- ════════ SPLASH · click-through entry ════════ -->
-<section class="splash grain" id="splash">
-  <div class="splash-inner">
-    <div class="splash-badge">
+<!-- ════════ HERO ════════ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-chip">
       <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1600389385202-YJUSL5TACAASKTTDS34L/SWBlogoRED+(002).png" alt="Southwest Bowls logo">
       <span>Southwest Lawn Bowls</span>
     </div>
-    <p class="eyebrow">A Sport for Life</p>
-    <h1>Lawn Bowls,<br><em>perfected over a lifetime.</em></h1>
-    <p class="splash-lede">The <b>2026 season is underway</b> — 27 clubs, 1,400+ bowlers, and an open spot for you on the green. This is your guide to getting started.</p>
-    <div class="splash-actions">
-      <a class="btn btn--gold" href="#start" id="enter-btn">Enter the Site</a>
-      <a class="btn btn--ghost-light" href="#find-a-club" id="enter-club">Jump to Clubs</a>
+    <p class="eyebrow">Welcome to Southern California's Greens</p>
+    <h1>Lawn Bowls — <em>A Sport for Life</em></h1>
+    <p class="hero-lede">The <b>2026 season is underway</b> — 27 clubs, 1,400+ bowlers, and an open spot for you on the green. No experience needed. Here's how to start.</p>
+    <div class="hero-actions">
+      <a class="btn btn--gold" href="#find-a-club">Find a Club Near You</a>
+      <a class="btn btn--ghost-light" href="#watch">Watch the Game</a>
     </div>
-    <p class="scroll-cue">Take a look<span>↓</span></p>
+  </div>
+</header>
+
+<!-- ════════ STATS overlap ════════ -->
+<div class="stats-shell">
+  <div class="wrap">
+    <div class="stats-card reveal">
+      <div class="stat"><div class="stat-num">27</div><div class="stat-label">clubs across SoCal</div></div>
+      <div class="stat"><div class="stat-num">1,400+</div><div class="stat-label">Division members</div></div>
+      <div class="stat"><div class="stat-num">100+ yrs</div><div class="stat-label">of the sport here</div></div>
+      <div class="stat"><div class="stat-num">Free</div><div class="stat-label">first lesson at most clubs</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ WHAT IS — feature row ════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-media reveal">
+        <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1606943010486-LTWOOZDHPEO6HF3SNTDB/Casa_del_Sol.jpg" alt="A Southern California lawn bowling green">
+        <span class="tag">On the green</span>
+      </div>
+      <div class="feature-body reveal" data-d="1">
+        <p class="kicker">The Basics</p>
+        <h2 class="h2">What is <em>lawn bowls?</em></h2>
+        <p class="feature-lead">Roll your bowl as close as possible to a small white ball called the jack. Closest bowl scores. That's the heart of it.</p>
+        <p class="feature-note">Lawn bowls is an outdoor precision sport played on a smooth grass or synthetic green. You can play alone, in pairs, triples, or fours. No running. No contact. Just skill, strategy, and good company.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ════════ MAIN CONTENT ════════ -->
-<div class="site" id="start">
-
-  <!-- SECTION · What is Lawn Bowls -->
-  <section class="band band--paper">
-    <div class="wrap">
-      <p class="kicker reveal">The Basics</p>
-      <h2 class="sec-h reveal" data-d="1">What is <em>lawn bowls?</em></h2>
-      <div class="what">
-        <div class="what-text reveal" data-d="1">
-          <p class="what-lede"><span class="drop">L</span>awn bowls is an outdoor precision sport played on a smooth grass or synthetic green. The goal is simple: roll your bowl as close as possible to a small white ball called the jack. Closest bowl scores.</p>
-          <p class="what-note">You can play alone, in pairs, triples, or fours. No running. No contact. Just skill, strategy, and good company.</p>
-        </div>
-        <div class="stats reveal" data-d="2">
-          <div class="stat"><div class="stat-num">27 clubs</div><div class="stat-label">across Southern California</div></div>
-          <div class="stat"><div class="stat-num">1,400+</div><div class="stat-label">members in the Division</div></div>
-          <div class="stat"><div class="stat-num">100+ years</div><div class="stat-label">of the sport in SoCal</div></div>
-          <div class="stat"><div class="stat-num">Free</div><div class="stat-label">first lesson at most clubs</div></div>
-        </div>
-      </div>
+<!-- ════════ SIX REASONS ════════ -->
+<section class="sec sec--paper">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Why you'll love it</p>
+      <h2 class="h2">Six reasons to <em>fall for the green</em></h2>
+      <p class="lead">From the Southwest Lawn Bowls coaching team.</p>
     </div>
-  </section>
+    <div class="cards">
 
-  <!-- SECTION · Six Reasons -->
-  <section class="band band--navy grain">
-    <div class="wrap">
-      <p class="kicker kicker--on-dark reveal">From the SW coaching team</p>
-      <h2 class="sec-h reveal" data-d="1">Six reasons to <em>fall for the green</em></h2>
-      <div class="reasons">
-
-        <div class="reason reveal">
-          <div class="reason-num">01</div>
-          <h3>The Rules Are Simple</h3>
-          <p>The rules are easy to learn. The game takes a lifetime to perfect. You can play singles or in teams of two, three, or four. A game starts by rolling the jack — a small white ball — down the green. Each team rolls their bowls towards the jack. The bowl nearest to the jack wins the end.</p>
-        </div>
-
-        <div class="reason reveal" data-d="1">
-          <div class="reason-num">02</div>
-          <h3>Singles or Team Play — Your Choice</h3>
-          <p>It's up to you to decide if you're more interested in singles or team play. Or perhaps both. Tournaments throughout the year offer the opportunity to test your mettle against the best in Southern California.</p>
-        </div>
-
-        <div class="reason reveal" data-d="2">
-          <div class="reason-num">03</div>
-          <h3>A Gentle Way to Stay Active</h3>
-          <p>"I don't think you realize how much walking you do until you actually play it. You can walk three miles in a single session — 40-yard stints, over and over." On top of walking, your arms get a workout as you perfect your technique, and your legs build strength with each delivery.</p>
-        </div>
-
-        <div class="reason reveal">
-          <div class="reason-num">04</div>
-          <h3>A Strong Social Side</h3>
-          <p>Many clubs put on regular social functions. "There is a lot of socializing — and you don't have to be competitive to play. If you just want to play with your friends on a Wednesday afternoon, there's nothing stopping you."</p>
-        </div>
-
-        <div class="reason reveal" data-d="1">
-          <div class="reason-num">05</div>
-          <h3>The Perfect Sport for All</h3>
-          <p>"Bowls truly is the sport for all, regardless of age, sex, or physical ability. The gentle pace and lack of contact means you'll often find children playing alongside adults of different abilities and fitness levels on the same team." The national singles champion has been as young as 18 and as seasoned as his seventies.</p>
-        </div>
-
-        <div class="reason reveal" data-d="2">
-          <div class="reason-num">06</div>
-          <h3>A Club Near You — With a Free Lesson</h3>
-          <p>In Southern California, there are 27 lawn bowling clubs. Most offer free introductory lessons — no equipment needed, just show up. Find a club near you and book your first game. And once you're a member, your club card opens doors to lawn bowling clubs around the world, usually free or for a small daily fee.</p>
-        </div>
-
+      <div class="card reveal">
+        <div class="card-num">01</div>
+        <h3>The Rules Are Simple</h3>
+        <p>The rules are easy to learn. The game takes a lifetime to perfect. You can play singles or in teams of two, three, or four. A game starts by rolling the jack — a small white ball — down the green. Each team rolls their bowls towards the jack. The bowl nearest to the jack wins the end.</p>
       </div>
+
+      <div class="card reveal" data-d="1">
+        <div class="card-num">02</div>
+        <h3>Singles or Team Play — Your Choice</h3>
+        <p>It's up to you to decide if you're more interested in singles or team play. Or perhaps both. Tournaments throughout the year offer the opportunity to test your mettle against the best in Southern California.</p>
+      </div>
+
+      <div class="card reveal" data-d="2">
+        <div class="card-num">03</div>
+        <h3>A Gentle Way to Stay Active</h3>
+        <p>"I don't think you realize how much walking you do until you actually play it. You can walk three miles in a single session — 40-yard stints, over and over." On top of walking, your arms get a workout as you perfect your technique, and your legs build strength with each delivery.</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-num">04</div>
+        <h3>A Strong Social Side</h3>
+        <p>Many clubs put on regular social functions. "There is a lot of socializing — and you don't have to be competitive to play. If you just want to play with your friends on a Wednesday afternoon, there's nothing stopping you."</p>
+      </div>
+
+      <div class="card reveal" data-d="1">
+        <div class="card-num">05</div>
+        <h3>The Perfect Sport for All</h3>
+        <p>"Bowls truly is the sport for all, regardless of age, sex, or physical ability. The gentle pace and lack of contact means you'll often find children playing alongside adults of different abilities and fitness levels on the same team." The national singles champion has been as young as 18 and as seasoned as his seventies.</p>
+      </div>
+
+      <div class="card reveal" data-d="2">
+        <div class="card-num">06</div>
+        <h3>A Club Near You — With a Free Lesson</h3>
+        <p>In Southern California, there are 27 lawn bowling clubs. Most offer free introductory lessons — no equipment needed, just show up. Find a club near you and book your first game. And once you're a member, your club card opens doors to lawn bowling clubs around the world, usually free or for a small daily fee.</p>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SECTION · Watch -->
-  <section class="band band--paper" id="watch">
-    <div class="wrap">
-      <p class="kicker reveal">Watch &amp; Learn</p>
-      <h2 class="sec-h reveal" data-d="1">See what it <em>looks like</em></h2>
-      <div class="video-frame reveal" data-d="1">
-        <iframe src="https://www.youtube.com/embed/videoseries?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO" title="Southwest Lawn Bowls — HOW! Instructional Series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <p class="video-caption reveal">The HOW! instructional series — written by Hall of Fame bowler Scott Roberts, produced by Gary Barnes.</p>
-      <div class="watch-actions reveal" data-d="1">
-        <a class="btn btn--red" href="https://www.swlawnbowls.org/coronado90" target="_blank" rel="noopener">Watch the Coronado Documentary</a>
-        <a class="btn btn--ghost-navy" href="https://www.youtube.com/@SouthwestLawnBowls" target="_blank" rel="noopener">Visit the SW YouTube Channel</a>
-      </div>
+<!-- ════════ WATCH ════════ -->
+<section class="sec sec--cream" id="watch">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Watch &amp; Learn</p>
+      <h2 class="h2">See what it <em>looks like</em></h2>
     </div>
-  </section>
-
-  <!-- SECTION · Find a Club -->
-  <section class="band band--cream" id="find-a-club">
-    <div class="wrap">
-      <p class="kicker reveal">Get Started</p>
-      <h2 class="sec-h reveal" data-d="1">Find a <em>club near you</em></h2>
-      <p class="club-intro reveal" data-d="1">The Southwest Division has 27 affiliated clubs across Southern California. Most offer free introductory lessons — no equipment needed. Call or visit any club below to book your first game.</p>
-      <div class="club-grid">
-
-        <div class="club reveal"><span class="club-name">Balboa Park</span><span class="club-city">San Diego</span></div>
-        <div class="club reveal" data-d="1"><span class="club-name">Beverly Hills</span><span class="club-city">Beverly Hills</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info →</a></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Camarillo</span><span class="club-city">Camarillo</span></div>
-        <div class="club reveal"><span class="club-name">Coronado</span><span class="club-city">Coronado</span><a class="club-link" href="https://www.coronadolawnbowling.com" target="_blank" rel="noopener">Website →</a></div>
-        <div class="club reveal" data-d="1"><span class="club-name">Desert Cities</span><span class="club-city">Palm Desert</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">El Dorado Park</span><span class="club-city">Long Beach</span></div>
-        <div class="club reveal"><span class="club-name">Encino</span><span class="club-city">Encino</span></div>
-        <div class="club reveal" data-d="1"><span class="club-name">Friendly Valley</span><span class="club-city">Newhall</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Hermosa Beach</span><span class="club-city">Hermosa Beach</span></div>
-        <div class="club reveal"><span class="club-name">Irvine</span><span class="club-city">Irvine</span></div>
-        <div class="club reveal" data-d="1"><span class="club-name">La Habra</span><span class="club-city">La Habra</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Laguna Beach</span><span class="club-city">Laguna Beach</span></div>
-        <div class="club reveal"><span class="club-name">Laguna Woods</span><span class="club-city">Laguna Woods</span></div>
-        <div class="club reveal" data-d="1"><span class="club-name">Long Beach</span><span class="club-city">Long Beach</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Los Alamitos</span><span class="club-city">Los Alamitos</span></div>
-        <div class="club reveal"><span class="club-name">Maccabee</span><span class="club-city">Los Angeles</span></div>
-        <div class="club reveal" data-d="1"><span class="club-name">Newport Harbor</span><span class="club-city">Newport Beach</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Oxnard</span><span class="club-city">Oxnard</span></div>
-        <div class="club reveal"><span class="club-name">Palos Verdes</span><span class="club-city">Palos Verdes</span></div>
-        <div class="club reveal" data-d="1"><span class="club-name">Pasadena</span><span class="club-city">Pasadena</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Redlands</span><span class="club-city">Redlands</span><a class="club-link" href="https://www.redlandslawnbowlingclub.com" target="_blank" rel="noopener">Website →</a></div>
-        <div class="club reveal"><span class="club-name">San Clemente</span><span class="club-city">San Clemente</span></div>
-        <div class="club reveal" data-d="1"><span class="club-name">San Diego</span><span class="club-city">San Diego</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Santa Monica</span><span class="club-city">Santa Monica</span></div>
-        <div class="club reveal"><span class="club-name">Sun City</span><span class="club-city">Sun City</span><a class="club-link" href="https://www.suncitylawnbowls.com" target="_blank" rel="noopener">Website →</a></div>
-        <div class="club reveal" data-d="1"><span class="club-name">Torrance</span><span class="club-city">Torrance</span></div>
-        <div class="club reveal" data-d="2"><span class="club-name">Ventura</span><span class="club-city">Ventura</span></div>
-
-      </div>
-      <div class="club-actions reveal">
-        <a class="btn btn--red" href="https://www.swlawnbowls.org/club-info">View Full Club Information</a>
-      </div>
+    <div class="video-frame reveal" data-d="1">
+      <iframe src="https://www.youtube.com/embed/videoseries?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO" title="Southwest Lawn Bowls — HOW! Instructional Series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-  </section>
+    <p class="video-caption reveal">The HOW! instructional series — written by Hall of Fame bowler Scott Roberts, produced by Gary Barnes.</p>
+    <div class="watch-actions reveal">
+      <a class="btn btn--red" href="https://www.swlawnbowls.org/coronado90" target="_blank" rel="noopener">Watch the Coronado Documentary</a>
+      <a class="btn btn--ghost" href="https://www.youtube.com/@SouthwestLawnBowls" target="_blank" rel="noopener">Visit the SW YouTube Channel</a>
+    </div>
+  </div>
+</section>
 
-  <!-- SECTION · FAQ -->
-  <section class="band band--paper">
-    <div class="wrap">
-      <p class="kicker reveal">Good to Know</p>
-      <h2 class="sec-h reveal" data-d="1">Common <em>questions</em></h2>
-      <div class="faq">
+<!-- ════════ FIND A CLUB ════════ -->
+<section class="sec sec--paper" id="find-a-club">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Get Started</p>
+      <h2 class="h2">Find a <em>club near you</em></h2>
+      <p class="lead">The Southwest Division has 27 affiliated clubs across Southern California. Most offer free introductory lessons — no equipment needed. Call or visit any club below to book your first game.</p>
+    </div>
 
-        <div class="faq-item reveal">
-          <button class="faq-q" type="button">Do I need my own equipment?</button>
-          <div class="faq-a"><p>No. Clubs provide bowls for beginners. You just need flat-soled shoes (most clubs also have loaners). Once you decide you love it, you can buy your own set — but there's no rush.</p></div>
-        </div>
+    <div class="club-banner reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665174411-JV9MCPUP7V1O1TXJE1II/NPH_2A.jpg" alt="Lawn bowling green in Southern California">
+      <div class="cap"><b>27 clubs, one welcome</b><span>From San Diego to Ventura — there's a green near you.</span></div>
+    </div>
 
-        <div class="faq-item reveal">
-          <button class="faq-q" type="button">How fit do I need to be?</button>
-          <div class="faq-a"><p>Lawn bowls is genuinely low-impact. The game involves walking and a gentle rolling action. People of all fitness levels and ages play competitively — the sport is designed to be accessible for life.</p></div>
-        </div>
+    <div class="club-grid">
 
-        <div class="faq-item reveal">
-          <button class="faq-q" type="button">How much does it cost to join?</button>
-          <div class="faq-a"><p>Club membership fees vary but are generally modest — typically $50–$200 per year depending on the club. Most clubs offer free trial lessons before you commit to joining.</p></div>
-        </div>
+      <div class="club reveal"><span class="club-name">Balboa Park</span><span class="club-city">San Diego</span></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Beverly Hills</span><span class="club-city">Beverly Hills</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info →</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Camarillo</span><span class="club-city">Camarillo</span></div>
+      <div class="club reveal"><span class="club-name">Coronado</span><span class="club-city">Coronado</span><a class="club-link" href="https://www.coronadolawnbowling.com" target="_blank" rel="noopener">Website →</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Desert Cities</span><span class="club-city">Palm Desert</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">El Dorado Park</span><span class="club-city">Long Beach</span></div>
+      <div class="club reveal"><span class="club-name">Encino</span><span class="club-city">Encino</span></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Friendly Valley</span><span class="club-city">Newhall</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Hermosa Beach</span><span class="club-city">Hermosa Beach</span></div>
+      <div class="club reveal"><span class="club-name">Irvine</span><span class="club-city">Irvine</span></div>
+      <div class="club reveal" data-d="1"><span class="club-name">La Habra</span><span class="club-city">La Habra</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Laguna Beach</span><span class="club-city">Laguna Beach</span></div>
+      <div class="club reveal"><span class="club-name">Laguna Woods</span><span class="club-city">Laguna Woods</span></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Long Beach</span><span class="club-city">Long Beach</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Los Alamitos</span><span class="club-city">Los Alamitos</span></div>
+      <div class="club reveal"><span class="club-name">Maccabee</span><span class="club-city">Los Angeles</span></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Newport Harbor</span><span class="club-city">Newport Beach</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Oxnard</span><span class="club-city">Oxnard</span></div>
+      <div class="club reveal"><span class="club-name">Palos Verdes</span><span class="club-city">Palos Verdes</span></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Pasadena</span><span class="club-city">Pasadena</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Redlands</span><span class="club-city">Redlands</span><a class="club-link" href="https://www.redlandslawnbowlingclub.com" target="_blank" rel="noopener">Website →</a></div>
+      <div class="club reveal"><span class="club-name">San Clemente</span><span class="club-city">San Clemente</span></div>
+      <div class="club reveal" data-d="1"><span class="club-name">San Diego</span><span class="club-city">San Diego</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Santa Monica</span><span class="club-city">Santa Monica</span></div>
+      <div class="club reveal"><span class="club-name">Sun City</span><span class="club-city">Sun City</span><a class="club-link" href="https://www.suncitylawnbowls.com" target="_blank" rel="noopener">Website →</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Torrance</span><span class="club-city">Torrance</span></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Ventura</span><span class="club-city">Ventura</span></div>
 
-        <div class="faq-item reveal">
-          <button class="faq-q" type="button">Can I play if I've never played before?</button>
-          <div class="faq-a"><p>Absolutely. Every club in the Southwest Division welcomes complete beginners. Most have designated beginner sessions and coaches who will walk you through everything in your first visit.</p></div>
-        </div>
+    </div>
+    <div class="club-actions reveal">
+      <a class="btn btn--navy" href="https://www.swlawnbowls.org/club-info">View Full Club Information</a>
+    </div>
+  </div>
+</section>
 
-        <div class="faq-item reveal">
-          <button class="faq-q" type="button">Is it competitive?</button>
-          <div class="faq-a"><p>As competitive as you want it to be. Many members play purely socially — Wednesday afternoon games with friends. Others compete in the full tournament season across Southern California. The sport accommodates both.</p></div>
-        </div>
+<!-- ════════ FAQ ════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Good to Know</p>
+      <h2 class="h2">Common <em>questions</em></h2>
+    </div>
+    <div class="faq">
 
-        <div class="faq-item reveal">
-          <button class="faq-q" type="button">What's the Southwest Division?</button>
-          <div class="faq-a"><p>The Southwest Division is the governing organization for lawn bowling clubs in Southern California. With 27 clubs and 1,400+ members, it's the largest of seven divisions under Bowls USA. It organizes the tournament season, represents the region at national events, and supports clubs in growing the sport.</p></div>
-        </div>
-
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button">Do I need my own equipment?</button>
+        <div class="faq-a"><p>No. Clubs provide bowls for beginners. You just need flat-soled shoes (most clubs also have loaners). Once you decide you love it, you can buy your own set — but there's no rush.</p></div>
       </div>
-    </div>
-  </section>
 
-  <!-- SECTION · Closing CTA -->
-  <section class="band band--red grain cta">
-    <div class="wrap">
-      <p class="kicker kicker--on-dark reveal">The First Game Is On Us</p>
-      <h2 class="reveal" data-d="1">Ready to <em>try it?</em></h2>
-      <p class="reveal" data-d="1">Show up at any club with flat-soled shoes. The first game is on us.</p>
-      <a class="btn btn--gold reveal" data-d="2" href="#find-a-club">Find Your Nearest Club</a>
-    </div>
-  </section>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button">How fit do I need to be?</button>
+        <div class="faq-a"><p>Lawn bowls is genuinely low-impact. The game involves walking and a gentle rolling action. People of all fitness levels and ages play competitively — the sport is designed to be accessible for life.</p></div>
+      </div>
 
-</div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button">How much does it cost to join?</button>
+        <div class="faq-a"><p>Club membership fees vary but are generally modest — typically $50–$200 per year depending on the club. Most clubs offer free trial lessons before you commit to joining.</p></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button">Can I play if I've never played before?</button>
+        <div class="faq-a"><p>Absolutely. Every club in the Southwest Division welcomes complete beginners. Most have designated beginner sessions and coaches who will walk you through everything in your first visit.</p></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button">Is it competitive?</button>
+        <div class="faq-a"><p>As competitive as you want it to be. Many members play purely socially — Wednesday afternoon games with friends. Others compete in the full tournament season across Southern California. The sport accommodates both.</p></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button">What's the Southwest Division?</button>
+        <div class="faq-a"><p>The Southwest Division is the governing organization for lawn bowling clubs in Southern California. With 27 clubs and 1,400+ members, it's the largest of seven divisions under Bowls USA. It organizes the tournament season, represents the region at national events, and supports clubs in growing the sport.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
+<section class="cta">
+  <div class="cta-bg"></div>
+  <div class="wrap">
+    <p class="kicker kicker--light reveal">The First Game Is On Us</p>
+    <h2 class="reveal" data-d="1">Ready to <em>try it?</em></h2>
+    <p class="reveal" data-d="1">Show up at any club with flat-soled shoes. The first game is on us.</p>
+    <a class="btn btn--gold reveal" data-d="2" href="#find-a-club">Find Your Nearest Club</a>
+  </div>
+</section>
 
 <script>
 (function () {
-  var body = document.body;
-
-  // ── Click-through splash (content is always in flow & scrollable) ──
-  function enterSite(e) {
-    if (e) e.preventDefault();
-    if (!body.classList.contains("entered")) {
-      body.classList.remove("intro");
-      body.classList.add("entered");
-      // after the splash collapse transition, drop it from flow & resize
-      setTimeout(function () {
-        var s = document.getElementById("splash");
-        if (s) s.style.display = "none";
-        postHeight();
-      }, 720);
-    }
-    var t = document.getElementById("start");
-    if (t) setTimeout(function () { t.scrollIntoView({ behavior: "smooth" }); }, 60);
-  }
-  var enterBtn = document.getElementById("enter-btn");
-  var enterClub = document.getElementById("enter-club");
-  if (enterBtn) enterBtn.addEventListener("click", enterSite);
-  if (enterClub) enterClub.addEventListener("click", function (e) {
-    enterSite(e);
-    setTimeout(function () {
-      var t = document.getElementById("find-a-club");
-      if (t) t.scrollIntoView({ behavior: "smooth" });
-    }, 760);
-  });
-
   // ── Scroll reveals ──
-  var revealsReady = false;
-  function setupReveals() {
-    if (revealsReady) return;
-    revealsReady = true;
-    var els = document.querySelectorAll(".site .reveal");
-    if (!("IntersectionObserver" in window)) {
-      els.forEach(function (el) { el.classList.add("in"); });
-      postHeight();
-      return;
-    }
+  var els = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) {
-          en.target.classList.add("in");
-          io.unobserve(en.target);
-          postHeight();
-        }
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); postHeight(); }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add("in"); });
   }
 
   // ── FAQ accordion (class toggle, no inline handlers) ──
   var items = document.querySelectorAll(".faq-item");
   items.forEach(function (item) {
-    var q = item.querySelector(".faq-q");
-    q.addEventListener("click", function () {
+    item.querySelector(".faq-q").addEventListener("click", function () {
       var isOpen = item.classList.contains("open");
       items.forEach(function (o) { o.classList.remove("open"); });
       if (!isOpen) item.classList.add("open");
@@ -648,11 +512,8 @@
       window.parent.postMessage({ type: "swd-event-height", height: h }, "*");
     } catch (e) {}
   }
-  if (window.ResizeObserver) {
-    new ResizeObserver(postHeight).observe(document.body);
-  }
-  setupReveals();
-  window.addEventListener("load", function () { setupReveals(); postHeight(); });
+  if (window.ResizeObserver) { new ResizeObserver(postHeight).observe(document.body); }
+  window.addEventListener("load", postHeight);
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(postHeight); }
 })();
 </script>
