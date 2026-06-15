@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delegate Assembly — Southwest Lawn Bowls</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..600&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#c53030; --red-deep:#9b2121; --navy:#1a365d; --navy-deep:#112641;
+    --gold:#f0b429; --gold-deep:#cc9512; --cream:#f7f4ed; --paper:#fff;
+    --ink:#1d2733; --muted:#5d6b7a; --line:#e9e2d4;
+    --serif:"Fraunces",Georgia,serif; --sans:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --ease:cubic-bezier(0.22,0.7,0.2,1); --shadow:0 18px 44px rgba(26,54,93,0.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}
+  .reveal[data-d="2"]{transition-delay:.16s}
+
+  .hero{position:relative;overflow:hidden;color:#fff;padding:72px 24px 64px;background:linear-gradient(120deg,var(--navy-deep) 0%,var(--navy) 52%,var(--red-deep) 120%)}
+  .hero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),#e3b450 50%,var(--gold))}
+  .hero .wrap{position:relative;z-index:2}
+  .eyebrow{text-transform:uppercase;letter-spacing:.28em;font-size:12px;font-weight:700;color:var(--gold)}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,6vw,62px);line-height:1.02;letter-spacing:-.02em;margin:14px 0 0}
+  .hero p{margin:16px 0 0;max-width:620px;font-size:clamp(16px,2.2vw,19px);color:rgba(255,255,255,.85)}
+
+  .intro{background:var(--paper);padding:40px 0}
+  .intro .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:baseline;justify-content:space-between}
+  .intro p{max-width:680px;font-size:16px;color:var(--muted)}
+  .intro a.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:999px;background:var(--navy);color:#fff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;transition:background .2s var(--ease),transform .2s var(--ease)}
+  .intro a.btn:hover{background:var(--navy-deep);transform:translateY(-2px)}
+
+  .sec{padding:clamp(40px,6vw,72px) 0 clamp(60px,8vw,96px)}
+  .dg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .dg-card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--red);border-radius:16px;padding:24px 24px 26px;box-shadow:var(--shadow);transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-top-color .18s var(--ease)}
+  .dg-card:hover{transform:translateY(-4px);border-top-color:var(--gold);box-shadow:0 24px 50px rgba(26,54,93,.16)}
+  .dg-club{font-family:var(--serif);font-weight:600;font-size:23px;color:var(--navy);line-height:1.1}
+  .dg-label{margin-top:14px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+  .dg-names{list-style:none;margin:6px 0 0}
+  .dg-names li{font-size:17px;font-weight:600;color:var(--ink);padding:3px 0}
+  .dg-email{display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:var(--red);text-decoration:none;word-break:break-word}
+  .dg-email:hover{color:var(--red-deep);text-decoration:underline}
+
+  .site-footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:40px 0}
+  .site-footer .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between}
+  .foot-brand{display:flex;align-items:center;gap:12px}
+  .foot-brand img{height:30px;width:auto;border-radius:4px}
+  .foot-brand span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff}
+  .site-footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+  .site-footer nav a{color:rgba(255,255,255,.78);text-decoration:none;font-size:14px;font-weight:600}
+  .site-footer nav a:hover{color:var(--gold)}
+
+  @media (max-width:880px){.dg-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.dg-grid{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Southwest Bowls Division</p>
+    <h1>Delegate Assembly</h1>
+    <p>The delegates representing each member club at the Southwest Division Delegate Assembly for the 2026 season.</p>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <p>Every member club appoints delegates to the SWD Delegate Assembly, which approves division policy, the tournament program, and governance. To get involved, reach out to your club's delegates or the club directly.</p>
+    <a class="btn" href="https://www.swlawnbowls.org/club-info">Full Club Information &#8594;</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="dg-grid">
+        <div class="dg-card reveal">
+          <h3 class="dg-club">Beverly Hills</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Angel Rocha</li><li>Ariyah Cohen</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">Cambria</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Ian Cameron</li><li>Jackie Hogan</li></ul>
+          <a class="dg-email" href="mailto:cambrialbc@gmail.com">cambrialbc@gmail.com</a>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Casta del Sol</h3>
+          <p class="dg-label">Delegate</p>
+          <ul class="dg-names"><li>Eleanor Reafsnyder</li></ul>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">Coronado</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Barbara Lee</li><li>John Lee</li></ul>
+          <a class="dg-email" href="mailto:coronadolawnbowling@gmail.com">coronadolawnbowling@gmail.com</a>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">Friendly Valley</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Lanny Larsen</li><li>Karen Esparza</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Hermosa Beach</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Tom Ryan</li><li>Jeri DeCastro</li></ul>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">Holmby Park</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Claudia Sego</li><li>Steve Dann</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">Laguna Beach</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Heather Stewart</li><li>Randy Hatfield</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Laguna Woods</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Joan Narmontas</li><li>Doug Bowbeer</li></ul>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">Long Beach</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Candy DeFazio</li><li>Robert Busciglio</li></ul>
+          <a class="dg-email" href="mailto:longbeachlawnbowlingclub@gmail.com">longbeachlawnbowlingclub@gmail.com</a>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">MacKenzie Park</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>George Dumas</li><li>Mary Woodyard</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Newport Harbor</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Lou Cohen</li><li>Jan Hargraves</li></ul>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">Oaks North</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Roger Gunn</li><li>Victoria Draper</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">Oxnard</h3>
+          <p class="dg-label">Delegate</p>
+          <ul class="dg-names"><li>Jack Bucey</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Pasadena</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Lee Patrick Sullivan</li><li>Tami Dorsey</li></ul>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">Pomona</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Merci Woods</li><li>Don Russell</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">Redlands</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Barbara Krause</li><li>Hugh Esterly</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Riverside</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Ed Petre</li><li>Edie Beyer</li></ul>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">San Diego</h3>
+          <p class="dg-label">Delegate</p>
+          <ul class="dg-names"><li>Dan Johnson</li></ul>
+          <a class="dg-email" href="mailto:sdlbcc@gmail.com">sdlbcc@gmail.com</a>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">Santa Ana</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Don Marthens</li><li>Richard Serrato</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Santa Anita</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Cyrus Tang</li><li>Margi Rambo</li></ul>
+          <a class="dg-email" href="mailto:info@SantaAnitaLawnBowling.com">info@SantaAnitaLawnBowling.com</a>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">Santa Barbara</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Becky Rinaldi</li><li>Jim Garcia</li></ul>
+          <a class="dg-email" href="mailto:sblawnbowlsclub@gmail.com">sblawnbowlsclub@gmail.com</a>
+        </div>
+        <div class="dg-card reveal" data-d="1">
+          <h3 class="dg-club">Santa Monica</h3>
+          <p class="dg-label">Delegate</p>
+          <ul class="dg-names"><li>TJ Bednash</li></ul>
+        </div>
+        <div class="dg-card reveal" data-d="2">
+          <h3 class="dg-club">Sun City</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Dave Rahm</li><li>Jan Pautsch</li></ul>
+        </div>
+        <div class="dg-card reveal">
+          <h3 class="dg-club">The Groves</h3>
+          <p class="dg-label">Delegates</p>
+          <ul class="dg-names"><li>Julie Kimura</li><li>Mike Porter</li></ul>
+        </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-brand">
+      <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1600389385202-YJUSL5TACAASKTTDS34L/SWBlogoRED+(002).png" alt="Southwest Bowls logo">
+      <span>Southwest Lawn Bowls</span>
+    </div>
+    <nav>
+      <a href="https://www.swlawnbowls.org">Home</a>
+      <a href="https://www.swlawnbowls.org/2026-tournaments-events">Tournaments</a>
+      <a href="https://www.swlawnbowls.org/club-info">Clubs</a>
+      <a href="https://www.swlawnbowls.org/policies-and-procedures">Policies</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);postHeight();}});},{threshold:0.1,rootMargin:"0px 0px -6% 0px"});
+    els.forEach(function(el){io.observe(el);});
+  } else { els.forEach(function(el){el.classList.add("in");}); }
+  function postHeight(){
+    if(window.parent===window) return;
+    try{var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);window.parent.postMessage({type:"swd-event-height",height:h},"*");}catch(e){}
+  }
+  if(window.ResizeObserver){new ResizeObserver(postHeight).observe(document.body);}
+  window.addEventListener("load",postHeight);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(postHeight);}
+})();
+</script>
+
+</body>
+</html>
