@@ -18,6 +18,17 @@
 <section class="swd-home-feature">
   <div class="swd-home-feature__wrap">
 
+    <!-- NEW TO THE SPORT — FEATURED BANNER -->
+    <a class="swd-welcome-banner" href="https://swd-google-calendar.vercel.app/welcome" target="_top">
+      <div class="swd-welcome-banner__bg" aria-hidden="true"></div>
+      <div class="swd-welcome-banner__content">
+        <p class="swd-welcome-banner__kicker">New to the Sport?</p>
+        <h2 class="swd-welcome-banner__title">Lawn Bowls — A Sport for Life</h2>
+        <p class="swd-welcome-banner__text">Free lessons, 26 clubs across Southern California, and a community that welcomes everyone. No experience needed — just show up.</p>
+        <span class="swd-welcome-banner__cta">Start Here — Find a Club Near You →</span>
+      </div>
+    </a>
+
     <div class="swd-home-feature__grid">
 
       <!-- LEFT: CORONADO FEATURED STORY + NEWS SIGNUP -->
@@ -129,21 +140,6 @@
           <h3>2026 Tournaments</h3>
           <p>Browse the full schedule of Southwest Division tournaments this season.</p>
           <span class="swd-explore-arrow">View 2026 Tournaments →</span>
-        </a>
-
-        <!-- NEW TO LAWN BOWLS -->
-        <a href="https://swd-google-calendar.vercel.app/welcome" target="_top" class="swd-explore-card swd-explore-card--newcomer">
-          <div class="swd-newcomer-flex">
-            <div>
-              <p class="swd-home-kicker">New to the Sport?</p>
-              <h3>Lawn Bowls — A Sport for Life</h3>
-              <p>Free lessons, 26 clubs across Southern California, and a community that welcomes everyone. No experience needed.</p>
-              <span class="swd-explore-arrow">Find a club near you →</span>
-            </div>
-            <div class="swd-newcomer-icon" aria-hidden="true">
-              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="32" cy="32" r="30" fill="#f7f4ed" stroke="#1a365d" stroke-width="2"/><circle cx="32" cy="32" r="18" fill="#c53030"/><circle cx="38" cy="26" r="5" fill="#ffffff" opacity="0.9"/><circle cx="22" cy="44" r="4" fill="#f0b429"/></svg>
-            </div>
-          </div>
         </a>
       </div>
     </div>
@@ -397,7 +393,7 @@
 
   .swd-explore-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
 
@@ -435,27 +431,93 @@
     letter-spacing: 0.02em;
   }
 
-  .swd-explore-card--newcomer {
-    background: linear-gradient(135deg, #fdf3f2 0%, #ffffff 100%);
-    border-top: 4px solid #c53030;
+  /* NEW TO THE SPORT — featured banner */
+  .swd-welcome-banner {
+    position: relative;
+    display: block;
+    margin-bottom: 26px;
+    border-radius: 26px;
+    overflow: hidden;
+    min-height: 320px;
+    text-decoration: none;
+    color: #ffffff;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+    isolation: isolate;
   }
-
-  .swd-newcomer-flex {
-    display: flex;
+  .swd-welcome-banner__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: url("https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665086501-W2WOX6MRDXYY97T680WJ/The_Groves.jpg") center 42%/cover no-repeat;
+    transform: scale(1.04);
+    transition: transform 0.6s ease;
+  }
+  .swd-welcome-banner:hover .swd-welcome-banner__bg { transform: scale(1.1); }
+  .swd-welcome-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(110deg, rgba(17,38,65,0.93) 0%, rgba(26,54,93,0.84) 44%, rgba(155,33,33,0.6) 100%);
+  }
+  .swd-welcome-banner::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    z-index: 2;
+    background: linear-gradient(90deg, #f0b429, #e3b450 50%, #f0b429);
+  }
+  .swd-welcome-banner__content {
+    position: relative;
+    z-index: 2;
+    padding: 48px 52px;
+    max-width: 700px;
+  }
+  .swd-welcome-banner__kicker {
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 800;
+    color: #f0b429;
+  }
+  .swd-welcome-banner__title {
+    margin: 0 0 14px;
+    font-size: clamp(28px, 4.2vw, 46px);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+  }
+  .swd-welcome-banner__text {
+    margin: 0 0 26px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.88);
+    max-width: 540px;
+  }
+  .swd-welcome-banner__cta {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    min-height: 54px;
+    padding: 0 30px;
+    background: #f0b429;
+    color: #16233f;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .swd-welcome-banner:hover .swd-welcome-banner__cta {
+    background: #ffc545;
+    transform: translateY(-2px);
   }
 
-  .swd-newcomer-icon {
-    flex-shrink: 0;
-    opacity: 0.85;
-  }
-
-  @media (max-width: 900px) {
-    .swd-newcomer-icon {
-      display: none;
-    }
+  @media (max-width: 640px) {
+    .swd-welcome-banner__content { padding: 34px 24px; }
+    .swd-welcome-banner { min-height: 0; }
   }
 
   .swd-streams-section {
