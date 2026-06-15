@@ -249,6 +249,16 @@
     .club-grid { grid-template-columns: 1fr; }
     .hero-actions .btn, .watch-actions .btn { width: 100%; }
   }
+  /* ════ FOOTER (back to main site) ════ */
+  .site-footer { background: var(--navy-deep); color: rgba(255,255,255,0.7); padding: 40px 0; }
+  .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; justify-content: space-between; }
+  .foot-brand { display: flex; align-items: center; gap: 12px; }
+  .foot-brand img { height: 30px; width: auto; border-radius: 4px; }
+  .foot-brand span { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: #fff; }
+  .site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  .site-footer nav a { color: rgba(255,255,255,0.78); text-decoration: none; font-size: 14px; font-weight: 600; }
+  .site-footer nav a:hover { color: var(--gold); }
+
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
     .reveal { opacity: 1; transform: none; }
@@ -267,7 +277,7 @@
     </div>
     <p class="eyebrow">Welcome to Southern California's Greens</p>
     <h1>Lawn Bowls — <em>A Sport for Life</em></h1>
-    <p class="hero-lede">The <b>2026 season is underway</b> — 27 clubs, 1,400+ bowlers, and an open spot for you on the green. No experience needed. Here's how to start.</p>
+    <p class="hero-lede">The <b>2026 season is underway</b> — 26 clubs, 1,400+ bowlers, and an open spot for you on the green. No experience needed. Here's how to start.</p>
     <div class="hero-actions">
       <a class="btn btn--gold" href="#find-a-club">Find a Club Near You</a>
       <a class="btn btn--ghost-light" href="#watch">Watch the Game</a>
@@ -279,7 +289,7 @@
 <div class="stats-shell">
   <div class="wrap">
     <div class="stats-card reveal">
-      <div class="stat"><div class="stat-num">27</div><div class="stat-label">clubs across SoCal</div></div>
+      <div class="stat"><div class="stat-num">26</div><div class="stat-label">clubs across SoCal</div></div>
       <div class="stat"><div class="stat-num">1,400+</div><div class="stat-label">Division members</div></div>
       <div class="stat"><div class="stat-num">100+ yrs</div><div class="stat-label">of the sport here</div></div>
       <div class="stat"><div class="stat-num">Free</div><div class="stat-label">first lesson at most clubs</div></div>
@@ -348,7 +358,7 @@
       <div class="card reveal" data-d="2">
         <div class="card-num">06</div>
         <h3>A Club Near You — With a Free Lesson</h3>
-        <p>In Southern California, there are 27 lawn bowling clubs. Most offer free introductory lessons — no equipment needed, just show up. Find a club near you and book your first game. And once you're a member, your club card opens doors to lawn bowling clubs around the world, usually free or for a small daily fee.</p>
+        <p>In Southern California, there are 26 lawn bowling clubs. Most offer free introductory lessons — no equipment needed, just show up. Find a club near you and book your first game. And once you're a member, your club card opens doors to lawn bowling clubs around the world, usually free or for a small daily fee.</p>
       </div>
 
     </div>
@@ -379,43 +389,42 @@
     <div class="sec-head reveal">
       <p class="kicker">Get Started</p>
       <h2 class="h2">Find a <em>club near you</em></h2>
-      <p class="lead">The Southwest Division has 27 affiliated clubs across Southern California. Most offer free introductory lessons — no equipment needed. Call or visit any club below to book your first game.</p>
+      <p class="lead">The Southwest Division has 26 affiliated clubs across Southern California. Most offer free introductory lessons — no equipment needed. Call or visit any club below to book your first game.</p>
     </div>
 
     <div class="club-banner reveal">
       <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1608665174411-JV9MCPUP7V1O1TXJE1II/NPH_2A.jpg" alt="Lawn bowling green in Southern California">
-      <div class="cap"><b>27 clubs, one welcome</b><span>From San Diego to Ventura — there's a green near you.</span></div>
+      <div class="cap"><b>26 clubs, one welcome</b><span>From San Diego to Santa Barbara — there's a green near you.</span></div>
     </div>
 
     <div class="club-grid">
 
-      <div class="club reveal"><span class="club-name">Balboa Park</span><span class="club-city">San Diego</span></div>
-      <div class="club reveal" data-d="1"><span class="club-name">Beverly Hills</span><span class="club-city">Beverly Hills</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info →</a></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Camarillo</span><span class="club-city">Camarillo</span></div>
-      <div class="club reveal"><span class="club-name">Coronado</span><span class="club-city">Coronado</span><a class="club-link" href="https://www.coronadolawnbowling.com" target="_blank" rel="noopener">Website →</a></div>
-      <div class="club reveal" data-d="1"><span class="club-name">Desert Cities</span><span class="club-city">Palm Desert</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">El Dorado Park</span><span class="club-city">Long Beach</span></div>
-      <div class="club reveal"><span class="club-name">Encino</span><span class="club-city">Encino</span></div>
-      <div class="club reveal" data-d="1"><span class="club-name">Friendly Valley</span><span class="club-city">Newhall</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Hermosa Beach</span><span class="club-city">Hermosa Beach</span></div>
-      <div class="club reveal"><span class="club-name">Irvine</span><span class="club-city">Irvine</span></div>
-      <div class="club reveal" data-d="1"><span class="club-name">La Habra</span><span class="club-city">La Habra</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Laguna Beach</span><span class="club-city">Laguna Beach</span></div>
-      <div class="club reveal"><span class="club-name">Laguna Woods</span><span class="club-city">Laguna Woods</span></div>
-      <div class="club reveal" data-d="1"><span class="club-name">Long Beach</span><span class="club-city">Long Beach</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Los Alamitos</span><span class="club-city">Los Alamitos</span></div>
-      <div class="club reveal"><span class="club-name">Maccabee</span><span class="club-city">Los Angeles</span></div>
-      <div class="club reveal" data-d="1"><span class="club-name">Newport Harbor</span><span class="club-city">Newport Beach</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Oxnard</span><span class="club-city">Oxnard</span></div>
-      <div class="club reveal"><span class="club-name">Palos Verdes</span><span class="club-city">Palos Verdes</span></div>
-      <div class="club reveal" data-d="1"><span class="club-name">Pasadena</span><span class="club-city">Pasadena</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Redlands</span><span class="club-city">Redlands</span><a class="club-link" href="https://www.redlandslawnbowlingclub.com" target="_blank" rel="noopener">Website →</a></div>
-      <div class="club reveal"><span class="club-name">San Clemente</span><span class="club-city">San Clemente</span></div>
-      <div class="club reveal" data-d="1"><span class="club-name">San Diego</span><span class="club-city">San Diego</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Santa Monica</span><span class="club-city">Santa Monica</span></div>
-      <div class="club reveal"><span class="club-name">Sun City</span><span class="club-city">Sun City</span><a class="club-link" href="https://www.suncitylawnbowls.com" target="_blank" rel="noopener">Website →</a></div>
-      <div class="club reveal" data-d="1"><span class="club-name">Torrance</span><span class="club-city">Torrance</span></div>
-      <div class="club reveal" data-d="2"><span class="club-name">Ventura</span><span class="club-city">Ventura</span></div>
+      <div class="club reveal"><span class="club-name">Beverly Hills</span><span class="club-city">Beverly Hills</span><a class="club-link" href="https://bhlbc.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Cambria</span><span class="club-city">Cambria</span><a class="club-link" href="https://www.facebook.com/CambriaLawnBowlsClub" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Casta del Sol</span><span class="club-city">Mission Viejo</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Coronado</span><span class="club-city">Coronado</span><a class="club-link" href="https://coronadolawnbowling.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Friendly Valley</span><span class="club-city">Santa Clarita</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Hemet-Joslyn</span><span class="club-city">Hemet</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Hermosa Beach</span><span class="club-city">Hermosa Beach</span><a class="club-link" href="https://hblbc.org" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Holmby Park</span><span class="club-city">Los Angeles</span><a class="club-link" href="https://www.losangeleslawnbowling.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Laguna Beach</span><span class="club-city">Laguna Beach</span><a class="club-link" href="https://lagunabeachlawnbowlingclub.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Laguna Woods</span><span class="club-city">Laguna Woods</span><a class="club-link" href="https://www.lwlbc.org" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Long Beach</span><span class="club-city">Long Beach</span><a class="club-link" href="https://longbeachlbc.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">MacKenzie Park</span><span class="club-city">Santa Barbara</span><a class="club-link" href="https://mplbc.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Newport Harbor</span><span class="club-city">Corona del Mar</span><a class="club-link" href="https://www.newportharborlbc.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Oaks North</span><span class="club-city">San Diego</span><a class="club-link" href="https://www.oaksnorthcommunity.org/lawn-bowling/" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Oxnard-Joslyn</span><span class="club-city">Oxnard</span><a class="club-link" href="https://www.oxnardlbc.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Pasadena</span><span class="club-city">Pasadena</span><a class="club-link" href="https://www.plbcc.org" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Pomona</span><span class="club-city">Pomona</span><a class="club-link" href="https://pomonalawnbowlingclub.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Redlands</span><span class="club-city">Redlands</span><a class="club-link" href="https://www.redlandslawnbowlingclub.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Riverside</span><span class="club-city">Riverside</span><a class="club-link" href="https://riversidelawnbowlingclub.godaddysites.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">San Diego</span><span class="club-city">San Diego</span><a class="club-link" href="https://sandiegolawnbowling.org" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Santa Ana</span><span class="club-city">Santa Ana</span><a class="club-link" href="https://www.santaanalawnbowling.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Santa Anita</span><span class="club-city">Arcadia</span><a class="club-link" href="https://santaanitalawnbowling.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">Santa Barbara</span><span class="club-city">Santa Barbara</span><a class="club-link" href="https://www.santabarbaralbc.org" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="2"><span class="club-name">Santa Monica</span><span class="club-city">Santa Monica</span><a class="club-link" href="https://www.smbowls.org" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal"><span class="club-name">Sun City</span><span class="club-city">Menifee</span><a class="club-link" href="https://www.suncitylawnbowls.com" target="_blank" rel="noopener">Website &#8594;</a></div>
+      <div class="club reveal" data-d="1"><span class="club-name">The Groves</span><span class="club-city">Irvine</span><a class="club-link" href="https://www.swlawnbowls.org/club-info">Club info &#8594;</a></div>
 
     </div>
     <div class="club-actions reveal">
@@ -460,7 +469,7 @@
 
       <div class="faq-item reveal">
         <button class="faq-q" type="button">What's the Southwest Division?</button>
-        <div class="faq-a"><p>The Southwest Division is the governing organization for lawn bowling clubs in Southern California. With 27 clubs and 1,400+ members, it's the largest of seven divisions under Bowls USA. It organizes the tournament season, represents the region at national events, and supports clubs in growing the sport.</p></div>
+        <div class="faq-a"><p>The Southwest Division is the governing organization for lawn bowling clubs in Southern California. With 26 clubs and 1,400+ members, it's the largest of seven divisions under Bowls USA. It organizes the tournament season, represents the region at national events, and supports clubs in growing the sport.</p></div>
       </div>
 
     </div>
@@ -477,6 +486,23 @@
     <a class="btn btn--gold reveal" data-d="2" href="#find-a-club">Find Your Nearest Club</a>
   </div>
 </section>
+
+<!-- ════════ FOOTER · back to the main site ════════ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-brand">
+      <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1600389385202-YJUSL5TACAASKTTDS34L/SWBlogoRED+(002).png" alt="Southwest Bowls logo">
+      <span>Southwest Lawn Bowls</span>
+    </div>
+    <nav>
+      <a href="https://www.swlawnbowls.org">Home</a>
+      <a href="https://www.swlawnbowls.org/2026-tournaments-events">Tournaments</a>
+      <a href="https://www.swlawnbowls.org/club-info">Clubs</a>
+      <a href="https://www.swlawnbowls.org/2026swo">Southwest Open</a>
+      <a href="https://www.youtube.com/@SouthwestLawnBowls" target="_blank" rel="noopener">SW TV</a>
+    </nav>
+  </div>
+</footer>
 
 <script>
 (function () {
