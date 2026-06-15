@@ -1999,6 +1999,49 @@
         "height": 400
       },
       "liveScoring": { "pubUrl": "", "height": 400, "width": "100%" }
+    },
+    {
+      "id": "all-comers-open-pairs-2026",
+      "title": "2026 All Comers II",
+      "subtitle": "2nd Annual · Open 3-Bowl Pairs · Labor Day Weekend",
+      "date": "Saturday, September 5 – Monday, September 7, 2026",
+      "time": "8:15 AM check-in · 9:00 AM start",
+      "schedule": [
+        "8:15 AM — Check-in & roll-ups begin",
+        "8:40 AM — Roll-ups end",
+        "8:45 AM — Announcements",
+        "9:00 AM Sharp — Competition begins",
+        "Mon, Sep 7 — Finals in the morning; Grand Final Championship games ~2:00 PM"
+      ],
+      "format": "pairs",
+      "formatDetails": "Open 3-Bowl Pairs (2 men, 2 women, or 1 man + 1 woman) · 5 qualifying games of 10 ends each day · Top 4 per day advance to Monday's finals · Max 28 teams (14 per day, even numbers only)",
+      "club": {
+        "name": "Hermosa Beach Lawn Bowling Club",
+        "address": "861 Valley Drive, Hermosa Beach, CA 90254",
+        "phone": "",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=861+Valley+Drive+Hermosa+Beach+CA+90254"
+      },
+      "fee": "$150 per team",
+      "deadline": "Entry deadline Saturday, August 1, 2026 · Capped at 28 teams (14 per qualifying day, even numbers only)",
+      "rules": [
+        "Open 3-Bowl Pairs — teams of two (2 men, 2 women, or 1 man + 1 woman); designate Skip and Lead",
+        "Qualifying (Sat & Sun): 5 games of 10 ends each day — 2 morning, 3 afternoon (~1 hr 20 min per game)",
+        "Scoring: 3 pts for a win, 1 for a tie, 0 for a loss · 7 plus/minus points maximum per game",
+        "Top 4 teams from Saturday and top 4 from Sunday advance to Monday's Grand Finals",
+        "Finals (Mon): Quarter & Semi finals 14 ends · Championship 1st/2nd 18 ends, 3rd/4th 14 ends",
+        "Blind draw for rink assignment and opponents at check-in each day",
+        "Trial ends: 2 bowls each direction · Leads may not visit the head until all their bowls are delivered; Skips only after their 2nd bowl",
+        "Matching shirts and below-the-waist attire required",
+        "No substitutions once a game begins (unexpected injury/illness at Tournament Director's discretion)",
+        "No smoking anywhere at HBLBC · No un-muted cell phones on or around the green",
+        "Prizes: $8,000 total to the top 8 teams — 1st $4,000 · 2nd $1,500 · 3rd $900 · 4th $600 · 5th–8th $150–$350 · plus 2 custom trophies & 2 custom sets of bowls for 1st"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "This event may be live streamed and officially photographed each day. By entering, you agree your image may be used for marketing and advertising by All Comers.",
+      "contact": { "name": "Darrell deCastro — Tournament Director", "phone": "", "email": "darrelldecastro@gmail.com", "mailTo": "All Comers, Hermosa Beach Lawn Bowling Club, 861 Valley Drive, Hermosa Beach, CA 90254" },
+      "flyer": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/flyer.pdf", "type": "pdf" },
+      "cops": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/cops.pdf" },
+      "paypal": { "system": "none" }
     }
   ]
 }
