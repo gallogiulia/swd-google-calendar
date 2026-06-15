@@ -117,13 +117,6 @@
       </div>
 
       <div class="swd-explore-grid">
-        <a href="https://www.swlawnbowls.org/welcome" class="swd-explore-card">
-          <p class="swd-home-kicker">New Here?</p>
-          <h3>New to Lawn Bowls?</h3>
-          <p>Never played? Start here — what the game is, how to watch, and how to find a club near you.</p>
-          <span class="swd-explore-arrow">Start with the Welcome Guide →</span>
-        </a>
-
         <a href="https://www.swlawnbowls.org/2026swo" class="swd-explore-card">
           <p class="swd-home-kicker">Featured Event</p>
           <h3>2026 Southwest Open</h3>
@@ -136,6 +129,21 @@
           <h3>2026 Tournaments</h3>
           <p>Browse the full schedule of Southwest Division tournaments this season.</p>
           <span class="swd-explore-arrow">View 2026 Tournaments →</span>
+        </a>
+
+        <!-- NEW TO LAWN BOWLS -->
+        <a href="/welcome" class="swd-explore-card swd-explore-card--newcomer">
+          <div class="swd-newcomer-flex">
+            <div>
+              <p class="swd-home-kicker">New to the Sport?</p>
+              <h3>Lawn Bowls — A Sport for Life</h3>
+              <p>Free lessons, 26 clubs across Southern California, and a community that welcomes everyone. No experience needed.</p>
+              <span class="swd-explore-arrow">Find a club near you →</span>
+            </div>
+            <div class="swd-newcomer-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="32" cy="32" r="30" fill="#f7f4ed" stroke="#1a365d" stroke-width="2"/><circle cx="32" cy="32" r="18" fill="#c53030"/><circle cx="38" cy="26" r="5" fill="#ffffff" opacity="0.9"/><circle cx="22" cy="44" r="4" fill="#f0b429"/></svg>
+            </div>
+          </div>
         </a>
       </div>
     </div>
@@ -425,6 +433,29 @@
     font-weight: 700;
     color: #0d5a43;
     letter-spacing: 0.02em;
+  }
+
+  .swd-explore-card--newcomer {
+    background: linear-gradient(135deg, #fdf3f2 0%, #ffffff 100%);
+    border-top: 4px solid #c53030;
+  }
+
+  .swd-newcomer-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .swd-newcomer-icon {
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 900px) {
+    .swd-newcomer-icon {
+      display: none;
+    }
   }
 
   .swd-streams-section {
