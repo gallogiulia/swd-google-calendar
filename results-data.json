@@ -1,6 +1,36 @@
 {
   "tournaments": [
     {
+      "id": "amador-martinez",
+      "title": "2026 Amador Martinez Triples",
+      "meta": "June 14 · Oxnard LBC",
+      "navLabel": "Amador Martinez",
+      "eventUrl": "https://swd-google-calendar.vercel.app/event?id=martinez-triples-2026",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Becky Rinaldi, Mark Hreha, Barry Hand",
+              "photo": "/photos/amador-martinez/1th-rinaldi-hreha-hand.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Phil Dunn, Candy DeFazio, Dee McSparran",
+              "photo": "/photos/amador-martinez/2th-dunn-defazio-mcsparran.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Angel Lopez, Lanny Larsen, Gloria Brown",
+              "photo": "/photos/amador-martinez/3th-lopez-larsen-brown.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "pat-gonzales",
       "title": "24th Annual Pat Gonzales Mixed Aussie Pairs",
       "meta": "June 13 · Long Beach LBC",
