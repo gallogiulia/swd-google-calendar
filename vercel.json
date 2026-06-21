@@ -1,13 +1,16 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/results",
+      "destination": "/results_new",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/",
       "destination": "/tournament_hub"
-    },
-    {
-      "source": "/results",
-      "destination": "/results_new"
     }
   ]
 }
