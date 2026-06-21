@@ -1,6 +1,36 @@
 {
   "tournaments": [
     {
+      "id": "truvic-seniors",
+      "title": "2026 TRUVIC Seniors 3 Bowls Pairs",
+      "meta": "June 20 · Beverly Hills LBC",
+      "navLabel": "TRUVIC Seniors",
+      "eventUrl": "https://swd-google-calendar.vercel.app/event?id=truvic-seniors-3-bowls-pairs-2026",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Howard Harris / Len Wasserman",
+              "photo": "/photos/truvic-seniors/1th-howard-harris-len-wasserman.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Phil Dunn / Dee McSparran",
+              "photo": "/photos/truvic-seniors/2th-phil-dunn-dee-mcsparran.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Ivan Hyland / Meanie Visenor",
+              "photo": "/photos/truvic-seniors/3th-ivan-hyland-meanie-visenor.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "amador-martinez",
       "title": "2026 Amador Martinez Triples",
       "meta": "June 14 · Oxnard LBC",
