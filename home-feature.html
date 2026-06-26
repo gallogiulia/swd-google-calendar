@@ -151,7 +151,7 @@
           <p class="swd-home-kicker">Latest Updates</p>
           <h2>What's New</h2>
         </div>
-        <a class="swd-home-btn swd-home-btn--secondary" href="https://www.swlawnbowls.org/2026-tournament-results" target="_top">All Results →</a>
+        <a class="swd-news-view-all-btn" href="https://www.swlawnbowls.org/2026-tournament-results" target="_top">All Results →</a>
       </div>
       <div class="swd-news-list" id="swd-news-list">
         <p style="color:#6b7280;font-size:15px;margin:0;">Loading updates…</p>
@@ -535,19 +535,58 @@
   }
 
   /* WHAT'S NEW */
-  .swd-news-section { margin-top: 34px; }
+  .swd-news-section {
+    margin-top: 34px;
+    background: #111827;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.16);
+    position: relative;
+    padding: 32px 36px 36px;
+  }
+  .swd-news-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f0b429 0%, #e3b450 50%, #f0b429 100%);
+  }
   .swd-news-head {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 18px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+  }
+  .swd-news-head .swd-home-kicker {
+    color: #f0b429;
   }
   .swd-news-head h2 {
-    margin: 0 0 0;
-    font-size: clamp(28px, 3vw, 40px);
+    margin: 0;
+    font-size: clamp(26px, 3vw, 38px);
     line-height: 1.08;
-    color: #111111;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+  .swd-news-view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  .swd-news-view-all-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.6);
   }
   .swd-news-list {
     display: flex;
@@ -555,25 +594,24 @@
     gap: 10px;
   }
   .swd-news-card {
-    background: #ffffff;
-    border: 1px solid #e6ece8;
-    border-left: 4px solid #e6ece8;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left: 4px solid rgba(255,255,255,0.15);
     border-radius: 14px;
     padding: 16px 20px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease;
   }
   a.swd-news-card:hover {
+    background: rgba(255,255,255,0.1);
     transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
   }
   .swd-news-card[data-type="result"]     { border-left-color: #f0b429; }
-  .swd-news-card[data-type="tournament"] { border-left-color: #0d5a43; }
-  .swd-news-card[data-type="update"]     { border-left-color: #1a3a5c; }
-  .swd-news-card[data-type="news"]       { border-left-color: #c8102e; }
+  .swd-news-card[data-type="tournament"] { border-left-color: #22c55e; }
+  .swd-news-card[data-type="update"]     { border-left-color: #60a5fa; }
+  .swd-news-card[data-type="news"]       { border-left-color: #f87171; }
   .swd-news-card-top {
     display: flex;
     align-items: center;
@@ -589,34 +627,41 @@
     border-radius: 999px;
     color: #ffffff;
   }
-  .swd-news-pill--result     { background: #b58a00; }
-  .swd-news-pill--tournament { background: #0d5a43; }
-  .swd-news-pill--update     { background: #1a3a5c; }
-  .swd-news-pill--news       { background: #c8102e; }
+  .swd-news-pill--result     { background: #92700a; color: #fde68a; }
+  .swd-news-pill--tournament { background: rgba(34,197,94,0.2); color: #86efac; border: 1px solid rgba(34,197,94,0.35); }
+  .swd-news-pill--update     { background: rgba(96,165,250,0.2); color: #bfdbfe; border: 1px solid rgba(96,165,250,0.35); }
+  .swd-news-pill--news       { background: rgba(248,113,113,0.2); color: #fca5a5; border: 1px solid rgba(248,113,113,0.35); }
   .swd-news-date {
     font-size: 12px;
     font-weight: 600;
-    color: #6b7280;
+    color: rgba(255,255,255,0.45);
   }
   .swd-news-title {
     margin: 0 0 4px;
     font-size: 16px;
     font-weight: 700;
     line-height: 1.3;
-    color: #111111;
+    color: #ffffff;
   }
   .swd-news-body {
     margin: 0;
     font-size: 14px;
     line-height: 1.5;
-    color: #4b5563;
+    color: rgba(255,255,255,0.65);
   }
+  .swd-news-card[data-type="result"]     .swd-news-arrow { color: #f0b429; }
+  .swd-news-card[data-type="tournament"] .swd-news-arrow { color: #86efac; }
+  .swd-news-card[data-type="update"]     .swd-news-arrow { color: #93c5fd; }
+  .swd-news-card[data-type="news"]       .swd-news-arrow { color: #fca5a5; }
   .swd-news-arrow {
     display: inline-block;
     margin-top: 8px;
     font-size: 13px;
     font-weight: 700;
-    color: #0d5a43;
+  }
+  @media (max-width: 640px) {
+    .swd-news-section { padding: 24px 20px 28px; }
+    .swd-news-head { flex-direction: column; align-items: flex-start; gap: 14px; }
   }
 
   .swd-streams-section {
