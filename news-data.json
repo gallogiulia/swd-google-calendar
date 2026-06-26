@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "date": "2026-06-26",
+      "type": "update",
+      "title": "Men's Singles Playdowns — Live Scoring Added",
+      "body": "Real-time scoring spreadsheet is now live on the event page.",
+      "link": ""
+    },
+    {
+      "date": "2026-06-25",
+      "type": "update",
+      "title": "Women's Singles Playdowns — Live Scoring Added",
+      "body": "Real-time scoring spreadsheet is now live on the event page.",
+      "link": ""
+    },
+    {
+      "date": "2026-06-21",
+      "type": "tournament",
+      "title": "Maccabee Pairs — Entries Now Open",
+      "body": "Sunday, September 27 · Beverly Hills LBC · $100 per team · 4-bowl pairs.",
+      "link": "https://swd-google-calendar.vercel.app/event?id=maccabee-pairs-2026"
+    },
+    {
+      "date": "2026-06-21",
+      "type": "update",
+      "title": "Women's Singles Playdowns — R1 Documents Updated",
+      "body": "Flyer and Conditions of Play updated to the Round 1 versions.",
+      "link": ""
+    },
+    {
+      "date": "2026-06-20",
+      "type": "result",
+      "title": "TRUVIC Seniors 3 Bowls Pairs — Results Posted",
+      "body": "1st Harris / Wasserman · 2nd Dunn / McSparran · 3rd Hyland / Vizenor",
+      "link": "https://www.swlawnbowls.org/2026-tournament-results"
+    },
+    {
+      "date": "2026-06-14",
+      "type": "result",
+      "title": "Amador Martinez Triples — Results Posted",
+      "body": "1st Rinaldi, Hreha, Hand · 2nd Dunn, DeFazio, McSparran · 3rd Lopez, Larsen, Brown",
+      "link": "https://www.swlawnbowls.org/2026-tournament-results"
+    }
+  ]
+}
