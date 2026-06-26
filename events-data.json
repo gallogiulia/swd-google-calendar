@@ -1048,13 +1048,13 @@
         "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
       },
       "flyer": {
-        "externalUrl": "https://docs.google.com/document/d/e/2PACX-1vQZXE_Usvt9wrvwaeGYIj7pudqdPD7q0r4v2LjbuvTxb0mKslgzhqyC8TlAbEEY15_q7jBL7p2uN7NA/pub?embedded=true",
-        "localPath": "",
-        "type": "gdoc"
+        "externalUrl": "",
+        "localPath": "/pdfs/womens-us-nationals-singles-playdowns-2026/flyer.pdf",
+        "type": "pdf"
       },
       "cops": {
-        "externalUrl": "https://docs.google.com/document/d/e/2PACX-1vQgrwrKjbVoCIfbumC92VPR3Q27tmij12ymy-LO1d_oUj3HioSmdTbUb6ckr6IRAyCsYmDO8uIsHt4G/pub?embedded=true",
-        "localPath": ""
+        "externalUrl": "",
+        "localPath": "/pdfs/womens-us-nationals-singles-playdowns-2026/cops.pdf"
       },
       "paypal": {
         "system": "embed",
@@ -2042,6 +2042,42 @@
       "flyer": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/flyer.pdf", "type": "pdf" },
       "cops": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/cops.pdf" },
       "paypal": { "system": "none" }
+    },
+    {
+      "id": "maccabee-pairs-2026",
+      "title": "2026 Maccabee Pairs",
+      "subtitle": "Club Sponsored",
+      "date": "Sunday, September 27, 2026",
+      "time": "8:30 AM check-in · 9:00 AM start",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "4-Bowl Pairs · 4 games × 10 ends",
+      "club": {
+        "name": "Beverly Hills Lawn Bowling Club",
+        "address": "401 S Roxbury Dr, Beverly Hills, CA 90212",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=401+S+Roxbury+Dr+Beverly+Hills+CA+90212"
+      },
+      "fee": "$100 per team",
+      "deadline": "",
+      "rules": [
+        "Open to all — men's, women's, mixed, or matched teams of two",
+        "4 bowls · 4 games of 10 ends",
+        "Check-in 8:30 AM · Play starts 9:00 AM",
+        "Bring your own lunch; light snacks provided",
+        "Entry fee $100 per team — pay via Zelle to treasurer@bhlbc.com, or check payable to BHLBC",
+        "Submit entries: text players' names to 818-571-4261, or mail to Catherine Uribe, 19118 Vista Grande Way, Porter Ranch, CA 91326"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": { "name": "Catherine Uribe", "phone": "818-571-4261", "email": "", "mailTo": "Catherine Uribe, 19118 Vista Grande Way, Porter Ranch, CA 91326" },
+      "flyer": { "externalUrl": "", "localPath": "/pdfs/maccabee-pairs-2026/flyer.pdf", "type": "pdf" },
+      "cops": { "externalUrl": "", "localPath": "" },
+      "paypal": { "system": "none" },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTlos5yNC306VRtQe2qQQmq-QzfDdiCV2Qsl8wZ-GDsOSJf5sQ-Y_KOrEJQ1KDEa9M3GP-luwhWDbb/pubhtml?widget=true&headers=false",
+        "height": 400
+      },
+      "liveScoring": { "pubUrl": "", "height": 1800, "width": "100%" }
     }
   ]
 }
