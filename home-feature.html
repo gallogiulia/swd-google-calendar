@@ -46,6 +46,18 @@
           scrolling="auto"
           loading="eager"></iframe>
       </div>
+      <div class="swd-live-bracket-wrap">
+        <div class="swd-live-scoreboard-label">Monday Draw — Final Day Bracket</div>
+        <div class="swd-live-bracket-scroll">
+          <iframe
+            class="swd-live-bracket-frame"
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQZBJRa4oQHlAk4gndUOvTzwc-hbQyDYMn3aitRjLsx1TDBucBUPXsLWtrltfOl5FVf4nblYD-DIAzK/pubhtml?gid=42177802&single=true&widget=false&headers=false"
+            title="Monday Draw — Men's Singles Playdowns"
+            frameborder="0"
+            scrolling="auto"
+            loading="eager"></iframe>
+        </div>
+      </div>
     </div>
 
     <!-- NEW TO THE SPORT — FEATURED BANNER -->
@@ -991,6 +1003,21 @@
     border: none;
     background: transparent;
     margin: 0 auto;
+  }
+  .swd-live-bracket-wrap {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.2);
+  }
+  .swd-live-bracket-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .swd-live-bracket-frame {
+    display: block;
+    width: 1300px;
+    height: 520px;
+    border: none;
+    background: #ffffff;
   }
   @media (max-width: 700px) {
     .swd-live-alert-inner { flex-direction: column; align-items: flex-start; padding: 20px 20px 16px; }
