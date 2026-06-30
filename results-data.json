@@ -1,6 +1,31 @@
 {
   "tournaments": [
     {
+      "id": "mens-singles-playdowns-2026",
+      "title": "2026 Men's Singles US National Playdowns",
+      "meta": "June 27–29 · Long Beach LBC",
+      "navLabel": "Men's Singles Playdowns",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/swd-usplaydownsmenssingles26",
+      "divisions": [
+        {
+          "label": "Stripes",
+          "columns": 1,
+          "places": [
+            {"rank": 1, "names": "Charlie Herbert", "photo": "/photos/mens-singles-playdowns-2026/stripes-1th-charlie-herbert.jpg"},
+            {"rank": 2, "names": "Michael Siddall", "photo": "/photos/mens-singles-playdowns-2026/stripes-2th-michael-siddall.jpg"}
+          ]
+        },
+        {
+          "label": "Stars",
+          "columns": 1,
+          "places": [
+            {"rank": 1, "names": "Peter Ritchie", "photo": "/photos/mens-singles-playdowns-2026/stars-1th-peter-ritchie.jpg"},
+            {"rank": 2, "names": "Bill Brault", "photo": "/photos/mens-singles-playdowns-2026/stars-2th-bill-brault.jpg"}
+          ]
+        }
+      ]
+    },
+    {
       "id": "truvic-seniors",
       "title": "2026 TRUVIC Seniors 3 Bowls Pairs",
       "meta": "June 20 · Beverly Hills LBC",
