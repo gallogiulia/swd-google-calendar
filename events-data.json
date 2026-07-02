@@ -2041,7 +2041,12 @@
       "contact": { "name": "Darrell deCastro — Tournament Director", "phone": "", "email": "darrelldecastro@gmail.com", "mailTo": "All Comers, Hermosa Beach Lawn Bowling Club, 861 Valley Drive, Hermosa Beach, CA 90254" },
       "flyer": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/flyer.pdf", "type": "pdf" },
       "cops": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/cops.pdf" },
-      "paypal": { "system": "none" }
+      "paypal": { "system": "none" },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-9oKA2rpYc1FRNojWN_471bX5ivQIRyVsgD7jGnod02P54VaWeh1rHleGHusJLaMyoHbDgM3amr0S/pubhtml?widget=true&headers=false",
+        "height": 400
+      },
+      "liveScoring": { "pubUrl": "", "height": 1800, "width": "100%" }
     },
     {
       "id": "maccabee-pairs-2026",
@@ -2074,7 +2079,7 @@
       "cops": { "externalUrl": "", "localPath": "" },
       "paypal": { "system": "none" },
       "entries": {
-        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-9oKA2rpYc1FRNojWN_471bX5ivQIRyVsgD7jGnod02P54VaWeh1rHleGHusJLaMyoHbDgM3amr0S/pubhtml?widget=true&headers=false",
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTlos5yNC306VRtQe2qQQmq-QzfDdiCV2Qsl8wZ-GDsOSJf5sQ-Y_KOrEJQ1KDEa9M3GP-luwhWDbb/pubhtml?widget=true&headers=false",
         "height": 400
       },
       "liveScoring": { "pubUrl": "", "height": 1800, "width": "100%" }
