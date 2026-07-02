@@ -1,13 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-06-29",
-      "type": "result",
-      "title": "Men's Singles Playdowns — Results Posted",
-      "body": "Stars: 1st Ritchie · 2nd Brault · Stripes: 1st Herbert · 2nd Siddall",
-      "link": "https://www.swlawnbowls.org/2026-tournament-results"
-    },
-    {
       "date": "2026-06-26",
       "type": "update",
       "title": "Men's Singles Playdowns — Live Scoring Added",
@@ -34,20 +27,6 @@
       "title": "Women's Singles Playdowns — R1 Documents Updated",
       "body": "Flyer and Conditions of Play updated to the Round 1 versions.",
       "link": ""
-    },
-    {
-      "date": "2026-06-20",
-      "type": "result",
-      "title": "TRUVIC Seniors 3 Bowls Pairs — Results Posted",
-      "body": "1st Harris / Wasserman · 2nd Dunn / McSparran · 3rd Hyland / Vizenor",
-      "link": "https://www.swlawnbowls.org/2026-tournament-results"
-    },
-    {
-      "date": "2026-06-14",
-      "type": "result",
-      "title": "Amador Martinez Triples — Results Posted",
-      "body": "1st Rinaldi, Hreha, Hand · 2nd Dunn, DeFazio, McSparran · 3rd Lopez, Larsen, Brown",
-      "link": "https://www.swlawnbowls.org/2026-tournament-results"
     }
   ]
 }

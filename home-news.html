@@ -162,15 +162,33 @@
 <script>
 (function () {
   const NEWS_TYPE = {
+    live:       { label: "🔴 Live Now", cls: "swd-news-pill--live" },
     result:     { label: "Results",    cls: "swd-news-pill--result" },
     tournament: { label: "Tournament", cls: "swd-news-pill--tournament" },
     update:     { label: "Update",     cls: "swd-news-pill--update" },
     news:       { label: "News",       cls: "swd-news-pill--news" }
   };
 
-  function fmtDate(s) {
-    const d = new Date(s + "T12:00:00");
+  function fmtDate(d) {
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  }
+
+  function resultBody(t) {
+    const divs = t.divisions || [];
+    if (!divs.length) return "";
+    if (divs.length === 1) {
+      return divs[0].places.slice(0, 3).map((p, i) =>
+        ["1st","2nd","3rd"][i] + " " + p.names
+      ).join(" · ");
+    }
+    return divs.map(d =>
+      (d.label ? d.label + ": " : "") + (d.places[0] ? d.places[0].names : "")
+    ).join(" · ");
+  }
+
+  function resultDate(t) {
+    const m = t.meta && t.meta.match(/^([A-Za-z]+ \d+)/);
+    return m ? new Date(m[1] + ", 2026") : new Date(0);
   }
 
   function reportHeight() {
@@ -184,17 +202,38 @@
     const el = document.getElementById("swd-news-list");
     if (!el) return;
     try {
-      const res = await fetch("/news-data.json?v=" + new Date().getTime());
-      const data = await res.json();
-      const items = (data.items || []).slice(0, 8);
-      el.innerHTML = items.map(item => {
+      const ts = new Date().getTime();
+      const [nr, rr] = await Promise.all([
+        fetch("/news-data.json?v=" + ts),
+        fetch("/results-data.json?v=" + ts)
+      ]);
+      const newsData    = await nr.json();
+      const resultsData = await rr.json();
+
+      const customItems = (newsData.items || []).map(item => ({
+        ...item, _date: new Date(item.date + "T12:00:00")
+      }));
+
+      const resultItems = (resultsData.tournaments || []).map(t => ({
+        type:  "result",
+        title: t.title + " — Results Posted",
+        body:  resultBody(t),
+        link:  t.eventUrl || "https://www.swlawnbowls.org/2026-tournament-results",
+        _date: resultDate(t)
+      }));
+
+      const all = [...customItems, ...resultItems]
+        .sort((a, b) => b._date - a._date)
+        .slice(0, 8);
+
+      el.innerHTML = all.map(item => {
         const c = NEWS_TYPE[item.type] || NEWS_TYPE.news;
         const tag = item.link ? "a" : "div";
         const href = item.link ? ` href="${item.link}" target="_top"` : "";
         return `<${tag} class="swd-news-card" data-type="${item.type}"${href}>
           <div class="swd-news-card-top">
             <span class="swd-news-pill ${c.cls}">${c.label}</span>
-            <span class="swd-news-date">${fmtDate(item.date)}</span>
+            <span class="swd-news-date">${fmtDate(item._date)}</span>
           </div>
           <p class="swd-news-title">${item.title}</p>
           ${item.body ? `<p class="swd-news-body">${item.body}</p>` : ""}
