@@ -2001,6 +2001,46 @@
       "liveScoring": { "pubUrl": "", "height": 400, "width": "100%" }
     },
     {
+      "id": "san-diego-mixed-triples-2026",
+      "title": "2026 San Diego Invitational Mixed Triples",
+      "subtitle": "San Diego Lawn Bowling Club Invitational",
+      "date": "Saturday, August 22, 2026",
+      "time": "8:30 AM check-in · 9:00 AM start",
+      "schedule": [
+        "8:30 AM — Check-in",
+        "8:45 AM — Announcements",
+        "8:50 AM — Trial ends",
+        "9:00 AM — Games start (two games before lunch)",
+        "Four 10-end games · 3 bowls · Bring your own lunch"
+      ],
+      "format": "triples",
+      "formatDetails": "Mixed Triples · 3 bowls · 4 games of 10 ends",
+      "club": {
+        "name": "San Diego Lawn Bowling Club",
+        "address": "Balboa Park, San Diego, CA",
+        "phone": "",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=San+Diego+Lawn+Bowling+Club+Balboa+Park+San+Diego+CA"
+      },
+      "fee": "$120 per team",
+      "deadline": "",
+      "rules": [
+        "Mixed Triples — identify all team members and their respective positions with payment",
+        "4 games of 10 ends · 3 bowls",
+        "Check-in 8:30 AM · Announcements 8:45 AM · Trial ends 8:50 AM · Play starts 9:00 AM",
+        "Two games before lunch · bring your own lunch",
+        "Light refreshments and beverages provided after games; limited breakfast and lunch items available",
+        "Entry fee $120.00 per team — send check payable to SDLBC and mail to: Leonard Wasserman, 12775 Azzuro Court, San Diego, CA 92130"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": { "name": "Len Wasserman", "phone": "(858) 243-4930", "email": "leonardwasserman92@gmail.com", "mailTo": "Leonard Wasserman, 12775 Azzuro Court, San Diego, CA 92130" },
+      "flyer": { "externalUrl": "", "localPath": "", "type": "" },
+      "cops": { "externalUrl": "", "localPath": "" },
+      "paypal": { "system": "none" },
+      "entries": { "pubUrl": "", "height": 400 },
+      "liveScoring": { "pubUrl": "", "height": 400, "width": "100%" }
+    },
+    {
       "id": "all-comers-open-pairs-2026",
       "title": "2026 All Comers II",
       "subtitle": "2nd Annual · Open 3-Bowl Pairs · Labor Day Weekend",

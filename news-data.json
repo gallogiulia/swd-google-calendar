@@ -1,6 +1,13 @@
 {
   "items": [
     {
+      "date": "2026-07-03",
+      "type": "tournament",
+      "title": "San Diego Invitational Mixed Triples — Entries Now Open",
+      "body": "Saturday, August 22 · San Diego LBC · $120 per team · Mixed 3-bowl triples.",
+      "link": "https://swd-google-calendar.vercel.app/event?id=san-diego-mixed-triples-2026"
+    },
+    {
       "date": "2026-06-26",
       "type": "update",
       "title": "Men's Singles Playdowns — Live Scoring Added",
