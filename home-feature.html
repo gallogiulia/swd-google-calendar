@@ -74,8 +74,9 @@
         </div>
       </div>
 
-      <!-- RIGHT: YOUTUBE LIVE / LATEST -->
-      <div class="swd-home-panel swd-home-panel--video">
+      <!-- RIGHT: SW TV VIDEO + FACEBOOK FEED -->
+      <div class="swd-home-panel">
+        <div class="swd-home-panel--video">
         <div class="swd-home-video-head">
           <div class="swd-home-video-brand">
             <img src="https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/1e671410-711c-43a6-b8f6-2d0eb0c295a2/Livestream_Swish_White_SM+%282%29.png?format=750w" alt="Southwest TV Logo" />
@@ -98,6 +99,22 @@
         <div class="swd-home-actions swd-home-actions--tight">
           <a class="swd-home-btn swd-home-btn--primary" href="https://www.youtube.com/playlist?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO" target="_blank" rel="noopener">Open HOW! Playlist</a>
           <a class="swd-home-btn swd-home-btn--secondary" href="https://www.youtube.com/@SouthwestLawnBowls/playlists" target="_blank" rel="noopener">View All Playlists</a>
+        </div>
+        </div>
+
+        <!-- FACEBOOK FEED -->
+        <div class="swd-home-fb-box">
+          <div class="swd-home-fb-box__inner">
+            <p class="swd-home-kicker">Follow Us</p>
+            <h3>Southwest Bowls on Facebook</h3>
+            <div class="swd-home-fb-embed">
+              <iframe
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61574126130618&tabs=timeline&width=400&height=640&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                width="400" height="640"
+                scrolling="no" frameborder="0" allowfullscreen="true"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -237,6 +254,35 @@
 
   .swd-home-news-box__inner .swd-home-btn {
     margin-top: 18px;
+  }
+
+  /* Facebook feed card (right column, under SW TV) */
+  .swd-home-fb-box {
+    margin-top: 20px;
+    background: #ffffff;
+    border: 1px solid #e6ece8;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+  }
+  .swd-home-fb-box__inner {
+    padding: 26px 24px;
+  }
+  .swd-home-fb-box__inner h3 {
+    margin: 0 0 16px;
+    font-size: clamp(24px, 2.2vw, 32px);
+    line-height: 1.15;
+    color: #111111;
+  }
+  .swd-home-fb-embed {
+    display: flex;
+    justify-content: center;
+  }
+  .swd-home-fb-embed iframe {
+    border: none;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px;
   }
 
   .swd-home-open-image img {
