@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SW Facebook Feed — Test</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f8f4; color: #111; margin: 0; padding: 40px 20px; }
+    .wrap { max-width: 480px; margin: 0 auto; }
+    h1 { font-size: 22px; margin: 0 0 6px; }
+    p.note { color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0 0 24px; }
+    .card { background: #fff; border: 1px solid #e6ece8; border-radius: 26px; box-shadow: 0 14px 30px rgba(0,0,0,0.06); padding: 24px; }
+    .kicker { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: #6b7280; margin: 0 0 6px; }
+    h2 { font-size: 24px; margin: 0 0 16px; }
+    .fb-embed { display: flex; justify-content: center; }
+    .fb-embed iframe { border: none; overflow: hidden; width: 100%; max-width: 500px; }
+    .check { margin-top: 24px; font-size: 14px; color: #374151; background: #fff; border: 1px solid #e6ece8; border-radius: 14px; padding: 16px 18px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Southwest Facebook Feed — Test</h1>
+    <p class="note">This is a throwaway test page. If the box below shows the Southwest Bowls Facebook posts, the embed works and I'll add it to the homepage. If it's blank or shows an error, we'll use a fallback instead.</p>
+
+    <div class="card">
+      <p class="kicker">Follow Us</p>
+      <h2>Southwest Lawn Bowls on Facebook</h2>
+      <div class="fb-embed">
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61574126130618&tabs=timeline&width=400&height=560&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+          width="400" height="560"
+          scrolling="no" frameborder="0" allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="check">
+      <strong>What to look for:</strong> the Southwest Bowls page name/cover and a scroll of recent posts.
+      <br />If it's empty, also try it in a normal browser window (not private/incognito) with any ad-blocker paused — Facebook embeds are commonly blocked by those.
+    </div>
+  </div>
+</body>
+</html>
