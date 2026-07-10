@@ -1988,17 +1988,35 @@
       ],
       "noviceDefinition": "",
       "livestreamNotice": "",
-      "contact": { "name": "", "phone": "", "email": "", "mailTo": "" },
-      "flyer": { "externalUrl": "", "localPath": "/pdfs/cambria-open-pairs-2026/flyer.jpg", "type": "image" },
-      "cops": { "externalUrl": "", "localPath": "/pdfs/cambria-open-pairs-2026/cops.pdf" },
+      "contact": {
+        "name": "",
+        "phone": "",
+        "email": "",
+        "mailTo": ""
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/cambria-open-pairs-2026/flyer.jpg",
+        "type": "image"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": "/pdfs/cambria-open-pairs-2026/cops.pdf"
+      },
       "registrationUrl": "https://forms.gle/b1LeJUtCnjPCq5ZK9",
       "registrationLabel": "Register — Entry Form",
-      "paypal": { "system": "none" },
+      "paypal": {
+        "system": "none"
+      },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQHUVnPIYLTu-W4_pzvLT-JHu0TygFpT--dA5mtAeUPN0lgUbd37A2jt1PPfbDhB2CRp-J9IurjHce0/pubhtml?widget=true&headers=false",
         "height": 400
       },
-      "liveScoring": { "pubUrl": "", "height": 400, "width": "100%" }
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
     },
     {
       "id": "san-diego-mixed-triples-2026",
@@ -2033,10 +2051,24 @@
       ],
       "noviceDefinition": "",
       "livestreamNotice": "",
-      "contact": { "name": "Len Wasserman", "phone": "(858) 243-4930", "email": "leonardwasserman92@gmail.com", "mailTo": "Leonard Wasserman, 12775 Azzuro Court, San Diego, CA 92130" },
-      "flyer": { "externalUrl": "", "localPath": "", "type": "" },
-      "cops": { "externalUrl": "", "localPath": "" },
-      "paypal": { "system": "none" },
+      "contact": {
+        "name": "Len Wasserman",
+        "phone": "(858) 243-4930",
+        "email": "leonardwasserman92@gmail.com",
+        "mailTo": "Leonard Wasserman, 12775 Azzuro Court, San Diego, CA 92130"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": ""
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ46nK1G0lY0cJG5Me0cPXA8tvvmX75fT11kVYAoy8Ato1tzA0c0bahbUuL0HykpG1bGJU_TuN01wtE/pubhtml?widget=true&headers=false",
         "height": 400
@@ -2085,15 +2117,33 @@
       ],
       "noviceDefinition": "",
       "livestreamNotice": "This event may be live streamed and officially photographed each day. By entering, you agree your image may be used for marketing and advertising by All Comers.",
-      "contact": { "name": "Darrell deCastro — Tournament Director", "phone": "", "email": "darrelldecastro@gmail.com", "mailTo": "All Comers, Hermosa Beach Lawn Bowling Club, 861 Valley Drive, Hermosa Beach, CA 90254" },
-      "flyer": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/flyer.pdf", "type": "pdf" },
-      "cops": { "externalUrl": "", "localPath": "/pdfs/all-comers-open-pairs-2026/cops.pdf" },
-      "paypal": { "system": "none" },
+      "contact": {
+        "name": "Darrell deCastro — Tournament Director",
+        "phone": "",
+        "email": "darrelldecastro@gmail.com",
+        "mailTo": "All Comers, Hermosa Beach Lawn Bowling Club, 861 Valley Drive, Hermosa Beach, CA 90254"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/all-comers-open-pairs-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": "/pdfs/all-comers-open-pairs-2026/cops.pdf"
+      },
+      "paypal": {
+        "system": "none"
+      },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-9oKA2rpYc1FRNojWN_471bX5ivQIRyVsgD7jGnod02P54VaWeh1rHleGHusJLaMyoHbDgM3amr0S/pubhtml?widget=true&headers=false",
         "height": 400
       },
-      "liveScoring": { "pubUrl": "", "height": 1800, "width": "100%" }
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
     },
     {
       "id": "maccabee-pairs-2026",
@@ -2121,15 +2171,99 @@
       ],
       "noviceDefinition": "",
       "livestreamNotice": "",
-      "contact": { "name": "Catherine Uribe", "phone": "818-571-4261", "email": "", "mailTo": "Catherine Uribe, 19118 Vista Grande Way, Porter Ranch, CA 91326" },
-      "flyer": { "externalUrl": "", "localPath": "/pdfs/maccabee-pairs-2026/flyer.pdf", "type": "pdf" },
-      "cops": { "externalUrl": "", "localPath": "" },
-      "paypal": { "system": "none" },
+      "contact": {
+        "name": "Catherine Uribe",
+        "phone": "818-571-4261",
+        "email": "",
+        "mailTo": "Catherine Uribe, 19118 Vista Grande Way, Porter Ranch, CA 91326"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/maccabee-pairs-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTlos5yNC306VRtQe2qQQmq-QzfDdiCV2Qsl8wZ-GDsOSJf5sQ-Y_KOrEJQ1KDEa9M3GP-luwhWDbb/pubhtml?widget=true&headers=false",
         "height": 400
       },
-      "liveScoring": { "pubUrl": "", "height": 1800, "width": "100%" }
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "eileen-morton-powerplay-triples-2026",
+      "title": "2026 Eileen Morton Powerplay Triples",
+      "subtitle": "2-Bowl Triples · Southwest's Only Powerplay Tournament",
+      "date": "Saturday, August 29, 2026",
+      "time": "8:15 AM check-in & practice · 9:00 AM trial ends",
+      "schedule": [
+        "8:15 AM — Check-in and practice begins",
+        "8:50 AM — Announcements",
+        "9:00 AM — Trial ends begin"
+      ],
+      "format": "triples",
+      "formatDetails": "2-Bowl Triples · any mix of genders · Four 12-end games (trial ends before the first game only) · 1 powerplay allowed per game — doubles your team's score on an end, must be declared before the jack is set · Maximum of 14 teams",
+      "club": {
+        "name": "Santa Barbara Lawn Bowls Club",
+        "address": "1216 De La Vina St., Santa Barbara, CA 93101",
+        "phone": "",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1216+De+La+Vina+St+Santa+Barbara+CA+93101"
+      },
+      "fee": "$120 per team · 100% paid out in prizes ($1,000 to the winning team, assuming 14 teams register)",
+      "deadline": "",
+      "rules": [
+        "Snacks, beverages, and lunch provided",
+        "Scoring: 3 game points for a win, 1 for a tie, 0 for a loss · 5 plus/minus points maximum per game",
+        "A bye, if necessary, counts as a game won, with an average winning score for that round",
+        "Tournament rank determined by game points, then plus points, then points against",
+        "Tournament tie: one-end playoff between the skips to determine the winner",
+        "Burnt end: jack re-spotted on the 2-meter mark on the centerline",
+        "Teams should wear matching shirts",
+        "When the second-to-last team finishes each game, the last team may not roll another jack",
+        "Skips may visit the head after their first bowl; Leads and Vices may not visit the head",
+        "Substitutes must be identified and approved by the Tournament Director before the start of any game (exception for unexpected injury/illness) — no substitute may play skip",
+        "Prize money: 1st $1,005 · 2nd $465 · 3rd $210"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "Santa Barbara Lawn Bowls Club",
+        "phone": "",
+        "email": "",
+        "mailTo": ""
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/eileen-morton-powerplay-triples-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": "/pdfs/eileen-morton-powerplay-triples-2026/cops.pdf"
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "registrationUrl": "https://www.santabarbaralbc.org/eileen",
+      "registrationLabel": "Register",
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRO5JIJiy9wypCbmD2cu2d4FAUGnDH4gZ8CDy1DDxGmWjXWjDNufe_pkxeWPmdFL_t-5Hu5wFBCE2iU/pubhtml?widget=true&headers=false",
+        "height": 500
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
     }
   ]
 }

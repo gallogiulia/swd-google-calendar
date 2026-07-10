@@ -1,6 +1,36 @@
 {
   "tournaments": [
     {
+      "id": "friendly-valley-mix-match-triples-2026",
+      "title": "2026 Friendly Valley Mix/Match Triples",
+      "meta": "May 16 · Friendly Valley LBC",
+      "navLabel": "Friendly Valley Mix/Match Triples",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/26friendly-valley-mixmatch-triples",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 3,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Corey Vose, Shane Hansanuwat, Mike Koizumi",
+              "photo": ""
+            },
+            {
+              "rank": 2,
+              "names": "Steve Marsh, Ron Irwin, Mark Coutee",
+              "photo": ""
+            },
+            {
+              "rank": 3,
+              "names": "Terry Mar, Greg Poshepny, Dave Morrison",
+              "photo": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "mens-singles-playdowns-2026",
       "title": "2026 Men's Singles US National Playdowns",
       "meta": "June 27–29 · Long Beach LBC",
@@ -11,16 +41,32 @@
           "label": "Stripes",
           "columns": 1,
           "places": [
-            {"rank": 1, "names": "Charlie Herbert", "photo": "/photos/mens-singles-playdowns-2026/stripes-1th-charlie-herbert.jpg"},
-            {"rank": 2, "names": "Michael Siddall", "photo": "/photos/mens-singles-playdowns-2026/stripes-2th-michael-siddall.jpg"}
+            {
+              "rank": 1,
+              "names": "Charlie Herbert",
+              "photo": "/photos/mens-singles-playdowns-2026/stripes-1th-charlie-herbert.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Michael Siddall",
+              "photo": "/photos/mens-singles-playdowns-2026/stripes-2th-michael-siddall.jpg"
+            }
           ]
         },
         {
           "label": "Stars",
           "columns": 1,
           "places": [
-            {"rank": 1, "names": "Peter Ritchie", "photo": "/photos/mens-singles-playdowns-2026/stars-1th-peter-ritchie.jpg"},
-            {"rank": 2, "names": "Bill Brault", "photo": "/photos/mens-singles-playdowns-2026/stars-2th-bill-brault.jpg"}
+            {
+              "rank": 1,
+              "names": "Peter Ritchie",
+              "photo": "/photos/mens-singles-playdowns-2026/stars-1th-peter-ritchie.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Bill Brault",
+              "photo": "/photos/mens-singles-playdowns-2026/stars-2th-bill-brault.jpg"
+            }
           ]
         }
       ]
@@ -182,10 +228,26 @@
           "label": null,
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Richie Estrella, Derek Rosales, Heather Lewis", "photo": "/photos/john-clark/1th-richie-estrella-derek-rosales-heather-lewis.jpg" },
-            { "rank": 2, "names": "Vaughn Feather, Trish Soto, Bruce Sew Hoy", "photo": "/photos/john-clark/2th-vaughn-feather-trish-soto-bruce-sew-hoy.jpg" },
-            { "rank": 3, "names": "Inger Benson, Elliott Kuhn, Jeff Notte", "photo": "/photos/john-clark/3th-inger-benson-elliott-kuhn-jeff-notte.jpg" },
-            { "rank": 4, "names": "Pat Minnehan, Joan Narmontas, Mark Coutee", "photo": "/photos/john-clark/4th-pat-minnehan-joan-narmontas-mark-coutee.jpg" }
+            {
+              "rank": 1,
+              "names": "Richie Estrella, Derek Rosales, Heather Lewis",
+              "photo": "/photos/john-clark/1th-richie-estrella-derek-rosales-heather-lewis.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Vaughn Feather, Trish Soto, Bruce Sew Hoy",
+              "photo": "/photos/john-clark/2th-vaughn-feather-trish-soto-bruce-sew-hoy.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Inger Benson, Elliott Kuhn, Jeff Notte",
+              "photo": "/photos/john-clark/3th-inger-benson-elliott-kuhn-jeff-notte.jpg"
+            },
+            {
+              "rank": 4,
+              "names": "Pat Minnehan, Joan Narmontas, Mark Coutee",
+              "photo": "/photos/john-clark/4th-pat-minnehan-joan-narmontas-mark-coutee.jpg"
+            }
           ]
         }
       ]
@@ -201,9 +263,21 @@
           "label": null,
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Joan Robbins", "photo": "/photos/womens-singles/1th-joan-robbins.jpg" },
-            { "rank": 2, "names": "Eva Lee", "photo": "/photos/womens-singles/2th-eva-lee.jpg" },
-            { "rank": 3, "names": "Giulia Gallo", "photo": "/photos/womens-singles/3th-giulia-gallo.jpg" }
+            {
+              "rank": 1,
+              "names": "Joan Robbins",
+              "photo": "/photos/womens-singles/1th-joan-robbins.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Eva Lee",
+              "photo": "/photos/womens-singles/2th-eva-lee.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Giulia Gallo",
+              "photo": "/photos/womens-singles/3th-giulia-gallo.jpg"
+            }
           ]
         }
       ]
@@ -219,31 +293,55 @@
           "label": null,
           "columns": 2,
           "places": [
-            { "rank": 1, "names": "Rooz Ehdaie / Mike Koizumi", "photo": "/photos/disney-pairs/1th-rooz-ehdaie-mike-koizumi.jpg" },
-            { "rank": 2, "names": "Russ Kindorf / Peter Ritchie", "photo": "/photos/disney-pairs/2th-russ-kindorf-peter-ritchie.jpg" },
-            { "rank": 3, "names": "Dean Warmington / Terry Mar", "photo": "/photos/disney-pairs/3th-dean-warmington-terry-mar.jpg" }
+            {
+              "rank": 1,
+              "names": "Rooz Ehdaie / Mike Koizumi",
+              "photo": "/photos/disney-pairs/1th-rooz-ehdaie-mike-koizumi.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Russ Kindorf / Peter Ritchie",
+              "photo": "/photos/disney-pairs/2th-russ-kindorf-peter-ritchie.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Dean Warmington / Terry Mar",
+              "photo": "/photos/disney-pairs/3th-dean-warmington-terry-mar.jpg"
+            }
           ]
         }
       ]
     },
     {
-  "id": "joe-siegman",
-  "title": "2026 Joe Siegman Pairs",
-  "meta": "May 3 · Beverly Hills LBC",
-  "navLabel": "Joe Siegman Pairs",
-  "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/fpplunwh37kg2txohzdqaljob3f8yw-68nys",
-  "divisions": [
-    {
-      "label": null,
-      "columns": 2,
-      "places": [
-        { "rank": 1, "names": "Bill Brault / Victor Green", "photo": "/photos/joe-siegman/1th-bill-brault-victor-green.jpg" },
-        { "rank": 2, "names": "Charlie Herbert / Matt Bauchiero", "photo": "/photos/joe-siegman/2th-charlie-herbert-matt-bauchiero.jpg" },
-        { "rank": 3, "names": "Angel Lopez / Steve Goodmanson", "photo": "/photos/joe-siegman/3th-angel-lopez-steve-goodmanson.jpg" }
+      "id": "joe-siegman",
+      "title": "2026 Joe Siegman Pairs",
+      "meta": "May 3 · Beverly Hills LBC",
+      "navLabel": "Joe Siegman Pairs",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/fpplunwh37kg2txohzdqaljob3f8yw-68nys",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Bill Brault / Victor Green",
+              "photo": "/photos/joe-siegman/1th-bill-brault-victor-green.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Charlie Herbert / Matt Bauchiero",
+              "photo": "/photos/joe-siegman/2th-charlie-herbert-matt-bauchiero.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Angel Lopez / Steve Goodmanson",
+              "photo": "/photos/joe-siegman/3th-angel-lopez-steve-goodmanson.jpg"
+            }
+          ]
+        }
       ]
-    }
-  ]
-},
+    },
     {
       "id": "vet-novice-mix-match-triples",
       "title": "2026 SWD Vet/Novice Mix/Match Triples",
