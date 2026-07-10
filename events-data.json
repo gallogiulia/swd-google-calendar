@@ -2264,6 +2264,58 @@
         "height": 400,
         "width": "100%"
       }
+    },
+    {
+      "id": "laguna-open-pairs-2026",
+      "title": "2026 Laguna Open Pairs",
+      "subtitle": "SWD Open Pairs · Women Sat Aug 15 · Men Sun Aug 16",
+      "date": "Saturday, August 15 (Women) & Sunday, August 16, 2026 (Men)",
+      "time": "",
+      "schedule": [],
+      "format": "pairs",
+      "formatDetails": "Open Pairs — full format and schedule to be posted soon",
+      "club": {
+        "name": "Laguna Beach Lawn Bowling Club",
+        "address": "455 Cliff Dr, Laguna Beach, CA 92651",
+        "phone": "949-494-1811",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=455+Cliff+Dr+Laguna+Beach+CA+92651"
+      },
+      "fee": "TBD — check back soon",
+      "deadline": "",
+      "rules": [
+        "Full conditions of play to be posted soon — contact the club for details"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "Laguna Beach Lawn Bowling Club",
+        "phone": "949-494-1811",
+        "email": "info@lagunabeachlawnbowlingclub.com",
+        "mailTo": ""
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "registrationUrl": "https://lagunabeachlawnbowlingclub.com/swd-%26-open-competitions",
+      "registrationLabel": "Register / Entry Info (Laguna Beach LBC)",
+      "entries": {
+        "pubUrl": "",
+        "height": 400
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
     }
   ]
 }
