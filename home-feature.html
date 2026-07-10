@@ -48,13 +48,14 @@
       </div>
       <div class="swd-live-bracket-wrap">
         <div class="swd-live-scoreboard-label">Draw / Bracket</div>
-        <div class="swd-live-bracket-scroll">
+        <div class="swd-live-bracket-scale" id="swd-bracket-scale">
           <iframe
             class="swd-live-bracket-frame"
+            id="swd-bracket-frame"
             src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT2gFDtdpqA817614dpnOj7W4wVXS9VjUZEEFPA0jfsueoWjtFLb53r8G9nJtcewQqhjwUBW1Y5NcCL/pubhtml?widget=true&headers=false"
             title="Draw — Women's Singles Playdowns"
             frameborder="0"
-            scrolling="auto"
+            scrolling="no"
             loading="eager"></iframe>
         </div>
       </div>
@@ -1054,11 +1055,10 @@
     border-top: 1px solid rgba(255,255,255,0.1);
     background: rgba(0,0,0,0.2);
   }
-  .swd-live-bracket-scroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    display: flex;
-    justify-content: center;
+  .swd-live-bracket-scale {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
   }
   .swd-live-bracket-frame {
     display: block;
@@ -1066,6 +1066,7 @@
     height: 520px;
     border: none;
     background: #ffffff;
+    transform-origin: top left;
   }
   @media (max-width: 700px) {
     .swd-live-alert-inner { flex-direction: column; align-items: flex-start; padding: 20px 20px 16px; }
@@ -1648,9 +1649,21 @@
     }
   }
 
+  function scaleBracket() {
+    const wrap = document.getElementById("swd-bracket-scale");
+    const frame = document.getElementById("swd-bracket-frame");
+    if (!wrap || !frame) return;
+    const nativeW = 1300, nativeH = 520;
+    const scale = wrap.clientWidth / nativeW;
+    frame.style.transform = "scale(" + scale + ")";
+    wrap.style.height = Math.round(nativeH * scale) + "px";
+  }
+
   function initAll() {
     renderUpcomingStreams();
     loadNews();
+    scaleBracket();
+    window.addEventListener("resize", scaleBracket);
     setTimeout(initSouthwestTV, 600);
   }
 
