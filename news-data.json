@@ -1,6 +1,27 @@
 {
   "items": [
     {
+      "date": "2026-07-24",
+      "type": "update",
+      "title": "US Nationals Pairs Playdowns — Live Scoring Added",
+      "body": "Real-time scoring is now live on both the Men's and Women's event pages for July 25 – August 2.",
+      "link": ""
+    },
+    {
+      "date": "2026-07-09",
+      "type": "tournament",
+      "title": "Laguna Open Pairs — Entries Now Open",
+      "body": "Saturday, August 15 (Women) & Sunday, August 16 (Men) · Laguna Beach LBC.",
+      "link": "https://swd-google-calendar.vercel.app/event?id=laguna-open-pairs-2026"
+    },
+    {
+      "date": "2026-07-09",
+      "type": "tournament",
+      "title": "Eileen Morton Powerplay Triples — Entries Now Open",
+      "body": "Saturday, August 29 · Santa Barbara LBC · $120 per team · 2-Bowl Triples, 1 powerplay per game · $1,000 to the winning team.",
+      "link": "https://swd-google-calendar.vercel.app/event?id=eileen-morton-powerplay-triples-2026"
+    },
+    {
       "date": "2026-07-03",
       "type": "tournament",
       "title": "San Diego Invitational Mixed Triples — Entries Now Open",
