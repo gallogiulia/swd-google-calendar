@@ -1,6 +1,88 @@
 {
   "tournaments": [
     {
+      "id": "womens-pairs-playdowns-2026",
+      "title": "2026 Women's Pairs US National Playdowns",
+      "meta": "Jul 25–Aug 2 · Newport Harbor LBC / Laguna Beach LBC",
+      "navLabel": "Women's Pairs Playdowns",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/swd-usplaydownswomenspairs26",
+      "divisions": [
+        {
+          "label": "Stripes",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Benson / Narmontas",
+              "photo": "/photos/womens-pairs-playdowns-2026/1th-benson-narmontas.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Wright / Billon",
+              "photo": "/photos/womens-pairs-playdowns-2026/2th-wright-billon.jpg"
+            }
+          ]
+        },
+        {
+          "label": "Stars",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Spease / Urane",
+              "photo": "/photos/womens-pairs-playdowns-2026/1th-spease-urane.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Hedgespeth / Thompson",
+              "photo": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mens-pairs-playdowns-2026",
+      "title": "2026 Men's Pairs US National Playdowns",
+      "meta": "Jul 25–Aug 2 · Newport Harbor LBC / Laguna Beach LBC",
+      "navLabel": "Men's Pairs Playdowns",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/swd-usplaydownsmenspairs26",
+      "divisions": [
+        {
+          "label": "Stripes",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Angel / Javier",
+              "photo": "/photos/mens-pairs-playdowns-2026/1th-angel-javier.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Chris / Tom",
+              "photo": "/photos/mens-pairs-playdowns-2026/2th-chris-tom.jpg"
+            }
+          ]
+        },
+        {
+          "label": "Stars",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Sadri / Rooz",
+              "photo": "/photos/mens-pairs-playdowns-2026/1th-sadri-rooz.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Shane / Corey",
+              "photo": "/photos/mens-pairs-playdowns-2026/2th-shane-corey.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "friendly-valley-mix-match-triples-2026",
       "title": "2026 Friendly Valley Mix/Match Triples",
       "meta": "May 16 · Friendly Valley LBC",
