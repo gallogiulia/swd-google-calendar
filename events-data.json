@@ -2316,6 +2316,66 @@
         "height": 400,
         "width": "100%"
       }
+    },
+    {
+      "id": "newport-911-mixed-rinks-2026",
+      "title": "2026 Newport Harbor 911 Mixed Rinks",
+      "subtitle": "Mixed Rinks",
+      "date": "Saturday, September 12, 2026",
+      "time": "8:45 AM announcements · 9:00 AM trial ends",
+      "schedule": [
+        "8:45 AM — Announcements",
+        "9:00 AM — Trial ends",
+        "Four 10-end games"
+      ],
+      "format": "rinks",
+      "formatDetails": "Mixed Rinks (4-player teams, at least 1 female + 1 male) · Four 10-end games",
+      "club": {
+        "name": "Newport Harbor LBC",
+        "address": "1550 Crown Drive North, Corona del Mar, CA 92625",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1550+Crown+Drive+North+Corona+del+Mar+CA+92625"
+      },
+      "fee": "$120 per team",
+      "deadline": "All entries must be received by Saturday, September 5, 2026 (TBDs not allowed after this date — players must be identified or the spot goes to the next team on the wait list)",
+      "rules": [
+        "All entered teams must consist of at least one female and one male player",
+        "Four 10-end games",
+        "Limited to 24 teams — entries accepted in even numbers only",
+        "$800 to the 1st place team (dependent upon number of entries)",
+        "Bring your own lunch and a refillable water bottle",
+        "Open to all members of clubs affiliated with the SWD",
+        "Dress Code: Club shirts or any matching team shirts",
+        "Standard SWD Conditions of Play for Rinks, with time-limit applied (no jacks rolled once the 2nd-to-last game in any round completes play)"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "",
+        "phone": "",
+        "email": "",
+        "mailTo": "NHLBC – Newport 911 Rinks, Newport Harbor LBC, 1550 Crown Drive North, Corona del Mar, CA 92625"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/newport-911-mixed-rinks-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSXkwhVgRnmsP8iDD5ARnJ8yKFI6N1Uzgxx5fPkp8Mxc4sgQbjZEZqXqP-DVBfXjsez-T1eoBu9tUHV/pubhtml?widget=true&headers=false",
+        "height": 400
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
     }
   ]
 }
