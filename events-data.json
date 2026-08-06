@@ -585,7 +585,7 @@
         "height": 400
       },
       "liveScoring": {
-        "pubUrl": "",
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQpc25BVtbCWGqA-xxccS9_Ee3lzx4mxJ7hIUoxCOzJsglx5P3RumrdTD6qRGTGXC2l61gqbIrIcC7i/pubhtml?widget=true&headers=false",
         "height": 1800,
         "width": "100%"
       }
@@ -1209,7 +1209,7 @@
         "height": 400
       },
       "liveScoring": {
-        "pubUrl": "",
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRX12nEG4SttpBICf3L_GdO3SLCqcPUorYbSUIwdudxhG2vwbHKVhA_IYNi4603Mkcl9IACsXwLYnZV/pubhtml?widget=true&headers=false",
         "height": 1800,
         "width": "100%"
       }
