@@ -633,7 +633,7 @@
         "height": 400
       },
       "liveScoring": {
-        "pubUrl": "",
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBvlTaqzihezTw7eUuRPPkDaie14U55QiHygnEs5cqYyv18O5_oh9HOfzJTDLEAsgsGm0xTs8kISFG/pubhtml?widget=true&headers=false",
         "height": 1800,
         "width": "100%"
       }
