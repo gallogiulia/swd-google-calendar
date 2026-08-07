@@ -203,6 +203,9 @@
     const divisionsHtml = t.divisions.map(div => {
       const gridClass = div.columns === 3 ? 'swlb-grid-3' : 'swlb-grid';
       const divLabel = div.label ? `<div class="swlb-green-label">${esc(div.label)}</div>` : '';
+      // Multi-discipline events (e.g. SW Open) publish one results page per division;
+      // everything else falls back to the single tournament-level link.
+      const divUrl = div.eventUrl || t.eventUrl;
       const cards = div.places.map(p => {
         const style = p.rankStyle || rankStyle(p.rank);
         const label = rankLabel(p.rank);
@@ -218,7 +221,7 @@
             </div>
             <div class="swlb-card-body">
               <div class="swlb-card-names">${esc(p.names)}</div>
-              <a class="swlb-card-link" href="${esc(t.eventUrl)}">
+              <a class="swlb-card-link" href="${esc(divUrl)}">
                 <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
                 View full results
               </a>
