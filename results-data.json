@@ -1,6 +1,119 @@
 {
   "tournaments": [
     {
+      "id": "fossati-friends-womens-triples-2026",
+      "title": "2026 Fossati & Friends Women's Triples",
+      "meta": "August 9 · Newport Harbor LBC",
+      "navLabel": "Fossati & Friends Triples",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/fossati-and-friends26",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Nancy Santos, Rita Greenberg, Janice Walter"
+            },
+            {
+              "rank": 2,
+              "names": "Anne Nunes, Kottia Spangler-Moore, Manya Urane"
+            },
+            {
+              "rank": 3,
+              "names": "Mary Spease, Suzie Houston, Lee Ang"
+            },
+            {
+              "rank": 4,
+              "names": "Dee McSparran, Janice Bell, Kim Davis"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cary-macdonald-mens-pairs-2026",
+      "title": "2026 SWD Men's Cary/MacDonald Pairs",
+      "meta": "August 8–9 · Long Beach LBC",
+      "navLabel": "Cary/MacDonald Pairs",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/swd-mens-cary-macdonald-3-bowl-pairs26",
+      "divisions": [
+        {
+          "label": "Cary",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Rooz Ehdaie / Evan Katz",
+              "photo": "/photos/cary-macdonald-mens-pairs-2026/1th-ehdaie-katz.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Russ Kindorf / Chris Dodd",
+              "photo": "/photos/cary-macdonald-mens-pairs-2026/2th-kindorf-dodd.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Peter Ritchie / Chris Trenschel"
+            },
+            {
+              "rank": 4,
+              "names": "Tom Richeson / Connor Gaulke"
+            }
+          ]
+        },
+        {
+          "label": "MacDonald",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "John Monahan / Kevin Lacey"
+            },
+            {
+              "rank": 2,
+              "names": "Brian Stewart / Angel Rocha"
+            },
+            {
+              "rank": 3,
+              "names": "Robert Busciglio / Mike Koizumi"
+            },
+            {
+              "rank": 4,
+              "names": "Angel Lopez / Darrell DeCastro"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "womens-division-rinks-2026",
+      "title": "2026 SWD Women's Division Rinks",
+      "meta": "August 8 · Coronado LBC",
+      "navLabel": "Women's Division Rinks",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/swd-womens-division-rinks26",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "A. Nunes / J. Hedgespeth / M. Spease / M. Thompson"
+            },
+            {
+              "rank": 2,
+              "names": "J. Robbins / T. Soto / J. Blair / K. Lacey"
+            },
+            {
+              "rank": 3,
+              "names": "M. Vizenor / K. Davis / E. Bowles / P. Gould"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "womens-pairs-playdowns-2026",
       "title": "2026 Women's Pairs US National Playdowns",
       "meta": "Jul 25–Aug 2 · Newport Harbor LBC / Laguna Beach LBC",
