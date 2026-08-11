@@ -13,19 +13,23 @@
           "places": [
             {
               "rank": 1,
-              "names": "Nancy Santos, Rita Greenberg, Janice Walter"
+              "names": "Nancy Santos, Rita Greenberg, Janice Walter",
+              "photo": "/photos/fossati-friends-womens-triples-2026/1th-santos-greenberg-walter.jpg"
             },
             {
               "rank": 2,
-              "names": "Anne Nunes, Kottia Spangler-Moore, Manya Urane"
+              "names": "Anne Nunes, Kottia Spangler-Moore, Manya Urane",
+              "photo": "/photos/fossati-friends-womens-triples-2026/2th-nunes-spangler-moore-urane.jpg"
             },
             {
               "rank": 3,
-              "names": "Mary Spease, Suzie Houston, Lee Ang"
+              "names": "Mary Spease, Suzie Houston, Lee Ang",
+              "photo": "/photos/fossati-friends-womens-triples-2026/3th-spease-houston-ang.jpg"
             },
             {
               "rank": 4,
-              "names": "Dee McSparran, Janice Bell, Kim Davis"
+              "names": "Dee McSparran, Janice Bell, Kim Davis",
+              "photo": "/photos/fossati-friends-womens-triples-2026/4th-mcsparran-bell-davis.jpg"
             }
           ]
         }
@@ -101,15 +105,18 @@
           "places": [
             {
               "rank": 1,
-              "names": "A. Nunes / J. Hedgespeth / M. Spease / M. Thompson"
+              "names": "A. Nunes / J. Hedgespeth / M. Spease / M. Thompson",
+              "photo": "/photos/womens-division-rinks-2026/1th-nunes-hedgespeth-spease-thompson.jpg"
             },
             {
               "rank": 2,
-              "names": "J. Robbins / T. Soto / J. Blair / K. Lacey"
+              "names": "J. Robbins / T. Soto / J. Blair / K. Lacey",
+              "photo": "/photos/womens-division-rinks-2026/2th-robbins-soto-blair-lacey.jpg"
             },
             {
               "rank": 3,
-              "names": "M. Vizenor / K. Davis / E. Bowles / P. Gould"
+              "names": "M. Vizenor / K. Davis / E. Bowles / P. Gould",
+              "photo": "/photos/womens-division-rinks-2026/3th-vizenor-davis-bowles-gould.jpg"
             }
           ]
         }
