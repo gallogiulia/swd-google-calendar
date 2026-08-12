@@ -2376,6 +2376,69 @@
         "height": 1800,
         "width": "100%"
       }
+    },
+    {
+      "id": "oaks-north-mixed-triples-2026",
+      "title": "2026 Oaks North Mixed Triples",
+      "subtitle": "Oaks North Lawn Bowling Club Invitational",
+      "date": "Saturday, October 10, 2026",
+      "time": "8:30 AM registration · 9:00 AM start",
+      "schedule": [
+        "8:30 AM — Register",
+        "8:45 AM — Announcements",
+        "9:00 AM — Games start",
+        "Three 12-end games"
+      ],
+      "format": "triples",
+      "formatDetails": "Mixed Triples · Three 12-end games",
+      "club": {
+        "name": "Oaks North Lawn Bowling Club",
+        "address": "Oaks North Community Center, 12578 Oaks North Drive, San Diego, CA 92128",
+        "phone": "",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=12578+Oaks+North+Drive+San+Diego+CA+92128"
+      },
+      "fee": "$120 per team",
+      "deadline": "Entry deadline: October 3, 2026",
+      "rules": [
+        "Teams must be mixed",
+        "Three 12-end games",
+        "Entry fee $120 per team — make check payable to Oaks North Lawn Bowling Club (ONLBC)",
+        "Reserve your spot via email to donthorp@gmail.com",
+        "Entry fee and form must be received by US Mail within 72 hours of the email reservation",
+        "Mail to: Don Thorp, 17770 Plaza Acosta, San Diego, CA 92128",
+        "Name all players and include the skip's name, email and phone number",
+        "Prizes based on the number of entries",
+        "Salads, desserts and water provided — bring your own lunch"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "Don Thorp",
+        "phone": "",
+        "email": "donthorp@gmail.com",
+        "mailTo": "Don Thorp, 17770 Plaza Acosta, San Diego, CA 92128"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/oaks-north-mixed-triples-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQVAoPlGaiNjrnBF7Rj9hwW6_9HxEojFxtsTxHrrsmNmQOPv6Qq-ZNeCjOJPjFeJL81LdOLHpKlMHGY/pubhtml?widget=true&headers=false",
+        "height": 400
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
     }
   ]
 }
