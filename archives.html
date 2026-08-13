@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Result History | Southwest Lawn Bowls</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<style>
+  :root { --navy:#1a365d; --red:#c53030; --gold:#b7791f; --ink:#2d3748; --muted:#718096; --line:#e2e8f0; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #fff; color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  .arc-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px 60px; }
+  .arc-head { border-bottom: 3px solid var(--navy); padding-bottom: 18px; margin-bottom: 34px; }
+  .arc-head h1 {
+    margin: 0; color: var(--navy); font-weight: 900; font-size: 2.4rem;
+    text-transform: uppercase; letter-spacing: -1px;
+  }
+  .arc-head p { margin: 8px 0 0; color: var(--muted); font-size: 1rem; }
+
+  .arc-year { margin-bottom: 38px; }
+  .arc-year-hd { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+  .arc-year-hd h2 {
+    margin: 0; color: var(--navy); font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px;
+  }
+  .arc-tag {
+    font-size: 0.7rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
+    color: #fff; background: var(--red); padding: 3px 10px; border-radius: 999px;
+  }
+  .arc-note { color: var(--muted); font-size: 0.9rem; margin: 0 0 14px; }
+
+  .arc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .arc-card {
+    display: block; text-decoration: none; background: #fff; border: 1px solid var(--line);
+    border-left: 5px solid var(--navy); border-radius: 10px; padding: 18px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .arc-card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,0.12); border-left-color: var(--red); }
+  .arc-card strong { display: block; color: var(--navy); font-weight: 800; font-size: 1.05rem; }
+  .arc-card span { display: block; color: var(--muted); font-size: 0.86rem; margin-top: 4px; }
+  .arc-card.is-open { border-left-color: var(--gold); }
+
+  .arc-foot {
+    margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.85rem;
+  }
+  .arc-foot a { color: var(--navy); font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .arc-head h1 { font-size: 1.8rem; }
+    .arc-year-hd h2 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="arc-wrap">
+
+  <div class="arc-head">
+    <h1>Result History</h1>
+    <p>Every SWD tournament result, season by season. Championship events (Southwest Open, US Playdowns) are listed alongside the year they belong to.</p>
+  </div>
+
+  <section class="arc-year">
+    <div class="arc-year-hd"><h2>2026</h2><span class="arc-tag">Current season</span></div>
+    <div class="arc-grid">
+      <a class="arc-card" href="https://www.swlawnbowls.org/2026-tournament-results">
+        <strong>2026 Tournament Results</strong>
+        <span>All divisional and club-sponsored results, updated through the season</span>
+      </a>
+      <a class="arc-card is-open" href="https://www.swlawnbowls.org/2026swo">
+        <strong>2026 Southwest Open</strong>
+        <span>Men's and Women's championship events</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="arc-year">
+    <div class="arc-year-hd"><h2>2025</h2></div>
+    <p class="arc-note">Note: in 2025 the Southwest Open and US Playdowns were published on their own pages rather than with the rest of the season.</p>
+    <div class="arc-grid">
+      <a class="arc-card" href="https://www.swlawnbowls.org/2025-tournament-results">
+        <strong>2025 Tournament Results</strong>
+        <span>Club-sponsored, SWD Men's and SWD Women's events</span>
+      </a>
+      <a class="arc-card is-open" href="https://www.swlawnbowls.org/2025-southwest-open-full-results">
+        <strong>2025 Southwest Open — Full Results</strong>
+        <span>Men's Rinks, Pairs &amp; Singles · Women's Rinks, Pairs &amp; Singles · Getaway 2+2</span>
+      </a>
+      <a class="arc-card is-open" href="https://www.swlawnbowls.org/2025-usplaydowns">
+        <strong>2025 US Playdowns</strong>
+        <span>Singles and Pairs playdown results</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="arc-year">
+    <div class="arc-year-hd"><h2>2024</h2></div>
+    <div class="arc-grid">
+      <a class="arc-card" href="https://www.swlawnbowls.org/2024results">
+        <strong>2024 Tournament Results</strong>
+        <span>Full season, including Southwest Open Men's and Women's Fours, Pairs &amp; Singles</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="arc-year">
+    <div class="arc-year-hd"><h2>2023</h2></div>
+    <div class="arc-grid">
+      <a class="arc-card" href="https://www.swlawnbowls.org/2023-results">
+        <strong>2023 Tournament Results</strong>
+        <span>Full season, including SWD Open Men's and Women's Fours, Pairs &amp; Singles</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="arc-year">
+    <div class="arc-year-hd"><h2>2022</h2></div>
+    <div class="arc-grid">
+      <a class="arc-card" href="https://www.swlawnbowls.org/results-2022">
+        <strong>2022 Tournament Results</strong>
+        <span>Full season, including the 2022 Southwest Open</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="arc-foot">
+    Looking for a specific tournament? Each year page has an index of every event at the top —
+    click a tournament name to jump straight to its results.
+    Ladies Day results are kept separately at
+    <a href="https://www.swlawnbowls.org/ladies-day-results">Ladies Day Results</a>.
+  </div>
+
+</div>
+
+<!-- Broadcast height to the embedding parent (Squarespace) so the iframe can auto-resize -->
+<script>
+(function () {
+  function postHeightToParent() {
+    if (window.parent === window) return;
+    try {
+      var h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      window.parent.postMessage({ type: "swd-event-height", height: h }, "*");
+    } catch (e) {}
+  }
+  if (window.ResizeObserver) new ResizeObserver(postHeightToParent).observe(document.body);
+  window.addEventListener("load", postHeightToParent);
+})();
+</script>
+</body>
+</html>
