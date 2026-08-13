@@ -129,6 +129,13 @@ const SECTIONS = [
 ];
 const FLIGHTS = ["Stars", "Stripes"];
 
+// Display-only full names for this page. The results carousel keeps publishing the
+// short forms it already uses; this maps them to full names here and nowhere else.
+const FULL_NAMES = {
+  "Sadri / Rooz":   "Sadri Jazayeri / Rooz Ehdaie",
+  "Angel / Javier": "Angel Gomez / Javier Gomez"
+};
+
 function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => (
     { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
@@ -144,10 +151,11 @@ function winnerOf(tournament, flight) {
 
 function card(cat, flight, place) {
   const cls = flight.toLowerCase();
+  const full = place && place.names ? (FULL_NAMES[place.names] || place.names) : "";
   const media = place && place.photo
-    ? `<img src="${esc(place.photo)}" alt="${esc(cat)} ${esc(flight)} qualifier — ${esc(place.names)}" loading="lazy">`
+    ? `<img src="${esc(place.photo)}" alt="${esc(cat)} ${esc(flight)} qualifier — ${esc(full)}" loading="lazy">`
     : `<div class="nt-pending">Results pending</div>`;
-  const names = place && place.names ? esc(place.names) : "To be confirmed";
+  const names = full ? esc(full) : "To be confirmed";
   return `
     <div class="nt-card">
       <div class="nt-flight ${cls}">${esc(flight)}</div>
