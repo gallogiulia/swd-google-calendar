@@ -191,10 +191,24 @@ const YEARS = [
   },
   {
     year: 2022,
-    external: {
-      url: "https://www.swlawnbowls.org/results-2022",
-      label: "2022 playdown results",
-      note: "Sections within the 2022 results page."
+    // Photos came off the 2022 results page, filed by flight and discipline. As in 2023,
+    // the Men's Singles shots show two players together, so they are held back until the
+    // winner can be identified. Women's Singles photos are named per player but the page
+    // does not say which flight each won.
+    note: "Names to be confirmed. Men's Singles photos from that year show two players together, so they are not shown yet.",
+    team: {
+      singles: [
+        { flight: "Stars",   cat: "Men's Singles",   names: "" },
+        { flight: "Stripes", cat: "Men's Singles",   names: "" },
+        { flight: "Stars",   cat: "Women's Singles", names: "" },
+        { flight: "Stripes", cat: "Women's Singles", names: "" }
+      ],
+      pairs: [
+        { flight: "Stars",   cat: "Men's Pairs",   names: "", photo: "/photos/nationals-2022/stars-mens-pairs.png" },
+        { flight: "Stripes", cat: "Men's Pairs",   names: "", photo: "/photos/nationals-2022/stripes-mens-pairs.png" },
+        { flight: "Stars",   cat: "Women's Pairs", names: "", photo: "/photos/nationals-2022/stars-womens-pairs.png" },
+        { flight: "Stripes", cat: "Women's Pairs", names: "", photo: "/photos/nationals-2022/stripes-womens-pairs.png" }
+      ]
     }
   }
 ];
