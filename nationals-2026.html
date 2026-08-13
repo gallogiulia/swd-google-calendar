@@ -48,6 +48,21 @@
     background: #f7fafc; color: #a0aec0; font-size: 0.85rem; font-weight: 600; text-align: center; padding: 0 16px;
   }
 
+  .nt-years {
+    margin: 0 0 34px; padding: 14px 16px;
+    background: #f7fafc; border: 1px solid var(--line); border-radius: 12px;
+  }
+  .nt-years-hd { margin: 0 0 10px; font-weight: 800; font-size: 0.85rem; color: var(--navy); }
+  .nt-years-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .nt-years-list a, .nt-years-list span {
+    text-decoration: none; font-weight: 700; font-size: 0.85rem;
+    border-radius: 999px; padding: 6px 14px; white-space: nowrap;
+    border: 1px solid #cbd5e0; color: var(--navy); background: #fff;
+  }
+  .nt-years-list a:hover { border-color: var(--navy); }
+  .nt-years-list span.current { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .nt-years-note { margin: 10px 0 0; color: var(--muted); font-size: 0.78rem; }
+
   .nt-foot {
     margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
     color: var(--muted); font-size: 0.88rem;
@@ -63,6 +78,21 @@
   <div class="nt-head">
     <h1>2026 U.S. Nationals Team</h1>
     <p>The Southwest Division players who qualified for the U.S. Nationals by winning their flight at the 2026 playdowns.</p>
+  </div>
+
+  <div class="nt-years">
+    <p class="nt-years-hd">Nationals team by year</p>
+    <div class="nt-years-list">
+      <span class="current">2026</span>
+      <a href="https://www.swlawnbowls.org/2025-usplaydowns" target="_top">2025</a>
+      <a href="https://www.swlawnbowls.org/2024results" target="_top">2024</a>
+      <a href="https://www.swlawnbowls.org/2023-results" target="_top">2023</a>
+      <a href="https://www.swlawnbowls.org/results-2022" target="_top">2022</a>
+    </div>
+    <p class="nt-years-note">
+      2025 has its own Nationals page. For 2024 and earlier, the Nationals team and playdown
+      results are sections within that year's results page.
+    </p>
   </div>
 
   <div class="nt-sec">
