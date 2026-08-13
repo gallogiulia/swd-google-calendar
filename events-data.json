@@ -2408,7 +2408,14 @@
         "Mail to: Don Thorp, 17770 Plaza Acosta, San Diego, CA 92128",
         "Name all players and include the skip's name, email and phone number",
         "Prizes based on the number of entries",
-        "Salads, desserts and water provided — bring your own lunch"
+        "Salads, desserts and water provided — bring your own lunch",
+        "Dress code: whites or team colors preferred",
+        "Trial ends will be played in the first game only",
+        "Practice allowed one hour before announcements, in the opposite direction of the playing rinks",
+        "The green is closed Friday for maintenance until 4 PM — guests may practice 4–6 PM but must be accompanied by an Oaks North member (contact the TD for help finding a host)",
+        "Winner determined by most wins; ties broken by head-to-head result, then plus/minus points (maximum 10 per game), then fewest opponent points allowed, then a one-end roll-off",
+        "Bowls must be delivered in a rolling manner, released no more than 6–8 inches from the surface — no dropping or lobbing",
+        "The Tournament Director may add time limits or rules to speed up a slow game"
       ],
       "noviceDefinition": "",
       "livestreamNotice": "",
@@ -2425,7 +2432,7 @@
       },
       "cops": {
         "externalUrl": "",
-        "localPath": ""
+        "localPath": "/pdfs/oaks-north-mixed-triples-2026/cops.pdf"
       },
       "paypal": {
         "system": "none"
