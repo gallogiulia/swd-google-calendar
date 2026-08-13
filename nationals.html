@@ -134,10 +134,22 @@ const YEARS = [
   },
   {
     year: 2025,
-    external: {
-      url: "https://www.swlawnbowls.org/2025-usplaydowns",
-      label: "2025 U.S. Nationals Team",
-      note: "Singles and pairs players, published on its own page."
+    // Photos came off the 2025 Nationals page, where each is filed by flight and
+    // discipline — so the slots are certain even though the names still need filling in.
+    note: "Photos carried over from the 2025 Nationals page; names to be confirmed.",
+    team: {
+      singles: [
+        { flight: "Stars",   cat: "Men's Singles",   names: "", photo: "/photos/nationals-2025/stars-mens-singles.jpg" },
+        { flight: "Stripes", cat: "Men's Singles",   names: "", photo: "/photos/nationals-2025/stripes-mens-singles.jpg" },
+        { flight: "Stars",   cat: "Women's Singles", names: "", photo: "/photos/nationals-2025/stars-womens-singles.jpg" },
+        { flight: "Stripes", cat: "Women's Singles", names: "", photo: "/photos/nationals-2025/stripes-womens-singles.jpg" }
+      ],
+      pairs: [
+        { flight: "Stars",   cat: "Men's Pairs",   names: "", photo: "/photos/nationals-2025/stars-mens-pairs.jpg" },
+        { flight: "Stripes", cat: "Men's Pairs",   names: "", photo: "/photos/nationals-2025/stripes-mens-pairs.jpg" },
+        { flight: "Stars",   cat: "Women's Pairs", names: "", photo: "/photos/nationals-2025/stars-womens-pairs.jpg" },
+        { flight: "Stripes", cat: "Women's Pairs", names: "", photo: "/photos/nationals-2025/stripes-womens-pairs.jpg" }
+      ]
     }
   },
   {
@@ -269,6 +281,7 @@ function build(all) {
           <h2>${y.year}</h2>
           ${y.current ? '<span class="nt-tag">Current season</span>' : ""}
         </div>
+        ${y.note ? `<p class="nt-note">${esc(y.note)}</p>` : ""}
         ${body}
       </section>`;
   });
