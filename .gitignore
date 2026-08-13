@@ -25,3 +25,4 @@ logs
 # Optional
 coverage/
 dist/
+.env*
