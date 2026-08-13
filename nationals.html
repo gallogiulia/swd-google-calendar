@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>U.S. Nationals Teams | Southwest Lawn Bowls</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<style>
+  :root { --navy:#1a365d; --red:#c53030; --gold:#b7791f; --ink:#2d3748; --muted:#718096; --line:#e2e8f0; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #fff; color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  .nt-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .nt-head { border-bottom: 3px solid var(--navy); padding-bottom: 18px; margin-bottom: 24px; }
+  .nt-head h1 {
+    margin: 0; color: var(--navy); font-weight: 900; font-size: 2.4rem;
+    text-transform: uppercase; letter-spacing: -1px;
+  }
+  .nt-head p { margin: 8px 0 0; color: var(--muted); }
+
+  .nt-jump {
+    position: sticky; top: 0; z-index: 5; background: #fff;
+    padding: 12px 0 14px; margin-bottom: 26px; border-bottom: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  }
+  .nt-jump b { font-size: 0.8rem; color: var(--navy); margin-right: 4px; }
+  .nt-jump a {
+    text-decoration: none; font-weight: 700; font-size: 0.85rem;
+    border: 1px solid #cbd5e0; border-radius: 999px; padding: 5px 14px; color: var(--navy);
+  }
+  .nt-jump a:hover { border-color: var(--navy); background: #f7fafc; }
+
+  .nt-year { margin-bottom: 52px; scroll-margin-top: 70px; }
+  .nt-year-hd { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  .nt-year-hd h2 {
+    margin: 0; color: var(--navy); font-size: 1.9rem; font-weight: 900; letter-spacing: -1px;
+  }
+  .nt-tag {
+    font-size: 0.68rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
+    color: #fff; background: var(--gold); padding: 3px 10px; border-radius: 999px;
+  }
+  .nt-year > p.nt-note { margin: 0 0 18px; color: var(--muted); font-size: 0.88rem; }
+
+  .nt-disc { margin: 22px 0 10px; color: var(--navy); font-weight: 800; font-size: 1.05rem; }
+
+  .nt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .nt-card {
+    border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column;
+  }
+  .nt-flight {
+    font-size: 0.7rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #fff; padding: 7px 12px;
+  }
+  .nt-flight.stars   { background: var(--navy); }
+  .nt-flight.stripes { background: var(--red); }
+  /* Photos arrive in both portrait and landscape — contain shows each whole rather
+     than cropping heads out of the portraits. */
+  .nt-card img { width: 100%; height: 300px; object-fit: contain; display: block; background: #f7fafc; }
+  .nt-body { padding: 14px 14px 16px; }
+  .nt-names { color: var(--navy); font-weight: 800; font-size: 1.02rem; margin: 0; }
+  .nt-cat { color: var(--muted); font-size: 0.82rem; margin: 4px 0 0; }
+  .nt-pending {
+    height: 300px; display: flex; align-items: center; justify-content: center;
+    background: #f7fafc; color: #a0aec0; font-size: 0.85rem; font-weight: 600;
+    text-align: center; padding: 0 16px;
+  }
+
+  .nt-link-out {
+    display: block; text-decoration: none; padding: 20px 22px;
+    border: 1px solid var(--line); border-left: 5px solid var(--gold); border-radius: 10px;
+    background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .nt-link-out:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.10); }
+  .nt-link-out strong { display: block; color: var(--navy); font-weight: 800; }
+  .nt-link-out span { display: block; color: var(--muted); font-size: 0.86rem; margin-top: 4px; }
+
+  .nt-foot {
+    margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.88rem;
+  }
+  .nt-foot a { color: var(--navy); font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .nt-head h1 { font-size: 1.8rem; }
+    .nt-year-hd h2 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="nt-wrap">
+
+  <div class="nt-head">
+    <h1>U.S. Nationals Teams</h1>
+    <p>Southwest Division players who qualified for the U.S. Nationals by winning their flight at the playdowns, season by season.</p>
+  </div>
+
+  <nav class="nt-jump" id="jump"><b>Jump to</b></nav>
+
+  <div id="years"></div>
+
+  <div class="nt-foot">
+    Full playdown results — including runners-up — are on each season's results page,
+    indexed in the <a href="https://www.swlawnbowls.org/result-history" target="_top">Result History</a>.
+  </div>
+
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// One entry per season, newest first.
+//   live:     build the cards from results-data.json (the current season, so it
+//             fills in automatically as results are published)
+//   team:     a closed season, recorded here
+//   external: no roster recorded anywhere yet — link to where the results live
+// ---------------------------------------------------------------------------
+const YEARS = [
+  {
+    year: 2026,
+    live: {
+      singles: [
+        { id: "mens-singles-playdowns-2026",   cat: "Men's Singles" },
+        { id: "womens-singles-playdowns-2026", cat: "Women's Singles" }
+      ],
+      pairs: [
+        { id: "mens-pairs-playdowns-2026",   cat: "Men's Pairs" },
+        { id: "womens-pairs-playdowns-2026", cat: "Women's Pairs" }
+      ]
+    },
+    current: true
+  },
+  {
+    year: 2025,
+    external: {
+      url: "https://www.swlawnbowls.org/2025-usplaydowns",
+      label: "2025 U.S. Nationals Team",
+      note: "Singles and pairs players, published on its own page."
+    }
+  },
+  {
+    year: 2024,
+    team: {
+      singles: [
+        { flight: "Stars",   cat: "Men's Singles",   names: "Charlie Herbert" },
+        { flight: "Stripes", cat: "Men's Singles",   names: "Loren Dion" },
+        { flight: "Stars",   cat: "Women's Singles", names: "Giulia Gallo" },
+        { flight: "Stripes", cat: "Women's Singles", names: "Inger Benson" }
+      ],
+      pairs: [
+        { flight: "Stars",   cat: "Men's Pairs",   names: "Angel Gomez / Javier Gomez" },
+        { flight: "Stripes", cat: "Men's Pairs",   names: "Tom Richeson / Chris Dodd" },
+        { flight: "Stars",   cat: "Women's Pairs", names: "Melanie Vizenor / Manya Urane" },
+        { flight: "Stripes", cat: "Women's Pairs", names: "Candy DeFazio / Anne Nunes" }
+      ]
+    }
+  },
+  {
+    year: 2023,
+    external: {
+      url: "https://www.swlawnbowls.org/2023-results",
+      label: "2023 Nationals and playdown results",
+      note: "Sections within the 2023 results page."
+    }
+  },
+  {
+    year: 2022,
+    external: {
+      url: "https://www.swlawnbowls.org/results-2022",
+      label: "2022 playdown results",
+      note: "Sections within the 2022 results page."
+    }
+  }
+];
+
+// Display-only full names for this page. The results carousel keeps publishing the
+// short forms it already uses; this maps them to full names here and nowhere else.
+const FULL_NAMES = {
+  "Sadri / Rooz":   "Sadri Jazayeri / Rooz Ehdaie",
+  "Angel / Javier": "Angel Gomez / Javier Gomez"
+};
+
+const FLIGHTS = ["Stars", "Stripes"];
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+// The qualifier is whoever placed 1st in that flight.
+function winnerOf(tournament, flight) {
+  const div = (tournament.divisions || []).find(d => (d.label || "").toLowerCase() === flight.toLowerCase());
+  if (!div) return null;
+  return (div.places || []).find(p => Number(p.rank) === 1) || null;
+}
+
+function card(cat, flight, names, photo, allowPending) {
+  const full = names ? (FULL_NAMES[names] || names) : "";
+  let media = "";
+  if (photo) {
+    media = `<img src="${esc(photo)}" alt="${esc(cat)} ${esc(flight)} qualifier — ${esc(full)}" loading="lazy">`;
+  } else if (allowPending && !full) {
+    media = `<div class="nt-pending">Results pending</div>`;
+  }
+  return `
+    <div class="nt-card">
+      <div class="nt-flight ${flight.toLowerCase()}">${esc(flight)}</div>
+      ${media}
+      <div class="nt-body">
+        <p class="nt-names">${full ? esc(full) : "To be confirmed"}</p>
+        <p class="nt-cat">${esc(cat)}</p>
+      </div>
+    </div>`;
+}
+
+function disciplineBlock(title, cards) {
+  if (!cards) return "";
+  return `<p class="nt-disc">${esc(title)}</p><div class="nt-grid">${cards}</div>`;
+}
+
+function renderLive(spec, all) {
+  const build = group => group.map(ev => {
+    const t = all.find(x => x.id === ev.id);
+    return FLIGHTS.map(flight => {
+      const p = t ? winnerOf(t, flight) : null;
+      return card(ev.cat, flight, p && p.names, p && p.photo, true);
+    }).join("");
+  }).join("");
+  return disciplineBlock("Singles Players", build(spec.singles))
+       + disciplineBlock("Pairs Players",   build(spec.pairs));
+}
+
+function renderTeam(team) {
+  const build = rows => rows.map(r => card(r.cat, r.flight, r.names, r.photo, false)).join("");
+  return disciplineBlock("Singles Players", build(team.singles))
+       + disciplineBlock("Pairs Players",   build(team.pairs));
+}
+
+function renderExternal(ext) {
+  return `
+    <a class="nt-link-out" href="${esc(ext.url)}" target="_top">
+      <strong>${esc(ext.label)}</strong>
+      <span>${esc(ext.note)}</span>
+    </a>`;
+}
+
+function build(all) {
+  const jump = document.getElementById("jump");
+  const host = document.getElementById("years");
+  let html = "";
+
+  YEARS.forEach(y => {
+    const a = document.createElement("a");
+    a.href = "#y" + y.year;
+    a.textContent = y.year;
+    jump.appendChild(a);
+
+    let body = "";
+    if (y.live)          body = renderLive(y.live, all);
+    else if (y.team)     body = renderTeam(y.team);
+    else if (y.external) body = renderExternal(y.external);
+
+    html += `
+      <section class="nt-year" id="y${y.year}">
+        <div class="nt-year-hd">
+          <h2>${y.year}</h2>
+          ${y.current ? '<span class="nt-tag">Current season</span>' : ""}
+        </div>
+        ${body}
+      </section>`;
+  });
+
+  host.innerHTML = html;
+}
+
+fetch("/results-data.json")
+  .then(r => r.json())
+  .then(d => build(d.tournaments || []))
+  .catch(() => build([]));   // closed seasons still render if the live feed fails
+</script>
+
+<!-- Broadcast height to the embedding parent (Squarespace) so the iframe can auto-resize -->
+<script>
+(function () {
+  function postHeightToParent() {
+    if (window.parent === window) return;
+    try {
+      var h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      window.parent.postMessage({ type: "swd-event-height", height: h }, "*");
+    } catch (e) {}
+  }
+  if (window.ResizeObserver) new ResizeObserver(postHeightToParent).observe(document.body);
+  window.addEventListener("load", postHeightToParent);
+})();
+</script>
+</body>
+</html>
