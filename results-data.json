@@ -123,6 +123,37 @@
       ]
     },
     {
+      "id": "womens-singles-playdowns-2026",
+      "title": "2026 Women's Singles US National Playdowns",
+      "meta": "July 11–12 · Laguna Beach LBC",
+      "navLabel": "Women's Singles Playdowns",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/swdwomensplaydownssingles26",
+      "divisions": [
+        {
+          "label": "Stripes",
+          "columns": 1,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Giulia Gallo",
+              "photo": "/photos/womens-singles-playdowns-2026/stripes-1th-giulia-gallo.jpg"
+            }
+          ]
+        },
+        {
+          "label": "Stars",
+          "columns": 1,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Anne Nunes",
+              "photo": "/photos/womens-singles-playdowns-2026/stars-1th-anne-nunes.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "womens-pairs-playdowns-2026",
       "title": "2026 Women's Pairs US National Playdowns",
       "meta": "Jul 25–Aug 2 · Newport Harbor LBC / Laguna Beach LBC",
@@ -135,7 +166,7 @@
           "places": [
             {
               "rank": 1,
-              "names": "Benson / Narmontas",
+              "names": "Inger Benson / Joan Narmontas",
               "photo": "/photos/womens-pairs-playdowns-2026/1th-benson-narmontas.jpg"
             },
             {
@@ -151,7 +182,7 @@
           "places": [
             {
               "rank": 1,
-              "names": "Spease / Urane",
+              "names": "Mary Spease / Manya Urane",
               "photo": "/photos/womens-pairs-playdowns-2026/1th-spease-urane.jpg"
             },
             {

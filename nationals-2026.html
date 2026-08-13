@@ -37,12 +37,14 @@
   }
   .nt-flight.stars   { background: var(--navy); }
   .nt-flight.stripes { background: var(--red); }
-  .nt-card img { width: 100%; height: 210px; object-fit: cover; display: block; background: #f7fafc; }
+  /* Photos arrive in both portrait and landscape — contain shows each whole rather
+     than cropping heads out of the portraits. */
+  .nt-card img { width: 100%; height: 300px; object-fit: contain; display: block; background: #f7fafc; }
   .nt-body { padding: 12px 14px 16px; }
   .nt-names { color: var(--navy); font-weight: 800; font-size: 1.02rem; margin: 0; }
   .nt-cat { color: var(--muted); font-size: 0.82rem; margin: 3px 0 0; }
   .nt-pending {
-    height: 210px; display: flex; align-items: center; justify-content: center;
+    height: 300px; display: flex; align-items: center; justify-content: center;
     background: #f7fafc; color: #a0aec0; font-size: 0.85rem; font-weight: 600; text-align: center; padding: 0 16px;
   }
 
