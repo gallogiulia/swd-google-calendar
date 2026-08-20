@@ -2568,7 +2568,7 @@
         "No substitutions once a game has started",
         "Late arrivals: 1 point and 1 end penalty per 10 minutes after the official start; 30 minutes or more forfeits that game",
         "Light hospitality provided — bring your own lunch",
-        "Entry fee $90 per team — mail the entry fee and flyer to: Anne Nunes, 427 Tidland Circle, Placentia, CA 92870",
+        "Entry fee $90 per team — make checks payable to “Anne Nunes” and mail the fee with the flyer to: Anne Nunes, 427 Tidland Circle, Placentia, CA 92870",
         "Played under the Laws of the Sport of Bowls, Crystal Mark 4th Edition, except where the Conditions of Play specify otherwise"
       ],
       "noviceDefinition": "",
@@ -2577,7 +2577,7 @@
         "name": "Anne Nunes",
         "phone": "",
         "email": "",
-        "mailTo": "Anne Nunes, 427 Tidland Circle, Placentia, CA 92870"
+        "mailTo": "Anne Nunes, 427 Tidland Circle, Placentia, CA 92870 (checks payable to “Anne Nunes”)"
       },
       "flyer": {
         "externalUrl": "",
