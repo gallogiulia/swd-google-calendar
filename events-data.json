@@ -2506,6 +2506,75 @@
         "height": 400,
         "width": "100%"
       }
+    },
+    {
+      "id": "groves-mixed-triples-2026",
+      "title": "2026 Groves Mixed Triples Classic",
+      "subtitle": "The Groves Lawn Bowling Club · Rotating Triples",
+      "date": "Saturday, October 24, 2026",
+      "time": "8:15 AM check-in · 9:00 AM start",
+      "schedule": [
+        "8:15 AM — Check-in begins",
+        "8:15–8:40 AM — Roll-ups permitted",
+        "8:45 AM — Announcements",
+        "9:00 AM — Official start",
+        "Lunch after the first game",
+        "Three games · 3 bowls · 12 ends"
+      ],
+      "format": "triples",
+      "formatDetails": "Mixed Rotating Triples · 3 bowls · 3 games of 12 ends",
+      "club": {
+        "name": "The Groves Lawn Bowling Club",
+        "address": "5200 Irvine Blvd, Irvine, CA 92620",
+        "phone": "",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=5200+Irvine+Blvd+Irvine+CA+92620"
+      },
+      "fee": "$90 per team",
+      "deadline": "",
+      "rules": [
+        "Teams must consist of 3 people and include at least one man and one woman",
+        "14 teams maximum · even numbers of teams only · no byes",
+        "Rotating Triples — bowling order rotates during the game so all players play each position (ends 1–3 Lead-Vice-Skip, 4–6 Vice-Skip-Lead, 7–9 Skip-Lead-Vice, 10–12 Lead-Vice-Skip)",
+        "Each game is 4 sets of 3 ends · 10 set-points to the team winning each set, plus 20 set-points for the highest total score · 60 set-points available per game",
+        "Tournament scoring: 3 win-points per win, 1 per tie; ties broken by win-points, then set-points, then game score, then opponent score allowed, then a one-end roll-off",
+        "Trial ends: two bowls in each direction before each game",
+        "Prizes to the top 3 teams — approximately 50% / 30% / 20% of the purse",
+        "Dress code: team shirts and below-the-waist attire should match; flat-soled shoes required",
+        "No substitutions once a game has started",
+        "Late arrivals: 1 point and 1 end penalty per 10 minutes after the official start; 30 minutes or more forfeits that game",
+        "Light hospitality provided — bring your own lunch",
+        "Entry fee $90 per team — mail the entry fee and flyer to: Anne Nunes, 427 Tidland Circle, Placentia, CA 92870",
+        "Played under the Laws of the Sport of Bowls, Crystal Mark 4th Edition, except where the Conditions of Play specify otherwise"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "",
+        "email": "",
+        "mailTo": "Anne Nunes, 427 Tidland Circle, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/groves-mixed-triples-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": "/pdfs/groves-mixed-triples-2026/cops.pdf"
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Cr8OSOBze6Kg998dyo56RV0JrsU8i5y04UUSrzkrWsDrL0FkD1jM4qoke7HXnoMMjqNm_D3xD9Sm/pubhtml?widget=true&headers=false",
+        "height": 400
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 400,
+        "width": "100%"
+      }
     }
   ]
 }
