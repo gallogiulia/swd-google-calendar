@@ -737,21 +737,46 @@
     {
       "id": "womens-vet-novice-pairs-2026",
       "title": "2026 SWD Women's Vet/Novice Pairs",
-      "subtitle": "Women's Sponsored",
+      "subtitle": "SWD Women's Division · Vet/Novice Pairs",
       "date": "Saturday, October 17, 2026",
-      "time": "8:00 AM – 5:00 PM",
-      "schedule": [],
+      "time": "8:15 AM check-in · 9:00 AM start",
+      "schedule": [
+        "8:00 AM — Green open for practice (until 8:35, if the greenskeeper has finished setup)",
+        "8:15 AM — Check-in",
+        "8:45 AM — Announcements and trial ends (attendance mandatory)",
+        "9:00 AM — Games start promptly",
+        "Lunch after the second game",
+        "Four 10-end games · 3 bowls · pairs"
+      ],
       "format": "pairs",
-      "formatDetails": "Vet/Novice Pairs · Skip / Lead",
+      "formatDetails": "Women's Vet/Novice Pairs · 3 bowls · four 10-end games",
       "club": {
         "name": "Long Beach Lawn Bowling Club",
         "address": "1109 Federation Dr, Long Beach, CA 90804",
         "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
       },
-      "fee": "$30/team",
-      "deadline": "Oct 10",
-      "rules": [],
-      "noviceDefinition": "A bowler who joined a club or division for the first time ever, less than two years (24 months) before the scheduled event.",
+      "fee": "$30 per team",
+      "deadline": "Entry deadline: October 10, 2026 (no refunds after this date)",
+      "rules": [
+        "Four 10-end 3-bowl pairs games · open blind draw",
+        "A or B green option, dependent on the number of entries — every effort will be made to keep entry numbers even",
+        "All US entrants must be Bowls USA members; all others must belong to a Member National Authority",
+        "Entry fee $30 per team — enter by October 10, 2026 (no refunds after this date)",
+        "Enter and pay online at swlawnbowls.org, or mail the entry form with a check payable to SWD of Bowls USA to: Anne Nunes, 427 Tidland Cir, Placentia, CA 92870",
+        "Dress code: teams must match in colour of shirts and bottoms, white or coloured; collared shirts with sleeves (polo or button-down) — no T-shirts, no cutoffs",
+        "Footwear: flat-soled and heel-less shoes — this rule will be enforced",
+        "Practice allowed 8:00–8:35 AM; return all mats and jacks where you found them",
+        "Trial ends: three bowls in each direction before all games — not mandatory; if one team declines, the other may still play them",
+        "No time limits",
+        "Scoring: 3 points for a win, 1 for a tie, 0 for a loss · maximum of 7 plus points in any game",
+        "Tiebreaker: head-to-head result, then fewest opponent points allowed, then most ends won, then a one-end roll-off",
+        "No burnt ends — a jack driven off the rink is re-spotted on the 2-metre mark on the centre line",
+        "Late arrivals: 1 point and 1 end penalty for each 10 minutes after the official start; 30 minutes or more forfeits that game",
+        "Substitutes must be approved by the Tournament Director, may not have played in the same event and may not skip",
+        "Prize money awarded on each green, dependent on the number of entries — allocation posted at the venue",
+        "Bring your own lunch and water — Long Beach LBC provides hospitality"
+      ],
+      "noviceDefinition": "2-year novice — a bowler who joined a club or division for the first time ever less than two years (24 months) before the scheduled event. If you started bowling on or after October 1, 2024 you are still a novice. Eligibility will be confirmed before the start of play.",
       "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
       "contact": {
         "name": "Anne Nunes",
@@ -760,21 +785,21 @@
         "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
       },
       "flyer": {
-        "externalUrl": "https://docs.google.com/document/d/e/2PACX-1vTL0Edc3bjAHkb0jm6pyAFzVeRw7Iie9568u1Qv4N-zi3ADqhBdPcQriOTK7sdjNoQU8HR-CK71q4GE/pub?embedded=true",
-        "localPath": "",
-        "type": "gdoc"
+        "externalUrl": "",
+        "localPath": "/pdfs/womens-vet-novice-pairs-2026/flyer.pdf",
+        "type": "pdf"
       },
       "cops": {
-        "externalUrl": "https://docs.google.com/document/d/e/2PACX-1vSp0ISGGp_7YTcjM-uuqy1Qar_EGc_a8ITA8guw3tSoRgav5iHa2RvXdKFEXRNx67tycPDrZlS7gnIo/pub?embedded=true",
-        "localPath": ""
+        "externalUrl": "",
+        "localPath": "/pdfs/womens-vet-novice-pairs-2026/cops.pdf"
       },
       "paypal": {
         "system": "embed",
         "html": "<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_top\">\n  <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n  <input type=\"hidden\" name=\"hosted_button_id\" value=\"VZPDRGSYFE38W\" />\n  <table>\n    <tr><td><input type=\"hidden\" name=\"on0\" value=\"Green\"/>Green</td></tr>\n    <tr><td><select name=\"os0\">\n      <option value=\"A\">A</option>\n      <option value=\"B\">B</option>\n    </select></td></tr>\n    <tr><td><input type=\"hidden\" name=\"on1\" value=\"Skip\"/>Skip</td></tr>\n    <tr><td><input type=\"text\" name=\"os1\" maxlength=\"200\" /></td></tr>\n    <tr><td><input type=\"hidden\" name=\"on2\" value=\"Lead\"/>Lead</td></tr>\n    <tr><td><input type=\"text\" name=\"os2\" maxlength=\"200\" /></td></tr>\n  </table>\n  <input type=\"hidden\" name=\"currency_code\" value=\"USD\" />\n  <input type=\"image\" src=\"https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Buy Now\" />\n</form>"
       },
       "entries": {
-        "pubUrl": "",
-        "height": 350
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSwoVa4rOVwtfwma-ub4zv2ZYwQYPrfnugXNRf4ncudXiMIWa0ITkr8QK7Ot2QJbagx0g0aylEyxV4D/pubhtml?widget=true&headers=false",
+        "height": 400
       },
       "liveScoring": {
         "pubUrl": "",
