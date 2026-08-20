@@ -51,31 +51,94 @@ async function loadDataEntries() {
 function normTitle(s) {
   return (s || "")
     .toLowerCase()
-    .replace(/[\u2018\u2019]/g, "")
+    .replace(/['\u2018\u2019]/g, "")
     .replace(/[^a-z0-9 ]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-// Return the events-data.json entry that best matches this GCal event title.
-// Uses >=4-char word overlap + bonus for shared "sw open" phrase (so SW Open
-// events, whose titles are otherwise all generic words, still line up).
-function matchDataEntry(eventTitle, dataEntries) {
-  const ev = normTitle(eventTitle);
-  if (!ev) return null;
-  const evWords = new Set(ev.split(" ").filter((w) => w.length >= 4));
-  const evHasSwOpen = /\bsw\s+open\b/.test(ev);
+// Map a Google Calendar event title to its events-data.json entry.
+//
+// This used to guess by counting shared words, but bowls titles are built from the
+// same small vocabulary ("Mixed", "Pairs", "Triples", "Women's"), so it mismatched
+// badly — Men's SW Open events resolved to the Women's SW Open entry, Bill Hiscock
+// to John Clark, and Sun City inherited an April deadline from Vet/Novice Triples.
+// The mapping is explicit instead: a calendar title either has a known entry or it
+// has none. Events with no entry (external and non-SWD events, and tournaments that
+// have no detail page yet) are intentionally absent — no entry beats a wrong one.
+//
+// Keys are normalised titles: lowercased, punctuation stripped, and any trailing
+// "(venue)" or date range removed. Add a line here when a tournament gets a page.
+const TITLE_TO_ID = {
+  "swd mumma mixed pairs": "mumma-mixed-pairs-2026",
+  "swlba so cal rinks": "mens-southern-california-rinks-championship-2026",
+  "swd california 5s": "womens-cal-5s-2026",
+  "swlba mixed pairs": "mixed-pairs-2026",
+  "swlba mens murray allison singles": "mens-murray-allison-singles-2026",
+  "swd heidi rittner womens australian pairs": "womens-heidi-rittner-australian-pairs-2026",
+  "swd womens vet novice mix match triples": "vet-novice-mix-match-triples-2026",
+  "swlba mens novice singles": "mens-novice-singles-2026",
+  "swd womens novice singles": "womens-novice-singles-2026",
+  "2026 sw open mens fours": "mens-southwest-division-open-2026",
+  "2026 sw open mens pairs": "mens-southwest-division-open-2026",
+  "2026 sw open mens singles": "mens-southwest-division-open-2026",
+  "2026 sw open womens rinks": "womens-sw-open-2026",
+  "2026 sw open womens pairs": "womens-sw-open-2026",
+  "2026 sw open womens singles": "womens-sw-open-2026",
+  "2026 sw open 2 2 getaway rinks": "open-2-2-getaway-rinks-2026",
+  "joe siegman pairs": "joe-siegman-pairs-2026",
+  "friendly valley mix match triples": "friendly-valley-mix-match-triples-2026",
+  "24th jack beckley friendship tournament": "jack-beckley-friendship-tournament-2026",
+  "bhlbc disney pairs tournament": "bhlbc-disney-pairs-2026",
+  "john clark triples": "john-clark-2-bowls-triples-2026",
+  "coronado crown city classic": "coronado-crown-city-cup-2026",
+  "pat gonzales mixed australian pairs": "pat-gonzales-mixed-aussie-pairs-2026",
+  "amador martinez triples": "martinez-triples-2026",
+  "senior pairs": "truvic-seniors-3-bowls-pairs-2026",
+  "us nationals mens singles playdowns": "mens-us-nationals-singles-playdowns-2026",
+  "us nationals womens singles playdowns": "womens-us-nationals-singles-playdowns-2026",
+  "us nationals pairs playdowns men": "mens-us-nationals-pairs-playdowns-2026",
+  "us nationals pairs playdowns women": "womens-us-nationals-pairs-playdowns-2026",
+  "swlba mens novice pairs": "mens-novice-pairs-2026",
+  "cambria pairs": "cambria-open-pairs-2026",
+  "swlba cary macdonald mens pairs": "cary-macdonald-mens-pairs-2026",
+  "swd womens division rinks": "womens-division-rinks-2026",
+  "fossati friends womens triples": "fossati-friends-womens-triples-2026",
+  "laguna beach open pairs": "laguna-open-pairs-2026",
+  "san diego mixed triples": "san-diego-mixed-triples-2026",
+  "eileen morton triples": "eileen-morton-powerplay-triples-2026",
+  "hermosa beach all comers pairs": "all-comers-open-pairs-2026",
+  "newport 9 11 mixed rinks": "newport-911-mixed-rinks-2026",
+  "maccabee pairs": "maccabee-pairs-2026",
+  "swd izzie forbes vet novice mix match triples": "izzie-forbes-vet-novice-triples-2026",
+  "ralph ecton triples": "ralph-ecton-triples-2026",
+  "oaks north mixed triples": "oaks-north-mixed-triples-2026",
+  "swlba men so california triples": "mens-so-california-triples-2026",
+  "swd womens vet novice pairs": "womens-vet-novice-pairs-2026",
+  "swd womens ca bears": "womens-ca-bears-2026",
+  "the groves mixed triples": "groves-mixed-triples-2026",
+  "waterbury": "waterbury-2026",
+  "swlba men 5 man all star": "mens-5-man-all-star-2026",
+  "swlba men vet novice mix match pairs sun city": "mens-vet-novice-mix-match-pairs-2026",
+  "swlba men vet novice mix match pairs laguna beach": "mens-vet-novice-mix-match-pairs-2026",
+  "men vet novice mix match pairs mackenzie park": "mens-vet-novice-mix-match-pairs-2026",
+  "swd womens singles katy stone": "swd-womens-singles-katy-stone-2026",
+  "us national mens singles playdowns continue": "mens-us-nationals-singles-playdowns-2026",
+};
 
-  let best = null;
-  let bestScore = 0;
-  for (const entry of dataEntries) {
-    const en = normTitle(entry.title);
-    let score = 0;
-    for (const w of en.split(" ")) if (w.length >= 4 && evWords.has(w)) score++;
-    if (evHasSwOpen && /\bsw\s+open\b/.test(en)) score += 2;
-    if (score > bestScore) { bestScore = score; best = entry; }
-  }
-  return bestScore >= 2 ? best : null;
+// Strip any trailing date range, then normalise. Parentheticals are KEPT:
+// "(Men)" vs "(Women)" is all that separates the two Pairs Playdowns titles.
+function aliasKey(title) {
+  return normTitle(
+    String(title || "")
+      .replace(/\b\d{1,2}\/\d{1,2}\s*-\s*\d{1,2}\/\d{1,2}\b/g, "")
+  );
+}
+
+function matchDataEntry(eventTitle, dataEntries) {
+  const id = TITLE_TO_ID[aliasKey(eventTitle)];
+  if (!id) return null;
+  return dataEntries.find((e) => e.id === id) || null;
 }
 
 function yearWindow(year) {
@@ -133,11 +196,16 @@ export default async function (req, res) {
         endDate = addDaysISO(startDate, 1);
       }
 
-      // Check Description first, then Location field for links
-      const finalEventUrl = extractUrl(e.description) || extractUrl(e.location) || null;
-
       const meta = CALENDAR_META[id] || { color: "#2563eb", source: "Other" };
       const dataMatch = matchDataEntry(e.summary || "", dataEntries);
+
+      // Check Description first, then Location field for links. If the calendar entry
+      // carries no link but the tournament has a detail page, fall back to that page so
+      // the agenda still goes somewhere useful. Safe because matching is now exact.
+      const finalEventUrl =
+        extractUrl(e.description) ||
+        extractUrl(e.location) ||
+        (dataMatch ? `https://swd-google-calendar.vercel.app/event.html?id=${dataMatch.id}` : null);
       ev.push({
         id: e.id,
         title: e.summary || "",
