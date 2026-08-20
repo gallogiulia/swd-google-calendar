@@ -199,13 +199,10 @@ export default async function (req, res) {
       const meta = CALENDAR_META[id] || { color: "#2563eb", source: "Other" };
       const dataMatch = matchDataEntry(e.summary || "", dataEntries);
 
-      // Check Description first, then Location field for links. If the calendar entry
-      // carries no link but the tournament has a detail page, fall back to that page so
-      // the agenda still goes somewhere useful. Safe because matching is now exact.
-      const finalEventUrl =
-        extractUrl(e.description) ||
-        extractUrl(e.location) ||
-        (dataMatch ? `https://swd-google-calendar.vercel.app/event.html?id=${dataMatch.id}` : null);
+      // Check Description first, then Location field for links. Never invent one:
+      // on the season agenda a link means "entries are open", and GG curates that by
+      // adding or removing the link on the calendar entry. No link means not open.
+      const finalEventUrl = extractUrl(e.description) || extractUrl(e.location) || null;
       ev.push({
         id: e.id,
         title: e.summary || "",
