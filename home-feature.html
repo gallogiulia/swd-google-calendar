@@ -18,6 +18,14 @@
 <section class="swd-home-feature">
   <div class="swd-home-feature__wrap">
 
+    <!-- NOVICE ELIGIBILITY — TOP-OF-PAGE NOTICE -->
+    <a class="swd-novice-alert" href="https://www.swlawnbowls.org/2026-tournaments-events/swd-womens-vetnovice-triples26" target="_top">
+      <p class="swd-novice-alert__kicker">Women's Vet/Novice Triples · Sunday, November 15</p>
+      <h2 class="swd-novice-alert__title">Your April novice is still your novice.</h2>
+      <p class="swd-novice-alert__text">This tournament was rescheduled from April, and the novice rule moved with it. Anyone who was eligible to bowl as a novice in April 2026 may still enter as a novice — if you started bowling on or after <strong>April 2024</strong>, you are still a novice for this event. <strong>You do not need to find a newer novice for your team.</strong></p>
+      <span class="swd-novice-alert__cta">Enter the Vet/Novice Triples →</span>
+    </a>
+
     <!-- NEW TO THE SPORT — FEATURED BANNER -->
     <a class="swd-welcome-banner" href="https://www.swlawnbowls.org/welcome" target="_top">
       <div class="swd-welcome-banner__bg" aria-hidden="true"></div>
@@ -42,7 +50,7 @@
           <span class="swd-open-date">Sun · Nov 15</span>
           <h3>Women's Vet/Novice Triples</h3>
           <p class="swd-open-meta">Newport Harbor LBC · $45 per team · enter by Nov 8<br>Four 12-end games · 2-bowl triples · teams of 3 women, at least 1 novice</p>
-          <p class="swd-open-note"><strong>Novice eligibility is unchanged.</strong> Because this event moved from April, anyone who was eligible to bowl as a novice in April 2026 may still enter as a novice — if you started bowling on or after April 2024, you are still a novice for this event.</p>
+          <p class="swd-open-note"><strong>Novice eligibility is unchanged</strong> — see the notice at the top of this page.</p>
           <span class="swd-open-arrow">Enter now →</span>
         </a>
 
@@ -1122,6 +1130,64 @@
 </style>
 
 <style>
+  /* NOVICE ELIGIBILITY — TOP-OF-PAGE NOTICE */
+  .swd-novice-alert {
+    display: block;
+    text-decoration: none;
+    background: #c8102e;
+    border-radius: 26px;
+    padding: 34px 38px 32px;
+    margin-bottom: 26px;
+    box-shadow: 0 14px 30px rgba(200,16,46,0.22);
+  }
+
+  .swd-novice-alert__kicker {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .swd-novice-alert__title {
+    margin: 0 0 14px;
+    font-size: clamp(30px, 4.6vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .swd-novice-alert__text {
+    margin: 0;
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.6;
+    color: rgba(255,255,255,0.94);
+    max-width: 760px;
+  }
+
+  .swd-novice-alert__text strong { color: #ffffff; }
+
+  .swd-novice-alert__cta {
+    display: inline-block;
+    margin-top: 22px;
+    background: #ffffff;
+    color: #c8102e;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 24px;
+    border-radius: 999px;
+  }
+
+  .swd-novice-alert:hover .swd-novice-alert__cta {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  @media (max-width: 900px) {
+    .swd-novice-alert { padding: 26px 22px 24px; }
+  }
+
   /* ENTRIES OPEN — TWO-UP TOURNAMENT BANNER */
   .swd-open-banner {
     margin-top: 26px;
