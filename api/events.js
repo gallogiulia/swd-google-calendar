@@ -76,6 +76,7 @@ const TITLE_TO_ID = {
   "swlba mixed pairs": "mixed-pairs-2026",
   "swlba mens murray allison singles": "mens-murray-allison-singles-2026",
   "swd heidi rittner womens australian pairs": "womens-heidi-rittner-australian-pairs-2026",
+  "swd heidi rittner womens australian pairs rescheduled": "womens-heidi-rittner-australian-pairs-2026",
   "swd womens vet novice mix match triples": "vet-novice-mix-match-triples-2026",
   "swlba mens novice singles": "mens-novice-singles-2026",
   "swd womens novice singles": "womens-novice-singles-2026",
