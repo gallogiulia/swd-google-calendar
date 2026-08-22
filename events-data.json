@@ -1305,28 +1305,44 @@
       "id": "womens-heidi-rittner-australian-pairs-2026",
       "title": "2026 SWD Women's Heidi Rittner Australian Pairs",
       "subtitle": "Women's Sponsored · Rescheduled from April 12",
-      "date": "Sunday, November 15, 2026",
-      "time": "",
+      "date": "Saturday, November 21, 2026",
+      "time": "8:45 AM announcements · 9:00 AM start",
       "schedule": [
-        "8:00am — Green open for practice",
-        "8:45am — Announcements and trial ends"
+        "8:00 AM — Green open for practice (until 8:35, if the greenskeeper has finished setup)",
+        "8:45 AM — Announcements and trial ends (attendance mandatory)",
+        "9:00 AM — Games start promptly",
+        "Three 14-end games · Australian pairs 2-4-2 format"
       ],
       "format": "pairs",
-      "formatDetails": "THREE 14-END GAMES",
+      "formatDetails": "Australian Pairs · 2-4-2 format · three 14-end games",
       "club": {
-        "name": "Long Beach LBC",
+        "name": "Long Beach Lawn Bowling Club",
         "address": "1109 Federation Dr, Long Beach, CA 90804",
-        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109%20Federation%20Dr%2C%20Long%20Beach%2C%20CA%2090804"
+        "phone": "562-433-9063",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1109+Federation+Dr,+Long+Beach,+CA+90804"
       },
-      "fee": "$60/team",
-      "deadline": "TBA — entry form and Conditions of Play go out in Sept/Oct 2026",
+      "fee": "$60 per team",
+      "deadline": "Entry deadline: November 14, 2026 (no refunds after this date)",
       "rules": [
-        "$60/team entry fee; entry deadline to be announced (no refunds after that date)",
-        "All players must be Bowls USA members",
-        "Shirts must have sleeves and collars, no cutoff bottoms",
-        "Teams must match colors for tops and bottoms",
-        "Bring your lunch and water bottle - Long Beach will provide hospitality",
-        "TO ENTER: Sign up and submit entry fees at swlawnbowls.org OR send this form with a check payable to SWD of Bowls USA to: Anne Nunes, 427 Tidland Cir, Placentia, CA 92870. See swlawnbowls.org for entry confirmation."
+        "Sponsored by Erin Fernandes, in her mother's name",
+        "Two-woman team · three 14-end games · Australian pairs 2-4-2 format · open blind draw",
+        "All games played under the Laws of the Sport of Bowls, Crystal Mark 4th Edition",
+        "All US entrants must be Bowls USA members; all others must belong to a Member National Authority",
+        "Entry fee $60 per team — enter by November 14, 2026 (no refunds after this date)",
+        "Enter and pay online at swlawnbowls.org, or mail the entry form with a check payable to SWD of Bowls USA to: Anne Nunes, 427 Tidland Cir, Placentia, CA 92870",
+        "Dress code: teams must match in colour of shirts and bottoms, white or coloured; collared shirts with sleeves (polo or button-down) — no T-shirts, no cutoffs. Different lengths of the same colour are fine",
+        "Footwear: flat-soled and heel-less shoes — this rule will be enforced",
+        "Practice allowed 8:00–8:35 AM if the greenskeeper has finished setup; return all mats and jacks where you found them",
+        "Trial ends before the 1st game, 2 bowls each way, unless switching greens — not mandatory; if one team declines, the other may still play them",
+        "Time limits: in each round, once the 2nd-to-last team finishes, the last team throws no more jacks",
+        "Scoring: 3 points for a win, 1 for a tie, 0 for a loss · maximum of 10 plus points in any game",
+        "Tiebreaker: head-to-head result, then fewest opponent points allowed, then most ends won, then a one-end roll-off",
+        "Restriction of movement: in each end the first two bowlers may not visit the head. At the first crossover both bowlers go to the mat together and may not visit the head. At the final crossover the second bowler may stay in the head while their direct opponent delivers their first bowl; both may go to the head before their last bowl. Otherwise Law 13 (Possession of the Rink) applies",
+        "No burnt ends — a jack driven off the rink is re-spotted on the 2-metre mark on the centre line",
+        "Prize money: the number of entries determines the amount — allocation posted at the venue",
+        "Bowls with a legible ALBA, IBB, WBB or WB stamp, date and serial number are approved; there will be no inspection of bowls",
+        "Every effort will be made to keep entry numbers even",
+        "Bring your own lunch and water — Long Beach LBC provides hospitality"
       ],
       "noviceDefinition": "",
       "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
@@ -1338,23 +1354,109 @@
       },
       "flyer": {
         "externalUrl": "",
-        "localPath": "",
+        "localPath": "/pdfs/womens-heidi-rittner-australian-pairs-2026/flyer.pdf",
         "type": "pdf"
       },
       "cops": {
         "externalUrl": "",
-        "localPath": ""
+        "localPath": "/pdfs/womens-heidi-rittner-australian-pairs-2026/cops.pdf"
       },
       "paypal": {
         "system": "modern",
-        "buttonName": "",
+        "buttonName": "SWD Women's Heidi Rittner Australian Pairs",
         "price": "60",
-        "containerSuffix": "",
-        "playerLabels": []
+        "containerSuffix": "rittner",
+        "playerLabels": [
+          "Skip",
+          "Lead"
+        ]
       },
       "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzc_7_zTjIbezSEHNYQ4KAilvq-XNWlC_NT_SjEbb7kWtbQQxYk2iQj1_BYbeX2L9qdMz7xL11ZzDA/pubhtml?widget=true&headers=false",
+        "height": 550
+      },
+      "liveScoring": {
         "pubUrl": "",
-        "height": 500
+        "height": 1800,
+        "width": "100%"
+      }
+    },
+    {
+      "id": "womens-vet-novice-triples-2026",
+      "title": "2026 SWD Women's Vet/Novice Triples",
+      "subtitle": "SWD Women's Division · Vet/Novice Triples · Moved & rescheduled from April 11",
+      "date": "Sunday, November 15, 2026",
+      "time": "8:15 AM check-in · 9:00 AM start",
+      "schedule": [
+        "8:00 AM — Green open for practice (until 8:35, if the greenskeeper has finished setup)",
+        "8:15 AM — Check-in",
+        "8:45 AM — Announcements and trial ends (attendance mandatory)",
+        "9:00 AM — Games start promptly",
+        "Four 12-end games · 2 bowls · triples"
+      ],
+      "format": "triples",
+      "formatDetails": "Women's Vet/Novice Triples · 2 bowls · four 12-end games",
+      "club": {
+        "name": "Newport Harbor Lawn Bowling Club",
+        "address": "1550 Crown Drive, Corona Del Mar, CA 92625",
+        "phone": "949-640-1022",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1550+Crown+Drive+Corona+Del+Mar+CA+92625"
+      },
+      "fee": "$45 per team",
+      "deadline": "Entry deadline: November 8, 2026 (no refunds after this date)",
+      "rules": [
+        "Teams of 3 women, including at least 1 novice — see the special novice definition below",
+        "Four 12-end 2-bowl triples games · open blind draw",
+        "All games played under the Laws of the Sport of Bowls, Crystal Mark 4th Edition",
+        "All US entrants must be Bowls USA members; all others must belong to a Member National Authority",
+        "Entry fee $45 per team — enter by November 8, 2026 (no refunds after this date)",
+        "Enter and pay online at swlawnbowls.org, or mail the entry form with a check payable to SWD of Bowls USA to: Anne Nunes, 427 Tidland Cir, Placentia, CA 92870",
+        "Dress code: teams must match in colour of shirts and bottoms, white or coloured; collared shirts with sleeves (polo or button-down) — no T-shirts, no cutoffs. Different lengths of the same colour are fine",
+        "Footwear: flat-soled and heel-less shoes — this rule will be enforced",
+        "Practice allowed 8:00–8:35 AM if the greenskeeper has finished setup; return all mats and jacks where you found them",
+        "Trial ends: two bowls in each direction before all games — not mandatory; if one team declines, the other may still play them",
+        "Time limits: in each round, once the 2nd-to-last team finishes, the last team throws no more jacks",
+        "Scoring: 3 points for a win, 1 for a tie, 0 for a loss · maximum of 8 plus points in any game",
+        "Tiebreaker: head-to-head result, then fewest opponent points allowed, then most ends won, then a one-end roll-off",
+        "Movement of players: Appendix A, A.4 of the Laws (restricting the movement of players during play) may be invoked for all matches",
+        "No burnt ends — a jack driven off the rink is re-spotted on the 2-metre mark on the centre line",
+        "Late arrivals: 1 point and 1 end penalty for each 10 minutes after the official start; 30 minutes or more forfeits that game — may be waived in extenuating circumstances",
+        "Prize money: cash awards for 1st, 2nd and 3rd place — the number of entries determines the amount, allocation posted at the venue",
+        "Bowls with a legible ALBA, IBB, WBB or WB stamp, date and serial number are approved; there will be no inspection of bowls",
+        "Every effort will be made to keep entry numbers even",
+        "Bring your own lunch and water — Newport Harbor LBC provides hospitality"
+      ],
+      "noviceDefinition": "Special novice definition for this event — because it was rescheduled from April 2026, novices who were eligible in April 2026 may still enter as a novice. For this event only: a bowler who joined a club or division for the first time ever less than two years (24 months) before April 2026. If you started bowling on or after April 2024 you are still a novice. (If age prevents a bowler from joining a club, novice status will be decided by the Tournament Committee case by case.) Eligibility will be confirmed before the start of play.",
+      "livestreamNotice": "There may be livestreaming at this event. By entering, you are consenting to be livestreamed.",
+      "contact": {
+        "name": "Anne Nunes",
+        "phone": "714-267-0767",
+        "email": "anne.nunes@roadrunner.com",
+        "mailTo": "Anne Nunes, 427 Tidland Cir, Placentia, CA 92870"
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/womens-vet-novice-triples-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": "/pdfs/womens-vet-novice-triples-2026/cops.pdf"
+      },
+      "paypal": {
+        "system": "modern",
+        "buttonName": "SWD Women's Vet/Novice Triples",
+        "price": "45",
+        "containerSuffix": "vetnovicetrips",
+        "playerLabels": [
+          "Skip",
+          "Vice",
+          "Lead"
+        ]
+      },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1nMEcBtVeljqzQm4AfhebvDU0wTihQFQaMzEb_CiKLf3geAzprdsIWPlbtoDCUwgLEGr4o0RZRCDt/pubhtml?widget=true&headers=false",
+        "height": 350
       },
       "liveScoring": {
         "pubUrl": "",

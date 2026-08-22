@@ -29,6 +29,32 @@
       </div>
     </a>
 
+    <!-- ENTRIES OPEN — NOVEMBER WOMEN'S TOURNAMENTS -->
+    <div class="swd-open-banner">
+      <div class="swd-open-head">
+        <p class="swd-home-kicker">Entries Now Open</p>
+        <h2>Two Women's Tournaments Move to November</h2>
+        <p class="swd-open-desc">Both events were rescheduled from April. Entries are open now — enter online or by mail.</p>
+      </div>
+
+      <div class="swd-open-grid">
+        <a class="swd-open-card" href="https://www.swlawnbowls.org/2026-tournaments-events/swd-womens-vetnovice-triples26" target="_top">
+          <span class="swd-open-date">Sun · Nov 15</span>
+          <h3>Women's Vet/Novice Triples</h3>
+          <p class="swd-open-meta">Newport Harbor LBC · $45 per team · enter by Nov 8<br>Four 12-end games · 2-bowl triples · teams of 3 women, at least 1 novice</p>
+          <p class="swd-open-note"><strong>Novice eligibility is unchanged.</strong> Because this event moved from April, anyone who was eligible to bowl as a novice in April 2026 may still enter as a novice — if you started bowling on or after April 2024, you are still a novice for this event.</p>
+          <span class="swd-open-arrow">Enter now →</span>
+        </a>
+
+        <a class="swd-open-card" href="https://www.swlawnbowls.org/2026-tournaments-events/swd-womens-heidi-rittner-australian-pairs26" target="_top">
+          <span class="swd-open-date">Sat · Nov 21</span>
+          <h3>Heidi Rittner Australian Pairs</h3>
+          <p class="swd-open-meta">Long Beach LBC · $60 per team · enter by Nov 14<br>Three 14-end games · Australian pairs 2-4-2 format</p>
+          <span class="swd-open-arrow">Enter now →</span>
+        </a>
+      </div>
+    </div>
+
     <!-- WHAT'S NEW -->
     <div class="swd-news-section">
       <div class="swd-news-head">
@@ -1096,6 +1122,120 @@
 </style>
 
 <style>
+  /* ENTRIES OPEN — TWO-UP TOURNAMENT BANNER */
+  .swd-open-banner {
+    margin-top: 26px;
+    background: #ffffff;
+    border: 1px solid #e6ece8;
+    border-radius: 26px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+    padding: 30px 32px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swd-open-banner::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #c8102e 0%, #e8192c 50%, #c8102e 100%);
+  }
+
+  .swd-open-banner .swd-home-kicker {
+    color: #c8102e;
+  }
+
+  .swd-open-head h2 {
+    margin: 0 0 8px;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #111111;
+  }
+
+  .swd-open-desc {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4b5563;
+    max-width: 620px;
+  }
+
+  .swd-open-grid {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .swd-open-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background: #f7f9f8;
+    border: 1px solid #e6ece8;
+    border-radius: 18px;
+    padding: 22px 22px 20px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+
+  .swd-open-card:hover {
+    transform: translateY(-1px);
+    border-color: #c8102e;
+  }
+
+  .swd-open-date {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c8102e;
+  }
+
+  .swd-open-card h3 {
+    margin: 8px 0 6px;
+    font-size: clamp(19px, 1.8vw, 23px);
+    line-height: 1.2;
+    color: #111111;
+  }
+
+  .swd-open-meta {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6b7280;
+  }
+
+  .swd-open-note {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #374151;
+    background: #fff4e5;
+    border: 1px solid #f0d4a8;
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .swd-open-arrow {
+    margin-top: auto;
+    padding-top: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #c8102e;
+  }
+
+  @media (max-width: 900px) {
+    .swd-open-banner {
+      padding: 26px 22px 24px;
+    }
+
+    .swd-open-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .swd-allcomers-banner {
     margin-top: 26px;
     background: #111111;

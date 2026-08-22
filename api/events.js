@@ -116,6 +116,8 @@ const TITLE_TO_ID = {
   "oaks north mixed triples": "oaks-north-mixed-triples-2026",
   "swlba men so california triples": "mens-so-california-triples-2026",
   "swd womens vet novice pairs": "womens-vet-novice-pairs-2026",
+  "swd womens vet novice triples": "womens-vet-novice-triples-2026",
+  "swd womens vet novice triples rescheduled": "womens-vet-novice-triples-2026",
   "swd womens ca bears": "womens-ca-bears-2026",
   "the groves mixed triples": "groves-mixed-triples-2026",
   "waterbury": "waterbury-2026",
