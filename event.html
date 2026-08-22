@@ -110,6 +110,8 @@ function initTournamentButton(config) {
   .evt-rules li { font-size: 14px; color: #333; padding: 6px 0 6px 22px; line-height: 1.5; position: relative; }
   .evt-rules li::before { content: '•'; color: #1a5fa8; font-weight: 700; position: absolute; left: 6px; }
 
+  .evt-alert { background: #fdecea; color: #7a1b12; padding: 14px 18px; border-radius: 6px; font-size: 15px; line-height: 1.6; font-weight: 500; margin-bottom: 20px; border: 1px solid #f2b8b1; border-left: 5px solid #c8102e; }
+  .evt-alert-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.75; margin-bottom: 4px; }
   .evt-novice { background: #fff9e6; padding: 14px 18px; border-radius: 6px; border-left: 3px solid #f4c842; font-size: 14px; line-height: 1.55; color: #4a3a15; }
 
   .evt-contact { background: #f8f8f8; padding: 16px 20px; border-radius: 6px; font-size: 14px; line-height: 1.6; }
@@ -224,6 +226,12 @@ function initTournamentButton(config) {
     ? `<div class="evt-section-h">Novice Definition</div>
        <div class="evt-novice">${esc(event.noviceDefinition)}</div>` : '';
 
+  // Short, loud notice pinned under the title — for the things a bowler must not
+  // miss before entering (a moved date, an eligibility carve-out). The long-form
+  // version still lives further down in its own section.
+  const alertBlock = event.alert
+    ? `<div class="evt-alert"><span class="evt-alert-label">${esc(event.alertLabel || 'Please Note')}</span>${esc(event.alert)}</div>` : '';
+
   const contactBlock = event.contact ? (() => {
     const c = event.contact;
     const lines = [];
@@ -317,6 +325,8 @@ function initTournamentButton(config) {
       <div class="evt-title">${esc(event.title)}</div>
       ${event.subtitle ? `<div class="evt-subtitle">${esc(event.subtitle)}</div>` : ''}
     </div>
+
+    ${alertBlock}
 
     ${event.deadline ? `<div class="evt-deadline"><span class="evt-deadline-label">Entry Deadline</span>${esc(event.deadline)}</div>` : ''}
 
