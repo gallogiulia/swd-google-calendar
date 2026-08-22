@@ -1740,9 +1740,31 @@
     }
   }
 
+  // Report our rendered height to the Squarespace page that embeds us, so the
+  // iframe can size itself instead of relying on a hardcoded pixel height that
+  // goes stale every time this page gains a banner or a section.
+  function reportHeight() {
+    try {
+      const h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+      if (h > 0) parent.postMessage({ swdHomeFeatureHeight: h }, "*");
+    } catch (e) { /* embedded cross-origin without a listener - harmless */ }
+  }
+
+  function watchHeight() {
+    reportHeight();
+    window.addEventListener("load", reportHeight);
+    window.addEventListener("resize", reportHeight);
+    if (typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(reportHeight).observe(document.body);
+    }
+    // Late-loading embeds (YouTube, Facebook, news cards) settle after paint.
+    [400, 1200, 3000].forEach(ms => setTimeout(reportHeight, ms));
+  }
+
   function initAll() {
     renderUpcomingStreams();
     loadNews();
+    watchHeight();
     setTimeout(initSouthwestTV, 600);
   }
 
