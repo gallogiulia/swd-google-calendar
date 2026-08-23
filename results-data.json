@@ -1,6 +1,67 @@
 {
   "tournaments": [
     {
+      "id": "laguna-open-pairs-2026",
+      "title": "2026 Laguna Beach Open Pairs",
+      "meta": "August 15–16 · Laguna Beach LBC",
+      "navLabel": "Laguna Open Pairs",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/26laguna-beach-open-pairs",
+      "divisions": [
+        {
+          "label": "Women",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Giulia Gallo / Eva Lee",
+              "photo": "/photos/laguna-open-pairs-2026/1th-gallo-lee.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Joanne Hedgespeth / Mary Thompson",
+              "photo": "/photos/laguna-open-pairs-2026/2th-hedgespeth-thompson.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Suzie Houston / Claire Doolin",
+              "photo": "/photos/laguna-open-pairs-2026/3th-houston-doolin.jpg"
+            },
+            {
+              "rank": 4,
+              "names": "Melanie Vizenor / Andra Minnehan",
+              "photo": "/photos/laguna-open-pairs-2026/4th-vizenor-minnehan.jpg"
+            }
+          ]
+        },
+        {
+          "label": "Men",
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Michael Siddall / John Slater",
+              "photo": "/photos/laguna-open-pairs-2026/1th-siddall-slater.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "Corey Vose / Avery Burton",
+              "photo": "/photos/laguna-open-pairs-2026/2th-vose-burton.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Rooz Ehdaie / Ian Ho",
+              "photo": "/photos/laguna-open-pairs-2026/3th-ehdaie-ho.jpg"
+            },
+            {
+              "rank": 4,
+              "names": "Peter Ritchie / Evan Katz",
+              "photo": "/photos/laguna-open-pairs-2026/4th-ritchie-katz.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "fossati-friends-womens-triples-2026",
       "title": "2026 Fossati & Friends Women's Triples",
       "meta": "August 9 · Newport Harbor LBC",
