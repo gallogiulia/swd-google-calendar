@@ -1364,14 +1364,8 @@
         "localPath": "/pdfs/womens-heidi-rittner-australian-pairs-2026/cops.pdf"
       },
       "paypal": {
-        "system": "modern",
-        "buttonName": "SWD Women's Heidi Rittner Australian Pairs",
-        "price": "60",
-        "containerSuffix": "rittner",
-        "playerLabels": [
-          "Skip",
-          "Lead"
-        ]
+        "system": "embed",
+        "html": "<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_top\">\n  <input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n  <input type=\"hidden\" name=\"hosted_button_id\" value=\"CW98PXK7JR24G\" />\n  <table>\n    <tr><td><input type=\"hidden\" name=\"on0\" value=\"Skip\"/>Skip</td></tr>\n    <tr><td><input type=\"text\" name=\"os0\" maxlength=\"200\" /></td></tr>\n    <tr><td><input type=\"hidden\" name=\"on1\" value=\"Lead\"/>Lead</td></tr>\n    <tr><td><input type=\"text\" name=\"os1\" maxlength=\"200\" /></td></tr>\n  </table>\n  <input type=\"hidden\" name=\"currency_code\" value=\"USD\" />\n  <input type=\"image\" src=\"https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Buy Now\" />\n</form>"
       },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzc_7_zTjIbezSEHNYQ4KAilvq-XNWlC_NT_SjEbb7kWtbQQxYk2iQj1_BYbeX2L9qdMz7xL11ZzDA/pubhtml?widget=true&headers=false",
