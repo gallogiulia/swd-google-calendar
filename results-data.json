@@ -1,6 +1,36 @@
 {
   "tournaments": [
     {
+      "id": "san-diego-mixed-triples-2026",
+      "title": "2026 San Diego Invitational Mixed Triples",
+      "meta": "August 22 · San Diego LBC",
+      "navLabel": "San Diego Mixed Triples",
+      "eventUrl": "https://www.swlawnbowls.org/2026-tournaments-events/26dmixedrips",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Harold Krasner, Lynda Borkum, Len Wasserman",
+              "photo": "/photos/san-diego-mixed-triples-2026/1th-krasner-borkum-wasserman.jpg"
+            },
+            {
+              "rank": 2,
+              "names": "John Lee, Barbara Lee, Will Jeffery",
+              "photo": "/photos/san-diego-mixed-triples-2026/2th-lee-lee-jeffery.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Russ Kindorf, Dee McSparran, Ivan Hyland",
+              "photo": "/photos/san-diego-mixed-triples-2026/3th-kindorf-mcsparran-hyland.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "laguna-open-pairs-2026",
       "title": "2026 Laguna Beach Open Pairs",
       "meta": "August 15–16 · Laguna Beach LBC",
