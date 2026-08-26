@@ -2780,7 +2780,7 @@
     {
       "id": "paypal-test-coronado",
       "title": "PayPal Test — Coronado Account",
-      "subtitle": "Internal test page · not a tournament · delete after use",
+      "subtitle": "Internal test page · REST client-id from Apps & Credentials · delete after use",
       "date": "Test page",
       "time": "",
       "schedule": [],
@@ -2817,7 +2817,7 @@
       },
       "paypal": {
         "system": "modern",
-        "buttonName": "PayPal Test — Coronado",
+        "buttonName": "PayPal Test — Coronado (REST app)",
         "price": "1",
         "containerSuffix": "cortest",
         "playerLabels": [
@@ -2825,7 +2825,7 @@
           "Vice",
           "Lead"
         ],
-        "clientId": "BAAVC0XZtL-8p6GdyihiHlSi_uxVyedwBIBe93bS9tb0VTaXp_1ZWxPMgA5h9YfjE-64W327EzbRZmsmGU"
+        "clientId": "BAARgJc84VJE3VypXPDRNsnEiNF0vowW59Wneadm95TglN2VhhLjrRebC2JC8kdsNZCG7vTAYrYOsClDmY"
       },
       "entries": {
         "pubUrl": "",
