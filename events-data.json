@@ -2780,6 +2780,66 @@
         "height": 1800,
         "width": "100%"
       }
+    },
+    {
+      "id": "paypal-test-coronado",
+      "title": "PayPal Test — Coronado Account",
+      "subtitle": "Internal test page · not a tournament · delete after use",
+      "date": "Test page",
+      "time": "",
+      "schedule": [],
+      "format": "triples",
+      "formatDetails": "$1 test payment to confirm the Coronado account and the Skip/Vice/Lead capture",
+      "club": {
+        "name": "Coronado Lawn Bowling Club",
+        "address": "",
+        "mapUrl": ""
+      },
+      "fee": "$1.00 test payment",
+      "deadline": "",
+      "rules": [
+        "This page exists only to test PayPal routing. It is not linked from the calendar, the agenda or the homepage.",
+        "Pay $1 with the three name boxes filled in, then check the Coronado PayPal account for the payment and its custom_id.",
+        "Delete this entry once the test is done."
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "",
+        "phone": "",
+        "email": "",
+        "mailTo": ""
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "modern",
+        "buttonName": "PayPal Test — Coronado",
+        "price": "1",
+        "containerSuffix": "cortest",
+        "playerLabels": [
+          "Skip",
+          "Vice",
+          "Lead"
+        ],
+        "clientId": "BAAVC0XZtL-8p6GdyihiHlSi_uxVyedwBIBe93bS9tb0VTaXp_1ZWxPMgA5h9YfjE-64W327EzbRZmsmGU"
+      },
+      "entries": {
+        "pubUrl": "",
+        "height": 400
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
     }
   ]
 }
