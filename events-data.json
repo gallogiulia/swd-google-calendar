@@ -2760,12 +2760,15 @@
         "localPath": "/pdfs/bill-hiscock-mixed-triples-2026/cops.pdf"
       },
       "paypal": {
-        "system": "ncp",
-        "url": "https://www.paypal.com/ncp/payment/J9M36LAQPUF3Y",
-        "buttonId": "J9M36LAQPUF3Y",
-        "clientId": "BAAVC0XZtL-8p6GdyihiHlSi_uxVyedwBIBe93bS9tb0VTaXp_1ZWxPMgA5h9YfjE-64W327EzbRZmsmGU",
-        "buttonName": "Coronado Bill Hiscock Mixed Triples",
-        "containerSuffix": "hiscock"
+        "system": "modern",
+        "buttonName": "Bill Hiscock Mixed Triples",
+        "price": "120",
+        "containerSuffix": "hiscock",
+        "playerLabels": [
+          "Skip",
+          "Vice",
+          "Lead"
+        ]
       },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQluZzQ0ND-1lP9VZCvcIcbS7YSD6XKZwFiImBkM2jo-YD3rWA7SjUL0jFTPmn-IKg7hLP-yllwLyK-/pubhtml?widget=true&headers=false",
