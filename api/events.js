@@ -120,6 +120,7 @@ const TITLE_TO_ID = {
   "swd womens vet novice triples rescheduled": "womens-vet-novice-triples-2026",
   "swd womens ca bears": "womens-ca-bears-2026",
   "the groves mixed triples": "groves-mixed-triples-2026",
+  "bill hiscock 2 bowl triples": "bill-hiscock-mixed-triples-2026",
   "waterbury": "waterbury-2026",
   "swlba men 5 man all star": "mens-5-man-all-star-2026",
   "swlba men vet novice mix match pairs sun city": "mens-vet-novice-mix-match-pairs-2026",

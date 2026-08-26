@@ -2693,6 +2693,68 @@
         "height": 400,
         "width": "100%"
       }
+    },
+    {
+      "id": "bill-hiscock-mixed-triples-2026",
+      "title": "2026 Bill Hiscock Mixed Triples",
+      "subtitle": "Coronado Lawn Bowling Club · Two-Bowl Mixed Triples",
+      "date": "Sunday, October 11, 2026",
+      "time": "8:30 AM announcements · 8:45 AM trial ends",
+      "schedule": [
+        "8:30 AM — Announcements",
+        "8:45 AM — Trial ends",
+        "Four 12-end games · 2 bowls · mixed triples",
+        "Bring your own lunch — heavy snacks and water provided"
+      ],
+      "format": "triples",
+      "formatDetails": "Two-Bowl Mixed Triples · four 12-end games",
+      "club": {
+        "name": "Coronado Lawn Bowling Club",
+        "address": "John D. Spreckels Center & Bowling Green, 1019 7th Street, Coronado, CA 92118",
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1019+7th+Street+Coronado+CA+92118"
+      },
+      "fee": "$120 per team ($40 per player)",
+      "deadline": "Entries open Wednesday, August 26, 2026 · capped at 16 teams — the sign-up date stamp is automatic",
+      "rules": [
+        "Named for Bill Hiscock, a lawn bowling legend, in honour of his many accomplishments",
+        "Two-bowl mixed triples · four 12-end games",
+        "Players may change position at the beginning of each game",
+        "Entry fee $120 per team ($40 per player)",
+        "Entries and payments are made electronically through swlawnbowls.org — sign up via PayPal with the Skip, Vice and Lead names",
+        "Tournament is capped at 16 teams; the sign-up date stamp is automatic",
+        "Dress code: teams are encouraged to wear matching outfits (shirts, and colours of bottoms recommended) — no T-shirts",
+        "Announcements at 8:30 AM, trial ends at 8:45 AM",
+        "Bring your own lunch; heavy snacks and water are provided — your own water bottle is encouraged. Bring any other food or drink you need"
+      ],
+      "noviceDefinition": "",
+      "livestreamNotice": "",
+      "contact": {
+        "name": "Russ Kindorf",
+        "phone": "",
+        "email": "Kindorfr@gmail.com",
+        "mailTo": ""
+      },
+      "flyer": {
+        "externalUrl": "",
+        "localPath": "/pdfs/bill-hiscock-mixed-triples-2026/flyer.pdf",
+        "type": "pdf"
+      },
+      "cops": {
+        "externalUrl": "",
+        "localPath": ""
+      },
+      "paypal": {
+        "system": "none"
+      },
+      "entries": {
+        "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQluZzQ0ND-1lP9VZCvcIcbS7YSD6XKZwFiImBkM2jo-YD3rWA7SjUL0jFTPmn-IKg7hLP-yllwLyK-/pubhtml?widget=true&headers=false",
+        "height": 500
+      },
+      "liveScoring": {
+        "pubUrl": "",
+        "height": 1800,
+        "width": "100%"
+      }
     }
   ]
 }
