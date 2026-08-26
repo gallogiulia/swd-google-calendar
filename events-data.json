@@ -2761,8 +2761,9 @@
       },
       "paypal": {
         "system": "ncp",
-        "url": "https://www.paypal.com/ncp/payment/4A4GMNYQT8PZC",
-        "buttonId": "4A4GMNYQT8PZC",
+        "url": "https://www.paypal.com/ncp/payment/J9M36LAQPUF3Y",
+        "buttonId": "J9M36LAQPUF3Y",
+        "clientId": "BAAVC0XZtL-8p6GdyihiHlSi_uxVyedwBIBe93bS9tb0VTaXp_1ZWxPMgA5h9YfjE-64W327EzbRZmsmGU",
         "buttonName": "Coronado Bill Hiscock Mixed Triples",
         "containerSuffix": "hiscock"
       },

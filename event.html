@@ -311,7 +311,9 @@ function initTournamentButton(config) {
           </div>
         </div>
       `;
-      ncpConfig = { containerId: 'ncp-' + suffix, buttonId: pp.buttonId };
+      // Each hosted button ships with its own client-id from PayPal — use that
+      // rather than the global one, since the two are not interchangeable.
+      ncpConfig = { containerId: 'ncp-' + suffix, buttonId: pp.buttonId, clientId: pp.clientId };
     } else if (pp.system === 'embed') {
       // Raw PayPal HTML form pasted from Squarespace/PayPal - rendered as-is
       regBlock = `
@@ -380,11 +382,11 @@ function initTournamentButton(config) {
   // doesn't load the hosted-buttons component, and re-loading over `paypal`
   // would break the modern buttons on every other tournament. A separate
   // namespace keeps the two apart.
-  if (ncpConfig && ncpConfig.buttonId) {
+  if (ncpConfig && ncpConfig.buttonId && ncpConfig.clientId) {
     const sdk = document.createElement('script');
     sdk.src = 'https://www.paypal.com/sdk/js?client-id=' +
-      'AWnJX5JsXStCJof72XBpoBEVDvd9qkue9Yk8rjrdmU4F8aq4lN1mDCsF0PKYniaQs0qeGUs_XLN_2IZL' +
-      '&components=hosted-buttons&currency=USD&disable-funding=paylater,venmo';
+      encodeURIComponent(ncpConfig.clientId) +
+      '&components=hosted-buttons&enable-funding=venmo&currency=USD';
     sdk.setAttribute('data-namespace', 'paypalNcp');
     sdk.onload = function () {
       const box = document.getElementById(ncpConfig.containerId);
