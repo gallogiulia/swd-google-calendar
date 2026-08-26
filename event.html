@@ -257,6 +257,7 @@ function initTournamentButton(config) {
   // ── Registration (PayPal) ──
   let regBlock = '';
   let modernConfig = null;
+  let ncpConfig = null;
   if (event.paypal && event.paypal.system !== 'none') {
     const pp = event.paypal;
     if (pp.system === 'modern') {
@@ -296,6 +297,21 @@ function initTournamentButton(config) {
           </form>
         </div>
       `;
+    } else if (pp.system === 'ncp') {
+      // PayPal No-Code Checkout. The SDK renders the real hosted button inline;
+      // the plain link is what shows until it does, and what stays if it can't.
+      const suffix = pp.containerSuffix || 'ncp';
+      regBlock = `
+        <div class="evt-section-h">Tournament Registration</div>
+        <div class="evt-reg" id="reg-${esc(suffix)}">
+          <div class="evt-reg-name">${esc(pp.buttonName || event.title)}</div>
+          ${event.fee ? `<div class="evt-reg-price">${esc(event.fee)}</div>` : ''}
+          <div class="evt-reg-pay" id="ncp-${esc(suffix)}">
+            <a class="evt-btn" href="${esc(pp.url)}" target="_blank" rel="noopener">Pay with PayPal</a>
+          </div>
+        </div>
+      `;
+      ncpConfig = { containerId: 'ncp-' + suffix, buttonId: pp.buttonId };
     } else if (pp.system === 'embed') {
       // Raw PayPal HTML form pasted from Squarespace/PayPal - rendered as-is
       regBlock = `
@@ -359,6 +375,29 @@ function initTournamentButton(config) {
 
     ${contactBlock}
   `;
+
+  // No-Code Checkout buttons need their own SDK instance: the global tag above
+  // doesn't load the hosted-buttons component, and re-loading over `paypal`
+  // would break the modern buttons on every other tournament. A separate
+  // namespace keeps the two apart.
+  if (ncpConfig && ncpConfig.buttonId) {
+    const sdk = document.createElement('script');
+    sdk.src = 'https://www.paypal.com/sdk/js?client-id=' +
+      'AWnJX5JsXStCJof72XBpoBEVDvd9qkue9Yk8rjrdmU4F8aq4lN1mDCsF0PKYniaQs0qeGUs_XLN_2IZL' +
+      '&components=hosted-buttons&currency=USD&disable-funding=paylater,venmo';
+    sdk.setAttribute('data-namespace', 'paypalNcp');
+    sdk.onload = function () {
+      const box = document.getElementById(ncpConfig.containerId);
+      if (!box || typeof paypalNcp === 'undefined' || !paypalNcp.HostedButtons) return;
+      try {
+        box.innerHTML = '';
+        paypalNcp.HostedButtons({ hostedButtonId: ncpConfig.buttonId }).render('#' + ncpConfig.containerId);
+      } catch (e) {
+        // leave the link in place
+      }
+    };
+    document.head.appendChild(sdk);
+  }
 
   // Now initialize PayPal if needed — wait a beat for SDK
   if (modernConfig) {

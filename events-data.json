@@ -2699,10 +2699,12 @@
       "title": "2026 Bill Hiscock Mixed Triples",
       "subtitle": "Coronado Lawn Bowling Club · Two-Bowl Mixed Triples",
       "date": "Sunday, October 11, 2026",
-      "time": "8:30 AM announcements · 8:45 AM trial ends",
+      "time": "8:30 AM announcements · 9:00 AM start",
       "schedule": [
+        "8:25 AM — Roll-ups end (greens open once ready)",
         "8:30 AM — Announcements",
-        "8:45 AM — Trial ends",
+        "8:45 AM — Trial ends (two bowls each way, before the first game only)",
+        "9:00 AM — First game starts",
         "Four 12-end games · 2 bowls · mixed triples",
         "Bring your own lunch — heavy snacks and water provided"
       ],
@@ -2711,20 +2713,34 @@
       "club": {
         "name": "Coronado Lawn Bowling Club",
         "address": "John D. Spreckels Center & Bowling Green, 1019 7th Street, Coronado, CA 92118",
-        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1019+7th+Street+Coronado+CA+92118"
+        "mapUrl": "https://www.google.com/maps/search/?api=1&query=1019+7th+Street+Coronado+CA+92118",
+        "phone": "619-319-5509"
       },
       "fee": "$120 per team ($40 per player)",
       "deadline": "Entries open Wednesday, August 26, 2026 · capped at 16 teams — the sign-up date stamp is automatic",
       "rules": [
         "Named for Bill Hiscock, a lawn bowling legend, in honour of his many accomplishments",
-        "Two-bowl mixed triples · four 12-end games",
+        "Two-bowl mixed triples · four 12-end games · all 12 ends must be played · 16 teams maximum",
         "Players may change position at the beginning of each game",
         "Entry fee $120 per team ($40 per player)",
-        "Entries and payments are made electronically through swlawnbowls.org — sign up via PayPal with the Skip, Vice and Lead names",
-        "Tournament is capped at 16 teams; the sign-up date stamp is automatic",
+        "Registration begins Wednesday, August 26 — sign up online through swlawnbowls.org and pay by PayPal during sign-up; the date stamp represents your team's entry date",
+        "Tournament is capped at 16 teams",
+        "Scoring: 3 points for a win, 1 for a tie · maximum plus/minus 8 points in any game · the team with the most game points wins",
+        "If a bye is necessary, the “winner” is allocated the average combined score of the other games in that round",
+        "Tiebreaker: plus/minus points, then head-to-head result, then fewest opponent points allowed, then most ends won, then a one-end roll-off",
+        "No time limits, though the Tournament Committee may add them based on pace of play",
+        "Trial ends: two bowls in each direction per player before the first game only — none for later games",
+        "Restriction of movement: leads move after the delivery of their vice's second bowl; vices after their own second bowl; vices may not stand with the skip at the start of an end; skips after each of their bowls, and may remain in the head until the opposing skip's first bowl",
+        "Burnt end: the jack is re-spotted on the 2-metre mark on the centre line",
+        "Practice: allowed Friday, October 9 once the greens are ready; roll-ups on Saturday and Sunday once the greens are ready, ending promptly at 8:25 AM",
+        "Late arrivals: 1 point and 1 end penalty for each 10 minutes after the official start; 30 minutes or more forfeits that game — may be waived in extenuating circumstances",
+        "Substitutes must be approved by the Tournament Committee or their representative, and may not skip",
         "Dress code: teams are encouraged to wear matching outfits (shirts, and colours of bottoms recommended) — no T-shirts",
-        "Announcements at 8:30 AM, trial ends at 8:45 AM",
-        "Bring your own lunch; heavy snacks and water are provided — your own water bottle is encouraged. Bring any other food or drink you need"
+        "No smoking or vaping anywhere at the facility · no cell phone use by players on the rink of play",
+        "Prize pool: 1st, 2nd and 3rd place — amounts depend on the final entry count and are announced before the start of play",
+        "Umpires are introduced before play as available; the umpire's decision is final",
+        "Bring your own lunch; heavy snacks and water are provided — your own water bottle is encouraged",
+        "Tournament Committee: Russ Kindorf, Bob Grobe and Mike Lane"
       ],
       "noviceDefinition": "",
       "livestreamNotice": "",
@@ -2741,10 +2757,14 @@
       },
       "cops": {
         "externalUrl": "",
-        "localPath": ""
+        "localPath": "/pdfs/bill-hiscock-mixed-triples-2026/cops.pdf"
       },
       "paypal": {
-        "system": "none"
+        "system": "ncp",
+        "url": "https://www.paypal.com/ncp/payment/4A4GMNYQT8PZC",
+        "buttonId": "4A4GMNYQT8PZC",
+        "buttonName": "Coronado Bill Hiscock Mixed Triples",
+        "containerSuffix": "hiscock"
       },
       "entries": {
         "pubUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQluZzQ0ND-1lP9VZCvcIcbS7YSD6XKZwFiImBkM2jo-YD3rWA7SjUL0jFTPmn-IKg7hLP-yllwLyK-/pubhtml?widget=true&headers=false",
