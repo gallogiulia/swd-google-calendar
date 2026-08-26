@@ -9,11 +9,14 @@
 <script src="https://www.paypal.com/sdk/js?client-id=AWnJX5JsXStCJof72XBpoBEVDvd9qkue9Yk8rjrdmU4F8aq4lN1mDCsF0PKYniaQs0qeGUs_XLN_2IZL&currency=USD&disable-funding=paylater,venmo"></script>
 <script>
 function initTournamentButton(config) {
-  if (typeof paypal === 'undefined') {
+  // config.sdk lets a club-owned tournament render through its own PayPal
+  // account instead of the division's. Defaults to the global SDK instance.
+  const sdk = config.sdk || (typeof paypal !== 'undefined' ? paypal : null);
+  if (!sdk) {
     console.error('PayPal SDK not loaded');
     return;
   }
-  paypal.Buttons({
+  sdk.Buttons({
     style: { layout: 'vertical', shape: 'rect', label: 'pay' },
     createOrder: function(data, actions) {
       const container = document.querySelector(config.parentBox);
@@ -280,6 +283,7 @@ function initTournamentButton(config) {
         containerId: '#paypal-button-' + suffix,
         name: pp.buttonName || event.title,
         price: pp.price || '0.00',
+        clientId: pp.clientId || '',
       };
     } else if (pp.system === 'classic') {
       regBlock = `
@@ -399,6 +403,27 @@ function initTournamentButton(config) {
       }
     };
     document.head.appendChild(sdk);
+  }
+
+  // A tournament run by a club takes its entry money through that club's own
+  // PayPal account, so it gets its own SDK instance under a separate namespace.
+  // Without a clientId we fall through to the division's global SDK below.
+  if (modernConfig && modernConfig.clientId) {
+    const clubSdk = document.createElement('script');
+    clubSdk.src = 'https://www.paypal.com/sdk/js?client-id=' +
+      encodeURIComponent(modernConfig.clientId) +
+      '&components=buttons&enable-funding=venmo&currency=USD';
+    clubSdk.setAttribute('data-namespace', 'paypalClub');
+    clubSdk.onload = function () {
+      if (typeof paypalClub === 'undefined' || !paypalClub.Buttons) return;
+      initTournamentButton(Object.assign({}, modernConfig, { sdk: paypalClub }));
+    };
+    clubSdk.onerror = function () {
+      const el = document.querySelector(modernConfig.containerId);
+      if (el) el.innerHTML = '<div style="padding:12px; background:#fff4e5; color:#8a4b0a; border-radius:6px; font-size:13px;">PayPal failed to load. Refresh the page or contact the organizer.</div>';
+    };
+    document.head.appendChild(clubSdk);
+    modernConfig = null;
   }
 
   // Now initialize PayPal if needed — wait a beat for SDK
