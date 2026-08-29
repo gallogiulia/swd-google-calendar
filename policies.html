@@ -10,24 +10,23 @@
      through the gaps between cards when this is loaded inside an iframe. */
   html, body, body.body { background: #eef2f7 !important; margin: 0; }
 
+  /* Plain heading — no photo banner. */
   .hub-hero {
-    background-image: linear-gradient(rgba(26, 54, 93, 0.78), rgba(26, 54, 93, 0.78)),
-      url('https://images.squarespace-cdn.com/content/v1/5e427c8312285d4ecccc6853/a8c80353-a169-4966-86c1-3ed904e1a94c/SoCalPhotos.png');
-    background-size: cover; background-position: center;
-    height: 42vh; min-height: 320px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    color: white; text-align: center; padding: 0 20px;
+    text-align: center;
+    padding: 44px 20px 4px;
   }
   .hub-hero .eyebrow {
     letter-spacing: 3px; font-weight: 900; text-transform: uppercase;
-    font-size: 0.8rem; opacity: 0.85; margin-bottom: 12px;
+    font-size: 0.8rem; color: #64748b; margin-bottom: 10px;
   }
   .hub-hero h1 {
-    font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; margin: 0;
-    text-transform: uppercase; letter-spacing: -2px; line-height: 1;
+    font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 900; margin: 0;
+    text-transform: uppercase; letter-spacing: -1.5px; line-height: 1;
+    color: #1a365d;
   }
   .hub-hero p {
-    font-size: 1.15rem; font-weight: 600; margin-top: 12px; max-width: 640px;
+    font-size: 1.1rem; font-weight: 600; margin: 12px auto 0; max-width: 640px;
+    color: #64748b;
   }
 
   .hub-grid {
