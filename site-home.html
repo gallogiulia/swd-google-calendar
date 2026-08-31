@@ -78,13 +78,14 @@
 
   nav.main { margin-left: auto; }
   nav.main > ul {
-    list-style: none; display: flex; gap: 2px;
+    list-style: none; display: flex; gap: 1px;
     margin: 0; padding: 0; align-items: center;
+    flex-wrap: wrap; justify-content: flex-end;   /* wrap rather than clip */
   }
   nav.main li { position: relative; }
   nav.main a, nav.main button.folder {
-    display: block; padding: 9px 12px;
-    font-size: 13.5px; font-weight: 500; color: var(--ink-soft);
+    display: block; padding: 9px 10px;
+    font-size: 13px; font-weight: 500; color: var(--ink-soft);
     text-decoration: none; border-radius: 6px;
     background: none; border: 0; cursor: pointer;
     font-family: inherit; white-space: nowrap;
@@ -111,7 +112,7 @@
     padding: 9px 12px; cursor: pointer; font: inherit; font-size: 14px; color: var(--ink);
   }
 
-  @media (max-width: 1040px) {
+  @media (max-width: 1200px) {
     .navtoggle { display: block; }
     nav.main {
       display: none; width: 100%; order: 3;
@@ -487,11 +488,36 @@
     }).join('');
   }
 
-  /* ── Let the embedded feature panel size itself ── */
+  /* ── Size the embedded feature panel to its content ──
+     A fixed height clipped the panel. It is served from this same site, so
+     its real height can be measured directly; the postMessage path stays as
+     a fallback in case it is ever served from somewhere else. */
+  var frame = document.getElementById('feature');
+
+  function fitFrame() {
+    try {
+      var doc = frame.contentDocument;
+      if (!doc || !doc.documentElement) return;
+      var h = Math.max(doc.documentElement.scrollHeight, doc.body ? doc.body.scrollHeight : 0);
+      if (h > 200 && h < 8000) frame.height = h + 24;
+    } catch (e) { /* cross-origin: rely on postMessage instead */ }
+  }
+
+  frame.addEventListener('load', function () {
+    fitFrame();
+    // Images and fonts land after load and change the height, so re-measure.
+    var tries = 0;
+    var timer = setInterval(function () {
+      fitFrame();
+      if (++tries > 12) clearInterval(timer);
+    }, 500);
+  });
+  window.addEventListener('resize', fitFrame);
+
   window.addEventListener('message', function (ev) {
     if (!ev.data || typeof ev.data !== 'object') return;
     var h = parseInt(ev.data.height || ev.data.frameHeight, 10);
-    if (h > 200 && h < 6000) document.getElementById('feature').height = h;
+    if (h > 200 && h < 8000) frame.height = h;
   });
 })();
 </script>
