@@ -206,9 +206,12 @@
       // Multi-discipline events (e.g. SW Open) publish one results page per division;
       // everything else falls back to the single tournament-level link.
       const divUrl = div.eventUrl || t.eventUrl;
-      const cards = div.places.map(p => {
+      // Divisions run in flights (e.g. SW Open) store every flight; this page shows
+      // only the top flight's podium and links through to the full breakdown.
+      const places = div.flights ? (div.flights[0] || {}).places || [] : (div.places || []);
+      const cards = places.map(p => {
         const style = p.rankStyle || rankStyle(p.rank);
-        const label = rankLabel(p.rank);
+        const label = rankLabel(p.rankLabel || p.rank);
         const photoBlock = p.photo
           ? `<img src="${esc(p.photo)}" alt="${esc(label)} — ${esc(p.names)}" loading="lazy">`
           : `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.4); font-size:11px; letter-spacing:.08em; text-transform:uppercase;">Photo coming soon</div>`;

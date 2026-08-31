@@ -678,174 +678,547 @@
         {
           "label": "Men's Rinks",
           "columns": 2,
-          "eventUrl": "https://www.swlawnbowls.org/swd-mens-rinks26",
-          "places": [
+          "eventUrl": "/division?event=southwest-open-2026&division=mens-rinks",
+          "slug": "mens-rinks",
+          "venue": "Long Beach Lawn Bowling Club",
+          "flights": [
             {
-              "rank": 1,
-              "names": "C. Herbert / S. Jazayeri / J. Wysopal / C. Tang",
-              "photo": "/photos/swd-mens-rinks26/01-champ-1st-herbert.jpg"
+              "label": "Championship Flight",
+              "places": [
+                {
+                  "rank": 1,
+                  "rankLabel": "1st Place",
+                  "names": "Charlie Herbert, Sadri Jazayeri, Jimmer Wysopal, Cyrus Tang",
+                  "photo": "/photos/swd-mens-rinks26/01-champ-1st-herbert.jpg"
+                },
+                {
+                  "rank": 2,
+                  "rankLabel": "2nd Place",
+                  "names": "Grant Shear, Phil Dunn, Barry Hayes, Kevin Lacey",
+                  "photo": "/photos/swd-mens-rinks26/02-champ-2nd-shear.jpg"
+                },
+                {
+                  "rank": 3,
+                  "rankLabel": "3rd Place",
+                  "names": "Loren Dion, Michael Siddall, Daniel Gorelick, Bill Brault",
+                  "photo": "/photos/swd-mens-rinks26/03-champ-3rd-dion.jpg"
+                },
+                {
+                  "rank": 4,
+                  "rankLabel": "4th Place",
+                  "names": "Robert Busciglio, Scottie Marzonie, Matt Bauchiero, Mike Koizumi",
+                  "photo": "/photos/swd-mens-rinks26/04-champ-4th-busciglio.jpg"
+                }
+              ]
             },
             {
-              "rank": 2,
-              "names": "G. Shear / P. Dunn / B. Hayes / K. Lacey",
-              "photo": "/photos/swd-mens-rinks26/02-champ-2nd-shear.jpg"
+              "label": "2nd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Winners",
+                  "names": "Jonathan Burnoski, Tom Burnoski, Jim Corr, Calvin Darling",
+                  "photo": "/photos/swd-mens-rinks26/05-2nd-flight-winner-burnoski.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Runners-up",
+                  "names": "Brian Stewart, Brian Mulvaney, Andrew Dufresne, Alan O'Brien",
+                  "photo": "/photos/swd-mens-rinks26/06-2nd-flight-runnerup-stewart.jpg"
+                }
+              ]
             },
             {
-              "rank": 3,
-              "names": "L. Dion / M. Siddall / D. Gorelick / B. Brault",
-              "photo": "/photos/swd-mens-rinks26/03-champ-3rd-dion.jpg"
-            },
-            {
-              "rank": 4,
-              "names": "R. Busciglio / S. Marzonie / M. Bauchiero / M. Koizumi",
-              "photo": "/photos/swd-mens-rinks26/04-champ-4th-busciglio.jpg"
+              "label": "3rd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Winners",
+                  "names": "Peter Ritchie, Terry Mar, Abe Pinella, Angel Lopez",
+                  "photo": "/photos/swd-mens-rinks26/07-3rd-flight-winner-ritchie.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Runners-up",
+                  "names": "Rooz Ehdaie, Alan Klaus, Evan Katz, Randy Hatfield",
+                  "photo": "/photos/swd-mens-rinks26/08-3rd-flight-runnerup-ehdaie.jpg"
+                }
+              ]
             }
           ]
         },
         {
           "label": "Women's Rinks",
           "columns": 2,
-          "eventUrl": "https://www.swlawnbowls.org/swd-womens-rinks26",
-          "places": [
+          "eventUrl": "/division?event=southwest-open-2026&division=womens-rinks",
+          "slug": "womens-rinks",
+          "venue": "Laguna Beach Lawn Bowling Club",
+          "flights": [
             {
-              "rank": 1,
-              "names": "M. Spease / L. Ang / T. Soto / T. Quan",
-              "photo": "/photos/swd-womens-rinks26/01-champ-1st-spease.jpg"
+              "label": "Championship Flight",
+              "places": [
+                {
+                  "rank": 1,
+                  "rankLabel": "1st Place",
+                  "names": "Mary Spease, Lee Ang, Trish Soto, Tricia Quan",
+                  "photo": "/photos/swd-womens-rinks26/01-champ-1st-spease.jpg"
+                },
+                {
+                  "rank": 2,
+                  "rankLabel": "2nd Place",
+                  "names": "Anne Nunes, Janice Bell, Veronica Sum, Candy DeFazio",
+                  "photo": "/photos/swd-womens-rinks26/02-champ-2nd-nunes.jpg"
+                },
+                {
+                  "rank": 3,
+                  "rankLabel": "3rd Place",
+                  "names": "Dee McSparran, Flor Wright, Jean English, Pat Binnie",
+                  "photo": "/photos/swd-womens-rinks26/03-champ-3rd-mcsparran.jpg"
+                }
+              ]
             },
             {
-              "rank": 2,
-              "names": "A. Nunes / J. Bell / V. Sum / C. DeFazio",
-              "photo": "/photos/swd-womens-rinks26/02-champ-2nd-nunes.jpg"
+              "label": "2nd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Winners",
+                  "names": "Giulia Gallo, Rachel Marcuson, Julie Buchanan, Manya Urane",
+                  "photo": "/photos/swd-womens-rinks26/04-2nd-flight-winner-gallo.jpg"
+                }
+              ]
             },
             {
-              "rank": 3,
-              "names": "D. McSparran / F. Wright / J. English / P. Binnie",
-              "photo": "/photos/swd-womens-rinks26/03-champ-3rd-mcsparran.jpg"
+              "label": "3rd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Winners",
+                  "names": "Nancy Santos, Rita Greenberg, Norma Goodhart, Jane Blair",
+                  "photo": "/photos/swd-womens-rinks26/05-3rd-flight-winner-santos.jpg"
+                }
+              ]
             }
           ]
         },
         {
           "label": "Men's Pairs",
           "columns": 2,
-          "eventUrl": "https://www.swlawnbowls.org/swd-mens-pairs26",
-          "places": [
+          "eventUrl": "/division?event=southwest-open-2026&division=mens-pairs",
+          "slug": "mens-pairs",
+          "venue": "Long Beach Lawn Bowling Club",
+          "flights": [
             {
-              "rank": 1,
-              "names": "Charlie Herbert / Sadri Jazayeri",
-              "photo": "/photos/swd-mens-pairs26/01-champ-1st-herbert.jpg"
+              "label": "Championship Flight",
+              "places": [
+                {
+                  "rank": 1,
+                  "rankLabel": "1st Place",
+                  "names": "Charlie Herbert, Sadri Jazayeri",
+                  "photo": "/photos/swd-mens-pairs26/01-champ-1st-herbert.jpg"
+                },
+                {
+                  "rank": 2,
+                  "rankLabel": "2nd Place",
+                  "names": "Dean Warmington, Alan O'Brien",
+                  "photo": "/photos/swd-mens-pairs26/02-champ-2nd-warmington.jpg"
+                },
+                {
+                  "rank": 3,
+                  "rankLabel": "3rd Place",
+                  "names": "Andy Klubberud, Ted Tragard",
+                  "photo": "/photos/swd-mens-pairs26/03-champ-3rd-klubberud.jpg"
+                },
+                {
+                  "rank": 4,
+                  "rankLabel": "4th Place",
+                  "names": "Brian Stewart, Ian Ho",
+                  "photo": "/photos/swd-mens-pairs26/04-champ-4th-stewart.jpg"
+                }
+              ]
             },
             {
-              "rank": 2,
-              "names": "Dean Warmington / Alan O'Brien",
-              "photo": "/photos/swd-mens-pairs26/02-champ-2nd-warmington.jpg"
+              "label": "2nd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Winners",
+                  "names": "Dave Breedon, Jerry Sanders",
+                  "photo": "/photos/swd-mens-pairs26/05-2nd-flight-winner-breedon.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Runners-up",
+                  "names": "Grant Shear, Barry Hayes",
+                  "photo": "/photos/swd-mens-pairs26/06-2nd-flight-runnerup-shear.jpg"
+                }
+              ]
             },
             {
-              "rank": 3,
-              "names": "Andy Klubberud / Ted Tragard",
-              "photo": "/photos/swd-mens-pairs26/03-champ-3rd-klubberud.jpg"
+              "label": "3rd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Winners",
+                  "names": "Jon Burnoski, Calvin Darling",
+                  "photo": "/photos/swd-mens-pairs26/07-3rd-flight-winner-burnoski.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Runners-up",
+                  "names": "Chris Dodd, Tom Richeson",
+                  "photo": "/photos/swd-mens-pairs26/08-3rd-flight-runnerup-dodd.jpg"
+                }
+              ]
             },
             {
-              "rank": 4,
-              "names": "Brian Stewart / Ian Ho",
-              "photo": "/photos/swd-mens-pairs26/04-champ-4th-stewart.jpg"
+              "label": "4th Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "4th Flight Winners",
+                  "names": "Howard Harris, Leonard Wasserman",
+                  "photo": "/photos/swd-mens-pairs26/09-4th-flight-winner-harris.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "4th Flight Runners-up",
+                  "names": "Matt Bauchiero, Scottie Marzonie",
+                  "photo": "/photos/swd-mens-pairs26/10-4th-flight-runnerup-bauchiero.jpg"
+                }
+              ]
+            },
+            {
+              "label": "5th Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "5th Flight Winners",
+                  "names": "Ron Rollick, Angel Lopez",
+                  "photo": "/photos/swd-mens-pairs26/11-5th-flight-winner-rollick.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "5th Flight Runners-up",
+                  "names": "Daniel Gorelick, Loren Dion",
+                  "photo": "/photos/swd-mens-pairs26/12-5th-flight-runnerup-gorelick.jpg"
+                }
+              ]
             }
           ]
         },
         {
           "label": "Women's Pairs",
           "columns": 2,
-          "eventUrl": "https://www.swlawnbowls.org/swd-womens-pairs26",
-          "places": [
+          "eventUrl": "/division?event=southwest-open-2026&division=womens-pairs",
+          "slug": "womens-pairs",
+          "venue": "Newport Harbor Lawn Bowling Club",
+          "flights": [
             {
-              "rank": 1,
-              "names": "Giulia Gallo / Rachel Marcuson",
-              "photo": "/photos/swd-womens-pairs26/01-champ-1st-gallo.jpg"
+              "label": "Championship Flight",
+              "places": [
+                {
+                  "rank": 1,
+                  "rankLabel": "1st Place",
+                  "names": "Giulia Gallo, Rachel Marcuson",
+                  "photo": "/photos/swd-womens-pairs26/01-champ-1st-gallo.jpg"
+                },
+                {
+                  "rank": 2,
+                  "rankLabel": "2nd Place",
+                  "names": "Joan Robbins, Susie Houston",
+                  "photo": "/photos/swd-womens-pairs26/02-champ-2nd-robbins.jpg"
+                },
+                {
+                  "rank": 3,
+                  "rankLabel": "3rd Place",
+                  "names": "Dee McSparran, Linda Roberts",
+                  "photo": "/photos/swd-womens-pairs26/03-champ-3rd-mcsparran.jpg"
+                },
+                {
+                  "rank": 4,
+                  "rankLabel": "4th Place",
+                  "names": "Rose Selby, Inger Benson",
+                  "photo": null
+                }
+              ]
             },
             {
-              "rank": 2,
-              "names": "Joan Robbins / Susie Houston",
-              "photo": "/photos/swd-womens-pairs26/02-champ-2nd-robbins.jpg"
+              "label": "2nd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Winners",
+                  "names": "Janice Bell, Veronica Sum",
+                  "photo": "/photos/swd-womens-pairs26/05-2nd-flight-winner-bell.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Runners-up",
+                  "names": "Nancy Santos, Lisa Coutee",
+                  "photo": null
+                }
+              ]
             },
             {
-              "rank": 3,
-              "names": "Dee McSparran / Linda Roberts",
-              "photo": "/photos/swd-womens-pairs26/03-champ-3rd-mcsparran.jpg"
+              "label": "3rd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Winners",
+                  "names": "Joanne Hedgespeth, Mary Thompson",
+                  "photo": "/photos/swd-womens-pairs26/07-3rd-flight-winner-hedgespeth.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Runners-up",
+                  "names": "Karen Billon, Andra Minnehan",
+                  "photo": "/photos/swd-womens-pairs26/08-3rd-flight-runnerup-billon.jpg"
+                }
+              ]
+            },
+            {
+              "label": "4th Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "4th Flight Winners",
+                  "names": "Kottia Spangler-Moore, Eva Lee",
+                  "photo": "/photos/swd-womens-pairs26/09-4th-flight-winner-spangler-moore.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "4th Flight Runners-up",
+                  "names": "Gina Moffitt, Maureen Schulte",
+                  "photo": null
+                }
+              ]
             }
           ]
         },
         {
           "label": "Men's Singles",
           "columns": 2,
-          "eventUrl": "https://www.swlawnbowls.org/swd-mens-singles26",
-          "places": [
+          "eventUrl": "/division?event=southwest-open-2026&division=mens-singles",
+          "slug": "mens-singles",
+          "venue": "Newport Harbor Lawn Bowling Club",
+          "flights": [
             {
-              "rank": 1,
-              "names": "Russ Kindorf",
-              "photo": "/photos/swd-mens-singles26/01-champ-1st-kindorf.jpg"
+              "label": "Championship Flight",
+              "places": [
+                {
+                  "rank": 1,
+                  "rankLabel": "1st Place",
+                  "names": "Russ Kindorf",
+                  "photo": "/photos/swd-mens-singles26/01-champ-1st-kindorf.jpg"
+                },
+                {
+                  "rank": 2,
+                  "rankLabel": "2nd Place",
+                  "names": "Grant Shear",
+                  "photo": "/photos/swd-mens-singles26/02-champ-2nd-shear.jpg"
+                },
+                {
+                  "rank": 3,
+                  "rankLabel": "3rd Place",
+                  "names": "Chris Dodd",
+                  "photo": "/photos/swd-mens-singles26/03-champ-3rd-dodd.jpg"
+                },
+                {
+                  "rank": 4,
+                  "rankLabel": "4th Place",
+                  "names": "Tom Richeson",
+                  "photo": "/photos/swd-mens-singles26/04-champ-4th-richeson.jpg"
+                }
+              ]
             },
             {
-              "rank": 2,
-              "names": "Grant Shear",
-              "photo": "/photos/swd-mens-singles26/02-champ-2nd-shear.jpg"
+              "label": "2nd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Winner",
+                  "names": "Ian Ho",
+                  "photo": "/photos/swd-mens-singles26/05-2nd-flight-ho-dion.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Runner-up",
+                  "names": "Loren Dion",
+                  "photo": "/photos/swd-mens-singles26/05-2nd-flight-ho-dion.jpg"
+                }
+              ]
             },
             {
-              "rank": 3,
-              "names": "Chris Dodd",
-              "photo": "/photos/swd-mens-singles26/03-champ-3rd-dodd.jpg"
+              "label": "3rd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Winner",
+                  "names": "Charlie Herbert",
+                  "photo": "/photos/swd-mens-singles26/06-3rd-flight-trenschel-herbert.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Runner-up",
+                  "names": "Chris Trenschel",
+                  "photo": "/photos/swd-mens-singles26/06-3rd-flight-trenschel-herbert.jpg"
+                }
+              ]
             },
             {
-              "rank": 4,
-              "names": "Tom Richeson",
-              "photo": "/photos/swd-mens-singles26/04-champ-4th-richeson.jpg"
+              "label": "4th Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "4th Flight Winner",
+                  "names": "Abe Pinella",
+                  "photo": "/photos/swd-mens-singles26/07-4th-flight-winner-pinella.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "4th Flight Runner-up",
+                  "names": "Alan O'Brien",
+                  "photo": null
+                }
+              ]
+            },
+            {
+              "label": "5th Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "5th Flight Winner",
+                  "names": "Phil Dunn",
+                  "photo": "/photos/swd-mens-singles26/08-5th-flight-dunn-warmington.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "5th Flight Runner-up",
+                  "names": "Dean Warmington",
+                  "photo": "/photos/swd-mens-singles26/08-5th-flight-dunn-warmington.jpg"
+                }
+              ]
+            },
+            {
+              "label": "6th Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "6th Flight Winner",
+                  "names": "Terry Mar",
+                  "photo": "/photos/swd-mens-singles26/09-6th-flight-rollick-mar.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "6th Flight Runner-up",
+                  "names": "Ron Rollick",
+                  "photo": "/photos/swd-mens-singles26/09-6th-flight-rollick-mar.jpg"
+                }
+              ]
             }
           ]
         },
         {
           "label": "Women's Singles",
           "columns": 2,
-          "eventUrl": "https://www.swlawnbowls.org/swd-womens-singles26",
-          "places": [
+          "eventUrl": "/division?event=southwest-open-2026&division=womens-singles",
+          "slug": "womens-singles",
+          "flights": [
             {
-              "rank": 1,
-              "names": "Anne Nunes",
-              "photo": "/photos/swd-womens-singles26/01-champ-1st-nunes.jpg"
+              "label": "Championship Flight",
+              "places": [
+                {
+                  "rank": 1,
+                  "rankLabel": "1st Place",
+                  "names": "Anne Nunes",
+                  "photo": "/photos/swd-womens-singles26/01-champ-1st-nunes.jpg"
+                },
+                {
+                  "rank": 2,
+                  "rankLabel": "2nd Place",
+                  "names": "Giulia Gallo",
+                  "photo": "/photos/swd-womens-singles26/02-champ-2nd-gallo.jpg"
+                },
+                {
+                  "rank": 3,
+                  "rankLabel": "3rd Place",
+                  "names": "Dee McSparran",
+                  "photo": "/photos/swd-womens-singles26/03-champ-3rd-mcsparran.jpg"
+                }
+              ]
             },
             {
-              "rank": 2,
-              "names": "Giulia Gallo",
-              "photo": "/photos/swd-womens-singles26/02-champ-2nd-gallo.jpg"
+              "label": "2nd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "2nd Flight Winner",
+                  "names": "Suzie Houston",
+                  "photo": "/photos/swd-womens-singles26/04-2nd-flight-winner-houston.jpg"
+                }
+              ]
             },
             {
-              "rank": 3,
-              "names": "Dee McSparran",
-              "photo": "/photos/swd-womens-singles26/03-champ-3rd-mcsparran.jpg"
+              "label": "3rd Flight",
+              "places": [
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Winner",
+                  "names": "Nancy Santos",
+                  "photo": "/photos/swd-womens-singles26/05-3rd-flight-winner-santos.jpg"
+                },
+                {
+                  "rank": null,
+                  "rankLabel": "3rd Flight Runner-up",
+                  "names": "Inger Benson",
+                  "photo": "/photos/swd-womens-singles26/06-3rd-flight-runnerup-benson.jpg"
+                }
+              ]
             }
           ]
         },
         {
           "label": "2+2 Getaway Rinks",
           "columns": 2,
-          "eventUrl": "https://www.swlawnbowls.org/swd-getaway26",
-          "places": [
+          "eventUrl": "/division?event=southwest-open-2026&division=2-plus-2-getaway-rinks",
+          "slug": "2-plus-2-getaway-rinks",
+          "venue": "Laguna Beach Lawn Bowling Club",
+          "flights": [
             {
-              "rank": 1,
-              "names": "G. Gallo / I. Ho / E. Lee / D. Gorelick",
-              "photo": "/photos/swd-getaway26/01-1st-place-gallo.jpg"
-            },
-            {
-              "rank": 2,
-              "names": "S. Hansanuwat / D. Hall / M. Koizumi / J. Blair",
-              "photo": "/photos/swd-getaway26/02-2nd-place-hansanuwat.jpg"
-            },
-            {
-              "rank": 3,
-              "names": "D. Breedon / I. Hyland / H. Stewart / M. Hyland / J. Robbins",
-              "photo": "/photos/swd-getaway26/03-3rd-place-breedon.jpg"
-            },
-            {
-              "rank": 4,
-              "names": "R. Busciglio / T. Mar / J. Bell / C. DeFazio",
-              "photo": "/photos/swd-getaway26/04-4th-place-busciglio.jpg"
+              "label": "Final Standings",
+              "places": [
+                {
+                  "rank": 1,
+                  "rankLabel": "1st Place",
+                  "names": "Giulia Gallo, Ian Ho, Eva Lee, Daniel Gorelick",
+                  "photo": "/photos/swd-getaway26/01-1st-place-gallo.jpg"
+                },
+                {
+                  "rank": 2,
+                  "rankLabel": "2nd Place",
+                  "names": "Shane Hansanuwat, Doreen Hall, Mike Koizumi, Jane Blair",
+                  "photo": "/photos/swd-getaway26/02-2nd-place-hansanuwat.jpg"
+                },
+                {
+                  "rank": 3,
+                  "rankLabel": "3rd Place",
+                  "names": "Dave Breedon, Ivan Hyland, Heather Stewart, Maryna Hyland, Joan Robbins",
+                  "photo": "/photos/swd-getaway26/03-3rd-place-breedon.jpg"
+                },
+                {
+                  "rank": 4,
+                  "rankLabel": "4th Place",
+                  "names": "Robert Busciglio, Terry Mar, Janice Bell, Candy DeFazio",
+                  "photo": "/photos/swd-getaway26/04-4th-place-busciglio.jpg"
+                },
+                {
+                  "rank": 5,
+                  "rankLabel": "5th Place",
+                  "names": "Anne Nunes, Bill Brault, Abe Pinella, Lee Ang",
+                  "photo": "/photos/swd-getaway26/05-5th-place-nunes.jpg"
+                }
+              ]
             }
           ]
         }

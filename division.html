@@ -1,0 +1,200 @@
+<!-- ============================================================
+     division.html — full flight-by-flight results for one division
+     of a multi-discipline event.
+
+     Reads results-data.json, finds the tournament by ?event= and the
+     division by ?division= (its slug), and renders every flight.
+
+     /division?event=southwest-open-2026&division=mens-pairs
+
+     The main /results page shows only each division's top flight and
+     links here for the rest. Both read the same data, so adding a
+     flight to results-data.json is the only step needed to publish it.
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Division results — Southwest Lawn Bowls</title>
+<style>
+  html, body { background: transparent; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #111;
+    -webkit-font-smoothing: antialiased;
+  }
+  .swlb-wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 56px; }
+
+  /* ── Header ── */
+  .swlb-back {
+    display: inline-block; font-size: 13px; color: #555;
+    text-decoration: none; margin-bottom: 14px;
+  }
+  .swlb-back:hover { color: #111; text-decoration: underline; }
+
+  .swlb-head { border-bottom: 2px solid #111; padding-bottom: 14px; margin-bottom: 8px; }
+  .swlb-event {
+    font-size: 12px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: #888; margin-bottom: 6px;
+  }
+  .swlb-title { font-size: 28px; font-weight: 700; line-height: 1.15; margin: 0; }
+  .swlb-meta { font-size: 14px; color: #666; margin-top: 6px; }
+
+  /* ── Division switcher ── */
+  .swlb-switch {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin: 16px 0 28px;
+  }
+  .swlb-switch a {
+    font-size: 12.5px; text-decoration: none; color: #555;
+    border: 1px solid #e0e0e0; border-radius: 999px;
+    padding: 5px 12px; background: #fff;
+  }
+  .swlb-switch a:hover { color: #111; border-color: #999; }
+  .swlb-switch a.on { background: #111; color: #fff; border-color: #111; }
+
+  /* ── Flights ── */
+  .swlb-flight { margin-bottom: 30px; }
+  .swlb-flight-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: #999;
+    margin: 0 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .swlb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .swlb-grid { grid-template-columns: 1fr; } }
+
+  .swlb-card {
+    border-radius: 10px; overflow: hidden;
+    background: #fff; border: 1px solid #e8e8e8;
+  }
+  .swlb-card-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #f2f2f2; }
+  .swlb-card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .swlb-card:hover .swlb-card-photo img { transform: scale(1.03); }
+  .swlb-card-photo.no-photo {
+    display: flex; align-items: center; justify-content: center;
+    color: #aaa; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .swlb-rank {
+    position: absolute; top: 8px; left: 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: .05em;
+    border-radius: 4px; padding: 3px 8px; color: #fff;
+  }
+  .swlb-rank.gold   { background: rgba(160,110,0,.85); }
+  .swlb-rank.silver { background: rgba(70,80,90,.8); }
+  .swlb-rank.bronze { background: rgba(130,70,20,.8); }
+  .swlb-rank.other  { background: rgba(30,30,30,.7); }
+  .swlb-card-body { padding: 12px 14px 14px; }
+  .swlb-card-names { font-size: 14px; font-weight: 600; color: #111; line-height: 1.35; }
+
+  .swlb-status { padding: 40px 0; color: #777; text-align: center; font-size: 14px; }
+  .swlb-status.err { color: #c53030; }
+</style>
+</head>
+<body>
+  <div class="swlb-wrap">
+    <div id="swlb-content"></div>
+    <div class="swlb-status" id="swlb-status">Loading…</div>
+  </div>
+
+<script>
+(async function () {
+  var statusEl  = document.getElementById('swlb-status');
+  var contentEl = document.getElementById('swlb-content');
+
+  var qs        = new URLSearchParams(location.search);
+  var eventId   = qs.get('event') || '';
+  var divSlug   = qs.get('division') || '';
+
+  function fail(msg) {
+    statusEl.className = 'swlb-status err';
+    statusEl.textContent = msg;
+  }
+
+  var data;
+  try {
+    var res = await fetch('/results-data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (e) {
+    return fail('Could not load results data (' + e.message + ').');
+  }
+
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  };
+
+  var tournament = (data.tournaments || []).filter(function (t) {
+    return t.id === eventId;
+  })[0];
+  if (!tournament) return fail('Unknown event “' + eventId + '”.');
+
+  var divisions = (tournament.divisions || []).filter(function (d) { return d.flights; });
+  var division  = divisions.filter(function (d) { return d.slug === divSlug; })[0];
+  if (!division) return fail('Unknown division “' + divSlug + '” in this event.');
+
+  var rankStyle = function (r) {
+    if (r === 1) return 'gold';
+    if (r === 2) return 'silver';
+    if (r === 3) return 'bronze';
+    return 'other';
+  };
+  var rankLabel = function (p) {
+    if (p.rankLabel) return p.rankLabel;
+    if (p.rank === 1) return '1st Place';
+    if (p.rank === 2) return '2nd Place';
+    if (p.rank === 3) return '3rd Place';
+    if (typeof p.rank === 'number') return p.rank + 'th Place';
+    return '';
+  };
+
+  document.title = division.label + ' — ' + tournament.title + ' — Southwest Lawn Bowls';
+
+  var head =
+    '<a class="swlb-back" href="/results">&larr; All results</a>' +
+    '<div class="swlb-head">' +
+      '<div class="swlb-event">' + esc(tournament.title) + '</div>' +
+      '<h1 class="swlb-title">' + esc(division.label) + '</h1>' +
+      (division.venue || tournament.meta
+        ? '<div class="swlb-meta">' + esc(division.venue || tournament.meta) + '</div>'
+        : '') +
+    '</div>';
+
+  var switcher = '<div class="swlb-switch">' + divisions.map(function (d) {
+    var on = d.slug === division.slug;
+    return '<a class="' + (on ? 'on' : '') + '" href="/division?event=' +
+      encodeURIComponent(tournament.id) + '&division=' + encodeURIComponent(d.slug) + '">' +
+      esc(d.label) + '</a>';
+  }).join('') + '</div>';
+
+  var flights = (division.flights || []).map(function (f) {
+    var cards = (f.places || []).map(function (p) {
+      var label = rankLabel(p);
+      var photo = p.photo
+        ? '<img src="' + esc(p.photo) + '" alt="' + esc(label + ' — ' + p.names) + '" loading="lazy">'
+        : '';
+      return '<div class="swlb-card">' +
+        '<div class="swlb-card-photo' + (p.photo ? '' : ' no-photo') + '">' +
+          (p.photo ? photo : 'Photo not available') +
+          (label ? '<span class="swlb-rank ' + rankStyle(p.rank) + '">' + esc(label) + '</span>' : '') +
+        '</div>' +
+        '<div class="swlb-card-body"><div class="swlb-card-names">' + esc(p.names) + '</div></div>' +
+      '</div>';
+    }).join('');
+    return '<div class="swlb-flight">' +
+      (f.label ? '<h2 class="swlb-flight-label">' + esc(f.label) + '</h2>' : '') +
+      '<div class="swlb-grid">' + cards + '</div>' +
+    '</div>';
+  }).join('');
+
+  contentEl.innerHTML = head + switcher + flights;
+  statusEl.remove();
+})();
+</script>
+</body>
+</html>
