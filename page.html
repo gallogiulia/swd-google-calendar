@@ -221,6 +221,7 @@
     .sections { gap: 30px; }
   }
 </style>
+<script src="/site-nav.js" defer></script>
 </head>
 <body>
   <div class="page">
@@ -237,7 +238,14 @@
   var statusEl   = document.getElementById('status');
   var sectionsEl = document.getElementById('sections');
 
+  // vercel.json rewrites /about-us to /page?id=about-us, but that rewrite is
+  // server-side: the browser's address stays /about-us with no query string,
+  // so the id has to come from the path. ?id= still works for direct links.
   var id = new URLSearchParams(location.search).get('id') || '';
+  if (!id) {
+    var path = location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+    if (path && path !== 'page') id = path;
+  }
   if (!/^[a-z0-9-]+$/.test(id)) {
     statusEl.className = 'status err';
     statusEl.textContent = 'No page requested. Add ?id=<page> to the address.';
