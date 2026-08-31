@@ -465,8 +465,15 @@ function renderDivisions() {
                placeholder="${state.newTournament.divisions.length > 1 ? 'Division name (e.g. A Green)' : '(optional label)'}"/>
         ${state.newTournament.divisions.length > 1 ? `<button class="icon-btn danger" data-action="remove-div" data-div="${dIdx}">✕</button>` : ''}
       </div>
-      ${div.places.map((p, pIdx) => renderPlace(dIdx, pIdx, p)).join('')}
-      <button class="add-btn" data-action="add-place" data-div="${dIdx}">＋ Add place</button>
+      ${div.flights
+        ? `<div style="padding:12px 14px;border:1px solid #f0c46a;background:#fdf6e3;
+                       border-radius:8px;font-size:14px;color:#713f12;line-height:1.5;">
+             <strong>This division is run in flights.</strong><br>
+             ${div.flights.length} flights, ${div.flights.reduce((n, f) => n + ((f.places || []).length), 0)} placings.
+             These are edited in <code>results-data.json</code>, not here.
+           </div>`
+        : `${(div.places || []).map((p, pIdx) => renderPlace(dIdx, pIdx, p)).join('')}
+           <button class="add-btn" data-action="add-place" data-div="${dIdx}">＋ Add place</button>`}
     </div>
   `).join('');
   $('#divisionsContainer').innerHTML = html;

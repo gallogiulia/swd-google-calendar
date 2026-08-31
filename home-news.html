@@ -173,17 +173,25 @@
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   }
 
+  // Divisions run in flights (e.g. the Southwest Open) store every flight
+  // instead of a flat places list; the podium is the top flight's places.
+  function divPlaces(d) {
+    if (d.flights) return (d.flights[0] || {}).places || [];
+    return d.places || [];
+  }
+
   function resultBody(t) {
     const divs = t.divisions || [];
     if (!divs.length) return "";
     if (divs.length === 1) {
-      return divs[0].places.slice(0, 3).map((p, i) =>
+      return divPlaces(divs[0]).slice(0, 3).map((p, i) =>
         ["1st","2nd","3rd"][i] + " " + p.names
       ).join(" · ");
     }
-    return divs.map(d =>
-      (d.label ? d.label + ": " : "") + (d.places[0] ? d.places[0].names : "")
-    ).join(" · ");
+    return divs.map(d => {
+      const first = divPlaces(d)[0];
+      return (d.label ? d.label + ": " : "") + (first ? first.names : "");
+    }).join(" · ");
   }
 
   function resultDate(t) {

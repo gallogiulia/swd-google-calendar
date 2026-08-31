@@ -145,7 +145,10 @@ function esc(s) {
 function winnerOf(tournament, flight) {
   const div = (tournament.divisions || []).find(d => (d.label || "").toLowerCase() === flight.toLowerCase());
   if (!div) return null;
-  return (div.places || []).find(p => Number(p.rank) === 1) || null;
+  // Divisions run in flights keep their podium in the top flight, not in a
+  // flat places list, so look there first.
+  const places = div.flights ? ((div.flights[0] || {}).places || []) : (div.places || []);
+  return places.find(p => Number(p.rank) === 1) || null;
 }
 
 function card(cat, flight, place) {

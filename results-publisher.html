@@ -461,9 +461,34 @@
     });
 
     const placesEl = el.querySelector('.pub-places');
+    const addBtn = el.querySelector('[data-add-place]');
+
+    if (d.flights) {
+      // Divisions run in flights (the Southwest Open) keep every flight rather
+      // than one flat list of places. This editor only understands the flat
+      // shape, so rather than show the division as empty - and risk someone
+      // adding a stray places list beside the flights - say so plainly.
+      const total = d.flights.reduce((n, f) => n + ((f.places || []).length), 0);
+      const note = document.createElement('div');
+      note.style.cssText =
+        'padding:12px 14px;border:1px solid #f0c46a;background:#fdf6e3;' +
+        'border-radius:8px;font-size:14px;color:#713f12;line-height:1.5;';
+      note.innerHTML =
+        '<strong>This division is run in flights.</strong><br>' +
+        d.flights.length + ' flights, ' + total + ' placings, edited in ' +
+        '<code>results-data.json</code> rather than here. Ask Claude to change ' +
+        'them and it will keep the flights intact.';
+      placesEl.appendChild(note);
+      addBtn.disabled = true;
+      addBtn.style.opacity = '.45';
+      addBtn.style.cursor = 'not-allowed';
+      addBtn.title = 'Flight-based divisions are edited in results-data.json';
+      return el;
+    }
+
     (d.places || []).forEach((p, pi) => placesEl.appendChild(renderPlace(t, d, p, pi)));
 
-    el.querySelector('[data-add-place]').addEventListener('click', () => {
+    addBtn.addEventListener('click', () => {
       d.places = d.places || [];
       d.places.push({ rank: d.places.length + 1, names: '', photo: '' });
       state.dirty = true; renderAll();
