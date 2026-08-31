@@ -5,6 +5,31 @@
       "source": "/results",
       "destination": "/results_new",
       "permanent": false
+    },
+    {
+      "source": "/result-history",
+      "destination": "/archive",
+      "permanent": false
+    },
+    {
+      "source": "/2025-tournament-results",
+      "destination": "/archive?year=2025",
+      "permanent": false
+    },
+    {
+      "source": "/2024results",
+      "destination": "/archive?year=2024",
+      "permanent": false
+    },
+    {
+      "source": "/2023-results",
+      "destination": "/archive?year=2023",
+      "permanent": false
+    },
+    {
+      "source": "/results-2022",
+      "destination": "/archive?year=2022",
+      "permanent": false
     }
   ],
   "rewrites": [
