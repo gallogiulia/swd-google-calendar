@@ -1,0 +1,247 @@
+<!-- ============================================================
+     archive.html — the historical results archive, 2022-2025.
+
+     Reads archive-data.json, which indexes the 737 result images
+     rescued off the Squarespace CDN by scripts/rescue-archive.py.
+
+     /archive            → most recent year
+     /archive?year=2023  → that year
+     /archive?q=hiscock  → search across all years
+
+     Where the source page published names as text (most of 2023 and
+     2024) they show under each photo and are searchable. 2025 was
+     published as graphics with the names inside the image, so those
+     entries are pictures only until someone transcribes them.
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Results Archive — Southwest Lawn Bowls</title>
+<style>
+  html, body { background: transparent; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #111;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 20px 16px 64px; }
+
+  .head { border-bottom: 2px solid #111; padding-bottom: 14px; }
+  .head h1 { font-size: 26px; margin: 0 0 4px; }
+  .head p  { margin: 0; font-size: 14px; color: #666; }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    align-items: center; margin: 18px 0 6px;
+  }
+  .years { display: flex; flex-wrap: wrap; gap: 6px; }
+  .years a {
+    font-size: 13px; font-weight: 600; text-decoration: none; color: #555;
+    border: 1px solid #e0e0e0; border-radius: 999px;
+    padding: 6px 15px; background: #fff;
+  }
+  .years a:hover { color: #111; border-color: #999; }
+  .years a.on { background: #111; color: #fff; border-color: #111; }
+
+  .search {
+    flex: 1 1 220px; min-width: 200px;
+    font: inherit; font-size: 14px;
+    padding: 8px 12px;
+    border: 1px solid #ddd; border-radius: 8px;
+    background: #fff; color: #111;
+  }
+  .search:focus { outline: 2px solid #1a5fa8; outline-offset: 1px; border-color: #1a5fa8; }
+
+  .count { font-size: 12.5px; color: #888; margin: 10px 0 22px; }
+
+  .tourn { margin-bottom: 34px; }
+  .tourn h2 {
+    font-size: 16px; margin: 0 0 2px; line-height: 1.3;
+  }
+  .tourn .meta {
+    font-size: 12px; color: #888; margin: 0 0 12px;
+    padding-bottom: 8px; border-bottom: 1px solid #ededed;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    border: 1px solid #e8e8e8; border-radius: 10px;
+    overflow: hidden; background: #fff;
+  }
+  .card .ph { position: relative; aspect-ratio: 1 / 1; background: #f2f2f2; }
+  .card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .rank {
+    position: absolute; top: 8px; left: 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: .04em;
+    border-radius: 4px; padding: 3px 8px; color: #fff;
+    background: rgba(30,30,30,.72);
+  }
+  .card .rank.gold   { background: rgba(160,110,0,.88); }
+  .card .rank.silver { background: rgba(70,80,90,.82); }
+  .card .rank.bronze { background: rgba(130,70,20,.82); }
+  .card .names {
+    padding: 10px 12px 12px;
+    font-size: 13px; line-height: 1.4; color: #111; font-weight: 600;
+  }
+  .card .names.none {
+    color: #aaa; font-weight: 400; font-style: italic; font-size: 12px;
+  }
+
+  .status { padding: 40px 0; text-align: center; color: #777; font-size: 14px; }
+  .status.err { color: #c53030; }
+  mark { background: #fff3ad; color: inherit; padding: 0 1px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>Results Archive</h1>
+      <p>Tournament results from 2022 to 2025.</p>
+    </div>
+    <div class="controls" id="controls" hidden>
+      <div class="years" id="years"></div>
+      <input class="search" id="search" type="search" placeholder="Search a name or tournament…" aria-label="Search the archive">
+    </div>
+    <div class="count" id="count"></div>
+    <div id="results"></div>
+    <div class="status" id="status">Loading…</div>
+  </div>
+
+<script>
+(async function () {
+  var statusEl   = document.getElementById('status');
+  var resultsEl  = document.getElementById('results');
+  var countEl    = document.getElementById('count');
+  var yearsEl    = document.getElementById('years');
+  var searchEl   = document.getElementById('search');
+
+  var data;
+  try {
+    var res = await fetch('/archive-data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (e) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Could not load the archive (' + e.message + ').';
+    return;
+  }
+
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  };
+
+  var archive = data.archive || [];
+  var years = [];
+  archive.forEach(function (t) {
+    if (years.indexOf(t.year) === -1) years.push(t.year);
+  });
+  years.sort().reverse();
+
+  var qs         = new URLSearchParams(location.search);
+  var activeYear = qs.get('year');
+  var query      = (qs.get('q') || '').trim();
+  if (years.indexOf(activeYear) === -1) activeYear = null;
+  if (!activeYear && !query) activeYear = years[0];
+
+  searchEl.value = query;
+  document.getElementById('controls').hidden = false;
+
+  function rankClass(rank) {
+    if (rank === 1) return 'gold';
+    if (rank === 2) return 'silver';
+    if (rank === 3) return 'bronze';
+    return '';
+  }
+
+  function highlight(text, q) {
+    var safe = esc(text);
+    if (!q) return safe;
+    try {
+      var re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+      return safe.replace(re, '<mark>$1</mark>');
+    } catch (e) { return safe; }
+  }
+
+  function render() {
+    var q = query.toLowerCase();
+
+    var shown = archive.filter(function (t) {
+      if (q) {
+        var hay = (t.title + ' ' + (t.venue || '') + ' ' +
+          t.places.map(function (p) { return p.names || ''; }).join(' ')).toLowerCase();
+        return hay.indexOf(q) !== -1;
+      }
+      return t.year === activeYear;
+    });
+
+    yearsEl.innerHTML = years.map(function (y) {
+      var on = !query && y === activeYear;
+      return '<a class="' + (on ? 'on' : '') + '" href="/archive?year=' + y + '">' + y + '</a>';
+    }).join('');
+
+    var photos = shown.reduce(function (n, t) { return n + t.places.length; }, 0);
+    var named  = shown.reduce(function (n, t) {
+      return n + t.places.filter(function (p) { return p.names; }).length;
+    }, 0);
+
+    countEl.textContent = query
+      ? shown.length + ' tournament' + (shown.length === 1 ? '' : 's') +
+        ' matching “' + query + '” · ' + photos + ' photos'
+      : shown.length + ' tournaments · ' + photos + ' photos · ' +
+        named + ' with names recorded';
+
+    if (!shown.length) {
+      resultsEl.innerHTML = '<div class="status">Nothing found' +
+        (query ? ' for “' + esc(query) + '”' : '') + '.</div>';
+      return;
+    }
+
+    resultsEl.innerHTML = shown.map(function (t) {
+      var cards = t.places.map(function (p) {
+        var label = p.rankLabel || '';
+        var names = p.names
+          ? '<div class="names">' + highlight(p.names, query) + '</div>'
+          : '<div class="names none">Names not recorded</div>';
+        var img = p.photo
+          ? '<img src="' + esc(p.photo) + '" alt="' + esc((label ? label + ' — ' : '') + (p.names || t.title)) + '" loading="lazy">'
+          : '';
+        return '<div class="card"><div class="ph">' + img +
+          (label ? '<span class="rank ' + rankClass(p.rank) + '">' + esc(label) + '</span>' : '') +
+          '</div>' + names + '</div>';
+      }).join('');
+
+      return '<div class="tourn">' +
+        '<h2>' + highlight(t.title, query) + '</h2>' +
+        '<p class="meta">' + esc(t.year) + (t.venue ? ' · ' + esc(t.venue) : '') + '</p>' +
+        '<div class="grid">' + cards + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  var timer;
+  searchEl.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      query = searchEl.value.trim();
+      var url = query ? '/archive?q=' + encodeURIComponent(query)
+                      : '/archive?year=' + activeYear;
+      history.replaceState(null, '', url);
+      render();
+    }, 180);
+  });
+
+  render();
+  statusEl.remove();
+})();
+</script>
+</body>
+</html>
