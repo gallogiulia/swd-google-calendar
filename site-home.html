@@ -516,7 +516,9 @@
 
   window.addEventListener('message', function (ev) {
     if (!ev.data || typeof ev.data !== 'object') return;
-    var h = parseInt(ev.data.height || ev.data.frameHeight, 10);
+    // home-feature.html announces itself as swdHomeFeatureHeight; the other
+    // embeddable pages use {type:'swd-*-height', height}. Accept both.
+    var h = parseInt(ev.data.swdHomeFeatureHeight || ev.data.height || ev.data.frameHeight, 10);
     if (h > 200 && h < 8000) frame.height = h;
   });
 })();
