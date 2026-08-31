@@ -29,6 +29,7 @@ Each pairs a data file with a template. To publish, edit the data.
 | Multi-division results | `results-data.json` | `division.html` | `/division?event=<id>&division=<slug>` |
 | Information pages | `content/<id>.json` | `page.html` | `/<id>` |
 | Historical archive | `archive-data.json` | `archive.html` | `/archive` |
+| Home page + menu | `nav-data.json` + `events-data.json` | `site-home.html` | `/home-v2` |
 
 Read `docs/page-content-schema.md` before touching anything under `content/`.
 
@@ -54,6 +55,21 @@ drift apart.
 Text in content JSON is **escaped, not rendered as HTML**. Never put `<a>` tags
 inside a paragraph — use a `buttons` or `contact` section instead.
 
+### The standalone home page
+`site-home.html` (at `/home-v2`) is the front door for after cutover. Unlike
+everything else here it is **not** built to sit inside the Squarespace shell:
+it carries its own header, menu and footer.
+
+- The menu is `nav-data.json` — edit that to change it, including dropdowns.
+- Upcoming/Past tournaments read `events-data.json` and sort themselves, so a
+  tournament added once appears there automatically. Event dates are written
+  for people ("Saturday–Sunday, July 18–19, 2026"), so `startDate()` pulls out
+  the first month/day/year rather than trusting `Date()`.
+- The menu deliberately uses the addresses members already know
+  (`/2026-season-agenda`, `/delegate-information`, …). `vercel.json` maps each
+  to our own page, so those addresses survive cutover.
+- At cutover, change the `/` rewrite in `vercel.json` to `/site-home`.
+
 ## Rules that matter
 
 **Never hotlink Squarespace.** Images served from `images.squarespace-cdn.com`
@@ -70,6 +86,14 @@ safe, and Vercel followed it.
 competitive record. Transcribe them exactly; never "fix" a spelling silently.
 Where the source is inconsistent (the archive has both "Susie" and "Suzie"
 Houston), carry it across as written and flag it rather than guessing.
+
+**A change to one data file can break another page.** Several pages read
+`results-data.json`. When the Southwest Open moved from a flat `places` list to
+`flights`, it silently broke the home feature panel, the news panel, both
+Nationals pages and both results publishers. Before changing the *shape* of a
+data file, grep for everything that reads it:
+
+    grep -rln "results-data.json" --include='*.html' --include='*.js' .
 
 **Validate JSON before committing.** `python3 -c "import json;json.load(open('X.json'))"`.
 A malformed data file takes the page down, and there is no staging to catch it.
