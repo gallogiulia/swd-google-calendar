@@ -1,0 +1,35 @@
+{
+  "id": "ladies-day-results",
+  "title": "Ladies Day Results",
+  "sourceUrl": "https://www.swlawnbowls.org/ladies-day-results",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/ladies-day-results/01-ladies-day-banner.jpg",
+      "alt": "Ladies Day banner — the Southwest Bowls palm-tree logo beside the words “Ladies Day” in handwriting on a pale yellow field."
+    },
+    {
+      "type": "prose",
+      "body": [
+        "Ladies Day is a fun monthly event that brings the women of the division together for a day of competition and camaraderie. Each month different club hosts the event."
+      ]
+    },
+    {
+      "type": "buttons",
+      "heading": "Results by year",
+      "items": [
+        { "label": "2026", "url": "/ladies-day-2026" },
+        { "label": "2025", "url": "/ladies-day-2025" },
+        { "label": "2024", "url": "/ladies-day-2024" },
+        { "label": "2023", "url": "/ladies-day-2023" },
+        { "label": "2022", "url": "/ladies-day-2022" },
+        { "label": "2021", "url": "/ladies-day-2021" }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "This is an index page: a banner, one intro sentence, and links to the six per-year Ladies Day pages. The year links were arranged as an image/button grid in Squarespace in a scrambled order (2026, 2025, 2022, 2024, 2021, 2023); they are listed here newest-first.",
+    "The Squarespace browser title for this page is the unedited default “General 1”. The nav label — “Ladies Day Results” — is used as the page title instead.",
+    "Each year link in Squarespace carried a decorative thumbnail; those were not migrated, as the buttons carry the same information."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "schedule",
+  "title": "Flyer and Schedule",
+  "sourceUrl": "https://www.swlawnbowls.org/schedule",
+  "sections": [
+    {
+      "type": "prose",
+      "body": ["Ladies Day Flyer and Schedule."]
+    },
+    {
+      "type": "image",
+      "src": "/photos/pages/schedule/01-ladies-day-flyer.jpg",
+      "alt": "Ladies’ Day flyer: Newport Harbor LBC, 1550 Crown Dr, Corona del Mar, Wednesday, April 8, 2026, check-in 9:00 a.m. All women bowlers welcome; wear whites or club shirts with collars; bring a lunch, salads provided; entry fee $5.00."
+    },
+    {
+      "type": "image",
+      "src": "/photos/pages/schedule/02-ladies-day-schedule.jpg",
+      "alt": "2026 Ladies Day schedule: Apr 8 Newport Harbor, May 13 Long Beach, Jun 10 Hermosa Beach, Jul 8 Newport Harbor, Aug 12 Laguna Beach, Sept 9 Santa Ana, Oct 14 Casta Del Sol, Nov 11 The Groves, and Tues Dec 15 Laguna Woods holiday luncheon in Clubhouse 2."
+    }
+  ],
+  "migrationNotes": [
+    "The entire page is one line of text and two screenshots, both uploaded to Squarespace on 2026-03-16.",
+    "The second image is the same 2026 Ladies Day schedule already migrated at /photos/pages/ladies-day-sign-up/01-ladies-day-2026-schedule.jpg, at lower resolution.",
+    "The first image is a flyer for the April 8, 2026 Ladies Day at Newport Harbor — a single past event.",
+    "This page is not linked from the site navigation."
+  ]
+}

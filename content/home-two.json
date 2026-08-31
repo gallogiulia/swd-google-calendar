@@ -1,0 +1,11 @@
+{
+  "id": "home-two",
+  "title": "Home v2",
+  "sourceUrl": "https://www.swlawnbowls.org/home-two",
+  "sections": [],
+  "migrationNotes": [
+    "The page is empty. Its Squarespace body contains a single section with no blocks in it — no text, no images, no embeds. There was nothing to migrate.",
+    "This page is not linked from the site navigation.",
+    "Recommended for retirement: it is an abandoned homepage draft with no content."
+  ]
+}

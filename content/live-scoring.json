@@ -1,0 +1,18 @@
+{
+  "id": "live-scoring",
+  "title": "Live Scoring",
+  "sourceUrl": "https://www.swlawnbowls.org/live-scoring",
+  "sections": [
+    {
+      "type": "embed",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKSB1VNoLu3Cx-p0cKHl6_pZanG6NqdDQZS5Fg7anytDRN5WGIgp23oOrCs7A-Gy5KINZ4yL3VYzUB/pubhtml?widget=true&headers=false",
+      "height": 1800
+    }
+  ],
+  "migrationNotes": [
+    "The page has no text of its own — it is a single embedded Google Sheet and nothing else. The browser title is “Live Scoring | Follow Live Scores Now”.",
+    "The embedded sheet is titled “Waterbury 2025” and its published copy currently returns no rows, so it appears to be last season’s scoring sheet, now empty.",
+    "This published-sheet URL appears nowhere else in the repo. It is not the liveScoring.pubUrl of any event in events-data.json, and the waterbury-2026 event has an empty pubUrl. It is recorded here so it is not lost.",
+    "This page is not linked from the site navigation."
+  ]
+}
