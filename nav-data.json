@@ -1,0 +1,65 @@
+{
+  "brand": {
+    "name": "Southwest Lawn Bowls",
+    "short": "SWD",
+    "logo": "/photos/home/08-swd-logo.png",
+    "href": "/"
+  },
+  "items": [
+    { "label": "Home", "href": "/" },
+    { "label": "2026 Season Agenda", "href": "/2026-season-agenda" },
+    {
+      "label": "Current Tournaments (2026)",
+      "children": [
+        { "label": "2026 Standings", "href": "/standings" },
+        { "label": "2026 Tournaments", "href": "/2026-tournaments-events" },
+        { "label": "2026 Tournament Results", "href": "/2026-tournament-results" },
+        { "label": "U.S. Nationals Teams", "href": "/us-nationals-teams" }
+      ]
+    },
+    {
+      "label": "Division Information",
+      "children": [
+        { "label": "About Us", "href": "/about-us" },
+        { "label": "Learn More", "href": "/learnmore" },
+        { "label": "Club Info", "href": "/club-info" },
+        { "label": "Bowls Development Fund", "href": "/bowlsdevelopmnetfund" },
+        { "label": "Coaching Hub", "href": "/coachinghub" },
+        { "label": "Umpires", "href": "/umpires" },
+        { "label": "Markers", "href": "/markers" },
+        { "label": "Policies and Procedures", "href": "/policies-and-procedures" },
+        { "label": "Delegate Information", "href": "/delegate-information" }
+      ]
+    },
+    {
+      "label": "Ladies Day",
+      "children": [
+        { "label": "Ladies Day Sign Up", "href": "/ladies-day-sign-up" },
+        { "label": "Ladies Day Results", "href": "/ladies-day-results" },
+        { "label": "Inland Empire Ladies Day", "href": "/ie-ladies-day" }
+      ]
+    },
+    { "label": "YouTube Live-Stream", "href": "https://www.youtube.com/@SouthwestLawnBowls", "external": true },
+    {
+      "label": "Tournaments Archives",
+      "children": [
+        { "label": "Result History", "href": "/archive" },
+        { "label": "2025 Results", "href": "/archive?year=2025" },
+        { "label": "2024 Results", "href": "/archive?year=2024" },
+        { "label": "2023 Results", "href": "/archive?year=2023" },
+        { "label": "2022 Results", "href": "/archive?year=2022" }
+      ]
+    },
+    { "label": "Contact Us", "href": "/contact-us" }
+  ],
+  "social": [
+    { "label": "YouTube", "href": "https://www.youtube.com/@SouthwestLawnBowls" },
+    { "label": "Facebook", "href": "https://www.facebook.com/profile.php?id=61574126130618" }
+  ],
+  "footerLinks": [
+    { "label": "Privacy Policy", "href": "/privacy-policy" },
+    { "label": "Disclaimer", "href": "/disclaimer" },
+    { "label": "Copyright", "href": "/disclaimer-1" },
+    { "label": "Contact Us", "href": "/contact-us" }
+  ]
+}

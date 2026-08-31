@@ -160,6 +160,10 @@
     {
       "source": "/ladies-day-results",
       "destination": "/page?id=ladies-day-results"
+    },
+    {
+      "source": "/home-v2",
+      "destination": "/site-home"
     }
   ]
 }

@@ -1,0 +1,499 @@
+<!-- ============================================================
+     site-home.html — the standalone home page.
+
+     This is the page that becomes swlawnbowls.org's front door at
+     cutover. Unlike everything else in this repo, it is NOT designed
+     to be embedded inside the Squarespace shell: it carries its own
+     navigation, header and footer, so it can stand on its own.
+
+     It is driven by data:
+       nav-data.json     the menu (edit this to change the menu)
+       events-data.json  the Upcoming / Past tournament lists, which
+                         sort themselves by date - no hand-editing
+       /home-feature     the existing feature panel, embedded as-is
+
+     Preview it at /home-v2 while Squarespace is still live.
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Southwest Lawn Bowls — Home of Southwest Bowls</title>
+<meta name="description" content="Southwest Bowls Division — lawn bowling across Southern California, from Cambria to San Diego.">
+<style>
+  :root {
+    --bg:        #ffffff;
+    --bg-soft:   #f5f7fa;
+    --ink:       #172033;
+    --ink-soft:  #4a5568;
+    --muted:     #667085;
+    --line:      rgba(15,23,42,.10);
+    --line-2:    rgba(15,23,42,.16);
+    --navy:      #1a365d;
+    --navy-deep: #0f2440;
+    --green:     #0a5b3a;
+    --green-2:   #084a2f;
+    --gold:      #d4af37;
+    --gold-deep: #713f12;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── Header / navigation ───────────────────────── */
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+  }
+  .navbar {
+    display: flex; align-items: center; gap: 18px;
+    min-height: 72px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; flex: 0 0 auto; }
+  .brand img { height: 42px; width: auto; display: block; }
+  .brand span {
+    font-weight: 700; font-size: 15px; color: var(--navy);
+    line-height: 1.15; max-width: 160px;
+  }
+
+  nav.main { margin-left: auto; }
+  nav.main > ul {
+    list-style: none; display: flex; gap: 2px;
+    margin: 0; padding: 0; align-items: center;
+  }
+  nav.main li { position: relative; }
+  nav.main a, nav.main button.folder {
+    display: block; padding: 9px 12px;
+    font-size: 13.5px; font-weight: 500; color: var(--ink-soft);
+    text-decoration: none; border-radius: 6px;
+    background: none; border: 0; cursor: pointer;
+    font-family: inherit; white-space: nowrap;
+  }
+  nav.main a:hover, nav.main button.folder:hover { color: var(--navy); background: var(--bg-soft); }
+  nav.main button.folder::after {
+    content: ""; display: inline-block; margin-left: 6px;
+    border: 4px solid transparent; border-top-color: currentColor;
+    transform: translateY(2px);
+  }
+  nav.main ul.sub {
+    position: absolute; top: 100%; left: 0; min-width: 232px;
+    list-style: none; margin: 4px 0 0; padding: 6px;
+    background: #fff; border: 1px solid var(--line-2);
+    border-radius: 10px; box-shadow: 0 12px 32px -12px rgba(15,23,42,.28);
+    display: none;
+  }
+  nav.main li.open > ul.sub { display: block; }
+  nav.main ul.sub a { white-space: normal; font-size: 13.5px; padding: 8px 11px; }
+
+  .navtoggle {
+    display: none; margin-left: auto;
+    background: none; border: 1px solid var(--line-2); border-radius: 8px;
+    padding: 9px 12px; cursor: pointer; font: inherit; font-size: 14px; color: var(--ink);
+  }
+
+  @media (max-width: 1040px) {
+    .navtoggle { display: block; }
+    nav.main {
+      display: none; width: 100%; order: 3;
+      margin: 0 0 14px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    nav.main.show { display: block; }
+    .navbar { flex-wrap: wrap; }
+    nav.main > ul { flex-direction: column; align-items: stretch; gap: 0; }
+    nav.main a, nav.main button.folder { width: 100%; text-align: left; padding: 11px 8px; }
+    nav.main ul.sub {
+      position: static; display: none; box-shadow: none; border: 0;
+      border-left: 2px solid var(--line-2); border-radius: 0;
+      margin: 0 0 6px 12px; padding: 0 0 0 8px;
+    }
+  }
+
+  /* ── Hero ──────────────────────────────────────── */
+  .hero { position: relative; background: var(--navy-deep); overflow: hidden; }
+  .hero img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: .42;
+  }
+  .hero .inner {
+    position: relative; padding: 92px 0 96px; text-align: center; color: #fff;
+  }
+  .hero h1 {
+    margin: 0 auto 14px; max-width: 17ch;
+    font-size: clamp(2rem, 5.2vw, 3.4rem); line-height: 1.1;
+    letter-spacing: -.015em; text-wrap: balance;
+    text-shadow: 0 2px 18px rgba(0,0,0,.4);
+  }
+  .hero p {
+    margin: 0 auto; max-width: 52ch; font-size: clamp(1rem, 2.2vw, 1.15rem);
+    color: rgba(255,255,255,.94); text-shadow: 0 1px 10px rgba(0,0,0,.4);
+  }
+  .hero .cta { margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 12px 22px; border-radius: 8px;
+    font-weight: 600; font-size: .95rem; text-decoration: none;
+    background: var(--green); color: #fff; border: 1px solid transparent;
+  }
+  .btn:hover { background: var(--green-2); }
+  .btn.ghost { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.55); color: #fff; }
+  .btn.ghost:hover { background: rgba(255,255,255,.2); }
+
+  /* ── Sections ──────────────────────────────────── */
+  section.band { padding: 56px 0; }
+  section.band.soft { background: var(--bg-soft); border-block: 1px solid var(--line); }
+  .band h2 {
+    margin: 0 0 6px; font-size: 1.7rem; color: var(--navy); letter-spacing: -.01em;
+  }
+  .band .sub { margin: 0 0 26px; color: var(--muted); }
+
+  .feature-frame { width: 100%; border: 0; display: block; }
+
+  /* ── Tournament lists ──────────────────────────── */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+
+  ul.events { list-style: none; margin: 0; padding: 0; }
+  ul.events li { border-bottom: 1px solid var(--line); }
+  ul.events li:first-child { border-top: 1px solid var(--line); }
+  ul.events a {
+    display: grid; grid-template-columns: 62px 1fr; gap: 14px;
+    padding: 13px 4px; text-decoration: none; align-items: baseline;
+  }
+  ul.events a:hover { background: #fff; }
+  .band.soft ul.events a:hover { background: #fff; }
+  .ev-date {
+    font-size: 11.5px; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--gold-deep);
+    font-variant-numeric: tabular-nums;
+  }
+  .ev-title { font-weight: 600; font-size: .97rem; color: var(--ink); line-height: 1.35; }
+  .ev-club { display: block; font-weight: 400; font-size: .86rem; color: var(--muted); margin-top: 2px; }
+  .more { margin-top: 16px; font-size: .92rem; font-weight: 600; color: var(--green); text-decoration: none; }
+  .more:hover { text-decoration: underline; }
+  .empty { color: var(--muted); font-size: .93rem; padding: 14px 0; }
+
+  /* ── Nationals banner ──────────────────────────── */
+  .nationals {
+    background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+    color: #fff; padding: 52px 0;
+  }
+  .nationals .inner {
+    display: flex; align-items: center; gap: 34px; justify-content: center; flex-wrap: wrap;
+  }
+  .nationals img { width: 148px; height: auto; flex: 0 0 auto; }
+  .nationals h2 { margin: 0 0 8px; font-size: clamp(1.4rem, 3.2vw, 2.05rem); color: #fff; max-width: 20ch; text-wrap: balance; }
+  .nationals p { margin: 0; color: rgba(255,255,255,.85); max-width: 46ch; }
+
+  /* ── Logo rows ─────────────────────────────────── */
+  .logos { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: center; }
+  .logo-card { text-align: center; }
+  .logo-card img { height: 62px; width: auto; max-width: 210px; object-fit: contain; display: block; margin: 0 auto 8px; }
+  .logo-card span { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+  .members img { height: 74px; }
+
+  /* ── Footer ────────────────────────────────────── */
+  footer.site {
+    background: var(--navy-deep); color: rgba(255,255,255,.8);
+    padding: 44px 0 34px; font-size: .92rem;
+  }
+  footer.site .inner { display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; }
+  footer.site h3 { margin: 0 0 10px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #fff; }
+  footer.site ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  footer.site a { color: rgba(255,255,255,.82); text-decoration: none; }
+  footer.site a:hover { color: #fff; text-decoration: underline; }
+  footer.site .legal {
+    margin-top: 30px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.16);
+    display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between;
+    font-size: .84rem; color: rgba(255,255,255,.62);
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="shell navbar">
+    <a class="brand" href="/" id="brand">
+      <img src="/photos/home/08-swd-logo.png" alt="Southwest Bowls Division">
+      <span>Southwest<br>Lawn Bowls</span>
+    </a>
+    <button class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="mainnav">Menu</button>
+    <nav class="main" id="mainnav" aria-label="Main"><ul id="navlist"></ul></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <img src="/photos/home/01-hero-socal.jpg" alt="Bowlers on the green in Southern California">
+  <div class="shell inner">
+    <h1>Welcome to the Home of Southwest Bowls</h1>
+    <p>From Cambria to San Diego, we celebrate the sport across Southern California.</p>
+    <div class="cta">
+      <a class="btn" href="/learnmore">New to lawn bowling?</a>
+      <a class="btn ghost" href="/2026-season-agenda">2026 Season Agenda</a>
+    </div>
+  </div>
+</div>
+
+<section class="band" aria-label="Division news">
+  <div class="shell">
+    <iframe class="feature-frame" id="feature" src="/home-feature" height="900"
+            title="Division news and livestreams" loading="lazy"></iframe>
+  </div>
+</section>
+
+<section class="band soft" id="tournaments">
+  <div class="shell">
+    <div class="cols">
+      <div>
+        <h2>Upcoming Tournaments</h2>
+        <p class="sub">The next events on the 2026 calendar.</p>
+        <ul class="events" id="upcoming"></ul>
+        <a class="more" href="/2026-tournaments-events">See every 2026 tournament →</a>
+      </div>
+      <div>
+        <h2>Past Tournaments</h2>
+        <p class="sub">Recently played, with results as they are published.</p>
+        <ul class="events" id="past"></ul>
+        <a class="more" href="/results">See the results →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nationals">
+  <div class="shell inner">
+    <img src="/photos/home/02-nationals-medal.png" alt="Bowls USA National Championships medal">
+    <div>
+      <h2>Hosting the 2026 Bowls USA National Championships at Laguna Beach</h2>
+      <p>The Southwest Division welcomes the country's best bowlers to Southern California.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="shell">
+    <h2>Our Partners</h2>
+    <p class="sub">Suppliers who support bowling in the Southwest.</p>
+    <div class="logos">
+      <div class="logo-card"><img src="/photos/home/03-partner-aero.png" alt="Aero Bowls USA"><span>Aero Bowls USA</span></div>
+      <div class="logo-card"><img src="/photos/home/04-partner-henselite.png" alt="Henselite USA"><span>Henselite USA</span></div>
+      <div class="logo-card"><img src="/photos/home/05-partner-drakes.png" alt="Drakes Pride USA"><span>Drakes Pride USA</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band soft">
+  <div class="shell">
+    <h2>Proud Member of</h2>
+    <div class="logos members">
+      <div class="logo-card"><img src="/photos/home/06-member-bowlsusa.png" alt="Bowls USA"></div>
+      <div class="logo-card"><img src="/photos/home/07-member-worldbowls.png" alt="World Bowls"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="shell">
+    <div class="inner">
+      <div>
+        <h3>Southwest Bowls Division</h3>
+        <p style="margin:0; max-width:34ch;">Lawn bowling across Southern California, from Cambria to San Diego.</p>
+      </div>
+      <div><h3>Explore</h3><ul id="footer-explore"></ul></div>
+      <div><h3>Follow</h3><ul id="footer-social"></ul></div>
+    </div>
+    <div class="legal">
+      <span id="copyright">&copy; Southwest Bowls Division</span>
+      <span><a href="/privacy-policy">Privacy</a> &middot; <a href="/disclaimer">Disclaimer</a> &middot; <a href="/disclaimer-1">Copyright</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  };
+  var safeUrl = function (u) {
+    return /^(https?:\/\/|mailto:|tel:|\/|#)/i.test(String(u || '')) ? String(u) : '#';
+  };
+
+  // The copyright year is rendered, not hardcoded, so it cannot go stale.
+  document.getElementById('copyright').innerHTML =
+    '&copy; ' + new Date().getFullYear() + ' Southwest Bowls Division';
+
+  /* ── Navigation ─────────────────────────────── */
+  fetch('/nav-data.json?v=' + Date.now())
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
+    .then(function (nav) {
+      if (nav.brand) {
+        var b = document.getElementById('brand');
+        b.href = safeUrl(nav.brand.href || '/');
+        if (nav.brand.logo) b.querySelector('img').src = safeUrl(nav.brand.logo);
+      }
+
+      document.getElementById('navlist').innerHTML = (nav.items || []).map(function (it, i) {
+        if (it.children && it.children.length) {
+          return '<li data-folder="' + i + '">' +
+            '<button class="folder" type="button" aria-expanded="false">' + esc(it.label) + '</button>' +
+            '<ul class="sub">' + it.children.map(function (c) {
+              return '<li><a href="' + esc(safeUrl(c.href)) + '">' + esc(c.label) + '</a></li>';
+            }).join('') + '</ul></li>';
+        }
+        var ext = it.external ? ' target="_blank" rel="noopener"' : '';
+        return '<li><a href="' + esc(safeUrl(it.href)) + '"' + ext + '>' + esc(it.label) + '</a></li>';
+      }).join('');
+
+      // Footer columns come from the same file, so the menu and footer agree.
+      var explore = (nav.items || []).filter(function (i) { return i.href && !i.external; }).slice(0, 6);
+      document.getElementById('footer-explore').innerHTML = explore.map(function (i) {
+        return '<li><a href="' + esc(safeUrl(i.href)) + '">' + esc(i.label) + '</a></li>';
+      }).join('');
+      document.getElementById('footer-social').innerHTML = (nav.social || []).map(function (s) {
+        return '<li><a href="' + esc(safeUrl(s.href)) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a></li>';
+      }).join('');
+
+      wireNav();
+    })
+    .catch(function () {
+      // Without the menu the page still reads; just show the essentials.
+      document.getElementById('navlist').innerHTML =
+        '<li><a href="/2026-tournaments-events">Tournaments</a></li>' +
+        '<li><a href="/results">Results</a></li>' +
+        '<li><a href="/contact-us">Contact Us</a></li>';
+    });
+
+  function wireNav() {
+    var list = document.getElementById('navlist');
+    list.addEventListener('click', function (e) {
+      var btn = e.target.closest('button.folder');
+      if (!btn) return;
+      var li = btn.parentNode;
+      var open = li.classList.contains('open');
+      list.querySelectorAll('li.open').forEach(function (o) {
+        o.classList.remove('open');
+        var b = o.querySelector('button.folder');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+      if (!open) { li.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+      e.stopPropagation();
+    });
+    document.addEventListener('click', function () {
+      list.querySelectorAll('li.open').forEach(function (o) {
+        o.classList.remove('open');
+        var b = o.querySelector('button.folder');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        list.querySelectorAll('li.open').forEach(function (o) { o.classList.remove('open'); });
+      }
+    });
+
+    var toggle = document.getElementById('navtoggle');
+    var mainnav = document.getElementById('mainnav');
+    toggle.addEventListener('click', function () {
+      var shown = mainnav.classList.toggle('show');
+      toggle.setAttribute('aria-expanded', shown ? 'true' : 'false');
+    });
+  }
+
+  /* ── Tournament lists, straight from events-data.json ── */
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
+
+  /**
+   * Event dates are written for people to read, and take many shapes:
+   *   "Saturday, April 18, 2026"
+   *   "Saturday, August 8 - Sunday, August 9, 2026"
+   *   "Saturday-Sunday, July 18-19, 2026"
+   *   "Saturday, August 15 (Women) & Sunday, August 16, 2026 (Men)"
+   * Date() chokes on every range, so instead pull out the first month-and-day
+   * and the year. Anything with no month at all (a test page) returns null and
+   * is left off the list rather than shown with a wrong date.
+   */
+  function startDate(text) {
+    var s = String(text || '');
+    var month = -1, day = null;
+    for (var i = 0; i < MONTH_NAMES.length; i++) {
+      var m = s.match(new RegExp(MONTH_NAMES[i] + '\\s+(\\d{1,2})'));
+      if (m && (month === -1 || s.indexOf(MONTH_NAMES[i]) < s.indexOf(MONTH_NAMES[month]))) {
+        month = i; day = parseInt(m[1], 10);
+      }
+    }
+    if (month === -1 || !day) return null;
+    var year = s.match(/\b(20\d{2})\b/);
+    if (!year) return null;
+    var d = new Date(parseInt(year[1], 10), month, day);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  fetch('/events-data.json?v=' + Date.now())
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
+    .then(function (data) {
+      var events = (data.events || []).map(function (e) {
+        return { e: e, when: startDate(e.date) };
+      }).filter(function (x) { return x.when; });
+
+      var today = new Date(); today.setHours(0, 0, 0, 0);
+      var upcoming = events.filter(function (x) { return x.when >= today; })
+                           .sort(function (a, b) { return a.when - b.when; }).slice(0, 6);
+      var past     = events.filter(function (x) { return x.when < today; })
+                           .sort(function (a, b) { return b.when - a.when; }).slice(0, 6);
+
+      render('upcoming', upcoming);
+      render('past', past);
+    })
+    .catch(function () {
+      ['upcoming', 'past'].forEach(function (id) {
+        document.getElementById(id).innerHTML =
+          '<li class="empty">Tournament list is unavailable right now.</li>';
+      });
+    });
+
+  function render(id, rows) {
+    var el = document.getElementById(id);
+    if (!rows.length) { el.innerHTML = '<li class="empty">Nothing listed yet.</li>'; return; }
+    el.innerHTML = rows.map(function (x) {
+      var club = x.e.club && x.e.club.name ? x.e.club.name : '';
+      var date = MONTHS[x.when.getMonth()] + ' ' + x.when.getDate();
+      return '<li><a href="/event?id=' + encodeURIComponent(x.e.id) + '">' +
+        '<span class="ev-date">' + esc(date) + '</span>' +
+        '<span class="ev-title">' + esc(x.e.title) +
+        (club ? '<span class="ev-club">' + esc(club) + '</span>' : '') +
+        '</span></a></li>';
+    }).join('');
+  }
+
+  /* ── Let the embedded feature panel size itself ── */
+  window.addEventListener('message', function (ev) {
+    if (!ev.data || typeof ev.data !== 'object') return;
+    var h = parseInt(ev.data.height || ev.data.frameHeight, 10);
+    if (h > 200 && h < 6000) document.getElementById('feature').height = h;
+  });
+})();
+</script>
+</body>
+</html>
