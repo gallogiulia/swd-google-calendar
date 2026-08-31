@@ -25,6 +25,6 @@
   "migrationNotes": [
     "This page carries no body text of its own — it is a banner image plus two buttons.",
     "It has no form block; the sign-up form lives on /ie-sign-up.",
-    "The Results button points to the Squarespace page /cl-ld1, which has not been migrated."
+    "The Results button points at /cl-ld1, the Inland Empire Ladies Day results, which is now migrated. It is also reachable at the clearer alias /ie-ladies-day-results."
   ]
 }

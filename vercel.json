@@ -136,6 +136,26 @@
     {
       "source": "/2025-usplaydowns",
       "destination": "/page?id=2025-usplaydowns"
+    },
+    {
+      "source": "/cl-ld1",
+      "destination": "/page?id=cl-ld1"
+    },
+    {
+      "source": "/ladies-day-2024",
+      "destination": "/page?id=ladies-day-2024"
+    },
+    {
+      "source": "/ladies-day-2025",
+      "destination": "/page?id=ladies-day-2025"
+    },
+    {
+      "source": "/ladies-day-2026",
+      "destination": "/page?id=ladies-day-2026"
+    },
+    {
+      "source": "/ie-ladies-day-results",
+      "destination": "/page?id=cl-ld1"
     }
   ]
 }

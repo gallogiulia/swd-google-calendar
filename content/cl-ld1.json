@@ -1,0 +1,108 @@
+{
+  "id": "cl-ld1",
+  "title": "Inland Empire Ladies Day",
+  "subtitle": "Results and photos from the Inland Empire Ladies Day series — Pomona, Riverside, Sun City and Redlands.",
+  "sourceUrl": "https://www.swlawnbowls.org/cl-ld1",
+  "sections": [
+    {
+      "type": "prose",
+      "heading": "November 3, 2025 — Sun City Lawn Bowls Club",
+      "body": [
+        "We played on November 3 at Sun City. There were 26 women present. We played one 14-end game with lunch afterwards. Prize money was awarded for first, second, and third place pairs courtesy of Sun City Lawn Bowling Club. All the women of Southwest Bowls are welcome to attend future events."
+      ]
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "/photos/pages/cl-ld1/01-screenshot-2025-11-24-at-9-40-51-pm.jpg",
+          "alt": "The Inland Empire Ladies Day field, around two dozen women, lined up together on the green at Sun City."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/02-img-2328.jpg",
+          "alt": "Two bowlers standing together indoors beside the trophy cabinet, captioned in the picture “1st Place Ladies Day Tournament”."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/03-barb-joyce-and-bonnie-sc-ladies-day.jpg",
+          "alt": "Three women posed in front of the Sun City Lawn Bowls Club banner."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/04-joyce-sc-ladies-day.jpg",
+          "alt": "Two women posed in front of the Sun City Lawn Bowls Club banner."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "January 12, 2026 — Pomona Lawn Bowling Club",
+      "body": [
+        "Inland Empire Ladies Day was held on January 12 at Pomona Lawn Bowling Club. There were 20 women participating. We had women from five clubs: Pomona, Riverside, Sun City, Redlands, and Hermosa Beach. Two seven-end games were played, after which we enjoyed getting to know each other over lunch. The winners were Connie Fortier (Riverside) and Chris Napoli (Pomona), first place $25.00 each. Second place had a three-way tie between Carol Dray (Sun City), Diana Trent (Sun City), Barbara Petre (Riverside), Earline Edwards (Redlands), and Nancy King (Pomona). Laura Darshan (Pomona) $10.00 each for second place.",
+        "Inland Empire Ladies Day will have four events per year, rotating between Riverside, Sun City, Pomona, and Redlands. All women of Southwest Bowls are welcome to attend. We look forward to rolling with you."
+      ]
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "/photos/pages/cl-ld1/05-pomona-ld-1.jpg",
+          "alt": "The Inland Empire Ladies Day field lined up together on the green at Pomona."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/06-pomona-ld-2.jpg",
+          "alt": "Two bowlers posed beside the Pomona Lawn Bowling Club sign."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/07-pomona-ld-3.jpg",
+          "alt": "Two bowlers standing together on the green at Pomona."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/08-pomona-ld-4.jpg",
+          "alt": "Play under way on the Pomona green with the clubhouse and mountains behind."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/09-pomona-ld-5.jpg",
+          "alt": "Two bowlers in blue shirts posed beside the Pomona Lawn Bowling Club sign."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "April 14, 2026 — Sun City Lawn Bowls Club",
+      "body": [
+        "Inland Empire Ladies Day was held on April 14 at Sun City Lawn Bowling Club. We had women from five clubs: Pomona, Riverside, Sun City, and Redlands.",
+        "Joy & Linda 1st, doubles",
+        "Nancy & Shirley - Eddie, Connie, and Dianna 1st, triples",
+        "Inland Empire Ladies Day will have four events per year, rotating between Riverside, Sun City, Pomona, and Redlands. All women of Southwest Bowls are welcome to attend. We look forward to rolling with you."
+      ]
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "/photos/pages/cl-ld1/10-img-1627.jpg",
+          "alt": "The April Inland Empire Ladies Day field lined up together on the green at Sun City."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/11-img-1633.jpg",
+          "alt": "Two bowlers standing together beside the Sun City clubhouse wall."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/12-img-1635.jpg",
+          "alt": "Two winners holding their prize envelopes beside the Sun City clubhouse."
+        },
+        {
+          "src": "/photos/pages/cl-ld1/13-img-1637.jpg",
+          "alt": "Three winners posed together beside the Sun City clubhouse."
+        }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "Migrated from the Squarespace blog collection /cl-ld1, which held three posts. This is the Inland Empire Ladies Day series — a separate series from the Southwest Division Ladies Day archive at /ladies-day-2024, /ladies-day-2025 and /ladies-day-2026, rotating between Riverside, Sun City, Pomona and Redlands.",
+    "The page has no title of its own on the source site beyond the slug 'cl-ld1'. The title 'Inland Empire Ladies Day' is taken from the posts' own opening words ('Inland Empire Ladies Day was held on …').",
+    "All three post URL slugs are Squarespace placeholders ('blog-post-title-four-h4rnr…'). The post titles were real and supply the headings, but two of them gave no year: the November 3 post's photographs were uploaded on 25 November 2025, so it is dated November 3, 2025, and the January and April posts were published in 2026.",
+    "The existing page /ie-ladies-day links to this page as its 'Results' button, so the two belong together.",
+    "The November 3 post has no results detail beyond the note that prize money was awarded for first, second and third place pairs; no names are given on the source page.",
+    "Squarespace's alt text on these images was just the file name, so all alt text here was written fresh from the pictures."
+  ]
+}
