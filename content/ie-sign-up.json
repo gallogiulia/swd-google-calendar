@@ -1,0 +1,73 @@
+{
+  "id": "ie-sign-up",
+  "title": "IE Ladies’ Day Sign-up",
+  "sourceUrl": "https://www.swlawnbowls.org/ie-sign-up",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/ie-sign-up/01-ladies-day-group.jpg",
+      "alt": "Group photo of women bowlers in club shirts standing on the green on a sunny day."
+    },
+    {
+      "type": "prose",
+      "heading": "Sign-up form",
+      "body": [
+        "The sign-up form is being rebuilt and is temporarily unavailable."
+      ]
+    },
+    {
+      "type": "contact",
+      "items": [
+        {
+          "label": "Questions",
+          "name": "Barbara",
+          "email": "epetre@live.com"
+        }
+      ]
+    }
+  ],
+  "formSpec": {
+    "purpose": "Signs a bowler up for an Inland Empire Ladies’ Day event and records the position she wants to play.",
+    "submitLabel": "Submit",
+    "fields": [
+      {
+        "label": "Name",
+        "type": "name",
+        "required": true,
+        "notes": "First name and last name sub-inputs, both shown and both required."
+      },
+      {
+        "label": "Email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "label": "Select an event from the dropdown:",
+        "type": "select",
+        "required": false,
+        "placeholder": "Select an option",
+        "options": [
+          "July 11, 6:30pm at Riverside LBC"
+        ]
+      },
+      {
+        "label": "Select position from the dropdown:",
+        "type": "select",
+        "required": false,
+        "placeholder": "Select an option",
+        "options": [
+          "Skip",
+          "Vice",
+          "Lead",
+          "Any Position"
+        ]
+      }
+    ],
+    "notes": "Squarespace form block, formId 693cb7fe6e4cea0cce499d99, form name \"IE Sign Up Form\". CAPTCHA enabled. Inline success message: “Thank you! Should you have any questions, please email Barbara at epetre@live.com” — no redirect. No payment. Submission storage is not exposed in the page HTML; check the Squarespace form's Storage tab."
+  },
+  "migrationNotes": [
+    "This page has no body text of its own — only a photo and the form.",
+    "The event dropdown currently offers a single date (July 11, 6:30pm at Riverside LBC) and will need updating.",
+    "The Squarespace form itself was not migrated — see formSpec."
+  ]
+}

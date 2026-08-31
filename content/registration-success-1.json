@@ -1,0 +1,64 @@
+{
+  "id": "registration-success-1",
+  "title": "Thank You for Your Entry!",
+  "subtitle": "Your registration has been successfully processed. We are excited to have you join us on the green.",
+  "sourceUrl": "https://www.swlawnbowls.org/registration-success-1",
+  "sections": [
+    {
+      "type": "list",
+      "heading": "What Happens Next?",
+      "items": [
+        "Confirmation Receipt: PayPal will email you a receipt.",
+        "Roster Updates: Allow up to 24 hours for your names to appear on the official tournament roster page.",
+        "Conditions of Play: Review Conditions of Play (COP) for your specific tournament."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Southwest Open 2026 is Now Open",
+      "body": [
+        "Livestream Coverage & “How!” Series On-Site",
+        "Learn from top players, watch the action, and stay connected throughout the week."
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "View SW Open",
+          "url": "/southwest-open"
+        },
+        {
+          "label": "Return to Homepage",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "heading": "Stay Connected & Informed:",
+      "items": [
+        {
+          "label": "Subscribe on YouTube",
+          "url": "https://www.youtube.com/@SouthwestLawnBowls"
+        },
+        {
+          "label": "View Tournament Calendar",
+          "url": "https://www.swlawnbowls.org/2026-season-agenda"
+        },
+        {
+          "label": "Join Email List",
+          "url": "https://tinyurl.com/md9sr5y9"
+        }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "This is a thank-you / confirmation page. It contains no form.",
+    "It references a PayPal receipt, but the payment happens on the tournament entry page that redirects here — there is no PayPal button or checkout on this page.",
+    "The source page repeats the “Thank You for Your Entry!” heading and subtitle twice (a hero block plus a duplicate body block); it is kept once here.",
+    "The SW Open banner and the Southwest Bowls logo on this page are CSS background images in a custom code block with no resolvable file URL, so they could not be downloaded.",
+    "The YouTube / Calendar / Email icons were link artwork and are represented as plain buttons.",
+    "The 'View Tournament Calendar' and 'Subscribe on YouTube' icons on the source page were not wrapped in links; the URLs used here are taken from the equivalent links on /registration-success."
+  ]
+}

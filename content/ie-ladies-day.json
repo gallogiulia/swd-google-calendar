@@ -1,0 +1,30 @@
+{
+  "id": "ie-ladies-day",
+  "title": "IE Ladies’ Day",
+  "sourceUrl": "https://www.swlawnbowls.org/ie-ladies-day",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/ie-ladies-day/01-ladies-day-banner.jpg",
+      "alt": "Ladies’ Day banner — Southwest Bowls palm-tree logo with the words “Ladies’ Day” on a yellow background."
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Sign-up",
+          "url": "/ie-sign-up"
+        },
+        {
+          "label": "Results",
+          "url": "/cl-ld1"
+        }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "This page carries no body text of its own — it is a banner image plus two buttons.",
+    "It has no form block; the sign-up form lives on /ie-sign-up.",
+    "The Results button points to the Squarespace page /cl-ld1, which has not been migrated."
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "id": "ladies-day-sign-up",
+  "title": "Ladies’ Day Attendees Sign-up",
+  "sourceUrl": "https://www.swlawnbowls.org/ladies-day-sign-up",
+  "sections": [
+    {
+      "type": "prose",
+      "body": [
+        "Please fill out the form to register for Ladies’ Day. Should you have any questions, please contact Shelley Cohen at swladiesday@gmail.com"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "Attire: White or Club Shirts with collars, white bottoms",
+        "Entry Fee: $5 payable upon arrival",
+        "Check-In time: 9:00 am"
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Sign-up form",
+      "body": [
+        "The sign-up form is being rebuilt and is temporarily unavailable."
+      ]
+    },
+    {
+      "type": "image",
+      "src": "/photos/pages/ladies-day-sign-up/01-ladies-day-2026-schedule.jpg",
+      "alt": "2026 Ladies’ Day schedule of dates and host clubs."
+    },
+    {
+      "type": "contact",
+      "items": [
+        {
+          "label": "Ladies’ Day",
+          "name": "Shelley Cohen",
+          "email": "swladiesday@gmail.com"
+        }
+      ]
+    }
+  ],
+  "formSpec": {
+    "purpose": "Registers a bowler (and optionally her team) for a specific Ladies’ Day event on the season schedule.",
+    "submitLabel": "Sign-up for Ladies' Day",
+    "fields": [
+      {
+        "label": "Name",
+        "type": "name",
+        "required": true,
+        "notes": "First name and last name sub-inputs, both shown and both required."
+      },
+      {
+        "label": "Email",
+        "type": "email",
+        "required": true,
+        "notes": "No mailing-list opt-in, no email verification."
+      },
+      {
+        "label": "Club Name",
+        "type": "select",
+        "required": false,
+        "placeholder": "Select an option",
+        "options": [
+          "BEVERLY HILLS LBC",
+          "CAMBRIA LBC",
+          "CASTA DEL SOL LBC",
+          "CORONADO LBC",
+          "FRIENDLY VALLEY LBC",
+          "HERMOSA BEACH LBC",
+          "HOLMBY PARK LBC",
+          "LAGUNA BEACH LBC",
+          "LAGUNA WOODS LBC",
+          "LONG BEACH LBC",
+          "MACKENZIE PARK LBC",
+          "NEWPORT HARBOR LBC",
+          "OAKS NORTH LBC",
+          "OXNARD-JOSLYN LBC",
+          "PALM DESERT LBC",
+          "PASADENA LBC",
+          "POMONA LBC",
+          "REDLANDS LBC",
+          "RIVERSIDE LBC",
+          "SAN DIEGO LBC",
+          "SANTA ANA LBC",
+          "SANTA ANITA BOWLING GREEN",
+          "SANTA BARBARA LBC",
+          "SANTA MONICA LBC",
+          "SUN CITY LBC",
+          "THE GROVES LBC"
+        ]
+      },
+      {
+        "label": "Please choose the Ladies' Day event you are signing up for from the dropdown menu",
+        "type": "select",
+        "required": true,
+        "placeholder": "Select an option",
+        "options": [
+          "Wed. April 8 @ Newport Harbor",
+          "Wed. May 13 @ Long Beach",
+          "Wed. June 10 @ Hermosa Beach",
+          "Wed. July 8 @ Newport Harbor",
+          "Wed. Aug. 12 @ Laguna Beach",
+          "Wed. Sept. 9 @ Santa Ana",
+          "Wed. Oct. 14 @ Casta del Sol",
+          "Wed. Nov. 11 @ The Groves",
+          "Tues. Dec. 15 @ Laguna Woods (Luncheon)"
+        ]
+      },
+      {
+        "label": "Please enter the name and positions of each player.",
+        "type": "textarea",
+        "required": false,
+        "description": "Please use this space to enter each name of the players with their positions. i.e. Anne - Skip."
+      }
+    ],
+    "notes": "Squarespace form block, formId 68e80829a90bf9308aff8509, form name \"Detailed Contact Form\". CAPTCHA enabled. Inline success message \"Thank you!\", no redirect. No payment is taken — the $5 entry fee is paid in person on arrival. Where submissions are stored is not exposed in the page HTML; check the Squarespace form's Storage tab (Shelley Cohen / swladiesday@gmail.com is the likely recipient)."
+  },
+  "migrationNotes": [
+    "The Squarespace form itself was not migrated — see formSpec.",
+    "The event dropdown options are the 2026 Ladies’ Day schedule and will need updating each season."
+  ]
+}

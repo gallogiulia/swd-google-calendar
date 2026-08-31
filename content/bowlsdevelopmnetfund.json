@@ -1,0 +1,71 @@
+{
+  "id": "bowlsdevelopmnetfund",
+  "title": "Bowls Development Fund",
+  "sourceUrl": "https://www.swlawnbowls.org/bowlsdevelopmnetfund",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/bowlsdevelopmnetfund/01-bdf-logo.jpg",
+      "alt": "Bowls Development Fund logo with the tagline “Support Lawn Bowls”."
+    },
+    {
+      "type": "prose",
+      "body": [
+        "The Bowls Development Fund is the new public name of our fundraising organization for bowls in the U.S., officially registered as the USLBA Memorial Fund, Inc., a 501(c)(3) tax-exempt non-profit charity. This Fund provides financial support for lawn bowls projects and events across the country.",
+        "Visit our new website at www.bowlsdevelopmentfund.org to explore brief stories about Angel Gomez and Anne Nunes. Learn about the various projects and events supported by the Fund, and enjoy a whimsical piece about the unique community of lawn bowlers and why your support is crucial for the growth of the sport.",
+        "And, of course, don’t forget to make a donation by check or via Debit or Credit Card, PayPal, and Venmo. You can now make single or monthly donations to support our mutual mission. Thank you!",
+        "Though we are separate entities, Bowls Development Fund works in close collaboration with Bowls USA.",
+        "Steve Nelson, President",
+        "Bowls Development Fund"
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "www.bowlsdevelopmentfund.org",
+          "url": "https://www.bowlsdevelopmentfund.org"
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Contact form",
+      "body": [
+        "The form on this page is being rebuilt and is temporarily unavailable."
+      ]
+    }
+  ],
+  "formSpec": {
+    "purpose": "Collects a name and email plus an indication of whether the person intends to donate to the Bowls Development Fund. It does not take money — donations are made on the Fund's own website.",
+    "submitLabel": "Send",
+    "fields": [
+      {
+        "label": "Name",
+        "type": "name",
+        "required": true
+      },
+      {
+        "label": "Email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "label": "Will you be donating?",
+        "type": "select",
+        "required": true,
+        "options": [
+          "Yes",
+          "No",
+          "Still Unsure"
+        ]
+      }
+    ],
+    "notes": "Squarespace form block, formId 66590b2b61cde76374b5c274, form name \"New Form\". CAPTCHA enabled. Inline success message \"Thank you!\", no redirect. No payment is taken on this page — the page text points donors to bowlsdevelopmentfund.org, where check / card / PayPal / Venmo donations are handled. Submission storage is not exposed in the page HTML; check the Squarespace form's Storage tab."
+  },
+  "migrationNotes": [
+    "The page id keeps the source page's misspelling (“bowlsdevelopmnetfund”) so the URL still matches.",
+    "The link in the body text was written as “https:// www.bowlsdevelopmentfund.org” with a stray space in the href; it has been corrected to https://www.bowlsdevelopmentfund.org.",
+    "The Squarespace form itself was not migrated — see formSpec."
+  ]
+}

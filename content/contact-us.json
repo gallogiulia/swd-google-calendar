@@ -1,0 +1,34 @@
+{
+  "id": "contact-us",
+  "title": "Contact Us",
+  "sourceUrl": "https://www.swlawnbowls.org/contact-us",
+  "sections": [
+    {
+      "type": "prose",
+      "body": [
+        "If you have a question or comment about the site or would like more information about lawn bowling please email us using the form to the right."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Contact form",
+      "body": [
+        "The contact form is being rebuilt and is temporarily unavailable."
+      ]
+    }
+  ],
+  "formSpec": {
+    "purpose": "Sends a general question or comment about the site or about lawn bowling to the Southwest Division.",
+    "submitLabel": "Send",
+    "fields": [
+      { "label": "Name", "type": "name", "required": true, "notes": "Squarespace 'name' field — first name and last name sub-inputs." },
+      { "label": "Email", "type": "email", "required": true },
+      { "label": "Message", "type": "textarea", "required": true }
+    ],
+    "notes": "Squarespace form block, formId 5ffde55b1aedad21443b3ec0, form name \"Comment\". CAPTCHA enabled. On success it shows an inline message, \"Thank you for contacting us!!\" — no redirect. The submission destination (Squarespace-stored submissions and/or a notification email address) is not exposed in the page HTML and must be read from the Squarespace form's Storage tab before rebuilding."
+  },
+  "migrationNotes": [
+    "The page said the form was 'to the right'; in the migrated single-column layout it now follows the intro paragraph.",
+    "The Squarespace form itself was not migrated — see formSpec for its exact specification."
+  ]
+}

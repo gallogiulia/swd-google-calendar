@@ -1,0 +1,55 @@
+{
+  "id": "registration-success",
+  "title": "Thank You for Your Entry!",
+  "subtitle": "Your registration has been successfully processed. We are excited to have you join us on the green.",
+  "sourceUrl": "https://www.swlawnbowls.org/registration-success",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/registration-success/01-sw-open-2026-banner.jpg",
+      "alt": "2026 SW Open banner — April 25 to May 1, multiple clubs, Southern California."
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "2026 SW Open",
+          "url": "/2026swo"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "heading": "What Happens Next?",
+      "items": [
+        "Confirmation Receipt: PayPal will email you a receipt.",
+        "Roster Updates: Allow up to 24 hours for your names to appear on the official tournament roster page.",
+        "Conditions of Play: Review Conditions of Play (COP) for your specific tournament"
+      ]
+    },
+    {
+      "type": "buttons",
+      "heading": "Stay Connected & Informed:",
+      "items": [
+        {
+          "label": "Subscribe on YouTube",
+          "url": "https://www.youtube.com/@SouthwestLawnBowls"
+        },
+        {
+          "label": "View Tournament Calendar",
+          "url": "/2026-season-agenda"
+        },
+        {
+          "label": "Join Email List",
+          "url": "https://tinyurl.com/md9sr5y9"
+        }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "This is a thank-you / confirmation page. It contains no form.",
+    "It references a PayPal receipt, but the payment happens on the tournament entry page that redirects here — there is no PayPal button or checkout on this page.",
+    "Decorative AI-generated graphics used as link artwork on the Squarespace page were not carried across.",
+    "The Southwest Bowls site logo at the top of the page was treated as site chrome and omitted."
+  ]
+}

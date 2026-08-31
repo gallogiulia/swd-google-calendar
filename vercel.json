@@ -76,6 +76,46 @@
     {
       "source": "/umpires",
       "destination": "/page?id=umpires"
+    },
+    {
+      "source": "/bowlsdevelopmnetfund",
+      "destination": "/page?id=bowlsdevelopmnetfund"
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/page?id=contact-us"
+    },
+    {
+      "source": "/ie-ladies-day",
+      "destination": "/page?id=ie-ladies-day"
+    },
+    {
+      "source": "/ie-sign-up",
+      "destination": "/page?id=ie-sign-up"
+    },
+    {
+      "source": "/ladies-day-2021",
+      "destination": "/page?id=ladies-day-2021"
+    },
+    {
+      "source": "/ladies-day-2022",
+      "destination": "/page?id=ladies-day-2022"
+    },
+    {
+      "source": "/ladies-day-2023",
+      "destination": "/page?id=ladies-day-2023"
+    },
+    {
+      "source": "/ladies-day-sign-up",
+      "destination": "/page?id=ladies-day-sign-up"
+    },
+    {
+      "source": "/registration-success-1",
+      "destination": "/page?id=registration-success-1"
+    },
+    {
+      "source": "/registration-success",
+      "destination": "/page?id=registration-success"
     }
   ]
 }
