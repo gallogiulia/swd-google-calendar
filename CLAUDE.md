@@ -107,6 +107,13 @@ absence is deliberate.
   Squarespace CDN into `photos/archive/` and rebuilds `archive-data.json`.
   Re-runnable; skips what it already has. Use `--dry-run` to re-index without
   downloading, and `--year YYYY` for one year (it merges rather than clobbers).
+  If you change the parser, re-run it for real afterwards: renamed tournament
+  slugs mean renamed directories, and the index will otherwise point at files
+  that do not exist. Always reconcile index against disk when you are done.
+- `scripts/create-swd-forms.gs` — Apps Script that creates the four Google
+  Forms. Run once in script.google.com.
+- `scripts/attach-form.py` — puts a created form into its page.
+  `--list` shows which pages still need one.
 
 ## Serverless functions (`api/`)
 
@@ -117,6 +124,11 @@ These are real code — unlike the content files, treat changes here carefully.
 
 ## Repository size
 
-`photos/` is ~390 MB and `.git` is ~533 MB, mostly the rescued image archive.
-Clones are slow. Compress new photos (`sips -s format jpeg -s formatOptions 60`)
-rather than committing camera originals.
+`photos/` is ~534 MB and `.git` is ~841 MB, mostly the image archive. Clones are
+slow. **Compress photos before the commit, not after** — once a large file is in
+git history it stays there forever, even if you shrink it later:
+
+    sips -Z 1400 IN --out IN                          # cap the long edge
+    sips -s format jpeg -s formatOptions 58 IN --out IN
+
+Doing that to one batch of Ladies Day photos saved 57 MB.
