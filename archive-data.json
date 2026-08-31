@@ -661,32 +661,41 @@
         {
           "rank": null,
           "rankLabel": null,
-          "names": "2025 Fossati and Friends",
+          "names": null,
           "photo": "/photos/archive/2025/2025-mens-novice-pairs/02-swd-men-27s-novice-pairs-282-29.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "sourcePage": "https://www.swlawnbowls.org/2025-tournament-results",
+      "title": "2025 Fossati and Friends",
+      "venue": null,
+      "slug": "2025-fossati-and-friends",
+      "places": [
+        {
+          "rank": null,
+          "rankLabel": null,
+          "names": null,
+          "photo": "/photos/archive/2025/2025-fossati-and-friends/01-fossati-26-friends-trips.jpg"
         },
         {
           "rank": null,
           "rankLabel": null,
           "names": null,
-          "photo": "/photos/archive/2025/2025-mens-novice-pairs/03-fossati-26-friends-trips.jpg"
+          "photo": "/photos/archive/2025/2025-fossati-and-friends/02-fossati-26-friends-trips-282-29.jpg"
         },
         {
           "rank": null,
           "rankLabel": null,
           "names": null,
-          "photo": "/photos/archive/2025/2025-mens-novice-pairs/04-fossati-26-friends-trips-282-29.jpg"
+          "photo": "/photos/archive/2025/2025-fossati-and-friends/03-fossati-26-friends-trips-283-29.jpg"
         },
         {
           "rank": null,
           "rankLabel": null,
           "names": null,
-          "photo": "/photos/archive/2025/2025-mens-novice-pairs/05-fossati-26-friends-trips-283-29.jpg"
-        },
-        {
-          "rank": null,
-          "rankLabel": null,
-          "names": null,
-          "photo": "/photos/archive/2025/2025-mens-novice-pairs/06-fossati-26-friends-trips-284-29.jpg"
+          "photo": "/photos/archive/2025/2025-fossati-and-friends/04-fossati-26-friends-trips-284-29.jpg"
         }
       ]
     },
@@ -1707,8 +1716,8 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Newport Harbor",
-          "names": "Alan O’brien, Mike Rugles, Andrew Dufresne, Ivan Hyland, Brian Stewart",
+          "rankLabel": "First Place",
+          "names": "Newport Harbor",
           "photo": "/photos/archive/2024/2024-southwest-results/01-5man-first-place.jpg"
         },
         {
@@ -2187,8 +2196,8 @@
         },
         {
           "rank": 1,
-          "rankLabel": "1st Place - Terry Mar & Michael Siddal",
-          "names": null,
+          "rankLabel": "1st Place",
+          "names": "Terry Mar & Michael Siddal",
           "photo": "/photos/archive/2024/2024-mens-cary-macdonald-paires/05-1st-men.jpg"
         },
         {
@@ -2199,8 +2208,8 @@
         },
         {
           "rank": 3,
-          "rankLabel": "3rd Place - Angel Rocha and Charlie Herbert",
-          "names": null,
+          "rankLabel": "3rd Place",
+          "names": "Angel Rocha and Charlie Herbert",
           "photo": "/photos/archive/2024/2024-mens-cary-macdonald-paires/07-3rd-men.jpg"
         },
         {
@@ -2211,14 +2220,14 @@
         },
         {
           "rank": 2,
-          "rankLabel": "2nd Place - Tricia Quad and Ang Lee",
-          "names": null,
+          "rankLabel": "2nd Place",
+          "names": "Tricia Quad and Ang Lee",
           "photo": "/photos/archive/2024/2024-mens-cary-macdonald-paires/09-2nd-wmn.jpg"
         },
         {
-          "rank": 2,
-          "rankLabel": "2nd Place - Sadri Jayazeri and Tom Richeson",
-          "names": "San Diego Invitational - Mixed Triples & Mixed Pairs",
+          "rank": 3,
+          "rankLabel": "3rd Place",
+          "names": "Diana Wenzel and Anne Nunes / 1st Place: Mary Thompson and Joanne Hedgespeth / 2nd Place: Sadri Jayazeri and Tom Richeson",
           "photo": "/photos/archive/2024/2024-mens-cary-macdonald-paires/10-3rd-wmn.jpg"
         },
         {
@@ -2246,8 +2255,8 @@
           "photo": "/photos/archive/2024/2024-mens-cary-macdonald-paires/14-2024-sd-pairs-1st-wageman-borkum.jpg"
         },
         {
-          "rank": 2,
-          "rankLabel": "2nd Place Triples",
+          "rank": 3,
+          "rankLabel": "3rd Place Pairs",
           "names": "Harold Krasner and Joan Robbins",
           "photo": "/photos/archive/2024/2024-mens-cary-macdonald-paires/15-2024-sd-pairs-3rd-krasner-robbins.jpg"
         }
@@ -2342,8 +2351,8 @@
           "photo": "/photos/archive/2024/pat-gonzales-aussie-pairs/02-1000015296.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place - B Green",
+          "rank": 3,
+          "rankLabel": "Third Place - A Green",
           "names": "Tricia Quan and Chris Dodd",
           "photo": "/photos/archive/2024/pat-gonzales-aussie-pairs/03-1000015301.jpg"
         },
@@ -2691,39 +2700,39 @@
     {
       "year": "2024",
       "sourcePage": "https://www.swlawnbowls.org/2024results",
-      "title": "Second Flight - First Place",
+      "title": "Championship Flight - Fourth Place",
       "venue": "Mare Beah and Val Tilton",
-      "slug": "second-flight-first-place",
+      "slug": "championship-flight-fourth-place",
       "places": [
         {
           "rank": 2,
           "rankLabel": "Second Flight - Second Place",
           "names": "Kim Davis and Jane Blair",
-          "photo": "/photos/archive/2024/second-flight-first-place/01-5071123.jpg"
+          "photo": "/photos/archive/2024/championship-flight-fourth-place/01-5071123.jpg"
         },
         {
           "rank": 3,
           "rankLabel": "Third Flight - First Place",
           "names": "Joanne Hedgespeth and Mary Thompson",
-          "photo": "/photos/archive/2024/second-flight-first-place/02-5071115.jpg"
+          "photo": "/photos/archive/2024/championship-flight-fourth-place/02-5071115.jpg"
         },
         {
           "rank": 3,
           "rankLabel": "Third Flight - Second Place",
           "names": "Guilia Gallo and Pat Bonnie",
-          "photo": "/photos/archive/2024/second-flight-first-place/03-5071111.jpg"
+          "photo": "/photos/archive/2024/championship-flight-fourth-place/03-5071111.jpg"
         },
         {
           "rank": 4,
           "rankLabel": "Fourth Flight - First Place",
           "names": "Jule Buchanan and Suzie Houston",
-          "photo": "/photos/archive/2024/second-flight-first-place/04-5071108.jpg"
+          "photo": "/photos/archive/2024/championship-flight-fourth-place/04-5071108.jpg"
         },
         {
           "rank": 4,
           "rankLabel": "Fourth Flight - Second Place",
           "names": "Barbara Clark andInger Benson",
-          "photo": "/photos/archive/2024/second-flight-first-place/05-5071098.jpg"
+          "photo": "/photos/archive/2024/championship-flight-fourth-place/05-5071098.jpg"
         }
       ]
     },
@@ -2805,39 +2814,39 @@
     {
       "year": "2024",
       "sourcePage": "https://www.swlawnbowls.org/2024results",
-      "title": "Second Flight - First Place",
+      "title": "Joan Robins",
       "venue": "Tricia Quan",
-      "slug": "second-flight-first-place-2",
+      "slug": "joan-robins",
       "places": [
         {
           "rank": 2,
           "rankLabel": "Second Flight - Second Place",
           "names": "Trish Soto",
-          "photo": "/photos/archive/2024/second-flight-first-place-2/01-5091190.jpg"
+          "photo": "/photos/archive/2024/joan-robins/01-5091190.jpg"
         },
         {
           "rank": 3,
           "rankLabel": "Third Flight - First Place",
           "names": "Joanne Hedgespeth",
-          "photo": "/photos/archive/2024/second-flight-first-place-2/02-5091210.jpg"
+          "photo": "/photos/archive/2024/joan-robins/02-5091210.jpg"
         },
         {
           "rank": 3,
           "rankLabel": "Third Flight - Second Place",
           "names": "Inger Benson",
-          "photo": "/photos/archive/2024/second-flight-first-place-2/03-5091209.jpg"
+          "photo": "/photos/archive/2024/joan-robins/03-5091209.jpg"
         },
         {
           "rank": 4,
           "rankLabel": "Fourth Flight - First Place",
           "names": "Mary Spease",
-          "photo": "/photos/archive/2024/second-flight-first-place-2/04-5091202.jpg"
+          "photo": "/photos/archive/2024/joan-robins/04-5091202.jpg"
         },
         {
           "rank": 4,
           "rankLabel": "Fourth Flight - Second Place",
           "names": "Anne Maier",
-          "photo": "/photos/archive/2024/second-flight-first-place-2/05-5091200.jpg"
+          "photo": "/photos/archive/2024/joan-robins/05-5091200.jpg"
         }
       ]
     },
@@ -3125,8 +3134,8 @@
           "photo": "/photos/archive/2024/swd-womens-socal-5s/02-third-place.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place",
+          "rank": 3,
+          "rankLabel": "Third Place",
           "names": "Kottia Moore. Tricia Quan, Dee McSparran, Eva Lee, Anne Nunes",
           "photo": "/photos/archive/2024/swd-womens-socal-5s/03-second-place.jpg"
         },
@@ -3194,8 +3203,8 @@
           "photo": "/photos/archive/2024/swd-mixed-pairs/02-4060398.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place A2 Green",
+          "rank": 3,
+          "rankLabel": "Third Place A1 Green",
           "names": "Mary Thompson and Abe Pinnella",
           "photo": "/photos/archive/2024/swd-mixed-pairs/03-4060394.jpg"
         },
@@ -3206,8 +3215,8 @@
           "photo": "/photos/archive/2024/swd-mixed-pairs/04-4060389.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place B Green",
+          "rank": 3,
+          "rankLabel": "Third Place A2",
           "names": "Shawn Roney and Melanie Vizenor",
           "photo": "/photos/archive/2024/swd-mixed-pairs/05-4060386.jpg"
         },
@@ -3332,8 +3341,8 @@
           "photo": "/photos/archive/2024/2024-mix-match-vet-novice-triples/02-near-2nd.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place - Far (Clubhouse)",
+          "rank": 3,
+          "rankLabel": "Third Place - Near",
           "names": "Robert Busciglio (S), Candy DeFazio, Bob Sturgill (N)",
           "photo": "/photos/archive/2024/2024-mix-match-vet-novice-triples/03-near-3rd.jpg"
         },
@@ -3404,8 +3413,8 @@
           "photo": "/photos/archive/2024/2024-murray-allison-mens-singles/03-20240310-124652.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place - Allison",
+          "rank": 4,
+          "rankLabel": "Fourth Place - Murray",
           "names": "Rob Humphrey",
           "photo": "/photos/archive/2024/2024-murray-allison-mens-singles/04-20240310-124659.jpg"
         },
@@ -3504,20 +3513,20 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Long Beach",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Long Beach",
           "photo": "/photos/archive/2023/2023-tournament-results/01-5man-first-place.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place - Laguna Beach 1",
-          "names": null,
+          "rankLabel": "Second Place",
+          "names": "Laguna Beach 1",
           "photo": "/photos/archive/2023/2023-tournament-results/02-5man-second-place.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place - Newport Harbor",
-          "names": "2023 Waterbury Winners",
+          "rankLabel": "Third Place",
+          "names": "Newport Harbor",
           "photo": "/photos/archive/2023/2023-tournament-results/03-5man-third-place.jpg"
         }
       ]
@@ -4259,14 +4268,14 @@
       "slug": "2023-mens-singles-playdowns",
       "places": [
         {
-          "rank": 1,
-          "rankLabel": "First Place Bill Brault",
+          "rank": null,
+          "rankLabel": "Runner-up Robert Busciglio",
           "names": null,
           "photo": "/photos/archive/2023/2023-mens-singles-playdowns/01-first-26scond-stars.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place Charlie Herbert",
+          "rank": null,
+          "rankLabel": "Runner -up Chris Trenschel",
           "names": "Coronado Mixed Triples",
           "photo": "/photos/archive/2023/2023-mens-singles-playdowns/02-first-26second-stripes.jpg"
         },
@@ -4563,57 +4572,93 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Championship Flight",
-          "names": "Mare Beath",
+          "rankLabel": "First Place",
+          "names": "Championship Flight",
           "photo": "/photos/archive/2023/swd-open-2023-womens-singles/01-mare-beath.jpg"
-        },
+        }
+      ]
+    },
+    {
+      "year": "2023",
+      "sourcePage": "https://www.swlawnbowls.org/2023-results",
+      "title": "Mare Beath",
+      "venue": null,
+      "slug": "mare-beath",
+      "places": [
         {
           "rank": 2,
-          "rankLabel": "Second Place - Championship Flight",
-          "names": "Joanne Hedgespeth",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/02-joanne-hedgespeth.jpg"
-        },
+          "rankLabel": "Second Place",
+          "names": "Championship Flight",
+          "photo": "/photos/archive/2023/mare-beath/01-joanne-hedgespeth.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2023",
+      "sourcePage": "https://www.swlawnbowls.org/2023-results",
+      "title": "Joanne Hedgespeth",
+      "venue": null,
+      "slug": "joanne-hedgespeth",
+      "places": [
         {
           "rank": 3,
-          "rankLabel": "Third Place - Championship Flight & Bowler of the Tournament",
-          "names": "Jordon Kos",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/03-jordon-kios.jpg"
-        },
+          "rankLabel": "Third Place",
+          "names": "Championship Flight & Bowler of the Tournament",
+          "photo": "/photos/archive/2023/joanne-hedgespeth/01-jordon-kios.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2023",
+      "sourcePage": "https://www.swlawnbowls.org/2023-results",
+      "title": "Jordon Kos",
+      "venue": null,
+      "slug": "jordon-kos",
+      "places": [
         {
           "rank": 4,
-          "rankLabel": "Fourth Place - Championship Flight",
-          "names": "Carol Poto",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/04-carol-poto.jpg"
-        },
+          "rankLabel": "Fourth Place",
+          "names": "Championship Flight",
+          "photo": "/photos/archive/2023/jordon-kos/01-carol-poto.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2023",
+      "sourcePage": "https://www.swlawnbowls.org/2023-results",
+      "title": "Carol Poto",
+      "venue": null,
+      "slug": "carol-poto",
+      "places": [
         {
           "rank": 1,
           "rankLabel": "First Place - Second Flight",
           "names": "Pat Binnie",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/05-pat-binnie.jpg"
+          "photo": "/photos/archive/2023/carol-poto/01-pat-binnie.jpg"
         },
         {
           "rank": 2,
           "rankLabel": "Second Place - Second Flight",
           "names": "Val Tilton",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/06-val-tilton.jpg"
+          "photo": "/photos/archive/2023/carol-poto/02-val-tilton.jpg"
         },
         {
           "rank": 1,
           "rankLabel": "First Place - Third Flight",
           "names": "Mary Spease",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/07-mary-spease.jpg"
+          "photo": "/photos/archive/2023/carol-poto/03-mary-spease.jpg"
         },
         {
           "rank": 2,
           "rankLabel": "Second Place - Third Flight",
           "names": "Mary Thompson",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/08-mary-thompson.jpg"
+          "photo": "/photos/archive/2023/carol-poto/04-mary-thompson.jpg"
         },
         {
-          "rank": 1,
-          "rankLabel": "First Place - Championship Flight",
-          "names": "SWD Open 2023 Men’s Singles",
-          "photo": "/photos/archive/2023/swd-open-2023-womens-singles/09-karen-26-barbara-lee.jpg"
+          "rank": 4,
+          "rankLabel": "Fourth Flight",
+          "names": "Barber Lee (Blue Shirt) / Second Place: Karen Billon",
+          "photo": "/photos/archive/2023/carol-poto/05-karen-26-barbara-lee.jpg"
         }
       ]
     },
@@ -4626,26 +4671,26 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Championship Flight",
-          "names": "Jordan Kos, Giulia Gallo",
+          "rankLabel": "First Place",
+          "names": "Championship Flight",
           "photo": "/photos/archive/2023/swd-open-2023-womens-pairs/01-1st-1st-flight.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place - Championship Flight",
-          "names": "Mary Thompson, Joanne Hedgespeth",
+          "rankLabel": "Second Place",
+          "names": "Championship Flight",
           "photo": "/photos/archive/2023/swd-open-2023-womens-pairs/02-2nd-1st-flight.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place - Championship Flight",
-          "names": "Rose Selby, Rachel Marcuson",
+          "rankLabel": "Third Place",
+          "names": "Championship Flight",
           "photo": "/photos/archive/2023/swd-open-2023-womens-pairs/03-3rd-1st-flight.jpg"
         },
         {
           "rank": 4,
-          "rankLabel": "Fourth Place - championship Flight",
-          "names": "Mare Beath, Mary Spease",
+          "rankLabel": "Fourth Place",
+          "names": "championship Flight",
           "photo": "/photos/archive/2023/swd-open-2023-womens-pairs/04-4th-1st-flight.jpg"
         },
         {
@@ -4689,21 +4734,39 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Championship Flight",
-          "names": "Michael Siddall Loren Dion",
+          "rankLabel": "First Place",
+          "names": "Championship Flight",
           "photo": "/photos/archive/2023/swd-open-mens-pairs/01-1st-mens-pairs-champ.jpg"
-        },
+        }
+      ]
+    },
+    {
+      "year": "2023",
+      "sourcePage": "https://www.swlawnbowls.org/2023-results",
+      "title": "Michael Siddall Loren Dion",
+      "venue": null,
+      "slug": "michael-siddall-loren-dion",
+      "places": [
         {
           "rank": 2,
-          "rankLabel": "Second Place - Championship Flight",
-          "names": "Brian Stewart Brian Mulvaney",
-          "photo": "/photos/archive/2023/swd-open-mens-pairs/02-2nd-mens-pairs-champ.jpg"
-        },
+          "rankLabel": "Second Place",
+          "names": "Championship Flight",
+          "photo": "/photos/archive/2023/michael-siddall-loren-dion/01-2nd-mens-pairs-champ.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2023",
+      "sourcePage": "https://www.swlawnbowls.org/2023-results",
+      "title": "Brian Stewart Brian Mulvaney",
+      "venue": null,
+      "slug": "brian-stewart-brian-mulvaney",
+      "places": [
         {
-          "rank": 4,
-          "rankLabel": "Fourth Place - Championship Flight",
-          "names": "Angel Rocha Phil Dunn",
-          "photo": "/photos/archive/2023/swd-open-mens-pairs/03-3rd-mens-pairs-champion.jpg"
+          "rank": 3,
+          "rankLabel": "Third Place",
+          "names": "Championship Flight",
+          "photo": "/photos/archive/2023/brian-stewart-brian-mulvaney/01-3rd-mens-pairs-champion.jpg"
         }
       ]
     },
@@ -4751,8 +4814,8 @@
           "photo": "/photos/archive/2023/2023-southwest-open-womens-fours/06-112132.jpg"
         },
         {
-          "rank": 2,
-          "rankLabel": "2nd Place Third Flight",
+          "rank": 1,
+          "rankLabel": "1st Place Third Flight",
           "names": "Susan Denton, Trish Soto,Joanne Hedgespeth, Mary Thompson",
           "photo": "/photos/archive/2023/2023-southwest-open-womens-fours/07-20230416-143809.jpg"
         }
@@ -4773,7 +4836,7 @@
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place - Second Flight",
+          "rankLabel": "Second Place Championship Flight",
           "names": "Ivan Hyland, Lou Cohen, John Billon, Tad Dutch",
           "photo": "/photos/archive/2023/swd-open-mens-fours/02-second-fours.jpg"
         }
@@ -5025,294 +5088,447 @@
     {
       "year": "2022",
       "sourcePage": "https://www.swlawnbowls.org/results-2022",
-      "title": "Special mention - Barbara Clark",
+      "title": "2022 SWD 5 Man Allstar, November 13, 2022",
       "venue": null,
-      "slug": "special-mention-barbara-clark",
+      "slug": "2022-swd-5-man-allstar-november-13-2022",
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Corando LBC - Harold Krasner, Bill Brault, John Lee, Javier Gomez, and Angel Gomez",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/01-first-place.jpg"
+          "rankLabel": "First Place",
+          "names": "Corando LBC - Harold Krasner, Bill Brault, John Lee, Javier Gomez, and Angel Gomez",
+          "photo": "/photos/archive/2022/2022-swd-5-man-allstar-november-13-2022/01-first-place.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Santa Monica LBC - TJ Bednash, Greg Poshepny, Rome Williams, Stuart Bell, Terry Mar, and Steve Mount",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/02-second-place.jpg"
+          "rankLabel": "Second Place",
+          "names": "Santa Monica LBC - TJ Bednash, Greg Poshepny, Rome Williams, Stuart Bell, Terry Mar, and Steve Mount",
+          "photo": "/photos/archive/2022/2022-swd-5-man-allstar-november-13-2022/02-second-place.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Oaks North LBC - Mohammed Ahrar, Peter Ritchie, Phil Salt, Eilan Sloustcher, and Roger Teske",
-          "names": "2022 SWD Waterbury, November 12, 2022",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/03-third-place.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place: Mary Thompson, Joanne Hedgspeth, Phil Dunn, Heather Stewart, Chris Dodd and Dave Breedon",
-          "names": "Eileen Morton Triples Tournament at the Santa Barbara LBC",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/04-waterbury-first.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "FIRST PLACE: Lanny Larsen, Liliana Legge and Angel Lopez,",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/05-1st-place.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "SECOND PLACE: Steve Goodmanson, Gloria Brown, Jack Bucey",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/06-2nd-place.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "THIRD PLACE: Ian Cameron, Jackie Hogan, Scott Loosley",
-          "names": "Sun City Triples, November 5, 2022",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/07-3rd-place.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place: Ken Whitmer, Barbara Krause, Scott Yahnke",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/08-first-place.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place: Chuck Tuey, Pam Tuey, Hugh Esterly",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/09-second-place.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place: Dave White, Roger Teske, Phil Salt",
-          "names": "2022 Jack Beckley Rinks - Santa Monica, October 23, 2022",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/10-third-place.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place: Tricia Quan, Dave Morrison, Abe Pinnela, and Peter Ritchie",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/11-first-place.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place: Lynda Vance (Jack Beckley’s daughter and our sponsor),Adri Sandoval, Marty Bierman, Linda Vose and Tom Sternweis",
-          "names": "2022 SWD Woman, Mixed Pairs - Men Skip",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/12-second-place.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place A Green: Anne Nunes and Bill Brault",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/13-1st-a.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place B Green: Shuman Chan and Jane Blair",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/14-1st-b.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place A Green: Joan Robbins and Robert Buscigilo",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/15-2nd-a.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place B Green: Shelley and Lou Cohen",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/16-snd-b.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place A Green: Heather Lewis and Peter Ritchie",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/17-3rd-a.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place B Green: Gary Barnes and Sheila Conti",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/18-3rd-b.jpg"
-        },
-        {
-          "rank": 4,
-          "rankLabel": "Fourth Place A Green: Phil Dunn and Giulia Gallo",
-          "names": "2022 Bill Hiscock Mixed Triples",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/19-4th-a.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place: Giulia Gallo, Mary Spease, Bill Brault (S)",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/20-1st-place.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place: Kottia More, Dee McSparran, Phil Dunn, (S)",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/21-snd-place.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place: Angle Rocha, Trish Soto, Peter Ritchie (S)",
-          "names": "2022 Oaks North Invitational",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/22-3rd-place.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place: Mary Thompson, Peter Ritchie (S), Joanne Hedgespeth",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/23-first-place.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place: Mike Ruggles, Rita Greenberg, Michael Siddall (S)",
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/24-second-place.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place: Roger Teske (S), Candy DeFazio, Robert Busciglio",
-          "names": "SWD 2022 Vet/Novice Pairs",
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/25-third-place.jpg"
-        },
-        {
-          "rank": null,
-          "rankLabel": null,
-          "names": null,
-          "photo": "/photos/archive/2022/special-mention-barbara-clark/26-winner.jpg"
+          "rankLabel": "Third Place",
+          "names": "Oaks North LBC - Mohammed Ahrar, Peter Ritchie, Phil Salt, Eilan Sloustcher, and Roger Teske",
+          "photo": "/photos/archive/2022/2022-swd-5-man-allstar-november-13-2022/03-third-place.jpg"
         }
       ]
     },
     {
       "year": "2022",
       "sourcePage": "https://www.swlawnbowls.org/results-2022",
-      "title": "3rd place - Giulia Gallo and Alan O’ Brien",
+      "title": "2022 SWD Waterbury, November 12, 2022",
       "venue": null,
-      "slug": "3rd-place-giulia-gallo-and-alan-o-brien",
+      "slug": "2022-swd-waterbury-november-12-2022",
       "places": [
         {
-          "rank": 3,
-          "rankLabel": "3rd Place: Howard Harrisand Louis Hayselden",
-          "names": "2022 Issue Forbes Mix/Match Vet / Novice Triples",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/01-suncity-inners.jpg"
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Mary Thompson, Joanne Hedgspeth, Phil Dunn, Heather Stewart, Chris Dodd and Dave Breedon",
+          "photo": "/photos/archive/2022/2022-swd-waterbury-november-12-2022/01-waterbury-first.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "Eileen Morton Triples Tournament at the Santa Barbara LBC",
+      "venue": null,
+      "slug": "eileen-morton-triples-tournament-at-the-santa-barbara-lbc",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "FIRST PLACE",
+          "names": "Lanny Larsen, Liliana Legge and Angel Lopez,",
+          "photo": "/photos/archive/2022/eileen-morton-triples-tournament-at-the-santa-barbara-lbc/01-1st-place.jpg"
         },
         {
-          "rank": 5,
-          "rankLabel": "Fifth Place: Ivan Hyland, John Billon, Joan Robbins",
-          "names": "2022 Maccabee Pairs",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/02-if-first.jpg"
+          "rank": 2,
+          "rankLabel": "SECOND PLACE",
+          "names": "Steve Goodmanson, Gloria Brown, Jack Bucey",
+          "photo": "/photos/archive/2022/eileen-morton-triples-tournament-at-the-santa-barbara-lbc/02-2nd-place.jpg"
         },
+        {
+          "rank": 3,
+          "rankLabel": "THIRD PLACE",
+          "names": "Ian Cameron, Jackie Hogan, Scott Loosley",
+          "photo": "/photos/archive/2022/eileen-morton-triples-tournament-at-the-santa-barbara-lbc/03-3rd-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "Sun City Triples, November 5, 2022",
+      "venue": null,
+      "slug": "sun-city-triples-november-5-2022",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Ken Whitmer, Barbara Krause, Scott Yahnke",
+          "photo": "/photos/archive/2022/sun-city-triples-november-5-2022/01-first-place.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "Chuck Tuey, Pam Tuey, Hugh Esterly",
+          "photo": "/photos/archive/2022/sun-city-triples-november-5-2022/02-second-place.jpg"
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Third Place",
+          "names": "Dave White, Roger Teske, Phil Salt",
+          "photo": "/photos/archive/2022/sun-city-triples-november-5-2022/03-third-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Jack Beckley Rinks - Santa Monica, October 23, 2022",
+      "venue": null,
+      "slug": "2022-jack-beckley-rinks-santa-monica-october-23-2022",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Tricia Quan, Dave Morrison, Abe Pinnela, and Peter Ritchie",
+          "photo": "/photos/archive/2022/2022-jack-beckley-rinks-santa-monica-october-23-2022/01-first-place.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "Lynda Vance (Jack Beckley’s daughter and our sponsor),Adri Sandoval, Marty Bierman, Linda Vose and Tom Sternweis",
+          "photo": "/photos/archive/2022/2022-jack-beckley-rinks-santa-monica-october-23-2022/02-second-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 SWD Woman, Mixed Pairs - Men Skip",
+      "venue": null,
+      "slug": "2022-swd-woman-mixed-pairs-men-skip",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place A Green",
+          "names": "Anne Nunes and Bill Brault",
+          "photo": "/photos/archive/2022/2022-swd-woman-mixed-pairs-men-skip/01-1st-a.jpg"
+        },
+        {
+          "rank": 1,
+          "rankLabel": "First Place B Green",
+          "names": "Shuman Chan and Jane Blair",
+          "photo": "/photos/archive/2022/2022-swd-woman-mixed-pairs-men-skip/02-1st-b.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place A Green",
+          "names": "Joan Robbins and Robert Buscigilo",
+          "photo": "/photos/archive/2022/2022-swd-woman-mixed-pairs-men-skip/03-2nd-a.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place B Green",
+          "names": "Shelley and Lou Cohen",
+          "photo": "/photos/archive/2022/2022-swd-woman-mixed-pairs-men-skip/04-snd-b.jpg"
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Third Place A Green",
+          "names": "Heather Lewis and Peter Ritchie",
+          "photo": "/photos/archive/2022/2022-swd-woman-mixed-pairs-men-skip/05-3rd-a.jpg"
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Third Place B Green",
+          "names": "Gary Barnes and Sheila Conti",
+          "photo": "/photos/archive/2022/2022-swd-woman-mixed-pairs-men-skip/06-3rd-b.jpg"
+        },
+        {
+          "rank": 4,
+          "rankLabel": "Fourth Place A Green",
+          "names": "Phil Dunn and Giulia Gallo",
+          "photo": "/photos/archive/2022/2022-swd-woman-mixed-pairs-men-skip/07-4th-a.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Bill Hiscock Mixed Triples",
+      "venue": null,
+      "slug": "2022-bill-hiscock-mixed-triples",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Giulia Gallo, Mary Spease, Bill Brault (S)",
+          "photo": "/photos/archive/2022/2022-bill-hiscock-mixed-triples/01-1st-place.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "Kottia More, Dee McSparran, Phil Dunn, (S)",
+          "photo": "/photos/archive/2022/2022-bill-hiscock-mixed-triples/02-snd-place.jpg"
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Third Place",
+          "names": "Angle Rocha, Trish Soto, Peter Ritchie (S)",
+          "photo": "/photos/archive/2022/2022-bill-hiscock-mixed-triples/03-3rd-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Oaks North Invitational",
+      "venue": null,
+      "slug": "2022-oaks-north-invitational",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Mary Thompson, Peter Ritchie (S), Joanne Hedgespeth",
+          "photo": "/photos/archive/2022/2022-oaks-north-invitational/01-first-place.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "Mike Ruggles, Rita Greenberg, Michael Siddall (S)",
+          "photo": "/photos/archive/2022/2022-oaks-north-invitational/02-second-place.jpg"
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Third Place",
+          "names": "Roger Teske (S), Candy DeFazio, Robert Busciglio",
+          "photo": "/photos/archive/2022/2022-oaks-north-invitational/03-third-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "SWD 2022 Vet/Novice Pairs",
+      "venue": null,
+      "slug": "swd-2022-vet-novice-pairs",
+      "places": [
         {
           "rank": null,
           "rankLabel": null,
-          "names": "1---Charlie Herbert and Howard Horowitz",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/03-macabee-pairs.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place: Greg Poshepny, Jackie Hogan, Rome Williams",
-          "names": "2022 SWD Women’s California Bears Rinks",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/04-ecton-memorial.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place: Kottia Spangler, Eva Lee, Anne Nunes, Dee McSparran",
           "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/05-2022-cal-bears-1st.jpg"
+          "photo": "/photos/archive/2022/swd-2022-vet-novice-pairs/01-winner.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "Laguna Beach:",
+      "venue": null,
+      "slug": "laguna-beach",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Hugh Esterly and Brian Qyers / 2nd Place: Dave Rahm and Jeff Woolsey / 3rd Place: Howard Harrisand Louis Hayselden",
+          "photo": "/photos/archive/2022/laguna-beach/01-suncity-inners.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Issue Forbes Mix/Match Vet / Novice Triples",
+      "venue": null,
+      "slug": "2022-issue-forbes-mix-match-vet-novice-triples",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Jane O’Brian, Dean Warmington (S), Alan O’Brian / Second Place: Stephanie Johnson, Steve Jones, Dave Williams / Third Place: Corey Vose, Flor Wright, Jerome Williams / Fourth Place: Carol Poto, Mary Bierman, Tricia Quan / Fifth Place: Ivan Hyland, John Billon, Joan Robbins",
+          "photo": "/photos/archive/2022/2022-issue-forbes-mix-match-vet-novice-triples/01-if-first.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Maccabee Pairs",
+      "venue": null,
+      "slug": "2022-maccabee-pairs",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "1",
+          "names": "Charlie Herbert and Howard Horowitz / 2: Peter Richie and Dave Morrison / 3: Barry Pickup and Chris Trenschel",
+          "photo": "/photos/archive/2022/2022-maccabee-pairs/01-macabee-pairs.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Ralph and Marie Ecton Memorial Triples - Oxnard",
+      "venue": null,
+      "slug": "2022-ralph-and-marie-ecton-memorial-triples-oxnard",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Greg Poshepny, Jackie Hogan, Rome Williams",
+          "photo": "/photos/archive/2022/2022-ralph-and-marie-ecton-memorial-triples-oxnard/01-ecton-memorial.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 SWD Women’s California Bears Rinks",
+      "venue": null,
+      "slug": "2022-swd-womens-california-bears-rinks",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Kottia Spangler, Eva Lee, Anne Nunes, Dee McSparran",
+          "photo": "/photos/archive/2022/2022-swd-womens-california-bears-rinks/01-2022-cal-bears-1st.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Mary Spease, Melanie Vizenor, Joanne Hedgspeth, Mary Thompson",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/06-2022-cal-bears-2nd.jpg"
+          "rankLabel": "Second Place",
+          "names": "Mary Spease, Melanie Vizenor, Joanne Hedgspeth, Mary Thompson",
+          "photo": "/photos/archive/2022/2022-swd-womens-california-bears-rinks/02-2022-cal-bears-2nd.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Candy DeFazio, Giulia Gallo, Flor Wright, Joan Robins",
-          "names": "2022 SWD Men’s Novice Pairs",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/07-2022-cal-bears-3rd.jpg"
-        },
+          "rankLabel": "Third Place",
+          "names": "Candy DeFazio, Giulia Gallo, Flor Wright, Joan Robins",
+          "photo": "/photos/archive/2022/2022-swd-womens-california-bears-rinks/03-2022-cal-bears-3rd.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 SWD Men’s Novice Pairs",
+      "venue": null,
+      "slug": "2022-swd-mens-novice-pairs",
+      "places": [
         {
-          "rank": 3,
-          "rankLabel": "Third Place: Bill Kelly and Rooz Ehdaie",
-          "names": "2022 SWD Women’s Vet / Novice Pairs",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/08-men-novice.jpg"
-        },
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "Jerome Willams and TJ Bednash / First Place: Alan O’Brian and John Billon / Third Place: Bill Kelly and Rooz Ehdaie",
+          "photo": "/photos/archive/2022/2022-swd-mens-novice-pairs/01-men-novice.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 SWD Women’s Vet / Novice Pairs",
+      "venue": null,
+      "slug": "2022-swd-womens-vet-novice-pairs",
+      "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place ‘A’ Green: Kim Davis (N) and Melanie Vizenor (V)",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/09-a-first-place.jpg"
+          "rankLabel": "First Place ‘A’ Green",
+          "names": "Kim Davis (N) and Melanie Vizenor (V)",
+          "photo": "/photos/archive/2022/2022-swd-womens-vet-novice-pairs/01-a-first-place.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place ‘A’ Green: Giulia Gallo (V) and Jane O’Brian (N)",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/10-a-second-place.jpg"
+          "rankLabel": "Second Place ‘A’ Green",
+          "names": "Giulia Gallo (V) and Jane O’Brian (N)",
+          "photo": "/photos/archive/2022/2022-swd-womens-vet-novice-pairs/02-a-second-place.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place ‘A’ Green: Karen Billon (N) and Mary Thompson (V)",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/11-a-third-place.jpg"
+          "rankLabel": "Third Place ‘A’ Green",
+          "names": "Karen Billon (N) and Mary Thompson (V)",
+          "photo": "/photos/archive/2022/2022-swd-womens-vet-novice-pairs/03-a-third-place.jpg"
         },
         {
           "rank": 1,
-          "rankLabel": "First Place ‘B’ Green: Cheryl Barkovich (V) and Gina Moffitt (N)",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/12-b-first-place.jpg"
+          "rankLabel": "First Place ‘B’ Green",
+          "names": "Cheryl Barkovich (V) and Gina Moffitt (N)",
+          "photo": "/photos/archive/2022/2022-swd-womens-vet-novice-pairs/04-b-first-place.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place ‘B’ Green: Connie Delgado (N) and Eileen Lancendorfer (V)",
-          "names": "2022 Fossati and Friends",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/13-b-second-place.jpg"
-        },
+          "rankLabel": "Second Place ‘B’ Green",
+          "names": "Connie Delgado (N) and Eileen Lancendorfer (V)",
+          "photo": "/photos/archive/2022/2022-swd-womens-vet-novice-pairs/05-b-second-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Fossati and Friends",
+      "venue": null,
+      "slug": "2022-fossati-and-friends",
+      "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Barbara Lee, Sheila Conti (S), Jane Blair",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/14-firstplace.jpg"
+          "rankLabel": "First Place",
+          "names": "Barbara Lee, Sheila Conti (S), Jane Blair",
+          "photo": "/photos/archive/2022/2022-fossati-and-friends/01-firstplace.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Kim Davis, Joan Robins(S), Melanie Vizenor",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/15-secondplace.jpg"
+          "rankLabel": "Second Place",
+          "names": "Kim Davis, Joan Robins(S), Melanie Vizenor",
+          "photo": "/photos/archive/2022/2022-fossati-and-friends/02-secondplace.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Candy DeFazio, Heather Stewart(S), Maryna Hyland",
-          "names": "2022 SWD Men’s Rinks",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/16-thirdplace.jpg"
-        },
+          "rankLabel": "Third Place",
+          "names": "Candy DeFazio, Heather Stewart(S), Maryna Hyland",
+          "photo": "/photos/archive/2022/2022-fossati-and-friends/03-thirdplace.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 SWD Men’s Rinks",
+      "venue": null,
+      "slug": "2022-swd-mens-rinks",
+      "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Charlie Herbert(S), Tom Richeson, Rob Kost, Rooz Ehdaie",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/17-firstplace-rinks.jpg"
+          "rankLabel": "First Place",
+          "names": "Charlie Herbert(S), Tom Richeson, Rob Kost, Rooz Ehdaie",
+          "photo": "/photos/archive/2022/2022-swd-mens-rinks/01-firstplace-rinks.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Scott Roberts, Michael Iannotti(S), Stan Schuester, Greg Mech",
-          "names": null,
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/18-secondplace-rinks.jpg"
+          "rankLabel": "Second Place",
+          "names": "Scott Roberts, Michael Iannotti(S), Stan Schuester, Greg Mech",
+          "photo": "/photos/archive/2022/2022-swd-mens-rinks/02-secondplace-rinks.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Ian Cameron, Terry Mar(S), Roger Teske, Jerome Williams",
-          "names": "2022 SanDiego Invitational Mixed Pairs",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/19-thirdplace-rinks.jpg"
-        },
+          "rankLabel": "Third Place",
+          "names": "Ian Cameron, Terry Mar(S), Roger Teske, Jerome Williams",
+          "photo": "/photos/archive/2022/2022-swd-mens-rinks/03-thirdplace-rinks.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 SanDiego Invitational Mixed Pairs",
+      "venue": null,
+      "slug": "2022-sandiego-invitational-mixed-pairs",
+      "places": [
         {
           "rank": null,
           "rankLabel": null,
           "names": "Frist Place Pairs: Peter Ritchie and Nancy Santos",
-          "photo": "/photos/archive/2022/3rd-place-giulia-gallo-and-alan-o-brien/20-pairs-first.jpg"
+          "photo": "/photos/archive/2022/2022-sandiego-invitational-mixed-pairs/01-pairs-first.jpg"
         }
       ]
     },
@@ -5325,21 +5541,30 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place Triples: Giulia Gallo, Cory Vose and Linda Vose",
-          "names": "2022 SWD Men’s Cary MacDonald",
+          "rankLabel": "First Place Triples",
+          "names": "Giulia Gallo, Cory Vose and Linda Vose",
           "photo": "/photos/archive/2022/2022-sandiego-invitational-mixed-triples/01-triples-first.jpg"
-        },
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 SWD Men’s Cary MacDonald",
+      "venue": null,
+      "slug": "2022-swd-mens-cary-macdonald",
+      "places": [
         {
           "rank": null,
           "rankLabel": null,
           "names": "Cary Winners: Brian Stewart and Cory Vose",
-          "photo": "/photos/archive/2022/2022-sandiego-invitational-mixed-triples/02-cary-winners.jpg"
+          "photo": "/photos/archive/2022/2022-swd-mens-cary-macdonald/01-cary-winners.jpg"
         },
         {
           "rank": null,
           "rankLabel": null,
           "names": "Mac Donald Winners: Bill Buchanan and Tad Dutch",
-          "photo": "/photos/archive/2022/2022-sandiego-invitational-mixed-triples/03-mcdonald-winners.jpg"
+          "photo": "/photos/archive/2022/2022-swd-mens-cary-macdonald/02-mcdonald-winners.jpg"
         }
       ]
     },
@@ -5352,27 +5577,36 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Joanne Hedgspeth, Anne Nunes(S), Mary Spease and Mary Thompson",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Joanne Hedgspeth, Anne Nunes(S), Mary Spease and Mary Thompson",
           "photo": "/photos/archive/2022/2022-swd-womens-rinks/01-first-place.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Eva Lee, Dee McSparran(S), Kottia Spangler, Flor Wright",
-          "names": null,
+          "rankLabel": "Second Place",
+          "names": "Eva Lee, Dee McSparran(S), Kottia Spangler, Flor Wright",
           "photo": "/photos/archive/2022/2022-swd-womens-rinks/02-second-place.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Trish Soto, Joan Robbins(S), Norma Goodhart, Jane Blair",
-          "names": "2022 Men’s Pairs Playdowns - STRIPES",
+          "rankLabel": "Third Place",
+          "names": "Trish Soto, Joan Robbins(S), Norma Goodhart, Jane Blair",
           "photo": "/photos/archive/2022/2022-swd-womens-rinks/03-third-place.jpg"
-        },
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Men’s Pairs Playdowns - STRIPES",
+      "venue": null,
+      "slug": "2022-mens-pairs-playdowns-stripes",
+      "places": [
         {
           "rank": null,
           "rankLabel": null,
           "names": "Phil Dunn and Angel Rocha",
-          "photo": "/photos/archive/2022/2022-swd-womens-rinks/04-mens-first-stripes.jpg"
+          "photo": "/photos/archive/2022/2022-mens-pairs-playdowns-stripes/01-mens-first-stripes.jpg"
         }
       ]
     },
@@ -5430,57 +5664,84 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "1st Phil Dunn & Dee McSparran",
-          "names": null,
+          "rankLabel": "1st",
+          "names": "Phil Dunn & Dee McSparran",
           "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/01-first-place.jpg"
         },
         {
-          "rank": 3,
-          "rankLabel": "3rd Kay Tong & Alan Ngo",
-          "names": "2022 Pat Gonzales Aussie Mixed Pairs",
+          "rank": 2,
+          "rankLabel": "2nd",
+          "names": "Maryna & Ivan Hyland / 3rd: Kay Tong & Alan Ngo",
           "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/02-second-place.jpg"
-        },
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Pat Gonzales Aussie Mixed Pairs",
+      "venue": null,
+      "slug": "2022-pat-gonzales-aussie-mixed-pairs",
+      "places": [
         {
-          "rank": 4,
-          "rankLabel": "4th Place: Nancy Santos & Tad Dutch",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/03-first-place.jpg"
-        },
-        {
-          "rank": 4,
-          "rankLabel": "4th Place: Jane Blair & Schuman Chan",
-          "names": "2022 Cambria Pairs",
-          "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/04-second-place.jpg"
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "Terry Mar and Mary Spease / 2nd Place: Anne Nunes & Bill Brault / 3rd Place: Dave Morrison & Carol Poto / 4th Place: Nancy Santos & Tad Dutch",
+          "photo": "/photos/archive/2022/2022-pat-gonzales-aussie-mixed-pairs/01-first-place.jpg"
         },
         {
           "rank": 1,
-          "rankLabel": "First Place: John Lee & Charlie Herbert (S)",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/05-first-place.jpg"
+          "rankLabel": "First Place",
+          "names": "Joan Robins and Ian Cameron / 2nd Place: Driwght Parker & Patty Balsillie / 3rd Place: Rita Greenberg & Alan Klaus / 4th Place: Jane Blair & Schuman Chan",
+          "photo": "/photos/archive/2022/2022-pat-gonzales-aussie-mixed-pairs/02-second-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Cambria Pairs",
+      "venue": null,
+      "slug": "2022-cambria-pairs",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place",
+          "names": "John Lee & Charlie Herbert (S)",
+          "photo": "/photos/archive/2022/2022-cambria-pairs/01-first-place.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Terry Mar and Rob Hoy (S)",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/06-second-place.jpg"
+          "rankLabel": "Second Place",
+          "names": "Terry Mar and Rob Hoy (S)",
+          "photo": "/photos/archive/2022/2022-cambria-pairs/02-second-place.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Peter Richie (S) and Phil Dunn",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/07-third-place.jpg"
+          "rankLabel": "Third Place",
+          "names": "Peter Richie (S) and Phil Dunn",
+          "photo": "/photos/archive/2022/2022-cambria-pairs/03-third-place.jpg"
         },
         {
           "rank": 4,
-          "rankLabel": "Fourth Place: Anne Nunes(S) and Bill Brault",
-          "names": "2022 Women’s Singles Playdowns",
-          "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/08-fourth-place.jpg"
-        },
+          "rankLabel": "Fourth Place",
+          "names": "Anne Nunes(S) and Bill Brault",
+          "photo": "/photos/archive/2022/2022-cambria-pairs/04-fourth-place.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Women’s Singles Playdowns",
+      "venue": null,
+      "slug": "2022-womens-singles-playdowns",
+      "places": [
         {
           "rank": null,
           "rankLabel": null,
           "names": null,
-          "photo": "/photos/archive/2022/2022-truvic-seniors-pairs/09-anne-nunes.jpg"
+          "photo": "/photos/archive/2022/2022-womens-singles-playdowns/01-anne-nunes.jpg"
         }
       ]
     },
@@ -5517,36 +5778,54 @@
           "rankLabel": null,
           "names": "Charlie Herbert - Representing STARS and Peter Richie second place",
           "photo": "/photos/archive/2022/2022-mens-singles-playdowns/02-charlieandpeter-stars.jpg"
-        },
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "Coronado Mixed Triples - June 4, 2022",
+      "venue": null,
+      "slug": "coronado-mixed-triples-june-4-2022",
+      "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Tom Burnoski, Jackie Hogan and Ian Cameron",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-singles-playdowns/03-image-2.jpg"
+          "rankLabel": "First Place",
+          "names": "Tom Burnoski, Jackie Hogan and Ian Cameron",
+          "photo": "/photos/archive/2022/coronado-mixed-triples-june-4-2022/01-image-2.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Brian Stewart, Trish Soto and Andrew Dufresne",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-singles-playdowns/04-image-3.jpg"
+          "rankLabel": "Second Place",
+          "names": "Brian Stewart, Trish Soto and Andrew Dufresne",
+          "photo": "/photos/archive/2022/coronado-mixed-triples-june-4-2022/02-image-3.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Maryna Hyland, Anne Nunes and Bill Brault",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-singles-playdowns/05-image-1.jpg"
+          "rankLabel": "Third Place",
+          "names": "Maryna Hyland, Anne Nunes and Bill Brault",
+          "photo": "/photos/archive/2022/coronado-mixed-triples-june-4-2022/03-image-1.jpg"
         },
         {
           "rank": 4,
-          "rankLabel": "Fourth Place: Jim Olson, Giulia Gallo and Kim Davis",
-          "names": "Disney Classic",
-          "photo": "/photos/archive/2022/2022-mens-singles-playdowns/06-image.jpg"
-        },
+          "rankLabel": "Fourth Place",
+          "names": "Jim Olson, Giulia Gallo and Kim Davis",
+          "photo": "/photos/archive/2022/coronado-mixed-triples-june-4-2022/04-image.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "Disney Classic",
+      "venue": null,
+      "slug": "disney-classic",
+      "places": [
         {
           "rank": null,
           "rankLabel": null,
           "names": null,
-          "photo": "/photos/archive/2022/2022-mens-singles-playdowns/07-disney-winners.jpg"
+          "photo": "/photos/archive/2022/disney-classic/01-disney-winners.jpg"
         }
       ]
     },
@@ -5559,105 +5838,150 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First: Bobby Milas, Third: (back row) Dave Williams, Second: Alan Klaus, Fourth: Steve Folick",
-          "names": "2022 Women’s Novice Singles",
+          "rankLabel": "First",
+          "names": "Bobby Milas, Third: (back row) Dave Williams, Second: Alan Klaus, Fourth: Steve Folick",
           "photo": "/photos/archive/2022/2022-mens-novice-singles/01-mennovices.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Women’s Novice Singles",
+      "venue": null,
+      "slug": "2022-womens-novice-singles",
+      "places": [
+        {
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "Gina Fitten First Place: Karen Billion Third Place: Gina Moffitt",
+          "photo": "/photos/archive/2022/2022-womens-novice-singles/01-novice-singles.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Laguna Woods Mixed Pairs",
+      "venue": null,
+      "slug": "2022-laguna-woods-mixed-pairs",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "First Place A Green",
+          "names": "Brian Stewart and Dee McSparran",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/01-img-1174mixed-a-first.jpg"
+        },
+        {
+          "rank": 1,
+          "rankLabel": "First Place B Green",
+          "names": "Jerome Williams and Heather Lewis",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/02-mixed-b-first.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "A Green: Robert Busciglio and Candy DeFazio",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/03-mixed-a-second.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Second Place B Green",
+          "names": "Randy and Ginger Hatfield",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/04-mixed-b-second.jpg"
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Third Place A Green",
+          "names": "Terry Mar and Mary Thompson",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/05-mixed-a-third.jpg"
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Third Place B Green",
+          "names": "Alan and Jane O’Brian",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/06-mixed-b-third.jpg"
         },
         {
           "rank": 4,
-          "rankLabel": "Fourth Place: Kay Tong and Leah Joya",
-          "names": "2022 Laguna Woods Mixed Pairs",
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/02-novice-singles.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place A Green: Brian Stewart and Dee McSparran",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/03-img-1174mixed-a-first.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "First Place B Green: Jerome Williams and Heather Lewis",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/04-mixed-b-first.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place: A Green: Robert Busciglio and Candy DeFazio",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/05-mixed-a-second.jpg"
-        },
-        {
-          "rank": 2,
-          "rankLabel": "Second Place B Green: Randy and Ginger Hatfield",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/06-mixed-b-second.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place A Green: Terry Mar and Mary Thompson",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/07-mixed-a-third.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place B Green: Alan and Jane O’Brian",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/08-mixed-b-third.jpg"
+          "rankLabel": "Fourth Place",
+          "names": "A Green: Alan Ngo and Adriana Sandoval",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/07-mixed-a-fourth.jpg"
         },
         {
           "rank": 4,
-          "rankLabel": "Fourth Place: A Green: Alan Ngo and Adriana Sandoval",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/09-mixed-a-fourth.jpg"
-        },
-        {
-          "rank": 4,
-          "rankLabel": "4th place - Dee McSparran, Nancy Santos, Dan Johnson",
-          "names": "2022 Newport Classic",
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/10-mixed-b-fourth.jpg"
-        },
+          "rankLabel": "Fourth Place B Green",
+          "names": "Kay Tong and Leah Joya",
+          "photo": "/photos/archive/2022/2022-laguna-woods-mixed-pairs/08-mixed-b-fourth.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Newport Classic",
+      "venue": null,
+      "slug": "2022-newport-classic",
+      "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Shuman Chan, Jane Blair and Randy Hatfield",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/11-72e17100-ac52-45c2-936e-99a8993e91c3.jpg"
+          "rankLabel": "First Place",
+          "names": "Shuman Chan, Jane Blair and Randy Hatfield",
+          "photo": "/photos/archive/2022/2022-newport-classic/01-72e17100-ac52-45c2-936e-99a8993e91c3.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Chris Dodd, Joanne Hedgspeth and Terry Mar",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/12-a492209f-9498-49ca-b783-691a1c5e5ae5.jpg"
+          "rankLabel": "Second Place",
+          "names": "Chris Dodd, Joanne Hedgspeth and Terry Mar",
+          "photo": "/photos/archive/2022/2022-newport-classic/02-a492209f-9498-49ca-b783-691a1c5e5ae5.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Kay Tong, Flor Wright and Alan Ngo",
-          "names": "2022 Katy Stone Singles",
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/13-53bfb045-4156-4551-8552-f8bddc381c0a.jpg"
-        },
+          "rankLabel": "Third Place",
+          "names": "Kay Tong, Flor Wright and Alan Ngo",
+          "photo": "/photos/archive/2022/2022-newport-classic/03-53bfb045-4156-4551-8552-f8bddc381c0a.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Katy Stone Singles",
+      "venue": null,
+      "slug": "2022-katy-stone-singles",
+      "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Giulia Gallo",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/14-giulia.jpg"
+          "rankLabel": "First Place",
+          "names": "Giulia Gallo",
+          "photo": "/photos/archive/2022/2022-katy-stone-singles/01-giulia.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Stephanie Johnson",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/15-stephanie.jpg"
+          "rankLabel": "Second Place",
+          "names": "Stephanie Johnson",
+          "photo": "/photos/archive/2022/2022-katy-stone-singles/02-stephanie.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Heather Stewart",
-          "names": "2022 Joe Siegman Pairs",
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/16-heather.jpg"
-        },
+          "rankLabel": "Third Place",
+          "names": "Heather Stewart",
+          "photo": "/photos/archive/2022/2022-katy-stone-singles/03-heather.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "2022 Joe Siegman Pairs",
+      "venue": null,
+      "slug": "2022-joe-siegman-pairs",
+      "places": [
         {
           "rank": null,
-          "rankLabel": "Winners: Phil Dunn and Angel Rocha with Joe's wife Bobbie daughter Laurie and son Michael",
-          "names": "Phil Dunn and Angel Rocha,",
-          "photo": "/photos/archive/2022/2022-mens-novice-singles/17-js-pairs.jpg"
+          "rankLabel": "Winners",
+          "names": "Phil Dunn and Angel Rocha with Joe's wife Bobbie daughter Laurie and son Michael",
+          "photo": "/photos/archive/2022/2022-joe-siegman-pairs/01-js-pairs.jpg"
         }
       ]
     },
@@ -5685,27 +6009,27 @@
     {
       "year": "2022",
       "sourcePage": "https://www.swlawnbowls.org/results-2022",
-      "title": "Legendary bowler in the Southwest District with numerous tournament wins. Active in our club (Oxnard) for over 32 years as President, Greenskeeper, and instructor to hundreds of novice bowlers.",
+      "title": "Amador Martinez",
       "venue": null,
-      "slug": "legendary-bowler-in-the-southwest-district-with-numerous-tou",
+      "slug": "amador-martinez",
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Lou Cohen, Phil Dunn and Alan Klaus",
-          "names": null,
-          "photo": "/photos/archive/2022/legendary-bowler-in-the-southwest-district-with-numerous-tou/01-am-first-place.jpg"
+          "rankLabel": "First Place",
+          "names": "Lou Cohen, Phil Dunn and Alan Klaus",
+          "photo": "/photos/archive/2022/amador-martinez/01-am-first-place.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Howard Horowitz, Angle Rocha and Cheryl Barkovich",
-          "names": null,
-          "photo": "/photos/archive/2022/legendary-bowler-in-the-southwest-district-with-numerous-tou/02-am-second-place.jpg"
+          "rankLabel": "Second Place",
+          "names": "Howard Horowitz, Angle Rocha and Cheryl Barkovich",
+          "photo": "/photos/archive/2022/amador-martinez/02-am-second-place.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Steve Irwin, Steve Goodmanson, and Grant Gibson",
-          "names": "2022 SOUTHWEST OPEN",
-          "photo": "/photos/archive/2022/legendary-bowler-in-the-southwest-district-with-numerous-tou/03-am-third-place.jpg"
+          "rankLabel": "Third Place",
+          "names": "Steve Irwin, Steve Goodmanson, and Grant Gibson",
+          "photo": "/photos/archive/2022/amador-martinez/03-am-third-place.jpg"
         }
       ]
     },
@@ -5733,20 +6057,20 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Giulia Gallo, Val Tilton, Mare Beath, Julie Buchanan",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Giulia Gallo, Val Tilton, Mare Beath, Julie Buchanan",
           "photo": "/photos/archive/2022/women-fours/01-winners-w.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place - Candy DeFazio, Anne Nunes, Heather Stewart, Eileen Lancendorfer",
-          "names": null,
+          "rankLabel": "Second Place",
+          "names": "Candy DeFazio, Anne Nunes, Heather Stewart, Eileen Lancendorfer",
           "photo": "/photos/archive/2022/women-fours/02-second-w.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Flight:",
-          "names": "Championship Flight Women’s Fours:",
+          "rankLabel": "Third Place",
+          "names": "Marion Darton, Rachel Marcus, Rose Selby, Sheila Conti",
           "photo": "/photos/archive/2022/women-fours/03-third-w.jpg"
         }
       ]
@@ -5760,14 +6084,14 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Aaron Zangl &Loren Dion",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Aaron Zangl &Loren Dion",
           "photo": "/photos/archive/2022/men-s-pairs/01-first-m.jpg"
         },
         {
-          "rank": 4,
-          "rankLabel": "Fourth Flight:",
-          "names": "Championship Flight Men’s Pairs:",
+          "rank": 2,
+          "rankLabel": "Second Place",
+          "names": "Harold Krasner & Brian Judelson",
           "photo": "/photos/archive/2022/men-s-pairs/02-second-m.jpg"
         }
       ]
@@ -5823,8 +6147,8 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place: Arnie Knight, Charlie Herbert, Dean Warmington, and Corey Vose,",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Arnie Knight, Charlie Herbert, Dean Warmington, and Corey Vose,",
           "photo": "/photos/archive/2022/men-s-rinks/01-m-rinks-first.jpg"
         },
         {
@@ -5859,20 +6183,20 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Dee McSparran",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Dee McSparran",
           "photo": "/photos/archive/2022/womens-singles/01-w-singles-first.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place: Val Tilton",
-          "names": null,
+          "rankLabel": "Second Place",
+          "names": "Val Tilton",
           "photo": "/photos/archive/2022/womens-singles/02-w-singles-second.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place: Mary Spease",
-          "names": null,
+          "rankLabel": "Third Place",
+          "names": "Mary Spease",
           "photo": "/photos/archive/2022/womens-singles/03-w-singles-third.jpg"
         },
         {
@@ -5892,8 +6216,8 @@
       "places": [
         {
           "rank": 2,
-          "rankLabel": "Second Place: Ian Cameron - First Place: Charlie Herbert - Third Place: Robert Busciglio",
-          "names": "Men’s Singles Championship Flight:",
+          "rankLabel": "Second Place",
+          "names": "Ian Cameron - First Place: Charlie Herbert - Third Place: Robert Busciglio",
           "photo": "/photos/archive/2022/men-s-singles/01-singles-edited.jpg"
         }
       ]
@@ -5907,8 +6231,8 @@
       "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Anne Nunes, Candy DeFazio and Karen Billon",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Anne Nunes, Candy DeFazio and Karen Billon",
           "photo": "/photos/archive/2022/player-of-the-tournament-charlie-herbert/01-image004.jpg"
         },
         {
@@ -5967,51 +6291,69 @@
         },
         {
           "rank": 1,
-          "rankLabel": "First Place - Flor Wright and Candy De Fazio",
-          "names": null,
+          "rankLabel": "First Place",
+          "names": "Flor Wright and Candy De Fazio",
           "photo": "/photos/archive/2022/2022-novices/03-20220319-173417.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "Second Place - Mary Spease and Giulia Gallo",
-          "names": null,
+          "rankLabel": "Second Place",
+          "names": "Mary Spease and Giulia Gallo",
           "photo": "/photos/archive/2022/2022-novices/04-20220319-173444.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "Third Place - Norma Goodhart and Linda Roberts",
-          "names": "SOUTHWEST WOMEN CAL 5",
+          "rankLabel": "Third Place",
+          "names": "Norma Goodhart and Linda Roberts",
           "photo": "/photos/archive/2022/2022-novices/05-20220319-173503.jpg"
-        },
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "SOUTHWEST WOMEN CAL 5",
+      "venue": null,
+      "slug": "southwest-women-cal-5",
+      "places": [
         {
           "rank": 1,
-          "rankLabel": "First Place - Mary Spease, Jan Hargraves, Mary Thompson, Candy De Fazio and Joanne Hedgespeth",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-novices/06-90f95fc9-f4d3-4ba5-8ae0-5fb7e496b609-1-2.jpg"
-        },
-        {
-          "rank": 3,
-          "rankLabel": "Third Place - The team of: Anne Nunes, Dee McSparran, Linda Roberts, Maryna Hyland and Eva Lee (No Photo Available)",
-          "names": "Men’s SoCal Triples",
-          "photo": "/photos/archive/2022/2022-novices/07-a6bfe4ae-01d4-4e50-a11f-e0e65e25b8a1-1-2.jpg"
-        },
-        {
-          "rank": 1,
-          "rankLabel": "1st Place - Harold Krasner (skip), Brian Judelson, Dan Johnson",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-novices/08-first-place.jpg"
+          "rankLabel": "First Place",
+          "names": "Mary Spease, Jan Hargraves, Mary Thompson, Candy De Fazio and Joanne Hedgespeth",
+          "photo": "/photos/archive/2022/southwest-women-cal-5/01-90f95fc9-f4d3-4ba5-8ae0-5fb7e496b609-1-2.jpg"
         },
         {
           "rank": 2,
-          "rankLabel": "2nd Place - Terry Mar, Phil Dunn (skip), Angel Rocha",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-novices/09-second-place.jpg"
+          "rankLabel": "Second Place",
+          "names": "The team of: Jane Blair, Norma Goodhart, Diana Wenzel, Shelley Cohen and Trish Soto / Third Place: The team of: Anne Nunes, Dee McSparran, Linda Roberts, Maryna Hyland and Eva Lee (No Photo Available)",
+          "photo": "/photos/archive/2022/southwest-women-cal-5/02-a6bfe4ae-01d4-4e50-a11f-e0e65e25b8a1-1-2.jpg"
+        }
+      ]
+    },
+    {
+      "year": "2022",
+      "sourcePage": "https://www.swlawnbowls.org/results-2022",
+      "title": "Men’s SoCal Triples",
+      "venue": null,
+      "slug": "mens-socal-triples",
+      "places": [
+        {
+          "rank": 1,
+          "rankLabel": "1st Place",
+          "names": "Harold Krasner (skip), Brian Judelson, Dan Johnson",
+          "photo": "/photos/archive/2022/mens-socal-triples/01-first-place.jpg"
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd Place",
+          "names": "Terry Mar, Phil Dunn (skip), Angel Rocha",
+          "photo": "/photos/archive/2022/mens-socal-triples/02-second-place.jpg"
         },
         {
           "rank": 3,
-          "rankLabel": "3rd Place - Dean Warmington, Corey Vose, Charlie Herbert (skip)",
-          "names": null,
-          "photo": "/photos/archive/2022/2022-novices/10-third-place.jpg"
+          "rankLabel": "3rd Place",
+          "names": "Dean Warmington, Corey Vose, Charlie Herbert (skip)",
+          "photo": "/photos/archive/2022/mens-socal-triples/03-third-place.jpg"
         }
       ]
     }

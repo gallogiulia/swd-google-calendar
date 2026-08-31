@@ -55,6 +55,25 @@ PLACE_RE = re.compile(
     r"|champion|champions|winner|winners|runner|runners)\b",
     re.I,
 )
+# 2022 also wrote bare-digit placings: "1---Charlie Herbert and Howard Horowitz".
+NUM_PLACE_RE = re.compile(r"^\s*([1-8])\s*[-–—]{1,3}\s*(?=\S)")
+
+# 2022 put the placing and the roster on ONE line -- "First Place: A, B and C",
+# "2nd place - Terry Mar and Joan Robbins". Split on the first separator.
+PLACE_SPLIT_RE = re.compile(r"\s*(?::|\s[-–—]+\s|[-–—]{2,})\s*")
+
+# A heading carrying a year or a month reads as a tournament title even if it
+# is comma-heavy: "2022 SWD 5 Man Allstar, November 13, 2022".
+TITLEISH_RE = re.compile(
+    r"\b(19|20)\d{2}\b|\b(january|february|march|april|may|june|july|august"
+    r"|september|october|november|december)\b", re.I)
+
+# Tails that pass the "two capitalised words" test but are places, not people:
+# "A Green", "B Green", "Far (Clubhouse)", "Coronado LBC".
+NOT_NAMES_RE = re.compile(
+    r"^(?:[‘'\"]?[ab][’'\"]?\s+)?(green|far|near|clubhouse|club|lbc|rink|rinks"
+    r"|side|court|lawn\s+bowl)", re.I)
+
 ORDINALS = {
     "first": 1, "1st": 1, "second": 2, "2nd": 2, "third": 3, "3rd": 3,
     "fourth": 4, "4th": 4, "fifth": 5, "5th": 5, "sixth": 6, "6th": 6,
@@ -144,6 +163,57 @@ def looks_like_names(text):
     return bool(re.search(r",| & | and ", text))
 
 
+def is_not_names(tail):
+    """True for tails that name a green, a club or a side rather than people."""
+    words = re.findall(r"[A-Za-z][A-Za-z'’-]*", tail)
+    return bool(words) and len(words) <= 3 and bool(NOT_NAMES_RE.match(tail.strip()))
+
+
+def split_place_line(text):
+    """Split "First Place: A, B and C" into ("First Place", "A, B and C").
+
+    Returns (label, names) with names None when the tail isn't a roster. The
+    tail has to read like people -- at least two words -- so that 2023/24's
+    "2nd Place - Coronado" (a club, with the real roster on the next line)
+    keeps its separate roster line instead of swallowing the venue.
+    """
+    parts = PLACE_SPLIT_RE.split(text, maxsplit=1)
+    if len(parts) != 2:
+        return text, None
+    label, tail = parts[0].strip(), parts[1].strip()
+    if not label or not tail or len(tail) > 200:
+        return text, None
+    if PLACE_RE.match(tail) or NUM_PLACE_RE.match(tail):
+        return text, None          # "1st - 2nd" style, not a roster
+    if len(re.findall(r"[A-Za-z][A-Za-z'’.-]*", tail)) < 2:
+        return text, None          # single word: a club or a green, not names
+    if is_not_names(tail):
+        return text, None
+    return label, tail
+
+
+def split_bare_ordinal(text):
+    """Split "1st Phil Dunn & Dee McSparran" -- an ordinal with no separator.
+
+    Only bare ordinals qualify. "First Place A Green" keeps its whole label,
+    because anything with the word "Place" in it is a heading in every year
+    and its tail is a green or a club rather than a roster.
+    """
+    m = re.match(r"\s*(1st|2nd|3rd|4th|5th|6th|7th|8th)\b[.,]?\s+(?=\S)", text, re.I)
+    if not m:
+        return text, None
+    tail = text[m.end():].strip()
+    if not tail or len(tail) > 200 or re.match(r"(?i)place|placing", tail):
+        return text, None
+    joined = re.search(r",| & | and ", tail)
+    caps = re.findall(r"\b[A-Z][A-Za-z'’-]{1,}\b", tail)
+    if not joined and len(caps) < 2:
+        return text, None
+    if is_not_names(tail):
+        return text, None
+    return m.group(1), tail
+
+
 def parse_page(markup):
     """Group the content stream into tournaments, each with placed images."""
     stream = content_stream(markup)
@@ -167,12 +237,44 @@ def parse_page(markup):
             expect_names = False
             continue
 
-        if PLACE_RE.match(value) and current and current["places"]:
-            word = re.match(r"\s*([A-Za-z0-9]+)", value).group(1).lower()
+        num = NUM_PLACE_RE.match(value)
+        if (PLACE_RE.match(value) or num) and current and current["places"]:
+            label, names = split_place_line(value)
+            if names is None:
+                label, names = split_bare_ordinal(value)
             slot = current["places"][-1]
-            slot["rankLabel"] = value
-            slot["rank"] = ORDINALS.get(word)
+            if num:
+                rank = int(num.group(1))
+                if names is None:      # "1---Charlie Herbert and Howard Horowitz"
+                    label, names = value[:num.end()].strip(), value[num.end():].strip()
+                    if len(re.findall(r"[A-Za-z][A-Za-z'’.-]*", names)) < 2:
+                        names = None
+            else:
+                word = re.match(r"\s*([A-Za-z0-9]+)", value).group(1).lower()
+                rank = ORDINALS.get(word)
+            if slot["rankLabel"] is None:
+                slot["rankLabel"] = label
+                slot["rank"] = rank
+            if names and slot["names"] is None:
+                slot["names"] = names
+            elif names and label != slot["rankLabel"] and names not in slot["names"]:
+                # 2022 sometimes listed every placing under a single group photo.
+                # Keep the extra rows on the one image they belong to.
+                slot["names"] = (slot["names"].rstrip(" /,") +
+                                 f" / {label}: {names}")
             expect_names = slot["names"] is None
+            continue
+
+        # A heading that isn't a placing is a section title, even when it reads
+        # like a roster to looks_like_names(): 2022 wrote its tournament names
+        # as "2022 SWD 5 Man Allstar, November 13, 2022", commas and all, and
+        # those were being swallowed as captions.
+        if (kind == "H" and not is_cont and len(value) > 8
+                and not PLACE_RE.match(value) and not NUM_PLACE_RE.match(value)
+                and (not looks_like_names(value) or TITLEISH_RE.search(value))):
+            pending_title = value
+            ensure(value)
+            expect_names = False
             continue
 
         # Directly after a place heading, a short line is the roster even when
@@ -196,7 +298,10 @@ def parse_page(markup):
             continue
 
         # Anything else that isn't a caption starts a new tournament section.
-        if len(value) > 8 and not looks_like_names(value):
+        # A placing line with no image yet, or a paragraph of prose, is not a
+        # section title -- 2022 has both, and they used to become tournaments.
+        if (8 < len(value) <= 120 and not looks_like_names(value)
+                and not PLACE_RE.match(value) and not NUM_PLACE_RE.match(value)):
             pending_title = value
             ensure(value)
             expect_names = False
