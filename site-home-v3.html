@@ -138,8 +138,7 @@
     var cat = S.discipline(ev);
     var club = ev.club && ev.club.name ? ev.club.name : '';
     return '<a class="card" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
-      '<span class="thumb"><span class="corner">' + S.esc(S.fmtDate(when)) + '</span>' +
-        '<span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' + S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+      '<span class="thumb">' + S.poster(ev, when) + '</span>' +
       '<span class="body">' +
         '<span class="chip">' + S.esc(S.label(ev)) + '</span>' +
         '<h3>' + S.esc(ev.title) + '</h3>' +
@@ -173,8 +172,7 @@
       var club = ev.club && ev.club.name ? ev.club.name : '';
       featEl.innerHTML =
         '<a class="feature" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
-          '<span class="thumb"><span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' +
-            S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+          '<span class="thumb">' + S.poster(ev, next.when) + '</span>' +
           '<span><span class="chip">' + S.esc(S.fmtLong(next.when)) + '</span>' +
             '<h2>' + S.esc(ev.title) + '</h2>' +
             (club ? '<p class="dek">' + S.esc(club) + '</p>' : '') +

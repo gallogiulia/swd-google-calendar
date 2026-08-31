@@ -57,7 +57,6 @@
   }
   .month span { font-family: var(--font-text); font-size: 12px; font-weight: 700;
     letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
-  .card.done .thumb { opacity: .55; }
   .card.done h3 { color: var(--ink-2); }
   mark { background: #ffeeb0; color: inherit; padding: 0 2px; border-radius: 2px; }
 </style>
@@ -119,9 +118,7 @@
     var ev = x.e, cat = S.discipline(ev), past = x.when < today;
     var club = ev.club && ev.club.name ? ev.club.name : '';
     return '<a class="card' + (past ? ' done' : '') + '" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
-      '<span class="thumb"><span class="corner">' + S.esc(S.fmtDate(x.when)) + '</span>' +
-        '<span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' +
-        S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+      '<span class="thumb">' + S.poster(ev, x.when) + '</span>' +
       '<span class="body">' +
         '<span class="chip">' + S.esc(S.label(ev)) + (past ? ' · Played' : '') + '</span>' +
         '<h3>' + hl(ev.title) + '</h3>' +
@@ -151,8 +148,7 @@
       var club = ev.club && ev.club.name ? ev.club.name : '';
       featEl.innerHTML =
         '<a class="feature" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
-          '<span class="thumb"><span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' +
-            S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+          '<span class="thumb">' + S.poster(ev, next.when) + '</span>' +
           '<span><span class="chip">Next up · ' + S.esc(S.fmtLong(next.when)) + '</span>' +
             '<h2>' + S.esc(ev.title) + '</h2>' +
             (club ? '<p class="dek">' + S.esc(club) + '</p>' : '') +

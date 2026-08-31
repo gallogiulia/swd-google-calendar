@@ -87,6 +87,19 @@ window.SWD = (function () {
       });
   }
 
+  /* The colour block for an event with no photograph: date at the top,
+     discipline at the bottom. Fills the space with the two facts people
+     actually want. */
+  function poster(ev, when) {
+    var d = discipline(ev);
+    var disc = d === 'other' ? 'Tournament' : d.charAt(0).toUpperCase() + d.slice(1);
+    return '<span class="poster">' +
+      '<span class="day">' + when.getDate() +
+        '<small>' + esc(SHORT[when.getMonth()]) + ' ' + when.getFullYear() + '</small></span>' +
+      '<span class="disc">' + esc(whoFor(ev)) + '<br>' + esc(disc) + '</span>' +
+    '</span>';
+  }
+
   /* Divisions run in flights keep their podium in the top flight. */
   function podium(div) {
     if (div.flights) return (div.flights[0] || {}).places || [];
@@ -97,6 +110,6 @@ window.SWD = (function () {
     MONTHS: MONTHS, SHORT: SHORT,
     esc: esc, startDate: startDate, discipline: discipline,
     whoFor: whoFor, label: label, fmtDate: fmtDate, fmtLong: fmtLong,
-    getJSON: getJSON, podium: podium
+    getJSON: getJSON, podium: podium, poster: poster
   };
 })();
