@@ -164,6 +164,30 @@
     {
       "source": "/home-v2",
       "destination": "/site-home"
+    },
+    {
+      "source": "/2026-season-agenda",
+      "destination": "/agenda"
+    },
+    {
+      "source": "/2026-tournaments-events",
+      "destination": "/open-tournaments"
+    },
+    {
+      "source": "/2026-tournament-results",
+      "destination": "/results_new"
+    },
+    {
+      "source": "/us-nationals-teams",
+      "destination": "/nationals"
+    },
+    {
+      "source": "/policies-and-procedures",
+      "destination": "/policies"
+    },
+    {
+      "source": "/delegate-information",
+      "destination": "/delegates"
     }
   ]
 }
