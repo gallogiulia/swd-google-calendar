@@ -18,11 +18,10 @@
       ]
     },
     {
-      "type": "prose",
+      "type": "embed",
       "heading": "Sign-up form",
-      "body": [
-        "The sign-up form is being rebuilt and is temporarily unavailable."
-      ]
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfP7g0ipnEmFWMdJAvprJIfJLB2qVUQrcjiCabdn0SZjjGFAQ/viewform?embedded=true",
+      "height": 1250
     },
     {
       "type": "image",
@@ -118,6 +117,7 @@
   },
   "migrationNotes": [
     "The Squarespace form itself was not migrated — see formSpec.",
-    "The event dropdown options are the 2026 Ladies’ Day schedule and will need updating each season."
+    "The event dropdown options are the 2026 Ladies’ Day schedule and will need updating each season.",
+    "The sign-up form is now a Google Form; responses go to its linked spreadsheet. To change the questions, edit the form in Google Forms - nothing here needs changing."
   ]
 }

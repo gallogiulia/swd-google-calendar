@@ -29,11 +29,10 @@
       ]
     },
     {
-      "type": "prose",
+      "type": "embed",
       "heading": "Contact form",
-      "body": [
-        "The form on this page is being rebuilt and is temporarily unavailable."
-      ]
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSebhBaXeIzgiR_SjUps0nm__q11wzYIZ1X8igb51SoRVFgaMw/viewform?embedded=true",
+      "height": 850
     }
   ],
   "formSpec": {
@@ -66,6 +65,7 @@
   "migrationNotes": [
     "The page id keeps the source page's misspelling (“bowlsdevelopmnetfund”) so the URL still matches.",
     "The link in the body text was written as “https:// www.bowlsdevelopmentfund.org” with a stray space in the href; it has been corrected to https://www.bowlsdevelopmentfund.org.",
-    "The Squarespace form itself was not migrated — see formSpec."
+    "The Squarespace form itself was not migrated — see formSpec.",
+    "The contact form is now a Google Form; responses go to its linked spreadsheet. To change the questions, edit the form in Google Forms - nothing here needs changing."
   ]
 }

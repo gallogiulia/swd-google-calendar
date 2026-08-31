@@ -80,21 +80,14 @@ In progress. ~55 top-level Squarespace pages; the ones already served from here
 are listed in `vercel.json`. The remaining work, the open decisions, and the
 per-page status live in the status page linked from the project memory.
 
-**The remaining step — forms.** Four pages (`/contact-us`,
-`/ladies-day-sign-up`, `/ie-sign-up`, `/bowlsdevelopmnetfund`) used Squarespace
-form blocks. Static pages cannot receive a submission, so these are being
-rebuilt as **Google Forms**, decided 2026-08-30. Their exact fields are captured
-under `formSpec` in each content JSON.
+**Forms — done.** The four form pages now embed Google Forms, created
+2026-08-30. See `docs/forms.md` for the edit and response-spreadsheet links.
+To change a form's questions, edit it in Google Forms; nothing here changes.
+Do not re-run `scripts/create-swd-forms.gs` — it would create a second set.
 
-To finish them:
-1. Run `scripts/create-swd-forms.gs` once in script.google.com — it creates all
-   four forms and their response spreadsheets, and logs an embed URL for each.
-2. For each: `python3 scripts/attach-form.py <page-id> "<embed url>"`, which
-   swaps the placeholder for the real form.
-3. Commit and push.
-
-After that, changing a form's questions is done in Google Forms; nothing in this
-repo needs touching. This is the last thing blocking cutover.
+With the forms live, **cutover is the only remaining step**: point
+swlawnbowls.org at this deployment, rebuild the navigation, rewrite the
+hardcoded `swd-google-calendar.vercel.app` links, and retire the subscription.
 
 **Retired pages.** `content/home-two.json`, `live-scoring.json` and
 `schedule.json` carry `"retired": true` and have no route in `vercel.json`.

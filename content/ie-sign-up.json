@@ -9,11 +9,10 @@
       "alt": "Group photo of women bowlers in club shirts standing on the green on a sunny day."
     },
     {
-      "type": "prose",
+      "type": "embed",
       "heading": "Sign-up form",
-      "body": [
-        "The sign-up form is being rebuilt and is temporarily unavailable."
-      ]
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdM25EUlnDNBXFKvQrSe0eeETgzOaSUvg7WDZAexj5VuWyduQ/viewform?embedded=true",
+      "height": 1000
     },
     {
       "type": "contact",
@@ -68,6 +67,7 @@
   "migrationNotes": [
     "This page has no body text of its own — only a photo and the form.",
     "The event dropdown currently offers a single date (July 11, 6:30pm at Riverside LBC) and will need updating.",
-    "The Squarespace form itself was not migrated — see formSpec."
+    "The Squarespace form itself was not migrated — see formSpec.",
+    "The sign-up form is now a Google Form; responses go to its linked spreadsheet. To change the questions, edit the form in Google Forms - nothing here needs changing."
   ]
 }
