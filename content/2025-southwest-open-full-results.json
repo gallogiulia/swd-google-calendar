@@ -1,0 +1,99 @@
+{
+  "id": "2025-southwest-open-full-results",
+  "title": "2025 Southwest Open",
+  "subtitle": "Live scoring — full results for every event",
+  "sourceUrl": "https://www.swlawnbowls.org/2025-southwest-open-full-results",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/2025-southwest-open-full-results/01-live-scoring-banner.png",
+      "alt": "Flat illustration of charts — a pie chart, bar charts and a rising line graph — with the Southwest Bowls palm-tree logo in the corner"
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Women’s Rinks — Day 1",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSwLSVMqlouWnfgbYsRBFgxyYJ9gFUpw1S6SCxV1luxSg5Pz7MZUIhg-eD_XxSobpOwzIxej6pwCpzv/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Women’s Rinks — Day 2",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQe70PQ96ACwZhl_gbjOD8kDOmoxUoudPkFdRSdUjsNRn1klju1M2kEUOfHdvAnQkwAk5NoTGKMxF-v/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Women’s Pairs — Day 1",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRuXfCt_2Lh_EVAUGf27165GBJ8AgWgpjRXIIU9-dNWrWbBVHyHhQ5UKrxSy84EyBMz225EVBXgTtWr/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Women’s Pairs — Day 2",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQjgTE_TXgv9Af4khVuyoN08qMHO0WGDJynru-gScADN_VQo3m5MrKWoDu1oVa_kd-Ca1QJPC1uU5Pf/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Women’s Singles — Day 1",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7QJOnEqHV5DYL0-cTdqlXCv9MpMIfJkgBn0WTTvqIhPeOwURb_TVddDOPu7R2431IFi890rQjlbzP/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Women’s Singles — Day 2",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTOPigpssPsGT_pwOXEuTfRNH3PljyIa0rWWIcHvX5VXxYUsC5otDme0d8jAL5t9Xdy6u_ercOIbuCh/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Men’s Rinks — Day 1",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3FuqtqX5KEVE93Mwg7Kohnln-cRb0UeE84tF3yWYKgOjVT97V3P6ElSIl2h42dqa0qtjUrysnSL2j/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Men’s Rinks — Day 2",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIJGGhGl2ShX1G3ET9xEDyLkLPBKHQxPoTv18Tl9TyPp5i5eBm7jsmDemjXbt21K77ZFf0Sl6Hpsz7/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Men’s Pairs — Day 1",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvrBbNSvSJ18oAfJ95zWAir9r2WcqFvXU-OqhQG4f7Eir58tq_gOtZS_zE56yVn1-K03tjZ9srCGKZ/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Men’s Pairs — Day 2",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQAj_Ma7W0TUZBQlrAnoMAoYfe1fLwIX15Q-jI2Wdkm8mdDiuqUxpYWfimy5aFyKz8_cegWkgMXSrK1/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Men’s Singles — Day 1",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSD6vTLD6N0f0RxTfq2vT9O4M562Navi5jsAr3Yv2ix2XpNBaGWmQrpcdooiDOpRRBfuYs5E46nZ5RP/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SW Open Men’s Singles — Day 2",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQwCiNyT4uveI0rFBwXdNqRFkq1VEjkef3Rv-Gi67UkpPa2yIRQJmw4vgC_PBPjE9HkQMUrI-fnoVQW/pubhtml?widget=true&headers=false",
+      "height": 600
+    },
+    {
+      "type": "embed",
+      "heading": "SWD Open Getaway 2+2 Rinks",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5WZlPk2EuYYKVrf1A7vRCNe8uwTXi9MhFpMb-KY1oG_F1RXNwk8gNjY1ihts5PEZ8u1e_oB4VsLLg/pubhtml?widget=true&headers=false",
+      "height": 600
+    }
+  ],
+  "migrationNotes": [
+    "The page's only content is a LIVE SCORING banner, an in-page menu of the seven events, and thirteen published Google Sheets. The sheets are the results; nothing was transcribed.",
+    "The source page labelled each event once but showed two unlabelled sheets under six of the seven events. The 'Day 1' / 'Day 2' in each heading comes from the Google Sheet's own document title (e.g. 'W SWO Rinks D1, 2025', 'Men's SWO Pairs Day 2, 2025'), which is the only distinguishing information available.",
+    "All thirteen sheet URLs returned HTTP 200 when checked on 2026-08-30.",
+    "The in-page jump menu (SW Open Women's Rinks, Men's Rinks, Women's Pairs, Men's Pairs, Women's Singles, Men's Singles, SWD Open Getaway 2+2 Rinks) was dropped: the sections now appear in order with headings, so the anchors add nothing.",
+    "One of the Squarespace iframe src attributes contained a malformed '&;headers=false'; corrected to '&headers=false' (SW Open Women's Singles Day 2).",
+    "Iframe heights were not usable from the source markup; 600 recorded for every embed."
+  ]
+}

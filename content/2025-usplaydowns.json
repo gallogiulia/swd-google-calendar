@@ -1,0 +1,102 @@
+{
+  "id": "2025-usplaydowns",
+  "title": "2025 U.S. Playdowns",
+  "sourceUrl": "https://www.swlawnbowls.org/2025-usplaydowns",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/archive/2025/untitled-2/01-chatgpt-image-jul-4-2c-2025-2c-11-08-46.jpg",
+      "alt": "2025 U.S. Playdowns — Southwest Bowls title graphic, with the palm tree and sun logo on a red background"
+    },
+    {
+      "type": "gallery",
+      "heading": "2025 U.S. Nationals Team - Singles Players",
+      "images": [
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-singles-players/01-stars-women-27s-playdowns.jpg",
+          "alt": "Giulia Gallo giving two thumbs up in a stars-and-stripes visor and red striped shirt, wearing her first-place medal",
+          "caption": "Women’s Singles – Stars champion: Giulia Gallo"
+        },
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-singles-players/02-stripes-women-27s-playdowns.jpg",
+          "alt": "Anne Nunes in a cap and mirrored sunglasses wearing her first-place medal in front of the championship banner",
+          "caption": "Women’s Singles – Stripes champion: Anne Nunes"
+        },
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-singles-players/03-stars-men-27s-playdowns.jpg",
+          "alt": "Tom Richeson in a white bucket hat and white shirt wearing his first-place medal beside the green",
+          "caption": "Men’s Singles – Stars champion: Tom Richeson"
+        },
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-singles-players/04-stripes-men-27s-playdowns.jpg",
+          "alt": "Charlie Herbert holding both hands up in celebration on the green at Long Beach, wearing his first-place medal",
+          "caption": "Men’s Singles – Stripes champion: Charlie Herbert"
+        }
+      ]
+    },
+    {
+      "type": "gallery",
+      "heading": "2025 U.S. Nationals Team - Pairs Players",
+      "images": [
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-pairs-players/01-stars-women-27s-pairs-playdowns.jpg",
+          "alt": "Tricia Quan and Mary Spease in red, white and blue USA shirts with their first-place medals on the green at Long Beach",
+          "caption": "Women’s Pairs – Stars champions: Tricia Quan and Mary Spease"
+        },
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-pairs-players/02-stripes-women-27s-pairs-playdowns.jpg",
+          "alt": "Flor Wright and Karen Billon arm in arm in pink shirts with their first-place medals beside the green",
+          "caption": "Women’s Pairs – Stripes champions: Flor Wright and Karen Billon"
+        },
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-pairs-players/03-stars-men-27s-pairs-playdowns.jpg",
+          "alt": "Michael Siddall and Bill Brault in purple shirts with their first-place medals, in front of the championship banner",
+          "caption": "Men’s Pairs – Stars champions: Michael Siddall and Bill Brault"
+        },
+        {
+          "src": "/photos/archive/2025/2025-u-s-nationals-team-pairs-players/04-stripes-men-27s-pairs-playdowns.jpg",
+          "alt": "Rooz Ehdaie and Sadri Jazayeri in red shirts with their first-place medals beside the green",
+          "caption": "Men’s Pairs – Stripes champions: Rooz Ehdaie and Sadri Jazayeri"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "Check out the results of each event clicking on the banners below",
+      "items": [
+        {
+          "title": "Men’s Singles Playdowns",
+          "meta": "June 28-30",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners--2/01-1.jpg",
+          "link": "/2025-usplaydowns-full-results-1"
+        },
+        {
+          "title": "Men’s Pairs Playdowns",
+          "meta": "July 19-20 and July 26-27",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners--2/02-3.jpg",
+          "link": "/2025-usplaydowns-full-results-1"
+        },
+        {
+          "title": "Women’s Singles Playdowns",
+          "meta": "June 28-30 and July 5-6",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners--2/03-2.jpg",
+          "link": "/2025-usplaydowns-full-results-1"
+        },
+        {
+          "title": "Women’s Pairs Playdowns",
+          "meta": "July 19-20 and July 26-27",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners--2/04-4.jpg",
+          "link": "/2025-usplaydowns-full-results-1"
+        }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "The page has no body prose beyond the two gallery headings and the line 'Check out the results of each event clicking on the banners below'.",
+    "Champion names in the gallery captions were read off the graphics themselves; the page text does not name anyone.",
+    "The dates on the four event cards were read off the banner artwork, not from page text.",
+    "Squarespace linked each banner to an anchor on the full-results page (#menssingles, #menspairs, #womenssingles, #womenpairs). Our template has no anchor targets, so each card links to the top of /2025-usplaydowns-full-results-1.",
+    "All images were already rescued into photos/archive/2025/ by the earlier archive pass and are referenced there; nothing was downloaded twice.",
+    "A /2025-usplaydowns rewrite still needs adding to vercel.json — outside the scope of this migration pass."
+  ]
+}

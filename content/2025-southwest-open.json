@@ -1,0 +1,87 @@
+{
+  "id": "2025-southwest-open",
+  "title": "2025 Southwest Open",
+  "sourceUrl": "https://www.swlawnbowls.org/2025-southwest-open",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/archive/2025/untitled/01-2025-sw-open-banner.jpg",
+      "alt": "2025 Southwest Bowls Open banner — palm trees, sun and wave graphics over a red and blue background, with the dates April 26 to May 1 and swbowl.org"
+    },
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "Full Results", "url": "/2025-southwest-open-full-results" }
+      ]
+    },
+    {
+      "type": "gallery",
+      "heading": "Bowler of the Tournament",
+      "images": [
+        {
+          "src": "/photos/archive/2025/untitled/02-bowler-of-the-tournament.jpg",
+          "alt": "Charlie Herbert in a blue Southwest Bowls shirt and mirrored sunglasses, wearing a third-place medal and holding a red Team USA bowl",
+          "caption": "2025 Open Bowler of the Tournament — Charlie Herbert"
+        },
+        {
+          "src": "/photos/archive/2025/untitled/03-swd-bowler-of-the-tournament.jpg",
+          "alt": "Giulia Gallo on the green in a stars-and-stripes visor, holding her Bowler of the Tournament plaque and a prize envelope, with a first-place medal round her neck",
+          "caption": "2025 Open SWD Bowler of the Tournament — Giulia Gallo"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "Check out the results of each event clicking on the banners below",
+      "items": [
+        {
+          "title": "SW Open Men's Rinks",
+          "meta": "Long Beach Lawn Bowling Club",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners-/01-3.jpg",
+          "link": "/2025-southwest-open-full-results"
+        },
+        {
+          "title": "SW Open Men's Pairs",
+          "meta": "Long Beach Lawn Bowling Club, April 28-29",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners-/02-2.jpg",
+          "link": "/2025-southwest-open-full-results"
+        },
+        {
+          "title": "SW Open Men's Singles",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners-/03-1.jpg",
+          "link": "/2025-southwest-open-full-results"
+        },
+        {
+          "title": "SW Open Women's Rinks",
+          "meta": "Laguna Beach Lawn Bowling Club, April 26-27",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners-/04-4.jpg",
+          "link": "/2025-southwest-open-full-results"
+        },
+        {
+          "title": "SW Open Women's Pairs",
+          "meta": "Newport Harbor Lawn Bowling Club, April 28-29",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners-/05-button-womens-pairs.jpg",
+          "link": "/2025-southwest-open-full-results"
+        },
+        {
+          "title": "SW Open Women's Singles",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners-/06-6.jpg",
+          "link": "/2025-southwest-open-full-results"
+        },
+        {
+          "title": "SWD Open Getaway 2+2 Rinks",
+          "meta": "Laguna Beach Lawn Bowling Club, May 2",
+          "photo": "/photos/archive/2025/check-out-the-results-of-each-event-clicking-on-the-banners-/07-5.jpg",
+          "link": "/2025-southwest-open-full-results"
+        }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "The source page carries almost no body text: a banner, a Full Results button, the two Bowler of the Tournament graphics, the line 'Check out the results of each event clicking on the banners below', and seven event banners that link to anchors on the full-results page.",
+    "The venue and date shown for each event card were read off the event banner artwork itself, not from page text. The Men's Singles and Women's Singles banners do not state a venue legibly, so those cards carry no meta line.",
+    "Squarespace linked each banner to an anchor on the full-results page (#swmenrinks, #swpairsmen, #swmenssingles, #rinks, #swpairs, #swsingles, #getaway). Our page template has no anchor targets, so every card links to the top of /2025-southwest-open-full-results.",
+    "All images were already rescued into photos/archive/2025/ by the earlier archive pass and are referenced there; nothing was downloaded twice.",
+    "A /2025-southwest-open rewrite still needs adding to vercel.json — outside the scope of this migration pass."
+  ]
+}

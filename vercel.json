@@ -116,6 +116,26 @@
     {
       "source": "/registration-success",
       "destination": "/page?id=registration-success"
+    },
+    {
+      "source": "/2025-southwest-open-full-results",
+      "destination": "/page?id=2025-southwest-open-full-results"
+    },
+    {
+      "source": "/2025-southwest-open",
+      "destination": "/page?id=2025-southwest-open"
+    },
+    {
+      "source": "/2025-tournament-schedule",
+      "destination": "/page?id=2025-tournament-schedule"
+    },
+    {
+      "source": "/2025-usplaydowns-full-results-1",
+      "destination": "/page?id=2025-usplaydowns-full-results-1"
+    },
+    {
+      "source": "/2025-usplaydowns",
+      "destination": "/page?id=2025-usplaydowns"
     }
   ]
 }

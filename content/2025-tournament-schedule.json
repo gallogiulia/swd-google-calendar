@@ -1,0 +1,52 @@
+{
+  "id": "2025-tournament-schedule",
+  "title": "2025 Tournament Schedule",
+  "sourceUrl": "https://www.swlawnbowls.org/2025-tournament-schedule",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/2025-tournament-schedule/01-banner.jpeg",
+      "alt": "Bowlers in whites delivering and watching bowls across a sunlit green, with houses and shade shelters behind"
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "2025 Tournament Manual",
+          "url": "/pdfs/SWD_Tournament_Book_01_26_25_02_06.pdf"
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "body": [
+        "You may download a PDF of the approved 2025 Tournament Calendar here:",
+        "Note: Please address any revisions and questions to Anne Nunes SWD Tournament Director."
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Approved 2025 TOURNAMENT CALENDAR",
+          "url": "/pdfs/SWD-2025-Tournament-Calendar-2025.pdf"
+        }
+      ]
+    },
+    {
+      "type": "embed",
+      "heading": "2025 Tournament Calendar",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCw-d9y0jmSOeC4Kfw1FyWGWsSFs7KG6z-srC0f6ii8Ec-Gqi0eTqzELFEw3gRuG8C0th8nQELrZU0/pubhtml?widget=true&headers=false",
+      "height": 1000
+    }
+  ],
+  "migrationNotes": [
+    "The 2025 Tournament Manual PDF is already self-hosted in the repo, so its button points at /pdfs/SWD_Tournament_Book_01_26_25_02_06.pdf rather than the Squarespace copy.",
+    "The 2025 Tournament Calendar PDF has been copied into /pdfs/ and the link now points there, so it no longer depends on Squarespace.",
+    "The calendar embed returned HTTP 200 on 2026-08-30.",
+    "The embed heading '2025 Tournament Calendar' is descriptive; the source page showed the sheet with no heading of its own.",
+    "Iframe height was not usable from the source markup; 1000 recorded.",
+    "The page gives no email or phone for Anne Nunes, so no contact section was created.",
+    "A /2025-tournament-schedule rewrite still needs adding to vercel.json — outside the scope of this migration pass."
+  ]
+}
