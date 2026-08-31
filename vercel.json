@@ -30,6 +30,11 @@
       "source": "/results-2022",
       "destination": "/archive?year=2022",
       "permanent": false
+    },
+    {
+      "source": "/cl-ld1",
+      "destination": "/ie-ladies-day-results",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -138,10 +143,6 @@
       "destination": "/page?id=2025-usplaydowns"
     },
     {
-      "source": "/cl-ld1",
-      "destination": "/page?id=cl-ld1"
-    },
-    {
       "source": "/ladies-day-2024",
       "destination": "/page?id=ladies-day-2024"
     },
@@ -152,10 +153,6 @@
     {
       "source": "/ladies-day-2026",
       "destination": "/page?id=ladies-day-2026"
-    },
-    {
-      "source": "/ie-ladies-day-results",
-      "destination": "/page?id=cl-ld1"
     },
     {
       "source": "/ladies-day-results",
@@ -171,7 +168,7 @@
     },
     {
       "source": "/2026-tournaments-events",
-      "destination": "/open-tournaments"
+      "destination": "/tournaments-2026"
     },
     {
       "source": "/2026-tournament-results",
@@ -188,6 +185,10 @@
     {
       "source": "/delegate-information",
       "destination": "/delegates"
+    },
+    {
+      "source": "/ie-ladies-day-results",
+      "destination": "/page?id=ie-ladies-day-results"
     }
   ]
 }

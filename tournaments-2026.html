@@ -1,0 +1,241 @@
+<!-- ============================================================
+     tournaments-2026.html — the full season tournament directory.
+
+     Served at /2026-tournaments-events, replacing the Squarespace
+     collection page that listed every tournament.
+
+     Reads events-data.json (the same file the individual event pages
+     use), so adding a tournament there makes it appear here with no
+     further work. Grouped by month, newest season first.
+
+     This is deliberately NOT /open-tournaments, which shows only the
+     handful of events currently taking entries.
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 Tournaments — Southwest Lawn Bowls</title>
+<script src="/site-nav.js" defer></script>
+<style>
+  :root {
+    --bg: #f5f7fa; --card: #fff; --ink: #172033; --muted: #667085;
+    --line: rgba(15,23,42,.10); --line-2: rgba(15,23,42,.16);
+    --navy: #1a365d; --green: #0a5b3a; --gold-deep: #713f12;
+    --open-bg: #dbeee4; --open-fg: #1f6b4a;
+    --past-bg: #eceff4; --past-fg: #5b6a82;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 30px 20px 80px; }
+
+  .head { border-bottom: 3px solid var(--green); padding-bottom: 16px; margin-bottom: 20px; }
+  .head h1 { margin: 0; font-size: clamp(1.8rem, 5vw, 2.5rem); color: var(--navy); letter-spacing: -.01em; }
+  .head p { margin: 8px 0 0; color: var(--muted); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 6px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; }
+  .filters button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: #555; background: #fff; border: 1px solid var(--line-2);
+    border-radius: 999px; padding: 7px 15px;
+  }
+  .filters button:hover { border-color: #999; color: var(--ink); }
+  .filters button.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .search {
+    flex: 1 1 220px; min-width: 190px; font: inherit; font-size: 14px;
+    padding: 9px 13px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff;
+  }
+  .search:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+  .count { font-size: 13px; color: var(--muted); margin: 12px 0 20px; }
+
+  .month {
+    font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold-deep); margin: 26px 0 10px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .month:first-of-type { margin-top: 0; }
+
+  ul.evs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .ev {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    display: grid; grid-template-columns: 64px 1fr auto; gap: 16px;
+    padding: 14px 16px; align-items: center; text-decoration: none; color: inherit;
+  }
+  .ev:hover { border-color: var(--line-2); box-shadow: 0 2px 10px -4px rgba(15,23,42,.18); }
+  .ev:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 2px; }
+  .d { text-align: center; }
+  .d .dd { font-size: 20px; font-weight: 700; color: var(--navy); line-height: 1; font-variant-numeric: tabular-nums; }
+  .d .mm { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .t { font-weight: 650; font-size: 1rem; line-height: 1.3; }
+  .m { font-size: .87rem; color: var(--muted); margin-top: 2px; }
+  .tag {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .tag.open { background: var(--open-bg); color: var(--open-fg); }
+  .tag.past { background: var(--past-bg); color: var(--past-fg); }
+
+  @media (max-width: 620px) {
+    .ev { grid-template-columns: 52px 1fr; }
+    .ev .tag { grid-column: 2; justify-self: start; }
+  }
+  .status { padding: 50px 0; text-align: center; color: var(--muted); }
+  .status.err { color: #c53030; }
+  mark { background: #fff3ad; padding: 0 1px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>2026 Tournaments</h1>
+      <p>Every tournament on the Southwest Division calendar this season.</p>
+    </div>
+    <div class="controls" id="controls" hidden>
+      <div class="filters" id="filters">
+        <button data-f="all" class="on">All</button>
+        <button data-f="upcoming">Upcoming</button>
+        <button data-f="past">Played</button>
+      </div>
+      <input class="search" id="q" type="search" placeholder="Search a tournament or club…" aria-label="Search tournaments">
+    </div>
+    <div class="count" id="count"></div>
+    <div id="list"></div>
+    <div class="status" id="status">Loading tournaments…</div>
+  </div>
+
+<script>
+(function () {
+  var statusEl = document.getElementById('status');
+  var listEl   = document.getElementById('list');
+  var countEl  = document.getElementById('count');
+  var qEl      = document.getElementById('q');
+
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  var SHORT  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+
+  // Dates are written for people and include ranges:
+  //   "Saturday, April 18, 2026"      "Saturday-Sunday, July 18-19, 2026"
+  // so take the first month/day plus the year rather than trusting Date().
+  function startDate(text) {
+    var s = String(text || ''), month = -1, day = null;
+    for (var i = 0; i < MONTHS.length; i++) {
+      var m = s.match(new RegExp(MONTHS[i] + '\\s+(\\d{1,2})'));
+      if (m && (month === -1 || s.indexOf(MONTHS[i]) < s.indexOf(MONTHS[month]))) {
+        month = i; day = parseInt(m[1], 10);
+      }
+    }
+    if (month === -1 || !day) return null;
+    var y = s.match(/\b(20\d{2})\b/);
+    if (!y) return null;
+    var d = new Date(parseInt(y[1], 10), month, day);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  var all = [], filter = 'all', query = '';
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+
+  fetch('/events-data.json?v=' + Date.now())
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
+    .then(function (data) {
+      all = (data.events || [])
+        .map(function (e) { return { e: e, when: startDate(e.date) }; })
+        .filter(function (x) { return x.when; })
+        .sort(function (a, b) { return a.when - b.when; });
+
+      if (!all.length) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'No tournaments found in the calendar data.';
+        return;
+      }
+      document.getElementById('controls').hidden = false;
+      statusEl.remove();
+      render();
+    })
+    .catch(function (err) {
+      statusEl.className = 'status err';
+      statusEl.textContent = 'Could not load the tournament list (' + err.message + ').';
+    });
+
+  document.getElementById('filters').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    filter = b.getAttribute('data-f');
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function (x) {
+      x.classList.toggle('on', x === b);
+    });
+    render();
+  });
+
+  var timer;
+  qEl.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () { query = qEl.value.trim().toLowerCase(); render(); }, 160);
+  });
+
+  function highlight(text) {
+    var safe = esc(text);
+    if (!query) return safe;
+    try {
+      return safe.replace(
+        new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'),
+        '<mark>$1</mark>');
+    } catch (e) { return safe; }
+  }
+
+  function render() {
+    var rows = all.filter(function (x) {
+      if (filter === 'upcoming' && x.when < today) return false;
+      if (filter === 'past' && x.when >= today) return false;
+      if (query) {
+        var club = x.e.club && x.e.club.name ? x.e.club.name : '';
+        if ((x.e.title + ' ' + club).toLowerCase().indexOf(query) === -1) return false;
+      }
+      return true;
+    });
+
+    countEl.textContent = rows.length + ' tournament' + (rows.length === 1 ? '' : 's') +
+      (filter === 'upcoming' ? ' still to come' : filter === 'past' ? ' already played' : ' this season');
+
+    if (!rows.length) {
+      listEl.innerHTML = '<div class="status">Nothing matches that.</div>';
+      return;
+    }
+
+    var html = '', lastMonth = null;
+    rows.forEach(function (x) {
+      var key = x.when.getFullYear() + '-' + x.when.getMonth();
+      if (key !== lastMonth) {
+        if (lastMonth !== null) html += '</ul>';
+        html += '<div class="month">' + MONTHS[x.when.getMonth()] + ' ' + x.when.getFullYear() + '</div><ul class="evs">';
+        lastMonth = key;
+      }
+      var club = x.e.club && x.e.club.name ? x.e.club.name : '';
+      var past = x.when < today;
+      html += '<li><a class="ev" href="/event?id=' + encodeURIComponent(x.e.id) + '">' +
+        '<span class="d"><span class="dd">' + x.when.getDate() + '</span><br>' +
+          '<span class="mm">' + SHORT[x.when.getMonth()] + '</span></span>' +
+        '<span><span class="t">' + highlight(x.e.title) + '</span>' +
+          (club ? '<span class="m">' + highlight(club) + '</span>' : '') + '</span>' +
+        '<span class="tag ' + (past ? 'past' : 'open') + '">' + (past ? 'Played' : 'Upcoming') + '</span>' +
+        '</a></li>';
+    });
+    html += '</ul>';
+    listEl.innerHTML = html;
+  }
+})();
+</script>
+</body>
+</html>

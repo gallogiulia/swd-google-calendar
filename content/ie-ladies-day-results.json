@@ -1,5 +1,5 @@
 {
-  "id": "cl-ld1",
+  "id": "ie-ladies-day-results",
   "title": "Inland Empire Ladies Day",
   "subtitle": "Results and photos from the Inland Empire Ladies Day series — Pomona, Riverside, Sun City and Redlands.",
   "sourceUrl": "https://www.swlawnbowls.org/cl-ld1",
@@ -15,19 +15,19 @@
       "type": "gallery",
       "images": [
         {
-          "src": "/photos/pages/cl-ld1/01-screenshot-2025-11-24-at-9-40-51-pm.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/01-screenshot-2025-11-24-at-9-40-51-pm.jpg",
           "alt": "The Inland Empire Ladies Day field, around two dozen women, lined up together on the green at Sun City."
         },
         {
-          "src": "/photos/pages/cl-ld1/02-img-2328.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/02-img-2328.jpg",
           "alt": "Two bowlers standing together indoors beside the trophy cabinet, captioned in the picture “1st Place Ladies Day Tournament”."
         },
         {
-          "src": "/photos/pages/cl-ld1/03-barb-joyce-and-bonnie-sc-ladies-day.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/03-barb-joyce-and-bonnie-sc-ladies-day.jpg",
           "alt": "Three women posed in front of the Sun City Lawn Bowls Club banner."
         },
         {
-          "src": "/photos/pages/cl-ld1/04-joyce-sc-ladies-day.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/04-joyce-sc-ladies-day.jpg",
           "alt": "Two women posed in front of the Sun City Lawn Bowls Club banner."
         }
       ]
@@ -44,23 +44,23 @@
       "type": "gallery",
       "images": [
         {
-          "src": "/photos/pages/cl-ld1/05-pomona-ld-1.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/05-pomona-ld-1.jpg",
           "alt": "The Inland Empire Ladies Day field lined up together on the green at Pomona."
         },
         {
-          "src": "/photos/pages/cl-ld1/06-pomona-ld-2.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/06-pomona-ld-2.jpg",
           "alt": "Two bowlers posed beside the Pomona Lawn Bowling Club sign."
         },
         {
-          "src": "/photos/pages/cl-ld1/07-pomona-ld-3.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/07-pomona-ld-3.jpg",
           "alt": "Two bowlers standing together on the green at Pomona."
         },
         {
-          "src": "/photos/pages/cl-ld1/08-pomona-ld-4.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/08-pomona-ld-4.jpg",
           "alt": "Play under way on the Pomona green with the clubhouse and mountains behind."
         },
         {
-          "src": "/photos/pages/cl-ld1/09-pomona-ld-5.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/09-pomona-ld-5.jpg",
           "alt": "Two bowlers in blue shirts posed beside the Pomona Lawn Bowling Club sign."
         }
       ]
@@ -79,19 +79,19 @@
       "type": "gallery",
       "images": [
         {
-          "src": "/photos/pages/cl-ld1/10-img-1627.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/10-img-1627.jpg",
           "alt": "The April Inland Empire Ladies Day field lined up together on the green at Sun City."
         },
         {
-          "src": "/photos/pages/cl-ld1/11-img-1633.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/11-img-1633.jpg",
           "alt": "Two bowlers standing together beside the Sun City clubhouse wall."
         },
         {
-          "src": "/photos/pages/cl-ld1/12-img-1635.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/12-img-1635.jpg",
           "alt": "Two winners holding their prize envelopes beside the Sun City clubhouse."
         },
         {
-          "src": "/photos/pages/cl-ld1/13-img-1637.jpg",
+          "src": "/photos/pages/ie-ladies-day-results/13-img-1637.jpg",
           "alt": "Three winners posed together beside the Sun City clubhouse."
         }
       ]
@@ -103,6 +103,7 @@
     "All three post URL slugs are Squarespace placeholders ('blog-post-title-four-h4rnr…'). The post titles were real and supply the headings, but two of them gave no year: the November 3 post's photographs were uploaded on 25 November 2025, so it is dated November 3, 2025, and the January and April posts were published in 2026.",
     "The existing page /ie-ladies-day links to this page as its 'Results' button, so the two belong together.",
     "The November 3 post has no results detail beyond the note that prize money was awarded for first, second and third place pairs; no names are given on the source page.",
-    "Squarespace's alt text on these images was just the file name, so all alt text here was written fresh from the pictures."
+    "Squarespace's alt text on these images was just the file name, so all alt text here was written fresh from the pictures.",
+    "Renamed from the Squarespace slug /cl-ld1 to /ie-ladies-day-results; the old address redirects here."
   ]
 }
