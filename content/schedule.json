@@ -5,7 +5,9 @@
   "sections": [
     {
       "type": "prose",
-      "body": ["Ladies Day Flyer and Schedule."]
+      "body": [
+        "Ladies Day Flyer and Schedule."
+      ]
     },
     {
       "type": "image",
@@ -22,6 +24,8 @@
     "The entire page is one line of text and two screenshots, both uploaded to Squarespace on 2026-03-16.",
     "The second image is the same 2026 Ladies Day schedule already migrated at /photos/pages/ladies-day-sign-up/01-ladies-day-2026-schedule.jpg, at lower resolution.",
     "The first image is a flyer for the April 8, 2026 Ladies Day at Newport Harbor — a single past event.",
-    "This page is not linked from the site navigation."
-  ]
+    "This page is not linked from the site navigation.",
+    "Retired 2026-08-30: not linked from anywhere and superseded. The content is kept here as a record but the page has no public route. To bring it back, add a rewrite in vercel.json and remove this flag."
+  ],
+  "retired": true
 }

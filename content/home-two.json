@@ -6,6 +6,8 @@
   "migrationNotes": [
     "The page is empty. Its Squarespace body contains a single section with no blocks in it — no text, no images, no embeds. There was nothing to migrate.",
     "This page is not linked from the site navigation.",
-    "Recommended for retirement: it is an abandoned homepage draft with no content."
-  ]
+    "Recommended for retirement: it is an abandoned homepage draft with no content.",
+    "Retired 2026-08-30: not linked from anywhere and superseded. The content is kept here as a record but the page has no public route. To bring it back, add a rewrite in vercel.json and remove this flag."
+  ],
+  "retired": true
 }
