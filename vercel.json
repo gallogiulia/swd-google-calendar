@@ -40,7 +40,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/tournament_hub"
+      "destination": "/site-home"
     },
     {
       "source": "/about-us",
@@ -193,6 +193,10 @@
     {
       "source": "/home-v3",
       "destination": "/site-home-v3"
+    },
+    {
+      "source": "/tournament-hub",
+      "destination": "/tournament_hub"
     }
   ]
 }
