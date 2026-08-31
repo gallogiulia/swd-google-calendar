@@ -1,0 +1,165 @@
+{
+  "id": "umpires",
+  "title": "SWD Umpires",
+  "subtitle": "Becoming a certified umpire is a valuable way to deepen your knowledge of the sport, support fair play, and strengthen competition across the Southwest Division. Umpires play an important role in maintaining standards on the green and helping clubs and tournaments run smoothly.",
+  "sourceUrl": "https://www.swlawnbowls.org/umpires",
+  "sections": [
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "Become an Umpire", "url": "mailto:mavizenor@gmail.com?subject=Become%20an%20Umpire" }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Why Become an Umpire?",
+      "body": [
+        "Umpiring is not only about officiating matches. It is also about building confidence, improving your understanding of the game, and supporting your club and the wider bowls community."
+      ]
+    },
+    {
+      "type": "cards",
+      "items": [
+        { "title": "Develop Expertise", "body": "Gain a stronger understanding of the Laws of the Sport, practical officiating procedures, and on-green decision making." },
+        { "title": "Support Fair Play", "body": "Help ensure competitions are played and officiated consistently, professionally, and fairly." },
+        { "title": "Give Back to the Game", "body": "Umpires provide an essential service to clubs, divisions, and tournaments, and help strengthen the sport at every level." }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Rules, Laws & Learning",
+      "body": [
+        "Start with Bowls USA guidance and domestic regulations, then use World Bowls resources to deepen your knowledge of laws, measuring, and umpire development."
+      ]
+    },
+    {
+      "type": "cards",
+      "items": [
+        {
+          "title": "Bowls USA Laws & Umpiring",
+          "body": "A practical starting point for U.S. bowlers and officials, including information on becoming an umpire, measuring resources, laws of the sport, domestic regulations, and UmpStumpers.",
+          "link": "https://www.bowlsusa.us/lawn-bowling-laws.html"
+        },
+        {
+          "title": "Domestic Regulations",
+          "body": "Review the approved domestic regulations used alongside the Laws of the Sport.",
+          "link": "https://drive.google.com/file/d/1aASxwArm8WE7UhvHjJbW14LF7fcnjR9k/view"
+        },
+        {
+          "title": "World Bowls Laws of the Sport",
+          "body": "The official World Bowls laws governing the sport internationally.",
+          "link": "https://www.worldbowls.com/laws-of-the-sport/"
+        },
+        {
+          "title": "World Bowls Measuring Equipment",
+          "body": "Official guidance on equipment and procedures used when measuring and determining shots.",
+          "link": "https://www.worldbowls.com/measuring-equipment/"
+        },
+        {
+          "title": "World Bowls Umpire Development",
+          "body": "Official umpire development materials, including interactive training resources with videos and photographs to support learning.",
+          "link": "https://www.worldbowls.com/umpire-development/"
+        },
+        {
+          "title": "Reference Library",
+          "body": "Additional reference materials, columns, and learning resources for SWD umpires.",
+          "link": "https://drive.google.com/drive/folders/1ZnwKBU05z-Pw7nPALMyP3v2pmow70WoR"
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "List of Current Umpires",
+      "body": ["The list below shows current Southwest Division umpires."]
+    },
+    {
+      "type": "embed",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJDWz5yBIoT_uYxRd_fYTx0bDWPS3kXxmBWJoYZ9h_0amvLU62XDU3MxZl11Xp9_TOYSeBAr85BV2j/pubhtml?widget=true&headers=false",
+      "height": 1000
+    },
+    {
+      "type": "prose",
+      "heading": "Ongoing Learning",
+      "body": [
+        "Umpiring knowledge develops over time. Use these resources to keep learning, test your understanding, and stay sharp on practical law and officiating scenarios."
+      ]
+    },
+    {
+      "type": "cards",
+      "items": [
+        {
+          "title": "UmpStumpers",
+          "body": "A practical and interactive way to test your understanding of the Laws of the Sport and build confidence through regular challenges.",
+          "link": "https://www.bowlsusa.us/lawn-bowling-laws.html"
+        },
+        {
+          "title": "The Lawman",
+          "body": "Articles and officiating commentary from Bowls Victoria that provide useful scenarios, interpretations, and discussion points for officials.",
+          "link": "https://www.bowlsvic.org.au/category/bowls-vic-news/the-lawman/"
+        },
+        {
+          "title": "SWD Reference Folder",
+          "body": "Access the shared folder for additional umpiring references, columns, and supporting documents.",
+          "link": "https://drive.google.com/drive/folders/1ZnwKBU05z-Pw7nPALMyP3v2pmow70WoR"
+        },
+        {
+          "title": "Scorekeeping Guide",
+          "body": "Use the scorecard reference below to review how to complete a lawn bowls scorecard correctly."
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "How to Fill Out a Scorecard",
+      "body": ["Use the guide below as a reference for completing a lawn bowls scorecard correctly."]
+    },
+    {
+      "type": "image",
+      "src": "/photos/pages/umpires/01-scorecard-guide.jpg",
+      "alt": "Annotated lawn bowls scorecard showing where to record player and team names, the end-by-end shots scored, the running total for each side, and the final result and signatures."
+    },
+    {
+      "type": "prose",
+      "heading": "How to Become an Umpire",
+      "body": [
+        "The pathway begins with learning the role, reviewing the relevant laws and regulations, and then moving into training, assessment, and practical experience."
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Learn the Role — Review Bowls USA umpiring information, domestic regulations, and the Laws of the Sport to understand the role and responsibilities of an umpire.",
+        "Build Your Knowledge — Study the official resources on laws, measuring equipment, procedures, and scorekeeping.",
+        "Complete Training & Assessment — Follow the applicable accreditation and assessment process for becoming a certified umpire.",
+        "Keep Developing — Continue learning through practical experience, refresher resources, UmpStumpers, and articles such as The Lawman."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Interested in Becoming an Umpire?",
+      "body": ["Send an email request for more information and next steps."]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "Request Information", "url": "mailto:mavizenor@gmail.com?subject=SWD%20Umpire%20Information%20Request" }
+      ]
+    },
+    {
+      "type": "contact",
+      "items": [
+        { "label": "Umpire enquiries", "email": "mavizenor@gmail.com" }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "PRIVACY: the page publishes one personal Gmail address, mavizenor@gmail.com (Melanie Vizenor, SWD Head Division Umpire / National Umpire in Chief), as the contact for umpire enquiries. It appears three times on the source page (two buttons and a plain 'Or email' line). Worth a privacy review before republishing; a role-based address would be safer. No other personal contact details are published.",
+    "The umpire list itself is a published Google Sheet embedded as an iframe, kept as an embed section so it stays live. Its content is Name + Home Club only (24 umpires), with footnotes '*National Umpire in Chief' and '** SWD Head Division Umpire' against Melanie Vizenor. It could be converted to a static table section if we prefer not to depend on Google.",
+    "Two in-page anchor buttons on the source page ('View Resources' -> #swd-umpire-resources, 'Jump to Scorecard Guide' -> #swd-scorecard-guide) were dropped: the schema has no anchor-link concept and the target content follows immediately in the rendered page.",
+    "The email links on the source page point at a Gmail compose URL (mail.google.com/mail/?view=cm...), which forces Gmail on the visitor. Rewritten as ordinary mailto: links preserving the same recipient and subject lines.",
+    "The 'UmpStumpers' card links to the same Bowls USA laws page as the 'Bowls USA Laws & Umpiring' card, not to a dedicated UmpStumpers page. That is what the source does; may be worth a more specific link.",
+    "The 'Scorekeeping Guide' card on the source page was an anchor to the scorecard image below it, so it carries no link here.",
+    "The scorecard image is a 2021 Squarespace upload (SCORECARD Final.png); it should be checked that it still matches current scorecards."
+  ]
+}

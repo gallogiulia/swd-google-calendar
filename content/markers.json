@@ -1,0 +1,61 @@
+{
+  "id": "markers",
+  "title": "Markers",
+  "subtitle": "Southwest Division Men & Women Certified Markers",
+  "sourceUrl": "https://www.swlawnbowls.org/markers",
+  "sections": [
+    {
+      "type": "prose",
+      "body": [
+        "The men and women division Markers and club affiliations listed below were certified under the lead of our National Umpire in Chief, Melanie Vizenor. If your name should be on the list but isn't, let us know at the address below.",
+        "Markers received classroom and practical training to earn the title. In recognition of their willingness to participate, Markers were awarded shirts with a distinctive logo to be worn while performing their duties (see shirt and logo)."
+      ]
+    },
+    {
+      "type": "contact",
+      "heading": "Corrections to the Marker list",
+      "items": [
+        {
+          "label": "Marker list",
+          "email": "sw.bowls@gmail.com"
+        }
+      ]
+    },
+    {
+      "type": "gallery",
+      "images": [
+        {
+          "src": "/photos/pages/markers/01-marker-on-green.jpg",
+          "alt": "A marker in a sun hat standing at the head of rink 11, watching the green beside the jack, with a red-and-blue rink scoreboard behind her"
+        },
+        {
+          "src": "/photos/pages/markers/02-marker-logo.jpg",
+          "alt": "The Marker badge: a shield in red, white, blue and gold with the word MARKER above a large letter M"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Become a Marker",
+          "url": "mailto:mavizenor@gmail.com?subject=I%20want%20to%20become%20a%20Marker&body=My%20Name%20is-"
+        }
+      ]
+    },
+    {
+      "type": "embed",
+      "heading": "Certified Markers",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQvkkShJj4R4c968dLbxTFSQEQZF7wSAWTziGJK2ZkPUvMBubLO5HppHFIhiazIR96G9Xr5ixLIUXyW/pubhtml?gid=1306031354&single=true&widget=true&headers=false",
+      "height": 1300
+    }
+  ],
+  "migrationNotes": [
+    "The list of certified Markers is not page text — it is a published Google Sheet embedded in an iframe (gid=1306031354), carried across as an embed section. The names therefore still live in that sheet, not in this JSON.",
+    "Source typo 'classroon' corrected to 'classroom'.",
+    "The source text said the shirt and logo are 'at right'; the two images now sit below the text, so the direction was dropped.",
+    "The photo captioned as showing the Marker shirt actually shows a bowler on the green; no close-up of the shirt exists on the page.",
+    "Contacts to verify: Melanie Vizenor is named as National Umpire in Chief (a role that may have changed since the page was written, dated by image uploads from December 2020), and 'Become a Marker' emails mavizenor@gmail.com directly.",
+    "The source had an inline mailto link inside a paragraph. The schema has no inline-link markup, so it became a contact section; wording otherwise unchanged."
+  ]
+}

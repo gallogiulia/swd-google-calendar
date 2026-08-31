@@ -1,0 +1,96 @@
+{
+  "id": "coronado90",
+  "title": "Lawn Bowling in Coronado — A 90-Year Story",
+  "subtitle": "A 90-year story, told on film",
+  "sourceUrl": "https://www.swlawnbowls.org/coronado90",
+  "sections": [
+    {
+      "type": "prose",
+      "body": [
+        "Coronado Lawn Bowling Club and One on One Productions present a 22-minute documentary about lawn bowls in Coronado, California — and its place in the worldwide tapestry of the game.",
+        "Premiered May 21, 2026 — in partnership with the City of Coronado and the Coronado Historical Association."
+      ]
+    },
+    {
+      "type": "embed",
+      "heading": "Watch the film",
+      "url": "https://www.youtube.com/embed/p28llk2sDlw",
+      "height": 480
+    },
+    {
+      "type": "prose",
+      "heading": "A story 90 years in the making",
+      "body": [
+        "The Coronado Lawn Bowling Club and One on One Productions present this story of Lawn Bowling in Coronado, California. Interviews with players, new and archival photos and videos are woven in to tell the story of the local club and its place in the tapestry of this worldwide game.",
+        "29-time Emmy award-winning writer, producer, and narrator Jane Mitchell — a Coronado native — brings a personal and engaging perspective to this unique story of recreation, connection and achievement. The film is a joint production of the Coronado Lawn Bowling Club and One on One Productions."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Credits",
+      "body": [
+        "Writer / Producer / Narrator: Jane Mitchell — One on One Productions",
+        "Production: Coronado Lawn Bowling Club & One on One Productions",
+        "Full photo, video, and music credits appear within the film."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Copyright",
+      "body": [
+        "© 2026 Coronado Lawn Bowling Club and One on One Productions. All rights reserved."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Sharing",
+      "body": [
+        "Sharing is encouraged via the YouTube link or by linking to this page. Content must be kept in context, attributed, and credited. No sales. No edits or changes permitted."
+      ]
+    },
+    {
+      "type": "contact",
+      "heading": "Contact",
+      "items": [
+        {
+          "label": "For inquiries about the film",
+          "name": "Jane Mitchell",
+          "email": "JaneMitchellOneOnOne@gmail.com"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "Learn more about Jane's work at JaneMitchellOneOnOne.com", "url": "https://www.janemitchelloneonone.com" }
+      ]
+    },
+    {
+      "type": "image",
+      "src": "/photos/pages/coronado90/01-clbc-logo.jpg",
+      "alt": "Coronado Lawn Bowling Club emblem: a bowl and jack above the club name and the words Coronado, California"
+    },
+    {
+      "type": "prose",
+      "heading": "Coronado Lawn Bowling Club",
+      "body": [
+        "Founded in 1935, the Coronado Lawn Bowling Club has been part of Coronado's civic and sporting life for 90 years. Originally located at 7th and D Avenue on a traditional grass green, the club moved to a world-class artificial green at the same corner — next to the library and across from the high school — when it was dedicated in March 2010 by the City of Coronado. The green is open to the public, and CLBC remains one of the South Division's most active clubs."
+      ]
+    },
+    {
+      "type": "buttons",
+      "heading": "Share the story",
+      "items": [
+        { "label": "Learn more at coronadolawnbowling.com", "url": "https://www.coronadolawnbowling.com" },
+        { "label": "Watch on YouTube", "url": "https://www.youtube.com/@SouthwestLawnBowls" },
+        { "label": "Share on Facebook", "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.swlawnbowls.org%2Fcoronado90" }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "The source page is a film landing page, not a photo essay: its only content image is the Coronado Lawn Bowling Club logo (used twice on the page — hero and club section — saved once). The SWD site logo was skipped as site chrome.",
+    "A JavaScript-only 'Copy link' button was dropped; the page URL is https://www.swlawnbowls.org/coronado90.",
+    "In-page anchor links ('Watch the film' → #watch, 'About the project' → #about-film) were dropped; the sections they pointed to are all present in order.",
+    "Section labels used only as scroll-strip captions on the source page ('A Featured Story', 'About the film', 'Credits & sharing', 'How to share this film', 'About the club') were not carried across as headings."
+  ]
+}

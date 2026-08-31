@@ -1,0 +1,21 @@
+{
+  "id": "disclaimer-1",
+  "title": "Copyright",
+  "sourceUrl": "https://www.swlawnbowls.org/disclaimer-1",
+  "sections": [
+    { "type": "prose",
+      "body": [
+        "© 2026 Southwest Bowls Division. All rights reserved.",
+        "All content on this website, including text, images, logos, and documents, is the property of Southwest Bowls Division unless otherwise stated.",
+        "Content may not be reproduced, distributed, or used without prior written permission, except for personal, non-commercial use.",
+        "For permissions or inquiries, please contact:"
+      ] },
+    { "type": "contact",
+      "items": [ { "label": "Webmaster", "email": "webmaster@swlawnbowls.org" } ] }
+  ],
+  "migrationNotes": [
+    "The URL slug is /disclaimer-1 but the page title and content are a Copyright notice, not a disclaimer — the slug is a Squarespace leftover from duplicating the Disclaimer page. Content is unrelated to /disclaimer.",
+    "The copyright line reads “© 2026” — a fixed year that will go stale; carried across verbatim rather than corrected.",
+    "The email address webmaster@swlawnbowls.org appears as plain text on the source page (no mailto: link); reproduced as a contact item."
+  ]
+}

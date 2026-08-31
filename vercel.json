@@ -11,6 +11,46 @@
     {
       "source": "/",
       "destination": "/tournament_hub"
+    },
+    {
+      "source": "/about-us",
+      "destination": "/page?id=about-us"
+    },
+    {
+      "source": "/coachinghub",
+      "destination": "/page?id=coachinghub"
+    },
+    {
+      "source": "/coronado90",
+      "destination": "/page?id=coronado90"
+    },
+    {
+      "source": "/disclaimer",
+      "destination": "/page?id=disclaimer"
+    },
+    {
+      "source": "/disclaimer-1",
+      "destination": "/page?id=disclaimer-1"
+    },
+    {
+      "source": "/learnmore",
+      "destination": "/page?id=learnmore"
+    },
+    {
+      "source": "/markers",
+      "destination": "/page?id=markers"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/page?id=privacy-policy"
+    },
+    {
+      "source": "/standings",
+      "destination": "/page?id=standings"
+    },
+    {
+      "source": "/umpires",
+      "destination": "/page?id=umpires"
     }
   ]
 }

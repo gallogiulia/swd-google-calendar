@@ -1,0 +1,20 @@
+{
+  "id": "disclaimer",
+  "title": "Disclaimer",
+  "sourceUrl": "https://www.swlawnbowls.org/disclaimer",
+  "sections": [
+    { "type": "prose",
+      "body": [
+        "The information provided on the Southwest Bowls Division website is for general informational purposes only.",
+        "While we strive to ensure accuracy, we make no representations or warranties regarding the completeness, reliability, or suitability of the information contained on this site.",
+        "Participation in lawn bowls activities, competitions, or events involves inherent risks. Individuals participate at their own risk and are responsible for ensuring they are physically fit and appropriately insured.",
+        "Southwest Bowls Division, its officers, volunteers, and affiliates are not liable for any loss, injury, or damage arising from the use of this website or participation in activities promoted through it, except where liability cannot be excluded by law.",
+        "External links are provided for convenience only. We do not endorse or accept responsibility for the content of external websites."
+      ] }
+  ],
+  "migrationNotes": [
+    "Source page has a single H1 (“Disclaimer”) and five unheaded paragraphs; no subheadings existed to carry across.",
+    "No effective date, version, or governing-law clause on the source page; none was invented.",
+    "The sibling URL /disclaimer-1 is titled “Copyright” and holds different text — the two are separate documents, not duplicates."
+  ]
+}

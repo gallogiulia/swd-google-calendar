@@ -1,0 +1,365 @@
+<!-- ============================================================
+     page.html — shared template for static information pages.
+
+     Reads content/<id>.json (see docs/page-content-schema.md) and
+     renders it. To change a page's words, edit its JSON file.
+     Nobody needs to touch this file to publish content.
+
+         /page?id=about-us  →  content/about-us.json
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Southwest Lawn Bowls</title>
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #667085;
+    --line: rgba(15, 23, 42, 0.08);
+    --line-strong: rgba(15, 23, 42, 0.14);
+    --dark: #0f172a;
+    --green: #0a5b3a;
+    --navy: #1a365d;
+    --gold: #d4af37;
+    --gold-deep: #713f12;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* ── Header ─────────────────────────────────── */
+  .page-head {
+    border-bottom: 3px solid var(--green);
+    padding-bottom: 18px;
+    margin-bottom: 32px;
+  }
+  .page-head h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    line-height: 1.15;
+    color: var(--navy);
+    letter-spacing: -.01em;
+  }
+  .page-head .sub {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 62ch;
+  }
+
+  /* ── Sections ───────────────────────────────── */
+  .sections { display: flex; flex-direction: column; gap: 38px; }
+  section { display: flex; flex-direction: column; gap: 14px; }
+
+  section > h2 {
+    margin: 0;
+    font-size: 1.32rem;
+    color: var(--navy);
+    line-height: 1.3;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .prose p { margin: 0 0 14px; max-width: 68ch; }
+  .prose p:last-child { margin-bottom: 0; }
+
+  ul.items, ol.items { margin: 0; padding-left: 22px; max-width: 68ch; }
+  ul.items li, ol.items li { margin-bottom: 8px; }
+
+  /* ── Media ──────────────────────────────────── */
+  figure { margin: 0; }
+  figure img, .gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--card);
+  }
+  figcaption {
+    margin-top: 8px;
+    font-size: .9rem;
+    color: var(--muted);
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 18px;
+  }
+  .gallery figcaption { font-size: .85rem; }
+
+  /* ── Cards ──────────────────────────────────── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    box-shadow: 0 1px 2px rgba(15,23,42,.04);
+  }
+  .card img {
+    width: 100%; height: auto;
+    border-radius: 7px;
+    margin-bottom: 4px;
+  }
+  .card .t { font-weight: 650; color: var(--navy); font-size: 1.04rem; }
+  .card .m {
+    font-size: .8rem;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-weight: 600;
+  }
+  .card .b { color: var(--text); font-size: .96rem; }
+  .card a.more {
+    margin-top: auto;
+    padding-top: 6px;
+    font-size: .9rem;
+    color: var(--green);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .card a.more:hover { text-decoration: underline; }
+
+  /* ── Table ──────────────────────────────────── */
+  .tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--card);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th {
+    text-align: left;
+    padding: 11px 15px;
+    background: #eef2f7;
+    color: var(--navy);
+    font-size: .82rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    border-bottom: 1px solid var(--line-strong);
+    white-space: nowrap;
+  }
+  td { padding: 11px 15px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+
+  /* ── Embed ──────────────────────────────────── */
+  .embed {
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card);
+  }
+  .embed iframe { display: block; width: 100%; border: 0; }
+
+  /* ── Buttons ────────────────────────────────── */
+  .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .95rem;
+    padding: 11px 20px;
+    border-radius: 7px;
+    border: 1px solid transparent;
+  }
+  .btn:hover { background: #084a2f; }
+  .btn:focus-visible, a:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* ── Contact ────────────────────────────────── */
+  .contacts { display: flex; flex-direction: column; gap: 12px; }
+  .contact-row {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px 18px;
+  }
+  .contact-row .role {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .contact-row .who { font-weight: 650; color: var(--navy); }
+  .contact-row a { color: var(--green); }
+
+  .status { color: var(--muted); padding: 40px 0; text-align: center; }
+  .status.err { color: #c53030; }
+
+  @media (max-width: 560px) {
+    .page { padding: 24px 15px 60px; }
+    .sections { gap: 30px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-head" id="head" hidden>
+      <h1 id="title"></h1>
+      <p class="sub" id="subtitle" hidden></p>
+    </header>
+    <div class="sections" id="sections"></div>
+    <div class="status" id="status">Loading…</div>
+  </div>
+
+<script>
+(async function () {
+  var statusEl   = document.getElementById('status');
+  var sectionsEl = document.getElementById('sections');
+
+  var id = new URLSearchParams(location.search).get('id') || '';
+  if (!/^[a-z0-9-]+$/.test(id)) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'No page requested. Add ?id=<page> to the address.';
+    return;
+  }
+
+  var data;
+  try {
+    var res = await fetch('/content/' + id + '.json?v=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (e) {
+    statusEl.className = 'status err';
+    statusEl.textContent = 'Could not load this page (' + e.message + ').';
+    return;
+  }
+
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  };
+  // Only allow links we can vouch for; anything else renders as plain text.
+  var safeUrl = function (u) {
+    return /^(https?:\/\/|mailto:|tel:|\/)/i.test(String(u || '')) ? String(u) : '';
+  };
+
+  document.title = (data.title || 'Southwest Lawn Bowls') + ' — Southwest Lawn Bowls';
+  document.getElementById('head').hidden = false;
+  document.getElementById('title').textContent = data.title || '';
+  if (data.subtitle) {
+    var sub = document.getElementById('subtitle');
+    sub.textContent = data.subtitle;
+    sub.hidden = false;
+  }
+
+  var heading = function (s) {
+    return s.heading ? '<h2>' + esc(s.heading) + '</h2>' : '';
+  };
+
+  var figure = function (im) {
+    var src = safeUrl(im.src);
+    if (!src) return '';
+    return '<figure><img src="' + esc(src) + '" alt="' + esc(im.alt || '') +
+           '" loading="lazy">' +
+           (im.caption ? '<figcaption>' + esc(im.caption) + '</figcaption>' : '') +
+           '</figure>';
+  };
+
+  var renderers = {
+    prose: function (s) {
+      return '<div class="prose">' +
+        (s.body || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+        '</div>';
+    },
+    list: function (s) {
+      var tag = s.ordered ? 'ol' : 'ul';
+      return '<' + tag + ' class="items">' +
+        (s.items || []).map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') +
+        '</' + tag + '>';
+    },
+    image: function (s) { return figure(s); },
+    gallery: function (s) {
+      return '<div class="gallery">' + (s.images || []).map(figure).join('') + '</div>';
+    },
+    cards: function (s) {
+      return '<div class="cards">' + (s.items || []).map(function (c) {
+        var link = safeUrl(c.link);
+        return '<div class="card">' +
+          (safeUrl(c.photo) ? '<img src="' + esc(c.photo) + '" alt="' + esc(c.title || '') + '" loading="lazy">' : '') +
+          (c.meta  ? '<div class="m">' + esc(c.meta)  + '</div>' : '') +
+          (c.title ? '<div class="t">' + esc(c.title) + '</div>' : '') +
+          (c.body  ? '<div class="b">' + esc(c.body)  + '</div>' : '') +
+          (link ? '<a class="more" href="' + esc(link) + '">Learn more →</a>' : '') +
+          '</div>';
+      }).join('') + '</div>';
+    },
+    table: function (s) {
+      return '<div class="tablewrap"><table><thead><tr>' +
+        (s.columns || []).map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') +
+        '</tr></thead><tbody>' +
+        (s.rows || []).map(function (r) {
+          return '<tr>' + r.map(function (c) { return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>';
+        }).join('') +
+        '</tbody></table></div>';
+    },
+    embed: function (s) {
+      var url = safeUrl(s.url);
+      if (!url) return '';
+      var h = parseInt(s.height, 10) || 600;
+      return '<div class="embed"><iframe src="' + esc(url) + '" height="' + h +
+             '" loading="lazy" title="' + esc(s.heading || 'Embedded content') +
+             '"></iframe></div>';
+    },
+    buttons: function (s) {
+      return '<div class="buttons">' + (s.items || []).map(function (b) {
+        var url = safeUrl(b.url);
+        return url ? '<a class="btn" href="' + esc(url) + '">' + esc(b.label || 'Open') + '</a>' : '';
+      }).join('') + '</div>';
+    },
+    contact: function (s) {
+      return '<div class="contacts">' + (s.items || []).map(function (c) {
+        var bits = [];
+        if (c.label) bits.push('<div class="role">' + esc(c.label) + '</div>');
+        if (c.name)  bits.push('<div class="who">' + esc(c.name) + '</div>');
+        if (c.email) bits.push('<div><a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a></div>');
+        if (c.phone) bits.push('<div><a href="tel:' + esc(String(c.phone).replace(/[^0-9+]/g, '')) + '">' + esc(c.phone) + '</a></div>');
+        return '<div class="contact-row">' + bits.join('') + '</div>';
+      }).join('') + '</div>';
+    }
+  };
+
+  var html = (data.sections || []).map(function (s) {
+    var render = renderers[s.type];
+    if (!render) return '';   // unknown type: skip rather than break the page
+    var inner = render(s);
+    return inner ? '<section>' + heading(s) + inner + '</section>' : '';
+  }).join('');
+
+  sectionsEl.innerHTML = html;
+  statusEl.remove();
+})();
+</script>
+</body>
+</html>

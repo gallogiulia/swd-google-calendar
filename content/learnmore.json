@@ -1,0 +1,68 @@
+{
+  "id": "learnmore",
+  "title": "Learn More",
+  "subtitle": "Discover the essentials of lawn bowls, how to get started, and where to go next.",
+  "sourceUrl": "https://www.swlawnbowls.org/learnmore",
+  "sections": [
+    {
+      "type": "prose",
+      "body": [
+        "Whether you're completely new or looking to improve, this is your starting point."
+      ]
+    },
+    {
+      "type": "image",
+      "src": "/photos/pages/learnmore/01-hero-green.jpg",
+      "alt": "A woman in club whites and a wide-brimmed sun hat standing on the mat at the end of a lawn bowls green, holding a yellow bowl up in one hand"
+    },
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "Coaching Hub", "url": "/coachinghub" },
+        { "label": "Find a Club", "url": "/club-info" }
+      ]
+    },
+    {
+      "type": "cards",
+      "items": [
+        {
+          "title": "What is Lawn Bowls?",
+          "body": "A precision sport where players roll biased bowls to get closest to the jack. Simple to learn, challenging to master."
+        },
+        {
+          "title": "Getting Started",
+          "body": "Visit a local club, try a session, and connect with experienced players who can guide you."
+        },
+        {
+          "title": "Equipment Basics",
+          "body": "Bowls, jack, and flat-soled shoes are the essentials. Most clubs provide equipment for beginners."
+        },
+        {
+          "title": "Types of Games",
+          "body": "Singles, pairs, triples, and fours — each format offers different strategies and team dynamics."
+        },
+        {
+          "title": "Improve Your Game",
+          "body": "Coaching sessions, drills, and competitive play help develop consistency and decision-making.",
+          "link": "https://www.youtube.com/@SouthwestLawnBowls"
+        },
+        {
+          "title": "Join the Community",
+          "body": "Lawn bowls is as social as it is competitive — meet players, join events, and become part of the network."
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "Watch videos →", "url": "https://www.youtube.com/@SouthwestLawnBowls" }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "The source page has no body images. The only content image was a CSS background photo behind the hero banner (IMG_3223 Large.jpeg); it has been saved as 01-hero-green.jpg and carried across as a standalone image section, since the schema has no hero-background type.",
+    "The 'Watch videos →' link sat inside the 'Improve Your Game' card. It is kept both as that card's link and as a standalone button so it is not lost in renderers that ignore card links.",
+    "The page's visual design (dark green gradient hero, six-card grid, hover effects) is Squarespace code-block CSS and is not carried across — the shared page.html template supplies the styling.",
+    "The page carries no dates, committee names or contact details, so there is nothing time-sensitive to check. All three links (/coachinghub, /club-info, the Southwest Lawn Bowls YouTube channel) were live at migration time."
+  ]
+}

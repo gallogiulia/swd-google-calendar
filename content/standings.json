@@ -1,0 +1,28 @@
+{
+  "id": "standings",
+  "title": "Standings",
+  "sourceUrl": "https://www.swlawnbowls.org/standings",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/standings/01-banner.jpg",
+      "alt": "Two women bowlers measuring at the head, crouched over a cluster of bowls around the yellow jack on a sunlit green"
+    },
+    {
+      "type": "embed",
+      "heading": "2026 SWD Women’s Standings",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vQtfWgc9JIC61XzzTwTk8HVZEep-Fx_22bHb_0K1Mc6K62s9MrJ2BpSUUsGK8iId-faaSM4rvBZsjxz/pubhtml?widget=true&headers=false",
+      "height": 1000
+    },
+    {
+      "type": "embed",
+      "heading": "2026 SWD Men’s Standings",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRM32o7R3L5gHp8ObDkon9HgieC3x3xXkUoHeojxSX4IYmmh97tQxvvNG1jbgWOfXUQweNDWvhXqlWc/pubhtml?widget=true&headers=false",
+      "height": 1000
+    }
+  ],
+  "migrationNotes": [
+    "The source page has no body text at all — only the page title, the two standings headings, and the two published Google Sheet iframes.",
+    "Squarespace set the iframe height with a malformed attribute (height= 1000 px, width = 100%); recorded as height 1000."
+  ]
+}

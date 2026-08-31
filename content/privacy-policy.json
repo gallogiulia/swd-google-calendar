@@ -1,0 +1,46 @@
+{
+  "id": "privacy-policy",
+  "title": "Privacy Policy",
+  "sourceUrl": "https://www.swlawnbowls.org/privacy-policy",
+  "sections": [
+    { "type": "prose",
+      "body": ["Southwest Bowls Division (“SWD”, “we”, “our”, “us”) is committed to protecting the privacy of members, participants, volunteers, and website visitors."] },
+
+    { "type": "prose", "heading": "Information We Collect",
+      "body": ["We may collect personal information including, but not limited to:"] },
+    { "type": "list", "ordered": false,
+      "items": ["Name", "Email address", "Club affiliation", "Competition or event participation details", "Information submitted through forms on this website"] },
+    { "type": "prose",
+      "body": ["We only collect personal information that is reasonably necessary for the administration of lawn bowls activities, competitions, communications, and governance."] },
+
+    { "type": "prose", "heading": "How We Use Information",
+      "body": ["Personal information may be used to:"] },
+    { "type": "list", "ordered": false,
+      "items": ["Administer memberships, events, and competitions", "Communicate important information related to bowls activities", "Meet reporting and governance requirements", "Improve our services and website"] },
+
+    { "type": "prose", "heading": "Disclosure of Information",
+      "body": ["We do not sell, rent, or trade personal information.", "Information may be shared only when necessary with:"] },
+    { "type": "list", "ordered": false,
+      "items": ["Affiliated clubs", "Bowls USA or other governing bodies", "Service providers assisting with administration or technology", "Legal or regulatory authorities where required by law"] },
+
+    { "type": "prose", "heading": "Data Security",
+      "body": ["We take reasonable steps to protect personal information from misuse, loss, unauthorized access, or disclosure."] },
+    { "type": "prose", "heading": "Access and Correction",
+      "body": ["Individuals may request access to or correction of their personal information by contacting us."] },
+    { "type": "prose", "heading": "Cookies",
+      "body": ["This website may use cookies or similar technologies to improve functionality and user experience."] },
+    { "type": "prose", "heading": "Changes to This Policy",
+      "body": ["This policy may be updated from time to time. Updates will be posted on this page."] },
+
+    { "type": "prose", "heading": "Contact",
+      "body": ["For privacy-related questions, please contact:"] },
+    { "type": "contact",
+      "items": [ { "label": "Webmaster", "email": "webmaster@swlawnbowls.org" } ] }
+  ],
+  "migrationNotes": [
+    "Source page carries no \"last updated\" or effective date; none was invented.",
+    "The bulleted lists on the source page are rendered here as `list` sections directly under the prose that introduces them; the source had no separate headings for them.",
+    "The email address webmaster@swlawnbowls.org appears as plain text on the source page (no mailto: link); reproduced as a contact item.",
+    "The policy names “Bowls USA” as a governing body — verify this is the current entity name before republishing."
+  ]
+}

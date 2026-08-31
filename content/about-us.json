@@ -1,0 +1,132 @@
+{
+  "id": "about-us",
+  "title": "About Us",
+  "subtitle": "Southwest Bowls Division supports lawn bowls across the region through leadership, tournaments, development, and community-building.",
+  "sourceUrl": "https://www.swlawnbowls.org/about-us",
+  "sections": [
+    {
+      "type": "image",
+      "src": "/photos/pages/about-us/01-hero-green.jpg",
+      "alt": "A bowler in club whites and a wide-brimmed sun hat stands on the mat holding a yellow bowl, on a green lined with benches and palm trees."
+    },
+    {
+      "type": "prose",
+      "body": [
+        "This page introduces the current board and the people helping guide the division, support its clubs, and move the sport forward across Southern California."
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "Contact SWD", "url": "https://www.swlawnbowls.org/contact-us" }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "About the Southwest Bowls Division",
+      "body": [
+        "SWD supports clubs, promotes competitive and social lawn bowls, and creates opportunities for players, volunteers, coaches, officials, and supporters throughout the region."
+      ]
+    },
+    {
+      "type": "cards",
+      "items": [
+        { "title": "Tournaments & Competition", "body": "Supports divisional tournaments, event coordination, and seasonal programming." },
+        { "title": "Club & Player Support", "body": "Helps clubs, players, officials, and volunteers stay connected and informed." },
+        { "title": "Regional Growth", "body": "Promotes visibility, participation, and development for lawn bowls across the Southwest." }
+      ]
+    },
+    {
+      "type": "list",
+      "heading": "What SWD Does",
+      "ordered": false,
+      "items": [
+        "Coordinates divisional tournaments and seasonal programs",
+        "Supports clubs, players, volunteers, coaches, and officials",
+        "Promotes lawn bowls participation and development",
+        "Provides communication and information for members across the region",
+        "Represents Southwest interests within the wider bowls community"
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Leadership & Service",
+      "body": [
+        "A volunteer-led division",
+        "The Southwest board provides governance and leadership for the division. Board members help guide operations, support clubs, represent member interests, and contribute time and experience to keep the division active, organized, and moving forward."
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "Board of Directors",
+      "items": [
+        {
+          "title": "John Billon",
+          "meta": "President",
+          "body": "Provides leadership for the division, helps guide strategic direction, and supports coordination across Southwest programs, clubs, and board activity.",
+          "link": "mailto:president@swlawnbowls.org"
+        },
+        {
+          "title": "Linda Roberts",
+          "meta": "Vice-President",
+          "body": "Supports divisional leadership, helps with continuity across board initiatives, and assists with operational and organizational priorities.",
+          "link": "mailto:vicepresident@swlawnbowls.org"
+        },
+        {
+          "title": "Chuck Moffitt",
+          "meta": "Secretary",
+          "body": "Oversees administrative responsibilities, helps maintain records, and supports communication and governance processes for the division.",
+          "link": "mailto:secretary@swlawnbowls.org"
+        },
+        {
+          "title": "Kelly Warren",
+          "meta": "Treasurer",
+          "body": "Supports the division's financial administration, budgeting, and the core processes that keep programs and operations running smoothly.",
+          "link": "mailto:treasurer@swlawnbowls.org"
+        },
+        {
+          "title": "Jackie Hogan",
+          "meta": "Female Councilor to BUSA",
+          "body": "Represents Southwest within the wider bowls structure and helps ensure divisional perspectives are reflected at the national level.",
+          "link": "mailto:councilora@swlawnbowls.org"
+        },
+        {
+          "title": "Howard Harris",
+          "meta": "Male Councilor to BUSA",
+          "body": "Helps connect divisional priorities with broader bowls representation and supports communication between Southwest and Bowls USA.",
+          "link": "mailto:councilor1@swlawnbowls.org"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "heading": "Contact the Board",
+      "items": [
+        { "label": "President", "name": "John Billon", "email": "president@swlawnbowls.org" },
+        { "label": "Vice-President", "name": "Linda Roberts", "email": "vicepresident@swlawnbowls.org" },
+        { "label": "Secretary", "name": "Chuck Moffitt", "email": "secretary@swlawnbowls.org" },
+        { "label": "Treasurer", "name": "Kelly Warren", "email": "treasurer@swlawnbowls.org" },
+        { "label": "Female Councilor to BUSA", "name": "Jackie Hogan", "email": "councilora@swlawnbowls.org" },
+        { "label": "Male Councilor to BUSA", "name": "Howard Harris", "email": "councilor1@swlawnbowls.org" }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Community",
+      "body": [
+        "The spirit of the green",
+        "One of the many things that people value about lawn bowls is the way competition and friendship sit side by side. The sport brings people together across clubs, backgrounds, and experiences, and that community spirit remains one of the most important parts of Southwest Bowls."
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "The six board portraits on the source page were all the same SWD logo placeholder image, not real headshots; they were not carried across. The source page's own text says the layout has 'room for future headshots'.",
+    "That designer's note - 'A cleaner board layout with room for future headshots, direct email contact, and clearer visibility into each leadership role.' - reads as internal build commentary rather than page content, so it was dropped.",
+    "The hero photo was a CSS background image (IMG_3223) rather than an <img>; it has been saved to the repo and used as a normal image section.",
+    "In-page anchor links (#about-division, #board, #leadership, #community, 'Meet the Board', 'Back to top') were dropped as page-chrome navigation. The 'Contact SWD' button was kept.",
+    "Decorative section eyebrow labels ('About SWD', 'Board of Directors', 'Leadership', 'Community', 'Who We Are') duplicated the headings and were folded into them.",
+    "Board roster should be verified against the current elected board - the source page carries no 'as of' date, so it cannot be confirmed as current from the page alone.",
+    "The two BUSA councilor email addresses are inconsistent in form (councilora@ and councilor1@); worth confirming both are live aliases.",
+    "The 'Contact SWD' link points at the absolute Squarespace URL https://www.swlawnbowls.org/contact-us; rewrite it to /contact-us once that page is migrated."
+  ]
+}

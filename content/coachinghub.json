@@ -1,0 +1,166 @@
+{
+  "id": "coachinghub",
+  "title": "Coaching Hub",
+  "subtitle": "Explore Southwest coaching videos, practical learning resources, upcoming coaching opportunities, and direct support for players looking to improve their game.",
+  "sourceUrl": "https://www.swlawnbowls.org/coachinghub",
+  "sections": [
+    {
+      "type": "buttons",
+      "items": [
+        { "label": "View HOW! Playlist", "url": "https://www.youtube.com/playlist?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO" },
+        { "label": "Contact Scott Roberts", "url": "mailto:scottroberts1269@gmail.com?subject=SWD Coaching Inquiry" }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "The HOW! Series",
+      "body": [
+        "The HOW! series is a practical video series designed to help players think better on the green. It goes beyond simple delivery mechanics and focuses on reading the head, understanding options, evaluating percentages, and making stronger tactical decisions.",
+        "Watch the complete series on Southwest Lawn Bowls TV and use it as a repeatable resource before league play, tournaments, or practice."
+      ]
+    },
+    {
+      "type": "embed",
+      "heading": "SWD HOW! Playlist",
+      "url": "https://www.youtube.com/embed/videoseries?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO",
+      "height": 420
+    },
+    {
+      "type": "list",
+      "heading": "What players can learn",
+      "ordered": false,
+      "items": [
+        "Shows how to read the head before choosing a shot",
+        "Explains when to draw, trail, run, or promote",
+        "Helps players evaluate risk versus reward",
+        "Builds better tactical communication within teams",
+        "Improves decision-making under pressure",
+        "Connects strategy with practical execution on the green"
+      ]
+    },
+    {
+      "type": "prose",
+      "body": [
+        "This is the kind of content that helps newer players improve faster and gives experienced bowlers a stronger tactical framework."
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Coaching Resources",
+      "body": [
+        "Use these links to keep learning, explore more Southwest content, and find trusted bowls resources beyond the HOW! series."
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "Start here",
+      "items": [
+        {
+          "title": "HOW! Playlist",
+          "body": "Start with the full SWD HOW! instructional series.",
+          "link": "https://www.youtube.com/playlist?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO"
+        },
+        {
+          "title": "Southwest Lawn Bowls TV",
+          "body": "Watch more coaching, match, and Southwest Lawn Bowls video content.",
+          "link": "https://www.youtube.com/@SouthwestLawnBowls"
+        },
+        {
+          "title": "Contact Scott Roberts",
+          "body": "Reach out with coaching questions, player development needs, or ideas.",
+          "link": "mailto:scottroberts1269@gmail.com?subject=SWD Coaching Inquiry"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "SWD video and learning",
+      "items": [
+        {
+          "title": "HOW! Series",
+          "body": "Use the playlist as a practical study tool before events and practice sessions.",
+          "link": "https://www.youtube.com/playlist?list=PLHSDPOGEH8batQ10BOOCBnrK-msAl-FUO"
+        },
+        {
+          "title": "SWD YouTube Channel",
+          "body": "Browse the full Southwest Lawn Bowls channel for more video material.",
+          "link": "https://www.youtube.com/@SouthwestLawnBowls"
+        },
+        {
+          "title": "Upcoming Coaching",
+          "body": "Check the coaching calendar below for coaching sessions and development opportunities."
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "Additional resources",
+      "items": [
+        {
+          "title": "Bowls USA",
+          "body": "National bowls information, official programs, and development pathways.",
+          "link": "https://www.bowlsusa.us/"
+        },
+        {
+          "title": "Coach Bowls",
+          "body": "Useful coaching and technical content for players and developing coaches.",
+          "link": "https://coachbowls.com/"
+        },
+        {
+          "title": "World Bowls",
+          "body": "International bowls context, broader sport information, and governing body resources.",
+          "link": "https://www.worldbowls.com/"
+        }
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Coaching Calendar",
+      "body": [
+        "Keep an eye on upcoming coaching sessions, instructional events, and opportunities for players to get involved."
+      ]
+    },
+    {
+      "type": "embed",
+      "url": "https://calendar.google.com/calendar/u/1/embed?src=NDgyOTg1ZTNhYmNiODY3ZDFiZmIxZWI5ZTM3ZTNkMTcyOTE3ZTIzNjI2ZDFmNjU1YWRlYjk0MzA5MGZhYjVlNkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+      "height": 600
+    },
+    {
+      "type": "list",
+      "heading": "How to use the Hub — a simple path for players",
+      "ordered": false,
+      "items": [
+        "Start with the HOW! series to build tactical understanding",
+        "Explore Southwest Lawn Bowls TV for more video content",
+        "Use trusted external resources for broader bowls learning",
+        "Check the calendar for upcoming coaching opportunities",
+        "Contact Scott Roberts with coaching-related questions"
+      ]
+    },
+    {
+      "type": "prose",
+      "heading": "Connect with Southwest Coaching",
+      "body": [
+        "For coaching inquiries, player development questions, and support related to the Southwest coaching program, please reach out directly to Scott Roberts."
+      ]
+    },
+    {
+      "type": "contact",
+      "items": [
+        {
+          "label": "Coaching Contact",
+          "name": "Scott Roberts",
+          "email": "scottroberts1269@gmail.com"
+        }
+      ]
+    }
+  ],
+  "migrationNotes": [
+    "The source page is a single Squarespace code block with custom HTML/CSS/JS. Its visual furniture — hero band, sticky chip subnav (HOW! Series / Resources / Calendar / Contact), three-way tabbed resource panel, 'SR' initials badge, and 'Back to top' button — is presentation only and was not carried across; the underlying content is all preserved.",
+    "The page contains no photographs or content images at all, so photos/pages/coachinghub/ was not created.",
+    "The Google Calendar embed uses a /calendar/u/1/embed URL, which is user-account-scoped. It may only render for the signed-in Google account that created it; a public /calendar/embed?src=... URL would be safer. Calendar id: 482985e3abcb867d1bfb1eb9e37e3d172917e23626d1f655adeb943090fab5e6@group.calendar.google.com",
+    "The coaching contact is a personal Gmail address (scottroberts1269@gmail.com) rather than an swlawnbowls.org address — worth confirming it is still the right contact.",
+    "The 'Coaching Calendar' section promises upcoming sessions but the page itself lists no dated events; everything depends on the embedded calendar being populated.",
+    "No PDFs were linked from this page, so nothing is at risk from Squarespace file hosting going away."
+  ]
+}
