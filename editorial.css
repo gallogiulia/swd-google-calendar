@@ -1,0 +1,216 @@
+/* ============================================================
+   editorial.css — the editorial design system.
+
+   A magazine-style treatment for the browsing pages: the home page,
+   the tournament directory, the results archive. The idea is that the
+   site's job is to let people BROWSE a lot of items - tournaments,
+   results, photographs - so it should be laid out like an index, not
+   like a sales page.
+
+   Two ideas do the work:
+
+   1. Editorial grid. One item featured large, the rest in a calm
+      three-column grid. Whitespace and type size carry the hierarchy,
+      not boxes and shadows.
+
+   2. Colour as information. Each bowls discipline - singles, pairs,
+      triples, fours, rinks, 2+2 - has its own hue. The colour tells
+      you what kind of event it is at a glance; it is never decoration.
+
+   Used by site-home-v3.html and tournaments-v3.html.
+   ============================================================ */
+
+:root {
+  /* Neutrals - warm rather than pure grey, to sit with grass and club whites */
+  --ink:        #1b2430;
+  --ink-2:      #3d4854;
+  --muted:      #5b6674;
+  --faint:      #8b949f;
+  --paper:      #ffffff;
+  --cream:      #f6f2ea;
+  --rule:       rgba(27, 36, 48, .12);
+  --rule-soft:  rgba(27, 36, 48, .07);
+
+  /* The division's own red. Actions only - never decoration. */
+  --accent:     #b3242c;
+  --accent-ink: #8d1a21;
+
+  /* Discipline hues. Distinguishable, and legible on both grounds. */
+  --c-singles:  #1d5b8f;
+  --c-pairs:    #a33267;
+  --c-triples:  #2f7d55;
+  --c-fours:    #8a5a08;
+  --c-rinks:    #5b4bb5;
+  --c-other:    #0f6f7a;
+
+  --radius:     14px;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-text:    "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+
+  /* Re-skin the shared header/footer to match */
+  --swdnav-font: var(--font-text);
+  --swdnav-ink:  var(--ink);
+  --swdnav-soft: var(--ink-2);
+  --swdnav-navy: var(--ink);
+  --swdnav-deep: var(--ink);
+  --swdnav-bg:   var(--cream);
+  --swdnav-line: var(--rule);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ── Bands ─────────────────────────────────────────── */
+.band { padding: 92px 0; }
+.band.cream { background: var(--cream); }
+.band.tight { padding: 64px 0; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Type ──────────────────────────────────────────── */
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(2.3rem, 5.6vw, 4rem); }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.6rem); }
+h3 { font-size: 1.16rem; line-height: 1.25; letter-spacing: -.012em; }
+
+/* Pando's move: a lighter weight carries the sentence, a heavy weight
+   carries the words that matter. */
+.thin { font-weight: 400; color: var(--ink-2); }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: 11.5px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+.lede {
+  font-size: 1.08rem; color: var(--muted);
+  max-width: 60ch; margin: 16px 0 0;
+}
+.section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap; margin-bottom: 34px;
+}
+.section-head p { margin: 8px 0 0; color: var(--muted); max-width: 52ch; }
+
+.more {
+  font-family: var(--font-text);
+  font-size: .95rem; font-weight: 600; color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+}
+.more:hover { text-decoration: underline; }
+
+.btn {
+  display: inline-block; font-family: var(--font-text);
+  font-size: .97rem; font-weight: 600; text-decoration: none;
+  padding: 13px 24px; border-radius: 999px;
+  background: var(--accent); color: #fff; border: 1px solid transparent;
+}
+.btn:hover { background: var(--accent-ink); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn.ghost:hover { background: var(--cream); border-color: var(--ink); }
+
+/* ── Discipline colour ─────────────────────────────── */
+[data-cat] { --cat: var(--c-other); }
+[data-cat="singles"] { --cat: var(--c-singles); }
+[data-cat="pairs"]   { --cat: var(--c-pairs); }
+[data-cat="triples"] { --cat: var(--c-triples); }
+[data-cat="fours"]   { --cat: var(--c-fours); }
+[data-cat="rinks"]   { --cat: var(--c-rinks); }
+
+.chip {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--cat);
+  margin-bottom: 8px;
+}
+
+/* ── Cards ─────────────────────────────────────────── */
+.grid {
+  display: grid; gap: 40px 32px;
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 34px 24px; } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+.card { display: block; text-decoration: none; color: inherit; }
+.card .thumb {
+  position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius);
+  overflow: hidden; background: var(--cat);
+  display: flex; align-items: flex-end; padding: 18px;
+  transition: transform .25s ease;
+}
+.card:hover .thumb { transform: translateY(-3px); }
+.card .thumb img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+/* When there is no photograph, the colour block carries the discipline. */
+.card .thumb .glyph {
+  position: relative; color: #fff;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.02;
+  letter-spacing: -.02em; text-wrap: balance;
+}
+.card .thumb .corner {
+  position: absolute; top: 14px; right: 16px;
+  color: rgba(255,255,255,.82);
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+}
+.card .body { padding-top: 14px; }
+.card h3 { margin: 0 0 6px; }
+.card:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
+.card .meta { font-size: .88rem; color: var(--cat); font-weight: 600; }
+.card .dek { font-size: .93rem; color: var(--muted); margin: 6px 0 0; }
+
+/* ── Featured item ─────────────────────────────────── */
+.feature {
+  display: grid; grid-template-columns: 1.25fr 1fr;
+  gap: 44px; align-items: center; text-decoration: none; color: inherit;
+}
+@media (max-width: 860px) { .feature { grid-template-columns: 1fr; gap: 26px; } }
+.feature .thumb {
+  position: relative; aspect-ratio: 16 / 10; border-radius: var(--radius);
+  overflow: hidden; background: var(--cat);
+  display: flex; align-items: flex-end; padding: 26px;
+}
+.feature .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.feature .thumb .glyph { position: relative; color: #fff; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.02; letter-spacing: -.02em; }
+.feature h2 { margin: 10px 0 0; }
+.feature .dek { color: var(--muted); margin: 14px 0 0; max-width: 46ch; }
+.feature .meta { font-size: .92rem; color: var(--cat); font-weight: 600; margin-top: 14px; }
+
+/* ── Utility ───────────────────────────────────────── */
+.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+.state { padding: 48px 0; text-align: center; color: var(--muted); }
+.state.err { color: var(--accent); }
+.sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}

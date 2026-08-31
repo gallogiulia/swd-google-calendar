@@ -189,6 +189,10 @@
     {
       "source": "/ie-ladies-day-results",
       "destination": "/page?id=ie-ladies-day-results"
+    },
+    {
+      "source": "/home-v3",
+      "destination": "/site-home-v3"
     }
   ]
 }

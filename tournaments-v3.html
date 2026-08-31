@@ -1,0 +1,238 @@
+<!-- ============================================================
+     tournaments-v3.html — the tournament directory, editorial
+     treatment.
+
+     An alternative to tournaments-2026.html, laid out as a magazine
+     index: the next event featured large, then a colour-coded grid
+     grouped by month. Colour carries the discipline, so the shape of
+     the season is readable at a glance.
+
+     Reads events-data.json. Preview at /tournaments-v3.
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 Tournaments — Southwest Lawn Bowls</title>
+<meta name="description" content="Every tournament on the 2026 Southwest Bowls Division calendar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/editorial.css">
+<script src="/editorial.js"></script>
+<script src="/site-nav.js" defer></script>
+<style>
+  .masthead { padding: 68px 0 40px; }
+  .masthead h1 { max-width: 16ch; }
+
+  .toolbar {
+    position: sticky; top: 66px; z-index: 20;
+    background: var(--paper); border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+  }
+  .toolbar .in { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips button {
+    font-family: var(--font-text); font-size: 13px; font-weight: 600;
+    cursor: pointer; color: var(--ink-2); background: transparent;
+    border: 1px solid var(--rule); border-radius: 999px; padding: 7px 15px;
+  }
+  .chips button:hover { border-color: var(--ink); color: var(--ink); }
+  .chips button.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .chips button[data-disc].on { background: var(--cat); border-color: var(--cat); }
+  .search {
+    flex: 1 1 200px; min-width: 180px; font-family: var(--font-text);
+    font-size: 14px; padding: 9px 14px; border: 1px solid var(--rule);
+    border-radius: 999px; background: var(--paper); color: var(--ink);
+  }
+  .search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .count { color: var(--muted); font-size: .93rem; margin: 26px 0 6px; }
+  .month {
+    font-family: var(--font-display); font-weight: 700; letter-spacing: -.015em;
+    font-size: 1.35rem; margin: 46px 0 22px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule); display: flex;
+    justify-content: space-between; align-items: baseline; gap: 16px;
+  }
+  .month span { font-family: var(--font-text); font-size: 12px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+  .card.done .thumb { opacity: .55; }
+  .card.done h3 { color: var(--ink-2); }
+  mark { background: #ffeeb0; color: inherit; padding: 0 2px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <p class="eyebrow">2026 Season</p>
+    <h1>Every tournament, <span class="thin">start to finish.</span></h1>
+    <p class="lede">The full Southwest Division calendar. Colour marks the discipline,
+      so you can see the shape of the season at a glance.</p>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="shell in">
+    <div class="chips" id="when">
+      <button data-when="all" class="on">All</button>
+      <button data-when="upcoming">Upcoming</button>
+      <button data-when="past">Played</button>
+    </div>
+    <div class="chips" id="disc"></div>
+    <input class="search" id="q" type="search" placeholder="Search a tournament or club…" aria-label="Search tournaments">
+  </div>
+</div>
+
+<section class="band tight">
+  <div class="shell">
+    <div id="feature"></div>
+    <p class="count" id="count"></p>
+    <div id="list"><div class="state">Loading tournaments…</div></div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var S = window.SWD;
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var all = [], when = 'all', disc = 'all', query = '';
+
+  var DISC = [['singles','Singles'],['pairs','Pairs'],['triples','Triples'],
+              ['fours','Fours'],['rinks','Rinks'],['other','Other']];
+  document.getElementById('disc').innerHTML =
+    '<button data-disc="all" class="on">All formats</button>' +
+    DISC.map(function (d) {
+      return '<button data-disc="' + d[0] + '" data-cat="' + d[0] + '">' + d[1] + '</button>';
+    }).join('');
+
+  function hl(text) {
+    var safe = S.esc(text);
+    if (!query) return safe;
+    try {
+      return safe.replace(new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<mark>$1</mark>');
+    } catch (e) { return safe; }
+  }
+
+  function card(x) {
+    var ev = x.e, cat = S.discipline(ev), past = x.when < today;
+    var club = ev.club && ev.club.name ? ev.club.name : '';
+    return '<a class="card' + (past ? ' done' : '') + '" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
+      '<span class="thumb"><span class="corner">' + S.esc(S.fmtDate(x.when)) + '</span>' +
+        '<span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' +
+        S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+      '<span class="body">' +
+        '<span class="chip">' + S.esc(S.label(ev)) + (past ? ' · Played' : '') + '</span>' +
+        '<h3>' + hl(ev.title) + '</h3>' +
+        (club ? '<p class="dek">' + hl(club) + '</p>' : '') +
+      '</span></a>';
+  }
+
+  function render() {
+    var rows = all.filter(function (x) {
+      if (when === 'upcoming' && x.when < today) return false;
+      if (when === 'past' && x.when >= today) return false;
+      if (disc !== 'all' && S.discipline(x.e) !== disc) return false;
+      if (query) {
+        var club = x.e.club && x.e.club.name ? x.e.club.name : '';
+        if ((x.e.title + ' ' + club).toLowerCase().indexOf(query) === -1) return false;
+      }
+      return true;
+    });
+
+    // Feature the next one to be played, but only in an unfiltered view -
+    // once you are filtering, you want the list, not an editor's pick.
+    var featEl = document.getElementById('feature');
+    var plain = (when === 'all' && disc === 'all' && !query);
+    var next = plain ? all.filter(function (x) { return x.when >= today; })[0] : null;
+    if (next) {
+      var ev = next.e, cat = S.discipline(ev);
+      var club = ev.club && ev.club.name ? ev.club.name : '';
+      featEl.innerHTML =
+        '<a class="feature" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
+          '<span class="thumb"><span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' +
+            S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+          '<span><span class="chip">Next up · ' + S.esc(S.fmtLong(next.when)) + '</span>' +
+            '<h2>' + S.esc(ev.title) + '</h2>' +
+            (club ? '<p class="dek">' + S.esc(club) + '</p>' : '') +
+            '<span class="meta">' + S.esc(S.label(ev)) + (ev.fee ? ' · ' + S.esc(ev.fee) : '') + '</span>' +
+          '</span></a><hr class="rule" style="margin:52px 0 0">';
+      rows = rows.filter(function (x) { return x !== next; });
+    } else {
+      featEl.innerHTML = '';
+    }
+
+    document.getElementById('count').textContent =
+      rows.length + ' tournament' + (rows.length === 1 ? '' : 's') +
+      (when === 'upcoming' ? ' still to come' : when === 'past' ? ' already played' : '') +
+      (disc !== 'all' ? ' · ' + disc : '');
+
+    var listEl = document.getElementById('list');
+    if (!rows.length) {
+      listEl.innerHTML = '<div class="state">Nothing matches that.</div>';
+      return;
+    }
+
+    var html = '', lastKey = null, open = false;
+    rows.forEach(function (x) {
+      var key = x.when.getFullYear() + '-' + x.when.getMonth();
+      if (key !== lastKey) {
+        if (open) html += '</div>';
+        var inMonth = rows.filter(function (y) {
+          return y.when.getFullYear() + '-' + y.when.getMonth() === key;
+        }).length;
+        html += '<div class="month">' + S.MONTHS[x.when.getMonth()] + ' ' + x.when.getFullYear() +
+                '<span>' + inMonth + ' event' + (inMonth === 1 ? '' : 's') + '</span></div><div class="grid">';
+        lastKey = key; open = true;
+      }
+      html += card(x);
+    });
+    if (open) html += '</div>';
+    listEl.innerHTML = html;
+  }
+
+  document.getElementById('when').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    when = b.getAttribute('data-when');
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function (x) {
+      x.classList.toggle('on', x === b);
+    });
+    render();
+  });
+  document.getElementById('disc').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    disc = b.getAttribute('data-disc');
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function (x) {
+      x.classList.toggle('on', x === b);
+    });
+    render();
+  });
+  var timer;
+  document.getElementById('q').addEventListener('input', function () {
+    var v = this.value;
+    clearTimeout(timer);
+    timer = setTimeout(function () { query = v.trim().toLowerCase(); render(); }, 160);
+  });
+
+  S.getJSON('/events-data.json').then(function (data) {
+    all = (data.events || [])
+      .map(function (e) { return { e: e, when: S.startDate(e.date) }; })
+      .filter(function (x) { return x.when; })
+      .sort(function (a, b) { return a.when - b.when; });
+    if (!all.length) {
+      document.getElementById('list').innerHTML =
+        '<div class="state err">No tournaments found in the calendar data.</div>';
+      return;
+    }
+    render();
+  }).catch(function (err) {
+    document.getElementById('list').innerHTML =
+      '<div class="state err">Could not load the tournament list (' + S.esc(err.message) + ').</div>';
+  });
+})();
+</script>
+</body>
+</html>

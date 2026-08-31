@@ -1,0 +1,243 @@
+<!-- ============================================================
+     site-home-v3.html — the home page, editorial treatment.
+
+     An alternative to site-home.html (/home-v2), laid out like a
+     magazine index rather than a product page: one item featured
+     large, then calm grids. Nothing here is hardcoded - the
+     tournaments come from events-data.json, the results from
+     results-data.json, the menu from nav-data.json.
+
+     Preview at /home-v3. The existing home page is untouched.
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Southwest Lawn Bowls</title>
+<meta name="description" content="Lawn bowling across Southern California, from Cambria to San Diego. Tournaments, results and clubs of the Southwest Bowls Division.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/editorial.css">
+<script src="/editorial.js"></script>
+<script src="/site-nav.js" defer></script>
+<style>
+  /* ── Masthead: type-led, no stock hero ── */
+  .masthead { padding: 76px 0 64px; border-bottom: 1px solid var(--rule); }
+  .masthead h1 { max-width: 20ch; }
+  .masthead .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .masthead .facts {
+    display: flex; flex-wrap: wrap; gap: 10px 34px;
+    margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--rule-soft);
+  }
+  .masthead .fact .n {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1.7rem; line-height: 1; letter-spacing: -.02em;
+  }
+  .masthead .fact .l {
+    font-size: 11.5px; font-weight: 700; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--faint); margin-top: 5px;
+  }
+
+  /* The news panel from the existing site, embedded as-is */
+  .feature-frame { width: 100%; border: 0; display: block; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 30px; }
+  .legend span { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <p class="eyebrow">Southwest Bowls Division</p>
+    <h1>Lawn bowls across Southern&nbsp;California, <span class="thin">from Cambria to San Diego.</span></h1>
+    <p class="lede">Twenty-six clubs, a season of tournaments, and four years of results —
+      all in one place.</p>
+    <div class="cta">
+      <a class="btn" href="/learnmore">New to the sport?</a>
+      <a class="btn ghost" href="/2026-season-agenda">2026 season agenda</a>
+    </div>
+    <div class="facts" id="facts"></div>
+  </div>
+</header>
+
+<!-- Next up: the single most useful thing on the page -->
+<section class="band tight" aria-labelledby="next-h">
+  <div class="shell">
+    <p class="eyebrow">Next on the green</p>
+    <h2 id="next-h" class="sr">Next tournament</h2>
+    <div id="feature"><div class="state">Loading…</div></div>
+  </div>
+</section>
+
+<section class="band cream" aria-labelledby="upcoming-h">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2 id="upcoming-h">What's on</h2>
+        <p>Colour tells you the discipline — singles, pairs, triples, fours, rinks.</p>
+      </div>
+      <a class="more" href="/2026-tournaments-events">Every 2026 tournament →</a>
+    </div>
+    <div class="grid" id="upcoming"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="results-h">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2 id="results-h">Recent results</h2>
+        <p>Winners from the tournaments just played.</p>
+      </div>
+      <a class="more" href="/results">All 2026 results →</a>
+    </div>
+    <div class="grid" id="results"></div>
+  </div>
+</section>
+
+<section class="band cream" aria-labelledby="news-h">
+  <div class="shell">
+    <div class="section-head">
+      <div><h2 id="news-h">Notices &amp; news</h2></div>
+    </div>
+    <iframe class="feature-frame" id="feature-frame" src="/home-feature" height="900"
+            title="Division notices and news" loading="lazy"></iframe>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="arch-h">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2 id="arch-h">Four years of results</h2>
+        <p>Every tournament back to 2022 — search it by a player's name.</p>
+      </div>
+      <a class="more" href="/archive">Open the archive →</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var S = window.SWD;
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+
+  var DISC = [
+    ['singles', 'Singles'], ['pairs', 'Pairs'], ['triples', 'Triples'],
+    ['fours', 'Fours'], ['rinks', 'Rinks'], ['other', 'Other formats']
+  ];
+  document.getElementById('legend').innerHTML = DISC.map(function (d) {
+    return '<span data-cat="' + d[0] + '"><i style="background:var(--cat)"></i>' + d[1] + '</span>';
+  }).join('');
+
+  function card(ev, when) {
+    var cat = S.discipline(ev);
+    var club = ev.club && ev.club.name ? ev.club.name : '';
+    return '<a class="card" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
+      '<span class="thumb"><span class="corner">' + S.esc(S.fmtDate(when)) + '</span>' +
+        '<span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' + S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+      '<span class="body">' +
+        '<span class="chip">' + S.esc(S.label(ev)) + '</span>' +
+        '<h3>' + S.esc(ev.title) + '</h3>' +
+        (club ? '<p class="dek">' + S.esc(club) + '</p>' : '') +
+      '</span></a>';
+  }
+
+  /* ── Tournaments ───────────────────────────────── */
+  S.getJSON('/events-data.json').then(function (data) {
+    var rows = (data.events || [])
+      .map(function (e) { return { e: e, when: S.startDate(e.date) }; })
+      .filter(function (x) { return x.when; })
+      .sort(function (a, b) { return a.when - b.when; });
+
+    var upcoming = rows.filter(function (x) { return x.when >= today; });
+    var next = upcoming[0];
+
+    document.getElementById('facts').innerHTML = [
+      [rows.length, 'tournaments in 2026'],
+      [upcoming.length, 'still to play'],
+      [26, 'clubs']
+    ].map(function (f) {
+      return '<div class="fact"><div class="n">' + f[0] + '</div><div class="l">' + f[1] + '</div></div>';
+    }).join('');
+
+    var featEl = document.getElementById('feature');
+    if (!next) {
+      featEl.innerHTML = '<div class="state">The 2026 season is complete.</div>';
+    } else {
+      var ev = next.e, cat = S.discipline(ev);
+      var club = ev.club && ev.club.name ? ev.club.name : '';
+      featEl.innerHTML =
+        '<a class="feature" data-cat="' + cat + '" href="/event?id=' + encodeURIComponent(ev.id) + '">' +
+          '<span class="thumb"><span class="glyph">' + S.esc(S.whoFor(ev)) + '<br>' +
+            S.esc(cat === 'other' ? 'Tournament' : cat) + '</span></span>' +
+          '<span><span class="chip">' + S.esc(S.fmtLong(next.when)) + '</span>' +
+            '<h2>' + S.esc(ev.title) + '</h2>' +
+            (club ? '<p class="dek">' + S.esc(club) + '</p>' : '') +
+            '<span class="meta">' + S.esc(S.label(ev)) + (ev.fee ? ' · ' + S.esc(ev.fee) : '') + '</span>' +
+          '</span>' +
+        '</a>';
+    }
+
+    document.getElementById('upcoming').innerHTML =
+      upcoming.slice(1, 7).map(function (x) { return card(x.e, x.when); }).join('') ||
+      '<div class="state">Nothing else on the calendar yet.</div>';
+  }).catch(function (err) {
+    document.getElementById('feature').innerHTML =
+      '<div class="state err">Could not load the tournament calendar (' + S.esc(err.message) + ').</div>';
+  });
+
+  /* ── Results, newest first, photo-led ──────────── */
+  S.getJSON('/results-data.json').then(function (data) {
+    var out = [];
+    (data.tournaments || []).forEach(function (t) {
+      (t.divisions || []).forEach(function (d) {
+        var first = S.podium(d)[0];
+        if (first && out.length < 6) {
+          out.push({ t: t, d: d, p: first });
+        }
+      });
+    });
+
+    document.getElementById('results').innerHTML = out.map(function (r) {
+      var cat = S.discipline({ title: r.t.title, format: '' });
+      var href = r.d.eventUrl || r.t.eventUrl || '/results';
+      var photo = r.p.photo
+        ? '<img src="' + S.esc(r.p.photo) + '" alt="' + S.esc(r.p.names) + '" loading="lazy">'
+        : '<span class="glyph">' + S.esc(r.t.title) + '</span>';
+      return '<a class="card" data-cat="' + cat + '" href="' + S.esc(href) + '">' +
+        '<span class="thumb">' + photo + '</span>' +
+        '<span class="body">' +
+          '<span class="chip">' + S.esc(r.d.label || 'Winners') + '</span>' +
+          '<h3>' + S.esc(r.t.title) + '</h3>' +
+          '<p class="dek">' + S.esc(r.p.names) + '</p>' +
+        '</span></a>';
+    }).join('') || '<div class="state">No results published yet.</div>';
+  }).catch(function () {
+    document.getElementById('results').innerHTML =
+      '<div class="state">Results are unavailable right now.</div>';
+  });
+
+  /* ── Size the embedded notices panel to its content ── */
+  var frame = document.getElementById('feature-frame');
+  function fit() {
+    try {
+      var doc = frame.contentDocument;
+      if (!doc || !doc.documentElement) return;
+      var h = Math.max(doc.documentElement.scrollHeight, doc.body ? doc.body.scrollHeight : 0);
+      if (h > 200 && h < 8000) frame.height = h + 24;
+    } catch (e) { /* framed from elsewhere: leave the default height */ }
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    var n = 0, t = setInterval(function () { fit(); if (++n > 12) clearInterval(t); }, 500);
+  });
+  window.addEventListener('resize', fit);
+})();
+</script>
+</body>
+</html>
