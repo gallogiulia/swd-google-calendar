@@ -92,6 +92,10 @@
     border: 1px solid var(--line);
     background: var(--card);
   }
+  /* A tall portrait photo would otherwise fill the whole screen and push the
+     text off it; cap the height and centre it instead. */
+  figure img { max-height: 560px; width: auto; max-width: 100%; margin: 0 auto; }
+  .gallery img { max-height: 320px; object-fit: cover; }
   figcaption {
     margin-top: 8px;
     font-size: .9rem;
