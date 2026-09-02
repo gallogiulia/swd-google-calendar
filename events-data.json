@@ -2258,9 +2258,7 @@
         "height": 400
       },
       "liveScoring": {
-        "pubUrl": "",
-        "height": 1800,
-        "width": "100%"
+        "gated": true
       }
     },
     {

@@ -130,6 +130,9 @@ function initTournamentButton(config) {
   .evt-contact { background: #f8f8f8; padding: 16px 20px; border-radius: 6px; font-size: 14px; line-height: 1.6; }
 
   .evt-iframe-wrap { margin: 8px 0 0; }
+  .evt-live-pending { padding: 18px 0; color: #666; font-size: 15px; }
+  .evt-live-sheet { margin: 0 0 26px; }
+  .evt-live-sheet-h { font-size: 14px; font-weight: 700; color: #333; margin: 0 0 6px; }
   .evt-iframe-wrap iframe { display: block; border: 0; width: 100%; }
 
   .evt-loading { padding: 80px 0; text-align: center; color: #999; font-size: 14px; }
@@ -340,9 +343,50 @@ function initTournamentButton(config) {
       </div>`;
   }
 
+  // Fetches the gated sheet links after the page has drawn. Runs after
+  // render() has put #evt-live-scoring on the page, so it waits a tick.
+  function loadGatedScoring(id) {
+    setTimeout(async () => {
+      const box = document.getElementById('evt-live-scoring');
+      if (!box) return;
+      try {
+        const res = await fetch('/api/live-scoring?id=' + encodeURIComponent(id) + '&v=' + Date.now());
+        const data = await res.json();
+        if (!data.open) {
+          box.className = 'evt-live-pending';
+          box.textContent = data.opensAtLabel
+            ? 'Live scoring opens ' + data.opensAtLabel + '.'
+            : 'Live scoring is not open yet.';
+          return;
+        }
+        box.className = '';
+        box.innerHTML = data.sheets.map(sheet => `
+          <div class="evt-live-sheet">
+            <div class="evt-live-sheet-h">${esc(sheet.label)}</div>
+            <div class="evt-iframe-wrap">
+              <iframe src="${esc(sheet.url)}" height="${Number(sheet.height) || 800}" width="100%"></iframe>
+            </div>
+          </div>`).join('');
+      } catch (err) {
+        // A failed fetch must not leave "Loading…" on screen forever.
+        box.className = 'evt-live-pending';
+        box.textContent = 'Live scoring is temporarily unavailable.';
+      }
+    }, 0);
+  }
+
   // ── Live scoring iframe ──
+  //
+  // A gated event carries `"liveScoring": { "gated": true }` and no pubUrl:
+  // the sheet links live server-side and /api/live-scoring only releases them
+  // once the event's opening time has passed. See api/_lib/gatedScoring.js.
   let liveBlock = '';
-  if (event.liveScoring?.pubUrl) {
+  if (event.liveScoring?.gated) {
+    liveBlock = `
+      <div class="evt-section-h">Live Scoring</div>
+      <div id="evt-live-scoring" class="evt-live-pending">Loading live scoring…</div>`;
+    loadGatedScoring(event.id);
+  } else if (event.liveScoring?.pubUrl) {
     const h = event.liveScoring.height || 400;
     const w = event.liveScoring.width || '100%';
     liveBlock = `
