@@ -1,6 +1,35 @@
 {
   "tournaments": [
     {
+      "id": "eileen-morton-powerplay-triples-2026",
+      "title": "2026 Eileen Morton Powerplay Triples",
+      "meta": "August 29 · Santa Barbara LBC",
+      "navLabel": "Eileen Morton Powerplay Triples",
+      "eventUrl": "/event?id=eileen-morton-powerplay-triples-2026",
+      "divisions": [
+        {
+          "label": null,
+          "columns": 2,
+          "places": [
+            {
+              "rank": 1,
+              "names": "Susan Trenschel, Tamara Murray, Chris Trenschel"
+            },
+            {
+              "rank": 2,
+              "names": "Tony Santos, Nancy Santos, Rob Humphrey",
+              "photo": "/photos/eileen-morton-powerplay-triples-2026/2th-santos-santos-humphrey.jpg"
+            },
+            {
+              "rank": 3,
+              "names": "Gloria Brown, Jack Bucey, Tim Adkins",
+              "photo": "/photos/eileen-morton-powerplay-triples-2026/3th-brown-bucey-adkins.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "san-diego-mixed-triples-2026",
       "title": "2026 San Diego Invitational Mixed Triples",
       "meta": "August 22 · San Diego LBC",
